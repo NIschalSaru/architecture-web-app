@@ -9,12 +9,14 @@ const EmailService = {
         process.env.CLIENT_SECRET,
         process.env.REDIRECT_URI
       );
+      console.log(process.env.REFRESH_TOKEN);
       oAuth2Client.setCredentials({
         refresh_token: process.env.REFRESH_TOKEN,
       });
 
       const accessToken = await oAuth2Client.getAccessToken();
-
+      console.log(accessToken);
+      // console.log(accessToken.token);
       const transport = nodemailer.createTransport({
         service: "gmail",
         auth: {

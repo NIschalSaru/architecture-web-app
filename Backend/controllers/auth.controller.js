@@ -4,10 +4,13 @@ const {
   comparePassword,
   generateAccessToken,
   resetPasswordOtp,
+  generateResetPasswordToken,
 } = require("../services/auth.service.js");
 const SignupValidator = require("../validators/validator.js");
 const { asyncHandler } = require("../services/async.handler.js");
 const EmailService = require("../services/email.service.js");
+const { Op } = require("sequelize");
+const jwt = require("jsonwebtoken");
 
 const AuthController = {
   signup: asyncHandler(async (req, res) => {
@@ -86,13 +89,15 @@ const AuthController = {
     }
 
     const { otp, hashedOtp } = await resetPasswordOtp();
-    const ResetTokenExpiry = Date.now() + 2 * 60 * 1000;
-
+    const ResetTokenExpiry = Date.now() + 5 * 60 * 1000;
+    const token = await generateResetPasswordToken(user.email, otp);
     try {
+      const resetPasswordLink = `http://localhost:5000/api/auth/reset-password?token=${token}`;
+
       const sentEmail = await EmailService.sendMail(
         user.email,
         "OTP for Password Reset",
-        `OTP: ${otp}`
+        `Click the link below to reset your password:\n\n${resetPasswordLink}`
       );
 
       if (sentEmail) {
@@ -110,26 +115,44 @@ const AuthController = {
   }),
 
   resetPassword: asyncHandler(async (req, res) => {
-    const { otp, password, confirmPassword } = req.body;
-    const user = await User.findOne({ where: { passwordResetToken: otp } });
-    console.log(user.passwordResetTokenExpiry);
-    const expiryDate = new Date(user.passwordResetTokenExpiry);
+    const { password, confirmPassword } = req.body;
+    const { token } = req.query;
 
-    if (Date.now() > expiryDate.getTime()) {
-      return res.status(400).json({ message: "OTP has expired" });
+    if (!token) {
+      return res.status(400).json({ message: "Token is required" });
     }
 
-    if (password !== confirmPassword) {
-      return res.status(400).json({ message: "Passwords do not match" });
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const { email, otp } = decoded;
+
+      const user = await User.findOne({ where: { email } });
+
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      const isOTPCorrect = await comparePassword(otp, user.passwordResetToken);
+      const isTokenExpired = user.passwordResetTokenExpiry < Date.now();
+
+      if (!isOTPCorrect || isTokenExpired) {
+        return res.status(400).json({ message: "Invalid or expired OTP." });
+      }
+
+      if (password !== confirmPassword) {
+        return res.status(400).json({ message: "Passwords do not match" });
+      }
+
+      user.password = await hashPassword(password);
+      user.passwordResetToken = null;
+      user.passwordResetTokenExpiry = null;
+      user.passwordChangedAt = Date.now();
+      await user.save();
+
+      res.status(200).json({ message: "Password reset successful" });
+    } catch (error) {
+      return res.status(400).json({ message: "Invalid or expired token." });
     }
-
-    user.password = await hashPassword(password);
-    user.passwordResetToken = null;
-    user.passwordResetTokenExpiry = null;
-    user.passwordChangedAt = Date.now();
-    await user.save();
-
-    res.status(200).json({ message: "Password reset successful" });
   }),
 
   editProfile: asyncHandler(async (req, res) => {
