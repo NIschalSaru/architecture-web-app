@@ -6,6 +6,7 @@
     "server": "nodemon Backend/server.js",
     "start": "node Backend/server.js",
     "migrate": "sequelize-cli db:migrate",
+    "rollback": "sequelize-cli db:migrate:undo",
     "seed": "sequelize-cli db:seed:all",
     "unseed": "sequelize-cli db:seed:undo:all"
   },

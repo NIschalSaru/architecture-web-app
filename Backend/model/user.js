@@ -43,7 +43,8 @@ User.init(
       type: DataTypes.STRING,
     },
     passwordResetTokenExpiry: {
-      type: DataTypes.DATE,
+      type: DataTypes.BIGINT,
+      allowNull: true,
     },
   },
   {

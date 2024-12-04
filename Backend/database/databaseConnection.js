@@ -26,7 +26,7 @@ const sequelizeInstance = new Sequelize(process.env.DATABASE_URI, {
         ? { require: true, rejectUnauthorized: false }
         : false,
   },
-  // logging: console.log,
+  logging: false,
 });
 
 module.exports = { sequelizeInstance };

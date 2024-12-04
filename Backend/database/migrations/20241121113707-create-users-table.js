@@ -54,7 +54,7 @@ module.exports = {
         allowNull: true,
       },
       passwordResetTokenExpiry: {
-        type: Sequelize.DATE,
+        type: Sequelize.BIGINT,
         allowNull: true,
       },
     });
