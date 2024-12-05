@@ -3,14 +3,16 @@ const User = require("../model/user.js");
 class ProtectRoute {
   static async authorize(req, res, next) {
     try {
+      console.log("Cookies: ", req.cookies);
       const token = req.cookies.authToken;
       if (!token) {
         return res
           .status(401)
-          .json({ message: "Session expired. Please log in again." });
+          .json({ message: "Unauthorized" });
       }
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      console.log(decoded);
       if (!decoded)
         return res
           .status(401)
@@ -22,9 +24,8 @@ class ProtectRoute {
       });
 
       if (!user) {
-        return res.status(404).json({ message: "User not found" });
+        return res.status(404).json({ message: "Unauthorized" });
       }
-
       req.user = user;
       next();
     } catch (error) {
@@ -34,4 +35,4 @@ class ProtectRoute {
   }
 }
 
-module.exports = ProtectRoute;
+module.exports = ProtectRoute.authorize;

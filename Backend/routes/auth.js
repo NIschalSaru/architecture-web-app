@@ -6,12 +6,13 @@ const ProtectRoute = require("../middleware/protect.route.js");
 
 router.post("/signup", AuthController.signup);
 router.post("/login", AuthController.login);
-router.post("/logout", AuthController.logout);
-router.post("/forget-password", AuthController.forgotPassword);
+router.post("/logout", ProtectRoute, AuthController.logout);
+router.post("/forgot-password", AuthController.forgotPassword);
 router.post("/reset-password", AuthController.resetPassword);
 router.put(
   "/edit-profile/:id",
-  upload.single("profilePic"),
+  ProtectRoute,
+  upload.single("profile-image"),
   AuthController.editProfile
 );
 
