@@ -1,14 +1,14 @@
+import "./footer.css";
+import logo from "../../assets/images/Nepal-Designers-Builders-Logo.png"; // Adjust the path as needed
 import {
   FaFacebookF,
   FaTwitter,
   FaLinkedinIn,
   FaInstagram,
 } from "react-icons/fa";
-import logo from "../../assets/images/Nepal-Designers-Builders-Logo.png"; // Adjust the path as needed
-
-const FooterComponent = () => {
+export default function Footer() {
   return (
-    <footer className="footer-container">
+    <div className="footer-container">
       <div className="footer-logo-section">
         <img src={logo} alt="Logo" className="footer-logo" />
         <div className="footer-bottom">
@@ -52,7 +52,7 @@ const FooterComponent = () => {
         <div className="col col-lg-6 col-sm-12">
           <div className="row">
             <div className="col col-sm-4">
-              <ul className="footer-list">
+              <ul role="list" className="footer-list w-list-unstyled">
                 <li className="footer-list-item">
                   <div className="footer-link cc-static">Product</div>
                 </li>
@@ -93,7 +93,7 @@ const FooterComponent = () => {
               </ul>
             </div>
             <div className="col col-sm-4">
-              <ul className="footer-list">
+              <ul role="list" className="footer-list w-list-unstyled">
                 <li className="footer-list-item">
                   <div className="footer-link cc-static">Resources</div>
                 </li>
@@ -130,7 +130,7 @@ const FooterComponent = () => {
               </ul>
             </div>
             <div className="col col-sm-4">
-              <ul className="footer-list">
+              <ul role="list" className="footer-list w-list-unstyled">
                 <li className="footer-list-item">
                   <div className="footer-link cc-static">Company</div>
                 </li>
@@ -159,8 +159,6 @@ const FooterComponent = () => {
           </div>
         </div>
       </div>
-    </footer>
+    </div>
   );
-};
-
-export default FooterComponent;
+}

@@ -1,0 +1,144 @@
+* {
+  margin: 0;
+  /* font-family: "Roboto", sans-serif; */
+  /* font-family: "Montserrat", sans-serif; */
+  padding: 0;
+}
+
+.banner-component {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+
+  overflow: hidden;
+}
+
+.banner-component:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(97, 83, 146, 0.4), #0006);
+  z-index: 1;
+}
+
+.banner-component::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url("https://cdna.artstation.com/p/assets/images/images/068/029/138/large/anton-removskyi-2-final.jpg?1696841746");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+
+.component1 {
+  position: relative;
+  z-index: 2;
+  color: rgb(0, 0, 0);
+  padding: 20px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.navbar-logo {
+  width: 150px;
+  height: auto;
+}
+
+.navbar-list {
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-list li a {
+  text-decoration: none;
+  color: #262262;
+  font-size: 20px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.navbar-list li a:hover {
+  color: #be1e2d;
+}
+
+.we-design-develop {
+  margin: 14rem 5rem;
+  font-size: 60px;
+  color: white;
+  font-weight: bolder;
+}
+
+.we-design-develop .design {
+  color: #262262;
+}
+
+.we-design-develop .develop {
+  color: #be1e2d;
+}
+
+.we-design-develop p {
+  font-size: 30px;
+  margin: 3rem 0rem;
+}
+
+@media (max-width: 768px) {
+  .banner-component {
+    height: 80vh;
+  }
+
+  .navbar-list {
+    display: none;
+  }
+
+  .navbar-logo {
+    width: 200px;
+  }
+
+  .we-design-develop {
+    font-size: 40px;
+    margin: 2rem;
+  }
+
+  .we-design-develop p {
+    font-size: 20px;
+    margin: 2rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner-component {
+    height: 70vh;
+  }
+
+  .navbar-logo {
+    width: 180px;
+    margin-bottom: 10px;
+  }
+
+  .navbar-list {
+    display: none;
+  }
+
+  .we-design-develop {
+    font-size: 30px;
+    margin: 1.5rem;
+  }
+
+  .we-design-develop p {
+    font-size: 18px;
+    margin: 1.5rem 0;
+  }
+}
