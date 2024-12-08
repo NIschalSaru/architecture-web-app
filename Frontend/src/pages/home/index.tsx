@@ -8,8 +8,8 @@ import BannerComponent from "./banner";
 // import ServiceComponent from "./services";
 
 import ScrollToTop from "../../components/ScrollToTop.tsx";
-
-// import ProjectsSection from "../../components/ProjectsSection.tsx";
+import ContactUsSection from "../../components/ContactUsSection.tsx";
+import YoutubeVideoSection from "../../components/YoutubeVideoSection.tsx";
 
 const Home = () => {
   const { Title } = Typography;
@@ -17,6 +17,14 @@ const Home = () => {
   return (
     <>
       <BannerComponent/>
+
+      <Layout>
+        <YoutubeVideoSection/>
+      </Layout>
+
+      <Layout>
+        <ContactUsSection/>
+      </Layout>
 
       <Layout className="testimonial partners">
         <div className="testimonial-circle testimonial-circleTop" />
