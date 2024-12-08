@@ -1,8 +1,9 @@
-@import 'base/font';
-@import 'base/variable';
-@import 'base/base';
+@import "base/font";
+@import "base/variable";
+@import "base/base";
 
-@import 'components/navbar';
-@import 'components/banner';
+@import "components/navbar";
+@import "components/banner";
+@import "components/footer";
 
-@import 'pages/homepage'
+@import "pages/homepage";
