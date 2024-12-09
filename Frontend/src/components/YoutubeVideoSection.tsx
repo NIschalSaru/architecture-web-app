@@ -3,7 +3,7 @@ import { Row, Col, Button, Modal } from "antd";
 import { PlayCircleOutlined } from "@ant-design/icons";
 import { motion } from "framer-motion";
 import "../assets/scss/components/_youtubeVideoSection.scss";
-import thumnbnail from "../assets/images/Nepal-Designers-Builders-Logo.png";
+import thumnbnail from "../assets/images/Img1.jpg";
 import backgroundImg from "../assets/images/Outlined1.jpg";
 
 interface CounterItemProps {
@@ -143,7 +143,8 @@ const YouTubeVideoSection: React.FC = () => {
                 <img
                   // src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
                   src={thumnbnail}
-                  alt="Architecture showcase"
+                  alt="Nepal Desingers and Developers"
+                  className="youtube-section__video-thumbnail"
                 />
                 <div className="youtube-section__play-button">
                   <PlayCircleOutlined />
