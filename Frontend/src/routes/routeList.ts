@@ -1,18 +1,18 @@
 export const RouteList = [
     {
-      label: 'home',
+      label: 'Home',
       path: '/home',
     },
     {
-      label: 'OurProjects',
+      label: 'Our Projects',
       path: '/about',
     },
     {
-      label: 'OurServices',
+      label: 'Our Services',
       path: '/gallery',
     },
     {
-      label: 'about',
+      label: 'About Us',
       path: '/about',
     }
   ];
