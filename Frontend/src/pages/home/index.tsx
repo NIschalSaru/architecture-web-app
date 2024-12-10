@@ -29,7 +29,7 @@ const Home = () => {
         <div className="contact-card container">
           <Row gutter={40}>
             <Col xs={24} md={12}>
-              Hello Hello
+              ANOTHER SECTION
             </Col>
           </Row>
         </div>
