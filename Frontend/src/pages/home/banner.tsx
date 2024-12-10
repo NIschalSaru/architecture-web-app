@@ -57,7 +57,7 @@ const BannerComponent = () => {
           className="side-button"
           onClick={() => alert("Side Button Clicked")}
         >
-          Click Here
+          Book Here
         </Button>
       </div>
     </div>
