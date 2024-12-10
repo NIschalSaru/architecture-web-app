@@ -27,7 +27,7 @@
   }
 
   &-logo a {
-    width: 150px;
+    width: 100px;
     display: flex;
     align-items: center;
 
@@ -54,9 +54,9 @@
       a {
         // text-transform: uppercase;
         font-weight: 600;
-        font-size: 16px;
+        font-size: 14px;
         color: $white;
-        letter-spacing: 2px;
+        letter-spacing: 0px;
 
         &:hover {
           color: $primary;
