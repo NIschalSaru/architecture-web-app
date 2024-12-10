@@ -111,7 +111,10 @@ const ContactUsSection: React.FC = () => {
                 >
                   <Input placeholder="Enter your phone" />
                 </Form.Item>
-                <Button type="primary" htmlType="submit">
+                <Button 
+                  type="primary" 
+                  htmlType="submit"
+                  className="youtube-section__contact-button">
                   Submit
                 </Button>
               </Form>
@@ -120,7 +123,7 @@ const ContactUsSection: React.FC = () => {
         </Row>
       </div>
 
-      {/* Updated background div to match YouTube section style */}
+
       <div
         className="architecture-section__background"
         style={{
