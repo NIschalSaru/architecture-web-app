@@ -1,0 +1,228 @@
+.projects-section {
+  padding: 30px;
+  text-align: center;
+  background-color: #fff;
+}
+
+.project-section-title {
+  color: #dc3545;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.project-section-title {
+  color: #dc3545;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center; /* Center align the text */
+  position: relative; /* Needed for positioning the pseudo-elements */
+}
+
+.project-card {
+  width: 100%;
+  max-width: 775px;
+  margin: 0 auto;
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  overflow: visible;
+}
+
+.project-card.fade-in {
+  opacity: 1;
+}
+
+.project-card.fade-out {
+  opacity: 0;
+}
+
+.project-figure {
+  position: relative;
+}
+
+.project-image {
+  width: 100%;
+  height: auto;
+}
+
+.project-link-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.project-link {
+  display: inline-block;
+  font-size: 36px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.project-content {
+  background: #596a8b;
+  position: absolute;
+  top: 50%;
+  left: -180px; /* Shift the content to the left */
+  transform: translate3d(0, -50%, 0);
+  padding: 45px 30px;
+  max-width: 364px;
+  margin-top: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: left 0.3s ease-in-out; /* Smooth transition for left shift */
+}
+
+.project-panel {
+  list-style: none;
+  padding: 0;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.project-details {
+  text-align: left;
+}
+
+.project-panel-item {
+  font-size: 0.9em;
+  padding: 5px 10px; /* Adjust padding to control the height */
+  border-right: 1px solid black;
+}
+
+.project-panel-item:last-child {
+  border-right: none; /* Removes border for the last item */
+}
+
+.project-time {
+  font-weight: bold;
+}
+
+.project-tag {
+  background-color: #be1e2d;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.project-title {
+  font-size: 1.5em;
+  margin-top: 15px;
+  text-transform: uppercase;
+}
+
+.project-text {
+  color: #ffffff;
+}
+
+.navigation-buttons {
+  margin-top: 169px;
+}
+
+.image-and-navbutton {
+  display: flex;
+  gap: 10px;
+}
+
+.prev-btn,
+.next-btn {
+  background-color: #262262;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px; /* Define the desired size */
+  height: 50px;
+}
+
+.prev-btn {
+  margin-bottom: 0; /* Adds vertical gap between buttons */
+}
+
+.next-btn {
+  margin-bottom: 10px; /* Removes gap for the last button */
+}
+
+.prev-btn:hover,
+.next-btn:hover {
+  background-color: #e01e2e;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .project-card {
+    max-width: 100%; /* Full width on smaller screens */
+    padding: 15px; /* Add some padding for smaller screens */
+  }
+
+  .project-content {
+    left: 0;
+    max-width: 220px;
+    padding: 20px 15px;
+    max-height: 186px;
+  }
+
+  .project-title {
+    font-size: 1.2em; /* Slightly smaller title on smaller screens */
+  }
+
+  .project-text {
+    font-size: 8px;
+  }
+
+  .project-panel-item {
+    font-size: 9px;
+  }
+
+  .navigation-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .prev-btn,
+  .next-btn {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-title {
+    font-size: 1.1em; /* Adjust title font size for very small screens */
+  }
+
+  .project-details {
+    font-size: 12px;
+    max-width: 190px;
+    max-height: 108px;
+  }
+
+  .project-content {
+    padding: 15px 10px; /* Tighter padding */
+    max-width: 200px;
+  }
+
+  .project-panel {
+    font-size: 12px;
+  }
+
+  .project-panel-item {
+    font-size: 9px;
+  }
+
+  .prev-btn,
+  .next-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 0.9em; /* Adjust font size */
+  }
+}
