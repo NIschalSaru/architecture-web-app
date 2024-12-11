@@ -5,34 +5,29 @@ import ScrollToTop from "../../components/ScrollToTop.tsx";
 import ContactUsSection from "../../components/ContactUsSection.tsx";
 import YoutubeVideoSection from "../../components/YoutubeVideoSection.tsx";
 import TestimonialSlider from "../../components/Testimonial.tsx";
+import ProjectsSection from "../../components/ProjectsSection.tsx";
 
 const Home = () => {
   const { Title } = Typography;
 
   return (
     <>
-      <BannerComponent/>
+      <BannerComponent />
 
       <Layout>
-        <YoutubeVideoSection/>
+        <YoutubeVideoSection />
       </Layout>
 
       <Layout>
-        <ContactUsSection/>
+        <ContactUsSection />
       </Layout>
 
       <Layout>
         <TestimonialSlider />
       </Layout>
-    
+
       <Layout className="contact-container">
-        <div className="contact-card container">
-          <Row gutter={40}>
-            <Col xs={24} md={12}>
-              ANOTHER SECTION
-            </Col>
-          </Row>
-        </div>
+        <ProjectsSection />
       </Layout>
       <ScrollToTop />
     </>
