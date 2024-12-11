@@ -28,9 +28,8 @@ const BannerComponent = () => {
       <div>
         {/* <img src={banner?.imageUrl} alt="Banner Image" /> */}
         <img
-          src={
-            "https://cdna.artstation.com/p/assets/images/images/068/029/138/large/anton-removskyi-2-final.jpg?1696841746"
-          }
+          // src={"https://cdna.artstation.com/p/assets/images/images/068/029/138/large/anton-removskyi-2-final.jpg?1696841746"}
+          src={bannerImg}
           alt="Banner Image"
         />
         <div className="container">

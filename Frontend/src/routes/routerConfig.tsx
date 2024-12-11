@@ -5,14 +5,15 @@ import AboutUsPage from "../pages/about";
 import FrontContainer from "../pages/container";
 import PageNotFound from "../pages/page-not-found";
 import Home from "../pages/home";
+import LoginPage from "../pages/auth/login";
 
 const RouteConfig = () => {
     // console.log(isAuthenticated());
   return (
     <Suspense fallback="Loading...">
       <Routes>
-        {/* <Route path="/login" element={<LoginPage />} />
-        <Route path="/sign-up" element={<SignUpPage />} />
+         <Route path="/login" element={<LoginPage />} />
+        {/*<Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/changePassword" element={<ChangePasswordPage />} /> */}
 
         <Route path="/" element={<FrontContainer />}>
