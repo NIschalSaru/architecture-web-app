@@ -1,0 +1,141 @@
+// General flexbox utility classes
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col {
+  flex: 1;
+  padding: 10px;
+}
+
+.col-lg-5 {
+  flex-basis: 41.6667%;
+}
+
+.col-lg-6 {
+  flex-basis: 50%;
+}
+
+.col-sm-12 {
+  flex-basis: 100%;
+}
+
+// Footer specific styles
+.footer-container {
+  padding: 40px 20px;
+  background-color: #ffffff;
+}
+
+.footer-logo-section {
+  text-align: center;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.footer-logo-section::after {
+  position: absolute;
+  background: linear-gradient(to right, #262262 50%, #be1e2d 50%);
+  height: 5px;
+  content: "";
+  bottom: -8px;
+  right: 0;
+  left: 0;
+}
+
+.footer-logo {
+  max-width: 150px;
+  height: auto;
+}
+
+.footer-heading {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #f1c40f;
+}
+
+// Footer lists and links
+.footer-list {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-list-item {
+  margin-bottom: 10px;
+}
+
+.footer-link {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.footer-link.cc-static {
+  font-weight: bold;
+}
+
+.footer-link.cc-secondary {
+  color: #007bff;
+}
+
+.footer-link:hover {
+  color: #be1e2d;
+}
+
+// Social icons styles
+.footer-socials {
+  margin-top: 20px;
+}
+
+.social-icons a {
+  color: #be1e2d;
+  margin-right: 15px;
+  font-size: 25px;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #f1c40f;
+}
+
+// Footer bottom section
+.footer-bottom {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 16px;
+  color: #999999;
+}
+
+// Media queries for responsiveness
+@media (max-width: 768px) {
+  .footer-logo-section {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+  }
+
+  .footer-bottom {
+    font-size: 14px;
+  }
+
+  .social-icons a {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-logo {
+    max-width: 120px;
+  }
+
+  .footer-bottom {
+    font-size: 12px;
+  }
+
+  .social-icons a {
+    font-size: 18px;
+  }
+}

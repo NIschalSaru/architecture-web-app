@@ -17,7 +17,6 @@ class ProtectRoute {
         return res
           .status(401)
           .json({ message: "Session expired. Please log in again." });
-
       const user = await User.findOne({
         where: { id: decoded.userData.id },
         attributes: { exclude: ["password"] },

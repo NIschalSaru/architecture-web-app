@@ -1,0 +1,170 @@
+.login-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #ffffff;
+  
+    .login-left {
+      flex: 1;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+  
+      .illustration-wrapper {
+        max-width: 550px;
+        width: 100%;
+        
+        .illustration-content {
+          text-align: center;
+          color: white;
+  
+          h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+          }
+  
+          p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+          }
+  
+          .decoration-circle {
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin: 2rem auto;
+            position: relative;
+  
+            &::after {
+              content: '';
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              border-radius: 50%;
+              border: 2px dashed rgba(255, 255, 255, 0.2);
+              animation: rotate 30s linear infinite;
+            }
+          }
+        }
+      }
+    }
+  
+    .login-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+  
+      .login-form-wrapper {
+        width: 100%;
+        max-width: 400px;
+        padding: 2rem;
+  
+        .login-header {
+          text-align: center;
+          margin-bottom: 2rem;
+  
+          h2 {
+            font-size: 2rem;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+          }
+  
+          p {
+            color: #6b7280;
+          }
+        }
+  
+        .login-form {
+          .ant-form-item {
+            margin-bottom: 1.5rem;
+          }
+  
+          .ant-input-affix-wrapper {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e5e7eb;
+  
+            &:hover, &:focus {
+              border-color: #6366f1;
+              box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+            }
+          }
+  
+          .login-button {
+            height: 48px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            font-size: 1rem;
+            
+            &:hover {
+              opacity: 0.95;
+            }
+          }
+        }
+  
+        .social-login {
+          text-align: center;
+          margin-top: 2rem;
+  
+          p {
+            color: #6b7280;
+            margin-bottom: 1rem;
+          }
+  
+          .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+  
+            .social-icon {
+              width: 40px;
+              height: 40px;
+              border: 1px solid #e5e7eb;
+              transition: all 0.3s ease;
+  
+              &:hover {
+                border-color: #6366f1;
+                color: #6366f1;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  // Add these styles to your existing ones to make sure Ant Design components look consistent
+  :where(.css-dev-only-do-not-override-1wazalj).ant-input-affix-wrapper >input.ant-input {
+    background: transparent;
+  }
+  
+  // Responsive adjustments
+  @media (max-width: 768px) {
+    .login-container {
+      flex-direction: column;
+    }
+  
+    .login-left, .login-right {
+      padding: 1rem;
+    }
+  
+    .login-left {
+      min-height: 40vh;
+    }
+  }
