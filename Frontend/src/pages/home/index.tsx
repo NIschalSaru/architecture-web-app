@@ -6,6 +6,7 @@ import ContactUsSection from "../../components/ContactUsSection.tsx";
 import YoutubeVideoSection from "../../components/YoutubeVideoSection.tsx";
 import TestimonialSlider from "../../components/Testimonial.tsx";
 import ProjectsSection from "../../components/ProjectsSection.tsx";
+import Services from "../../pages/home/services.tsx";
 
 const Home = () => {
   const { Title } = Typography;
@@ -13,7 +14,7 @@ const Home = () => {
   return (
     <>
       <BannerComponent />
-
+      <Services/>
       <Layout>
         <YoutubeVideoSection />
       </Layout>
