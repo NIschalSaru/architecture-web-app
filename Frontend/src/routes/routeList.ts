@@ -9,7 +9,7 @@ export const RouteList = [
     },
     {
       label: 'Our Services',
-      path: '/gallery',
+      path: '/services',
     },
     {
       label: 'About Us',

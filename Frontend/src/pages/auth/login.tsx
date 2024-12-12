@@ -1,6 +1,7 @@
-import { Button, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 // import './Login.scss';
+import loginImg from '../../assets/svg/undraw_login.svg';
 
 interface LoginFormValues {
   username: string;
@@ -21,7 +22,9 @@ const Login = () => {
             <h1>Welcome Back!</h1>
             <p>Enter your credentials to access your account</p>
             {/* You can add your illustration/image here */}
-            <div className="decoration-circle"></div>
+
+            {/* <div className="decoration-circle"></div> */}
+            <img src={loginImg} alt='login Image'></img>
           </div>
         </div>
       </div>
@@ -70,7 +73,11 @@ const Login = () => {
                 size="large"
               />
             </Form.Item>
-
+            <Form.Item>
+            <Form.Item name="remember" valuePropName="checked" noStyle>
+              <Checkbox>Remember me</Checkbox>
+            </Form.Item>
+          </Form.Item>
             <Form.Item>
               <Button
                 type="primary"

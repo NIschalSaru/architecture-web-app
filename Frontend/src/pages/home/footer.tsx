@@ -3,116 +3,78 @@ import {
   FaTwitter,
   FaLinkedinIn,
   FaInstagram,
+  FaWhatsapp,
 } from "react-icons/fa";
-import logo from "../../assets/images/Nepal-Designers-Builders-Logo.png"; // Adjust the path as needed
+import logo from "../../assets/images/ndbn-logo-white.png";
 
 const FooterComponent = () => {
   return (
     <footer className="footer-container">
+      {/* Background Circles */}
+      <div className="footer-circle-overlay"></div>
       <div className="footer-logo-section">
         <img src={logo} alt="Logo" className="footer-logo" />
-        <div className="footer-bottom">
-          <p>© 2024 Nepal Designers & Builders. All rights reserved.</p>
+        <div>
+          <div className="footer-link cc-static">Resources</div>
         </div>
-        <div className="footer-socials">
-          <h4>Follow Us</h4>
-          <div className="social-icons">
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaFacebookF />
-            </a>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaTwitter />
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaLinkedinIn />
-            </a>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaInstagram />
-            </a>
-          </div>
+        <div>
+          <div className="footer-link cc-static">Additonal</div>
+        </div>
+        <div>
+          <div className="footer-link cc-static">Company</div>
         </div>
       </div>
       <div className="row row-justify-between u-z-index-1">
-        <div className="col col-lg-6 col-sm-12">
+        <div className="col">
           <div className="row">
             <div className="col col-sm-4">
               <ul className="footer-list">
                 <li className="footer-list-item">
-                  <div className="footer-link cc-static">Product</div>
-                </li>
-                <li className="footer-list-item">
-                  <a
-                    href="/features/review"
-                    className="footer-link cc-secondary"
-                  >
-                    Review
-                  </a>
-                </li>
-                <li className="footer-list-item">
-                  <a
-                    href="/features/draft"
-                    className="footer-link cc-secondary"
-                  >
-                    Draft
-                  </a>
-                </li>
-                <li className="footer-list-item">
-                  <a href="/features/ask" className="footer-link cc-secondary">
-                    Ask
-                  </a>
-                </li>
-                <li className="footer-list-item">
-                  <a
-                    href="/features/benchmarks"
-                    className="footer-link cc-secondary"
-                  >
-                    Benchmarks
-                  </a>
-                </li>
-                <li className="footer-list-item">
-                  <a href="/associate" className="footer-link cc-secondary">
-                    Associate
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div className="col col-sm-4">
-              <ul className="footer-list">
-                <li className="footer-list-item">
-                  <div className="footer-link cc-static">Resources</div>
-                </li>
-                <li className="footer-list-item">
-                  <a href="/blog" className="footer-link cc-secondary">
-                    Blog
-                  </a>
+                  <div className="footer-link cc-secondary">
+                    We don't only build structure, we build trust and shape your
+                    future, join us we definitely add value to your goal.
+                  </div>
+                  <div className="social-icons">
+                    <a
+                      href="https://facebook.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FaFacebookF />
+                    </a>
+                    <a
+                      href="https://whatsapp.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FaWhatsapp />
+                    </a>
+                    <a
+                      href="https://linkedin.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FaLinkedinIn />
+                    </a>
+                    <a
+                      href="https://instagram.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FaInstagram />
+                    </a>
+                  </div>
                 </li>
                 <li className="footer-list-item">
                   <a href="/stories" className="footer-link cc-secondary">
                     Customer Stories
                   </a>
-                </li>
-                <li className="footer-list-item">
                   <a href="/clause-index" className="footer-link cc-secondary">
                     Clause Library
                   </a>
-                </li>
-                <li className="footer-list-item">
+                  <a href="/security" className="footer-link cc-secondary">
+                    Security & Compliance
+                  </a>
                   <a
                     href="https://intercom.help/spellbooklegal/en/"
                     target="_blank"
@@ -123,40 +85,46 @@ const FooterComponent = () => {
                   </a>
                 </li>
                 <li className="footer-list-item">
-                  <a href="/security" className="footer-link cc-secondary">
-                    Security & Compliance
+                  <a href="/about" className="footer-link cc-secondary">
+                    Our Story
                   </a>
-                </li>
-              </ul>
-            </div>
-            <div className="col col-sm-4">
-              <ul className="footer-list">
-                <li className="footer-list-item">
-                  <div className="footer-link cc-static">Company</div>
+                  <a href="/careers" className="footer-link cc-secondary">
+                    Who we are
+                  </a>
+                  <a href="/contact" className="footer-link cc-secondary">
+                    Design
+                  </a>
+                  <a href="/contact" className="footer-link cc-secondary">
+                    Development
+                  </a>
                 </li>
                 <li className="footer-list-item">
                   <a href="/about" className="footer-link cc-secondary">
-                    About
+                    About Us
                   </a>
-                </li>
-                <li className="footer-list-item">
                   <a href="/careers" className="footer-link cc-secondary">
-                    Careers
+                    Our Projects
                   </a>
-                </li>
-                <li className="footer-list-item">
-                  <a href="/press" className="footer-link cc-secondary">
-                    Press
-                  </a>
-                </li>
-                <li className="footer-list-item">
                   <a href="/contact" className="footer-link cc-secondary">
-                    Contact
+                    Contact Us
+                  </a>
+                  <a href="/contact" className="footer-link cc-secondary">
+                    Our Services
                   </a>
                 </li>
               </ul>
             </div>
           </div>
+        </div>
+      </div>
+      <div className="row row-justify-between u-z-index-1">
+        <div className="col col-lg-6 col-sm-12">
+          <hr className="footer-divider" />
+        </div>
+        <div className="col col-sm-4">
+          <ul className="footer-list-down">
+            <p>© 2024 Nepal Designers & Builders. All rights reserved.</p>
+          </ul>
         </div>
       </div>
     </footer>

@@ -48,10 +48,9 @@ const AboutUsPage = () => {
       {/* Mission Section */}
       <section className="mission-section">
         <div className="container">
-          <Row gutter={[48, 48]}>
-            {/* <Col xs={24} lg={12}> */}
+          <Row>
               <div className="mission-content">
-                <Title level={2}>Our Story</Title>
+                <Title level={1}>Our Story</Title>
                 <Paragraph className="mission-text">
                   At Nepal Designers and Builders Pvt Ltd, we are more than just
                   a construction and design firm; we are architects of dreams.
@@ -61,7 +60,7 @@ const AboutUsPage = () => {
                   our company has grown to become a leading name in the
                   architectural landscape of the region.
                 </Paragraph>
-                <Title level={2}>Our Mission</Title>
+                <Title level={1}>Our Mission</Title>
                 <Paragraph className="mission-text">
                   Our mission is to create spaces that not only meet the
                   aesthetic and functional needs of our clients but also stand
@@ -70,14 +69,14 @@ const AboutUsPage = () => {
                   regardless of its size, receives the same level of meticulous
                   attention and dedication.
                 </Paragraph>
-                <Title level={2}>Our Services</Title>
+                <Title level={1}>Our Services</Title>
                 <Paragraph className="mission-text">
                   We specialize in a broad spectrum of services, including:
                   Residential and Commercial Architecture Interior Design
                   Sustainable Building Practices Custom Construction Solutions
                   Project Management
                 </Paragraph>
-                <Title level={2}>Our Approach</Title>
+                <Title level={1}>Our Approach</Title>
                 <Paragraph className="mission-text">
                   At the core of our approach is a collaborative spirit. We work
                   closely with our clients, understanding their vision and
@@ -87,7 +86,7 @@ const AboutUsPage = () => {
                   aesthetically pleasing but also environmentally responsible
                   and structurally sound.
                 </Paragraph>
-                <Title level={2}>Our Promise</Title>
+                <Title level={1}>Our Promise</Title>
                 <Paragraph className="mission-text">
                   To our clients, we promise a partnership that goes beyond mere
                   construction. We are dedicated to providing a seamless
@@ -95,7 +94,7 @@ const AboutUsPage = () => {
                   goal is to create spaces that reflect your aspirations and
                   enhance your quality of life.
                 </Paragraph>
-                <Title level={2}>Our Future</Title>
+                <Title level={1}>Our Future</Title>
                 <Paragraph className="mission-text">
                   As we look to the future, Nepal Designers and Builders Pvt Ltd
                   is excited to continue pushing the boundaries of design and
@@ -123,8 +122,7 @@ const AboutUsPage = () => {
             {/* <Col xs={24} lg={12}>
               <div className="mission-image">
                 <img src="" alt="Our Mission" />
-              </div>
-            </Col> */}
+              </div>*/}
           </Row>
         </div>
       </section>
@@ -181,9 +179,9 @@ const AboutUsPage = () => {
           <Row gutter={[48, 48]}>
             <Col xs={24} lg={12}>
               <div className="contact-content">
-                <Title level={2}>Get in Touch</Title>
+                <Title level={2}><span className='contact-content-1'>Contact Us</span> & We Can Work Together</Title>
                 <Paragraph className="contact-intro">
-                  Ready to transform your business? Let's start a conversation.
+                Have questions or need assistance? Reach out to us, and let's collaborate to achieve your goals. We're here to help you every step of the way.
                 </Paragraph>
 
                 {/* <div className="contact-info">
@@ -209,10 +207,10 @@ const AboutUsPage = () => {
                   className="contact-form"
                 >
                   <Form.Item
-                    name="username"
-                    label="Username"
+                    name="name"
+                    label="Full Name"
                     rules={[
-                      { required: true, message: "Please enter your name" },
+                      { required: true, message: "Please enter your full name" },
                     ]}
                   >
                     <Input size="large" placeholder="Your Name" />
@@ -230,7 +228,7 @@ const AboutUsPage = () => {
                   </Form.Item>
 
                   <Form.Item
-                    name="description"
+                    name="message"
                     label="Message"
                     rules={[
                       { required: true, message: "Please enter your message" },
@@ -251,7 +249,7 @@ const AboutUsPage = () => {
                       loading={loading}
                       className="submit-button"
                     >
-                      Send Message
+                      Submit
                     </Button>
                   </Form.Item>
                 </Form>
