@@ -1,5 +1,4 @@
 import { ToolOutlined, BulbOutlined, ProjectOutlined } from '@ant-design/icons';
-// import './Services.scss';
 
 const Services: React.FC = () => {
   const services = [

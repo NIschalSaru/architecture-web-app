@@ -6,7 +6,7 @@ import ContactUsSection from "../../components/ContactUsSection.tsx";
 import YoutubeVideoSection from "../../components/YoutubeVideoSection.tsx";
 import TestimonialSlider from "../../components/Testimonial.tsx";
 import ProjectsSection from "../../components/ProjectsSection.tsx";
-import Services from "../../pages/home/services.tsx";
+import Services from "./serviceSection.tsx";
 
 const Home = () => {
   const { Title } = Typography;
