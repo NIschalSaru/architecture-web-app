@@ -8,7 +8,10 @@ const {
   editProfile,
 } = require("../controllers/auth.controller.js");
 const router = express.Router();
-const { upload } = require("../middleware/multer.middleware.js");
+const {
+  upload,
+  multipleFileUpload,
+} = require("../middleware/multer.middleware.js");
 const ProtectRoute = require("../middleware/protect.route.js");
 
 router.post("/signup", signup);

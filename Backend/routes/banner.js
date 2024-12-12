@@ -1,16 +1,12 @@
 const router = require("express").Router();
-const {
-  createOrUpdateBanner,
-  getBannersById,
-  updateBanner,
-  deleteBanner,
-  getRecentBanner,
-} = require("../controllers/banner.controller.js");
+const { createOrUpdateBanner } = require("../controllers/banner.controller.js");
 const ProtectRoute = require("../middleware/protect.route.js");
+const {
+  upload,
+  multipleFileUpload,
+} = require("../middleware/multer.middleware.js");
 
-// const { uploadAndStoreImage } = require("../helper/utils/cloudinary");
-
-router.post("/", ProtectRoute, createOrUpdateBanner);
+router.post("/", ProtectRoute, upload.single("imageUrl"), createOrUpdateBanner);
 // router.get("/", ProtectRoute, getRecentBanner);
 // router.get("/:id", ProtectRoute, getBannersById);
 // router.put("/:id", ProtectRoute, updateBanner);

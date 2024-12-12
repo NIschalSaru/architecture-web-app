@@ -1,20 +1,30 @@
 const {
-  uploadAndStoreImageArray,
+  uploadSingleImage,
   deleteImage,
 } = require("../middleware/cloudinary.js");
 const Banner = require("../model/banner.js");
 const { asyncHandler } = require("../services/async.handler.js");
 
 const createOrUpdateBanner = asyncHandler(async (req, res) => {
-  const { imageUrl, heading, subHeading } = req.body;
+  const { heading, subHeading } = req.body;
+  let imagePath = null;
+  let title = `banner_${Date.now()}`;
 
   let result = await Banner.findOne();
 
+  if (req.file) {
+    if (result && result.imageUrl) {
+      await deleteImage(result.imageUrl);
+    }
+    imagePath = await uploadSingleImage(req.file.buffer, title);
+  }
+
   if (result) {
-    result.imageUrl = imageUrl;
     result.heading = heading;
     result.subHeading = subHeading;
-
+    if (imagePath) {
+      result.imageUrl = imagePath;
+    }
     await result.save();
     return res.status(200).json({
       message: "Banner updated successfully",
@@ -23,7 +33,7 @@ const createOrUpdateBanner = asyncHandler(async (req, res) => {
   }
 
   result = await Banner.create({
-    imageUrl,
+    imageUrl: imagePath,
     heading,
     subHeading,
   });
