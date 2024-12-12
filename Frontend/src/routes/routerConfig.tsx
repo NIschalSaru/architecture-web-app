@@ -6,7 +6,7 @@ import FrontContainer from "../pages/container";
 import PageNotFound from "../pages/page-not-found";
 import Home from "../pages/home";
 import LoginPage from "../pages/auth/login";
-import Services from "../pages/Service/services";
+import Services from "../pages/Service/index";
 
 const RouteConfig = () => {
     // console.log(isAuthenticated());

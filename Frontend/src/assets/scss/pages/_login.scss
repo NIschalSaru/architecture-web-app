@@ -2,7 +2,20 @@
     display: flex;
     min-height: 100vh;
     background-color: #ffffff;
-  
+    // position: relative;
+
+    // .logo-wrapper {
+    //   position: absolute;
+    //   top: 2rem;
+    //   left: 2rem;
+    //   z-index: 10;
+      
+    //   .logo {
+    //     height: 60px; // Adjust this value based on your logo size
+    //     width: auto;
+    //   }
+    // }
+
     .login-left {
       flex: 1;
       background: linear-gradient(135deg, $secondary 20%, $secondary 80%);
@@ -18,7 +31,16 @@
         .illustration-content {
           text-align: center;
           color: white;
-  
+
+          .logo-wrapper {
+            margin-bottom: 1.5rem;
+            
+            .logo {
+              height: 120px; // Adjust this value based on your logo size
+              width: auto;
+              margin-bottom: 2rem;
+            }
+          }
           h1 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
@@ -166,5 +188,17 @@
   
     .login-left {
       min-height: 40vh;
+    }
+  }
+  @media (max-width: 768px) {
+    .login-container {
+      .logo-wrapper {
+        top: 1rem;
+        left: 1rem;
+        
+        .logo {
+          height: 32px; // Slightly smaller on mobile
+        }
+      }
     }
   }

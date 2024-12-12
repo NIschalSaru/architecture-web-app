@@ -2,6 +2,7 @@ import { Button, Checkbox, Form, Input } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 // import './Login.scss';
 import loginImg from '../../assets/svg/undraw_login.svg';
+import logo from '../../assets/images/Nepal-Designers-Builders-Logo.png';
 
 interface LoginFormValues {
   username: string;
@@ -16,11 +17,17 @@ const Login = () => {
 
   return (
     <div className="login-container">
+      {/* <div className="logo-wrapper">
+        <img src={logo} alt="Logo" className="logo" />
+      </div> */}
       <div className="login-left">
         <div className="illustration-wrapper">
           <div className="illustration-content">
-            <h1>Welcome Back!</h1>
-            <p>Enter your credentials to access your account</p>
+            {/* <h1>Welcome Back!</h1>
+            <p>Enter your credentials to access your account</p> */}
+            <div className="logo-wrapper">
+              <img src={logo} alt="Logo" className="logo" />
+            </div>
             {/* You can add your illustration/image here */}
 
             {/* <div className="decoration-circle"></div> */}
@@ -34,6 +41,9 @@ const Login = () => {
           <div className="login-header">
             <h2>LOG IN</h2>
             <p>Please login to continue</p>
+            {/* <div className="logo-wrapper">
+              <img src={logo} alt="Logo" className="logo" />
+            </div> */}
           </div>
           
           <Form
