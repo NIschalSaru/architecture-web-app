@@ -82,9 +82,11 @@ $gray-700: #334155;
     
     .mission-text {
       color: $gray-600;
-      font-size: 1.125rem;
+      font-size: 1.1rem;
       line-height: 1.8;
       margin-bottom: 3rem;
+      text-align: justify;
+    text-justify: inter-word;
     }
   }
   
@@ -111,21 +113,21 @@ $gray-700: #334155;
     }
   }
   
-  .mission-image {
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba($dark, 0.1);
+  // .mission-image {
+  //   border-radius: 1rem;
+  //   overflow: hidden;
+  //   box-shadow: 0 20px 40px rgba($dark, 0.1);
     
-    img {
-      width: 100%;
-      height: auto;
-      transition: transform 0.3s ease;
+  //   img {
+  //     width: 100%;
+  //     height: auto;
+  //     transition: transform 0.3s ease;
       
-      &:hover {
-        transform: scale(1.02);
-      }
-    }
-  }
+  //     &:hover {
+  //       transform: scale(1.02);
+  //     }
+  //   }
+  // }
 }
 
 // CEO Section
@@ -153,7 +155,7 @@ $gray-700: #334155;
       right: 0;
       width: 100%;
       height: 100%;
-      background-color: $primary;
+      background-color: $secondary-light;
       border-radius: 1rem;
       z-index: 1;
     }
@@ -222,14 +224,18 @@ $gray-700: #334155;
   .contact-content {
     h2 {
       color: $dark;
-      font-size: 2.5rem;
+      font-size: 3rem;
       margin-bottom: 1.5rem;
     }
     
+    .contact-content-1{
+      color: $primary;
+    }
     .contact-intro {
       color: $gray-600;
-      font-size: 1.125rem;
+      font-size: 1rem;
       margin-bottom: 2rem;
+
     }
     
     .contact-info {
@@ -281,8 +287,8 @@ $gray-700: #334155;
         }
         
         .submit-button {
-          width: 30%;
-          height: 3.5rem;
+          width: 20%;
+          height: 3rem;
           background-color: $primary;
           border: none;
           border-radius: 0.5rem;

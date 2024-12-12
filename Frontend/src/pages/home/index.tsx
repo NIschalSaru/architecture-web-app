@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Col, Layout, Row, Typography } from "antd";
+import { Layout } from "antd";
 import BannerComponent from "./banner";
 import ScrollToTop from "../../components/ScrollToTop.tsx";
 import ContactUsSection from "../../components/ContactUsSection.tsx";
@@ -9,7 +9,7 @@ import ProjectsSection from "../../components/ProjectsSection.tsx";
 import Services from "./serviceSection.tsx";
 
 const Home = () => {
-  const { Title } = Typography;
+  // const { Title } = Typography;
 
   return (
     <>
@@ -20,16 +20,17 @@ const Home = () => {
       </Layout>
 
       <Layout>
-        <ContactUsSection />
-      </Layout>
-
-      <Layout>
         <TestimonialSlider />
       </Layout>
 
-      <Layout className="contact-container">
+      <Layout>
         <ProjectsSection />
       </Layout>
+
+      <Layout>
+        <ContactUsSection />
+      </Layout>
+
       <ScrollToTop />
     </>
   );

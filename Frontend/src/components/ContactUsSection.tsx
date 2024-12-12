@@ -9,7 +9,7 @@ import BulbIcon from "../assets/svg/lightbulbIcon.svg";
 
 const ContactUsSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
+  const { TextArea } = Input;
   // Updated mouse move handler to match YouTube section
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
@@ -88,11 +88,11 @@ const ContactUsSection: React.FC = () => {
             <div className="form-container">
               <Form layout="vertical" onFinish={onFinish}>
                 <Form.Item
-                  label="Name"
+                  label="Full Name"
                   name="name"
-                  rules={[{ required: true, message: "Please enter your name!" }]}
+                  rules={[{ required: true, message: "Please enter your full name!" }]}
                 >
-                  <Input placeholder="Enter your name" />
+                  <Input placeholder="Enter your full name" />
                 </Form.Item>
                 <Form.Item
                   label="Email"
@@ -104,13 +104,26 @@ const ContactUsSection: React.FC = () => {
                 >
                   <Input placeholder="Enter your email" />
                 </Form.Item>
-                <Form.Item
-                  label="Phone"
-                  name="phone"
-                  rules={[{ required: true, message: "Please enter your phone!" }]}
+                {/* <Form.Item
+                  label="Message"
+                  name="message"
+                  rules={[{ required: true, message: "Please enter your message!" }]}
                 >
-                  <Input placeholder="Enter your phone" />
-                </Form.Item>
+                  <Input placeholder="Enter your message" />
+                </Form.Item> */}
+                <Form.Item
+                    name="message"
+                    label="Message"
+                    rules={[
+                      { required: true, message: "Please enter your message" },
+                    ]}
+                  >
+                    <TextArea
+                      rows={4}
+                      placeholder="Your Message"
+                      className="message-input"
+                    />
+                  </Form.Item>
                 <Button 
                   type="primary" 
                   htmlType="submit"
