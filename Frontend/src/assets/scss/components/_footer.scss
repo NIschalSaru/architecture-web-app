@@ -4,7 +4,7 @@ a {
 }
 
 .footer {
-  background-color: #0b242b;
+  background-color: #262262;
   color: #fff;
 }
 .footer-wave-svg {
@@ -126,6 +126,7 @@ a {
 .footer-call-to-action {
   margin-top: 30px;
 }
+
 .footer-call-to-action-title {
   color: #fffff2;
   font-size: 14px;
@@ -136,15 +137,20 @@ a {
   margin-top: 0;
   text-transform: uppercase;
 }
+
 .footer-call-to-action-link-wrapper {
   margin-bottom: 0;
   margin-top: 10px;
   color: #fff;
+  display: block; /* Change flex to block */
   text-decoration: none;
 }
+
 .footer-call-to-action-link-wrapper a {
   color: #fff;
   text-decoration: none;
+  display: block; /* Ensure each link is on a new line */
+  margin-top: 5px; /* Add spacing between links */
 }
 
 .footer-social-links {
@@ -165,7 +171,7 @@ a {
 }
 
 .footer-social-amoeba-path {
-  fill: #027b9a;
+  fill: #be1e2d;
 }
 
 .footer-social-link.linkedin {
@@ -226,7 +232,7 @@ a {
 }
 
 .footer-copyright {
-  background-color: #027b9a;
+  background-color: #be1e2d;
   color: #fff;
   padding: 15px 30px;
   text-align: center;

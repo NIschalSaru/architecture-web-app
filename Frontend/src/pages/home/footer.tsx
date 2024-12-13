@@ -1,4 +1,10 @@
 // Footer.js
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPhone,
+  faEnvelope,
+  faLocationDot,
+} from "@fortawesome/free-solid-svg-icons";
 import Logo from "../../assets/images/ndbn-logo-white.png";
 const Footer = () => {
   return (
@@ -37,19 +43,22 @@ const Footer = () => {
           </div>
           <div className="footer-content-column">
             <div className="footer-menu">
-              <h2 className="footer-menu-name"> Company</h2>
+              <h2 className="footer-menu-name"> Location</h2>
               <ul id="menu-company" className="footer-menu-list">
                 <li className="menu-item menu-item-type-post_type menu-item-object-page">
-                  <a href="#">About Us</a>
-                </li>
-                <li className="menu-item menu-item-type-post_type menu-item-object-page">
-                  <a href="#">Projects</a>
-                </li>
-                <li className="menu-item menu-item-type-taxonomy menu-item-object-category">
-                  <a href="#">Services</a>
-                </li>
-                <li className="menu-item menu-item-type-post_type menu-item-object-page">
-                  <a href="#">Contact</a>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faLocationDot}
+                      style={{ color: "#b64141" }}
+                    />
+                    <a href="#">Kalanki, Kathmandu</a>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -69,27 +78,17 @@ const Footer = () => {
             <div className="footer-menu">
               <h2 className="footer-menu-name"> Quick Links</h2>
               <ul id="menu-quick-links" className="footer-menu-list">
-                <li className="menu-item menu-item-type-custom menu-item-object-custom">
-                  <a target="_blank" rel="noopener noreferrer" href="#">
-                    Support Center
-                  </a>
-                </li>
-                <li className="menu-item menu-item-type-custom menu-item-object-custom">
-                  <a target="_blank" rel="noopener noreferrer" href="#">
-                    Service Status
-                  </a>
+                <li className="menu-item menu-item-type-post_type menu-item-object-page">
+                  <a href="/about">About Us</a>
                 </li>
                 <li className="menu-item menu-item-type-post_type menu-item-object-page">
-                  <a href="#">Security</a>
+                  <a href="#">Our Projects</a>
+                </li>
+                <li className="menu-item menu-item-type-taxonomy menu-item-object-category">
+                  <a href="/services">Our Services</a>
                 </li>
                 <li className="menu-item menu-item-type-post_type menu-item-object-page">
-                  <a href="#">Blog</a>
-                </li>
-                <li className="menu-item menu-item-type-post_type_archive menu-item-object-customer">
-                  <a href="#">Customers</a>
-                </li>
-                <li className="menu-item menu-item-type-post_type menu-item-object-page">
-                  <a href="#">Reviews</a>
+                  <a href="#">Contact Us</a>
                 </li>
               </ul>
             </div>
@@ -102,21 +101,36 @@ const Footer = () => {
               </p>
               <a
                 className="footer-call-to-action-button button"
-                href="#"
+                href="/about#contact-section"
                 target="_self"
               >
                 Get in Touch
               </a>
             </div>
             <div className="footer-call-to-action">
-              <h2 className="footer-call-to-action-title"> Contact Us</h2>
+              <h2 className="footer-call-to-action-title">Contact Us</h2>
               <p className="footer-call-to-action-link-wrapper">
                 <a
                   className="footer-call-to-action-link"
-                  href="tel:0124-64XXXX"
+                  href="tel:+977-9851340040"
                   target="_self"
                 >
-                  0124-64XXXX
+                  <FontAwesomeIcon
+                    icon={faPhone}
+                    style={{ color: "#b64141" }}
+                  />{" "}
+                  +977-9851340040
+                </a>
+                <a
+                  className="footer-call-to-action-link"
+                  href="mailto:contact@ndnb.com.np"
+                  target="_self"
+                >
+                  <FontAwesomeIcon
+                    icon={faEnvelope}
+                    style={{ color: "#b64141" }}
+                  />{" "}
+                  contact@ndnb.com.np
                 </a>
               </p>
             </div>
@@ -146,15 +160,17 @@ const Footer = () => {
               </svg>
             </a>
             <a className="footer-social-link twitter" href="#" target="_blank">
-              <span className="hidden-link-text">Twitter</span>
+              <span className="hidden-link-text">Facebook</span>
               <svg
                 className="footer-social-icon-svg"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 26 26"
+                height="30"
+                fill="currentColor"
               >
                 <path
                   className="footer-social-icon-path"
-                  d="M 25.855469 5.574219 C 24.914063 5.992188 23.902344 6.273438 22.839844 6.402344 C 23.921875 5.75 24.757813 4.722656 25.148438 3.496094 C 24.132813 4.097656 23.007813 4.535156 21.8125 4.769531 C 20.855469 3.75 19.492188 3.113281 17.980469 3.113281 C 15.082031 3.113281 12.730469 5.464844 12.730469 8.363281 C 12.730469 8.773438 12.777344 9.175781 12.867188 9.558594 C 8.503906 9.339844 4.636719 7.246094 2.046875 4.070313 C 1.59375 4.847656 1.335938 5.75 1.335938 6.714844 C 1.335938 8.535156 2.261719 10.140625 3.671875 11.082031 C 2.808594 11.054688 2 10.820313 1.292969 10.425781 C 1.292969 10.449219 1.292969 10.46875 1.292969 10.492188 C 1.292969 13.035156 3.101563 15.15625 5.503906 15.640625 C 5.0625 15.761719 4.601563 15.824219 4.121094 15.824219 C 3.78125 15.824219 3.453125 15.792969 3.132813 15.730469 C 3.800781 17.8125 5.738281 19.335938 8.035156 19.375 C 6.242188 20.785156 3.976563 21.621094 1.515625 21.621094 C 1.089844 21.621094 0.675781 21.597656 0.265625 21.550781 C 2.585938 23.039063 5.347656 23.90625 8.3125 23.90625 C 17.96875 23.90625 23.25 15.90625 23.25 8.972656 C 23.25 8.742188 23.246094 8.515625 23.234375 8.289063 C 24.261719 7.554688 25.152344 6.628906 25.855469 5.574219 "
+                  d="M22.675 0h-21.35C.595 0 0 .593 0 1.325v21.351C0 23.407.595 24 1.325 24H12v-9.294H9.294v-3.618H12V8.41c0-2.712 1.658-4.187 4.081-4.187 1.159 0 2.155.086 2.447.125v2.841h-1.676c-1.315 0-1.57.623-1.57 1.54v2.019h3.137l-.408 3.618h-2.729V24h5.355c.73 0 1.325-.593 1.325-1.324V1.325C24 .593 23.405 0 22.675 0z"
                 ></path>
               </svg>
             </a>
@@ -177,10 +193,13 @@ const Footer = () => {
                 className="footer-social-icon-svg"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 32 32"
+                width="40"
+                height="40"
+                fill="currentColor"
               >
                 <path
                   className="footer-social-icon-path"
-                  d="M 16 4 C 9.371094 4 4 9.371094 4 16 C 4 21.300781 7.4375 25.800781 12.207031 27.386719 C 12.808594 27.496094 13.027344 27.128906 13.027344 26.808594 C 13.027344 26.523438 13.015625 25.769531 13.011719 24.769531 C 9.671875 25.492188 8.96875 23.160156 8.96875 23.160156 C 8.421875 21.773438 7.636719 21.402344 7.636719 21.402344 C 6.546875 20.660156 7.71875 20.675781 7.71875 20.675781 C 8.921875 20.761719 9.554688 21.910156 9.554688 21.910156 C 10.625 23.746094 12.363281 23.214844 13.046875 22.910156 C 13.15625 22.132813 13.46875 21.605469 13.808594 21.304688 C 11.144531 21.003906 8.34375 19.972656 8.34375 15.375 C 8.34375 14.0625 8.8125 12.992188 9.578125 12.152344 C 9.457031 11.851563 9.042969 10.628906 9.695313 8.976563 C 9.695313 8.976563 10.703125 8.65625 12.996094 10.207031 C 13.953125 9.941406 14.980469 9.808594 16 9.804688 C 17.019531 9.808594 18.046875 9.941406 19.003906 10.207031 C 21.296875 8.65625 22.300781 8.976563 22.300781 8.976563 C 22.957031 10.628906 22.546875 11.851563 22.421875 12.152344 C 23.191406 12.992188 23.652344 14.0625 23.652344 15.375 C 23.652344 19.984375 20.847656 20.996094 18.175781 21.296875 C 18.605469 21.664063 18.988281 22.398438 18.988281 23.515625 C 18.988281 25.121094 18.976563 26.414063 18.976563 26.808594 C 18.976563 27.128906 19.191406 27.503906 19.800781 27.386719 C 24.566406 25.796875 28 21.300781 28 16 C 28 9.371094 22.628906 4 16 4 Z "
+                  d="M12 2.163c3.204 0 3.584.012 4.849.07 1.366.062 2.633.35 3.608 1.325.975.975 1.264 2.243 1.325 3.608.058 1.265.07 1.645.07 4.849s-.012 3.584-.07 4.849c-.062 1.366-.35 2.633-1.325 3.608-.975.975-2.243 1.264-3.608 1.325-1.265.058-1.645.07-4.849.07s-3.584-.012-4.849-.07c-1.366-.062-2.633-.35-3.608-1.325-.975-.975-1.264-2.243-1.325-3.608-.058-1.265-.07-1.645-.07-4.849s.012-3.584.07-4.849c.062-1.366.35-2.633 1.325-3.608C5.516 2.513 6.784 2.224 8.15 2.163 9.415 2.105 9.795 2.163 12 2.163zm0-2.163C8.756 0 8.332.012 7.052.07 5.775.127 4.677.41 3.73 1.357 2.782 2.304 2.5 3.402 2.443 4.678 2.385 5.958 2.373 6.382 2.373 9.627s.012 3.669.07 4.947c.057 1.277.34 2.375 1.287 3.322.947.947 2.045 1.23 3.322 1.287 1.278.057 1.702.07 4.947.07s3.669-.012 4.947-.07c1.277-.057 2.375-.34 3.322-1.287.947-.947 1.23-2.045 1.287-3.322.057-1.278.07-1.702.07-4.947s-.012-3.669-.07-4.947c-.057-1.277-.34-2.375-1.287-3.322C19.978.41 18.88.127 17.603.07 16.324.012 15.9 0 12 0zM12 5.838A6.162 6.162 0 0 0 5.838 12 6.162 6.162 0 0 0 12 18.162 6.162 6.162 0 0 0 18.162 12 6.162 6.162 0 0 0 12 5.838zm0 10.162A4 4 0 1 1 12 8a4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 1-2.881 0 1.44 1.44 0 0 1 2.881 0z"
                 ></path>
               </svg>
             </a>
