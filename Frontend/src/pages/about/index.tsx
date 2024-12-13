@@ -21,6 +21,7 @@ const AboutUsPage = () => {
       }
     }
   }, [location]);
+
   useEffect(() => {
     // if (location.hash === '#contact-us' && contactRef.current) {
     //   contactRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -37,17 +38,15 @@ const AboutUsPage = () => {
   };
 
   return (
-    <Layout>
-      {/* Hero Section */}
-      <div className="hero-section">
-        <div className="container">
-          <div className="hero-content">
-            <Title level={1} className="fade-in">
-              Shaping Tomorrow's Architectures
-            </Title>
-            <Paragraph className="hero-subtitle">
-              Leading Architecture Company in Market since 2018
-            </Paragraph>
+    // <Layout>
+    <>
+      <div className="inner-header">
+        <div className="header-content">
+          <h1 className="page-title">ABOUT US</h1>
+          <div className="breadcrumb">
+            <a href="/">HOME</a>
+            <span className="separator">/</span>
+            <span className="current">ABOUT US</span>
           </div>
         </div>
       </div>
@@ -57,7 +56,7 @@ const AboutUsPage = () => {
         <div className="container">
           <Row>
             <div className="mission-content">
-              <Title level={1}>Our Story</Title>
+              <Title level={2}>Our Story</Title>
               <Paragraph className="mission-text">
                 At Nepal Designers and Builders Pvt Ltd, we are more than just a
                 construction and design firm; we are architects of dreams.
@@ -67,7 +66,7 @@ const AboutUsPage = () => {
                 our company has grown to become a leading name in the
                 architectural landscape of the region.
               </Paragraph>
-              <Title level={1}>Our Mission</Title>
+              <Title level={2}>Our Mission</Title>
               <Paragraph className="mission-text">
                 Our mission is to create spaces that not only meet the aesthetic
                 and functional needs of our clients but also stand the test of
@@ -76,14 +75,14 @@ const AboutUsPage = () => {
                 regardless of its size, receives the same level of meticulous
                 attention and dedication.
               </Paragraph>
-              <Title level={1}>Our Services</Title>
+              <Title level={2}>Our Services</Title>
               <Paragraph className="mission-text">
                 We specialize in a broad spectrum of services, including:
                 Residential and Commercial Architecture Interior Design
                 Sustainable Building Practices Custom Construction Solutions
                 Project Management
               </Paragraph>
-              <Title level={1}>Our Approach</Title>
+              <Title level={2}>Our Approach</Title>
               <Paragraph className="mission-text">
                 At the core of our approach is a collaborative spirit. We work
                 closely with our clients, understanding their vision and
@@ -92,7 +91,7 @@ const AboutUsPage = () => {
                 to ensure that each project is not only aesthetically pleasing
                 but also environmentally responsible and structurally sound.
               </Paragraph>
-              <Title level={1}>Our Promise</Title>
+              <Title level={2}>Our Promise</Title>
               <Paragraph className="mission-text">
                 To our clients, we promise a partnership that goes beyond mere
                 construction. We are dedicated to providing a seamless
@@ -100,7 +99,7 @@ const AboutUsPage = () => {
                 is to create spaces that reflect your aspirations and enhance
                 your quality of life.
               </Paragraph>
-              <Title level={1}>Our Future</Title>
+              <Title level={2}>Our Future</Title>
               <Paragraph className="mission-text">
                 As we look to the future, Nepal Designers and Builders Pvt Ltd
                 is excited to continue pushing the boundaries of design and
@@ -136,7 +135,8 @@ const AboutUsPage = () => {
       {/* CEO Section */}
       <section className="ceo-section">
         <div className="container">
-          <Row gutter={[48, 48]} align="middle">
+          {/* <Row gutter={[48, 48]} align="middle"> */}
+          <Row gutter={[32, 32]} align="middle">
             <Col xs={24} lg={12}>
               <div className="ceo-image-container">
                 <img src={CeoImage} alt="CEO" className="ceo-image" />
@@ -182,7 +182,7 @@ const AboutUsPage = () => {
       {/* Contact Section */}
       <section className="contact-section" ref={contactRef} id="contact-us">
         <div className="container">
-          <Row gutter={[48, 48]}>
+          <Row gutter={[32, 32]}>
             <Col xs={24} lg={12}>
               <div className="contact-content" id="contact-section">
                 <Title level={2}>
@@ -288,7 +288,8 @@ const AboutUsPage = () => {
       </section>
 
       <ScrollToTop />
-    </Layout>
+    </>
+    // </Layout>
   );
 };
 
