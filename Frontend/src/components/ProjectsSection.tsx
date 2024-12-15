@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 
 const projects = [
