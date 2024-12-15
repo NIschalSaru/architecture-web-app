@@ -6,7 +6,7 @@ $gray-700: #334155;
 
 // Mixins
 @mixin section-padding {
-  padding: 6rem 0;
+  padding: 3.5rem 0;
   
   @media (max-width: 768px) {
     padding: 4rem 0;
@@ -30,68 +30,32 @@ $gray-700: #334155;
   padding: 0 1.5rem;
 }
 
-// Hero Section
-.hero-section {
-  position: relative;
-  height: 500px;
-  background: linear-gradient(
-    to right,
-    rgba($secondary, 0.92),
-    rgba($primary, 0.92)
-  ),
-  url('../images/Outlined1.jpg') center/cover;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  
-  .hero-content {
-    width: 100%;
-    @include fade-in;
-    
-    h1 {
-      color: $white;
-      font-size: 3.5rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      
-      @media (max-width: 768px) {
-        font-size: 2.5rem;
-      }
-    }
-    
-    .hero-subtitle {
-      color: rgba($white, 0.9);
-      font-size: 1.25rem;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-  }
-}
-
 // Mission Section
 .mission-section {
-  @include section-padding;
+  // @include section-padding;
   background-color: $white;
   
   .mission-content {
     h2 {
       color: $dark;
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
     }
     
     .mission-text {
       color: $gray-600;
-      font-size: 1.125rem;
-      line-height: 1.8;
-      margin-bottom: 3rem;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      text-align: justify;
+      text-justify: inter-word;
     }
   }
   
   .stats-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    gap: 1.5rem;
     
     .stat-item {
       text-align: center;
@@ -99,9 +63,10 @@ $gray-700: #334155;
       .stat-number {
         display: block;
         color: $primary;
-        font-size: 2.5rem;
+        font-size: 2rem;
         font-weight: 700;
-        margin-bottom: 0.5rem;
+        margin-bottom: 1rem;
+        margin-top: 1rem;
       }
       
       .stat-label {
@@ -111,21 +76,21 @@ $gray-700: #334155;
     }
   }
   
-  .mission-image {
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba($dark, 0.1);
+  // .mission-image {
+  //   border-radius: 1rem;
+  //   overflow: hidden;
+  //   box-shadow: 0 20px 40px rgba($dark, 0.1);
     
-    img {
-      width: 100%;
-      height: auto;
-      transition: transform 0.3s ease;
+  //   img {
+  //     width: 100%;
+  //     height: auto;
+  //     transition: transform 0.3s ease;
       
-      &:hover {
-        transform: scale(1.02);
-      }
-    }
-  }
+  //     &:hover {
+  //       transform: scale(1.02);
+  //     }
+  //   }
+  // }
 }
 
 // CEO Section
@@ -133,10 +98,16 @@ $gray-700: #334155;
   @include section-padding;
   background-color: $gray-50;
   overflow: hidden;
+  padding: 3rem;
   
+  .container {
+    max-width: 1200px; // Add a max-width to control overall section width
+    margin: 0 auto;
+  }
+
   .ceo-image-container {
     position: relative;
-    padding-right: 3rem;
+    padding-right: 2rem;
     
     .ceo-image {
       width: 100%;
@@ -149,42 +120,42 @@ $gray-700: #334155;
     
     .ceo-background-shape {
       position: absolute;
-      top: 2rem;
+      top: 1.5rem;
       right: 0;
       width: 100%;
       height: 100%;
-      background-color: $primary;
+      background-color: $secondary-light;
       border-radius: 1rem;
       z-index: 1;
     }
   }
   
   .ceo-content {
-    padding-left: 2rem;
+    padding-left: 0.5rem;
     
     h2 {
       color: $dark;
-      font-size: 2.5rem;
+      font-size: 2rem;
       margin-bottom: 1rem;
     }
     
     .ceo-name {
       color: $primary;
-      font-size: 2rem;
+      font-size: 1.5rem;
       margin-bottom: 0.5rem;
     }
     
     .ceo-title {
       display: block;
       color: $gray-600;
-      font-size: 1.25rem;
+      font-size: 1.10rem;
       margin-bottom: 2rem;
     }
     
     .ceo-bio {
       color: $gray-600;
-      font-size: 1.125rem;
-      line-height: 1.8;
+      font-size: 1rem;
+      line-height: 1.7;
       margin-bottom: 3rem;
     }
     
@@ -226,14 +197,18 @@ $gray-700: #334155;
       margin-bottom: 1.5rem;
     }
     
+    .contact-content-1{
+      color: $primary;
+    }
     .contact-intro {
       color: $gray-600;
-      font-size: 1.125rem;
+      font-size: 1rem;
       margin-bottom: 2rem;
+
     }
     
     .contact-info {
-      margin-bottom: 3rem;
+      margin-bottom: 2.5rem;
       
       .info-item {
         display: flex;
@@ -244,7 +219,7 @@ $gray-700: #334155;
 
         .anticon {
             color: $primary;
-            font-size: 1.25rem;
+            font-size: 1rem;
             margin-right: 1rem;
           }
           
@@ -257,7 +232,7 @@ $gray-700: #334155;
       
       .contact-form {
         .ant-form-item {
-          margin-bottom: 1.5rem;
+          margin-bottom: 1rem;
         }
         
         .ant-input,
@@ -281,8 +256,8 @@ $gray-700: #334155;
         }
         
         .submit-button {
-          width: 30%;
-          height: 3.5rem;
+          width: 20%;
+          height: 2.5rem;
           background-color: $primary;
           border: none;
           border-radius: 0.5rem;

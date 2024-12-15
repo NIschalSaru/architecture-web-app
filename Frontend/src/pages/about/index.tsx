@@ -13,6 +13,14 @@ const AboutUsPage = () => {
   const [form] = Form.useForm();
   const contactRef = useRef(null);
   const location = useLocation();
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.querySelector(location.hash);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location]);
 
   useEffect(() => {
     // if (location.hash === '#contact-us' && contactRef.current) {
@@ -30,17 +38,15 @@ const AboutUsPage = () => {
   };
 
   return (
-    <Layout>
-      {/* Hero Section */}
-      <div className="hero-section">
-        <div className="container">
-          <div className="hero-content">
-            <Title level={1} className="fade-in">
-              Shaping Tomorrow's Architectures
-            </Title>
-            <Paragraph className="hero-subtitle">
-              Leading Architecture Company in Market since 2018
-            </Paragraph>
+    // <Layout>
+    <>
+      <div className="inner-header">
+        <div className="header-content">
+          <h1 className="page-title">ABOUT US</h1>
+          <div className="breadcrumb">
+            <a href="/">HOME</a>
+            <span className="separator">/</span>
+            <span className="current">ABOUT US</span>
           </div>
         </div>
       </div>
@@ -48,83 +54,80 @@ const AboutUsPage = () => {
       {/* Mission Section */}
       <section className="mission-section">
         <div className="container">
-          <Row gutter={[48, 48]}>
-            {/* <Col xs={24} lg={12}> */}
-              <div className="mission-content">
-                <Title level={2}>Our Story</Title>
-                <Paragraph className="mission-text">
-                  At Nepal Designers and Builders Pvt Ltd, we are more than just
-                  a construction and design firm; we are architects of dreams.
-                  Founded in [Year of Establishment], our journey began with a
-                  simple yet profound vision: to blend innovative design with
-                  exceptional construction quality. Based in the heart of Nepal,
-                  our company has grown to become a leading name in the
-                  architectural landscape of the region.
-                </Paragraph>
-                <Title level={2}>Our Mission</Title>
-                <Paragraph className="mission-text">
-                  Our mission is to create spaces that not only meet the
-                  aesthetic and functional needs of our clients but also stand
-                  the test of time. We are driven by a commitment to excellence,
-                  sustainability, and client satisfaction. Every project,
-                  regardless of its size, receives the same level of meticulous
-                  attention and dedication.
-                </Paragraph>
-                <Title level={2}>Our Services</Title>
-                <Paragraph className="mission-text">
-                  We specialize in a broad spectrum of services, including:
-                  Residential and Commercial Architecture Interior Design
-                  Sustainable Building Practices Custom Construction Solutions
-                  Project Management
-                </Paragraph>
-                <Title level={2}>Our Approach</Title>
-                <Paragraph className="mission-text">
-                  At the core of our approach is a collaborative spirit. We work
-                  closely with our clients, understanding their vision and
-                  translating it into reality. Our team of experienced
-                  architects, designers, and builders uses the latest technology
-                  and materials to ensure that each project is not only
-                  aesthetically pleasing but also environmentally responsible
-                  and structurally sound.
-                </Paragraph>
-                <Title level={2}>Our Promise</Title>
-                <Paragraph className="mission-text">
-                  To our clients, we promise a partnership that goes beyond mere
-                  construction. We are dedicated to providing a seamless
-                  experience from the initial concept to the final brick. Our
-                  goal is to create spaces that reflect your aspirations and
-                  enhance your quality of life.
-                </Paragraph>
-                <Title level={2}>Our Future</Title>
-                <Paragraph className="mission-text">
-                  As we look to the future, Nepal Designers and Builders Pvt Ltd
-                  is excited to continue pushing the boundaries of design and
-                  construction. We are committed to innovation and excellence,
-                  ensuring that we remain at the forefront of the industry,
-                  setting new standards in the architecture and construction
-                  realm.
-                </Paragraph>
-                <div className="stats-container">
-                  <div className="stat-item">
-                    <Text className="stat-number">15+</Text>
-                    <Text className="stat-label">Years Experience</Text>
-                  </div>
-                  <div className="stat-item">
-                    <Text className="stat-number">500+</Text>
-                    <Text className="stat-label">Projects Delivered</Text>
-                  </div>
-                  <div className="stat-item">
-                    <Text className="stat-number">98%</Text>
-                    <Text className="stat-label">Client Satisfaction</Text>
-                  </div>
+          <Row>
+            <div className="mission-content">
+              <Title level={2}>Our Story</Title>
+              <Paragraph className="mission-text">
+                At Nepal Designers and Builders Pvt Ltd, we are more than just a
+                construction and design firm; we are architects of dreams.
+                Founded in [Year of Establishment], our journey began with a
+                simple yet profound vision: to blend innovative design with
+                exceptional construction quality. Based in the heart of Nepal,
+                our company has grown to become a leading name in the
+                architectural landscape of the region.
+              </Paragraph>
+              <Title level={2}>Our Mission</Title>
+              <Paragraph className="mission-text">
+                Our mission is to create spaces that not only meet the aesthetic
+                and functional needs of our clients but also stand the test of
+                time. We are driven by a commitment to excellence,
+                sustainability, and client satisfaction. Every project,
+                regardless of its size, receives the same level of meticulous
+                attention and dedication.
+              </Paragraph>
+              <Title level={2}>Our Services</Title>
+              <Paragraph className="mission-text">
+                We specialize in a broad spectrum of services, including:
+                Residential and Commercial Architecture Interior Design
+                Sustainable Building Practices Custom Construction Solutions
+                Project Management
+              </Paragraph>
+              <Title level={2}>Our Approach</Title>
+              <Paragraph className="mission-text">
+                At the core of our approach is a collaborative spirit. We work
+                closely with our clients, understanding their vision and
+                translating it into reality. Our team of experienced architects,
+                designers, and builders uses the latest technology and materials
+                to ensure that each project is not only aesthetically pleasing
+                but also environmentally responsible and structurally sound.
+              </Paragraph>
+              <Title level={2}>Our Promise</Title>
+              <Paragraph className="mission-text">
+                To our clients, we promise a partnership that goes beyond mere
+                construction. We are dedicated to providing a seamless
+                experience from the initial concept to the final brick. Our goal
+                is to create spaces that reflect your aspirations and enhance
+                your quality of life.
+              </Paragraph>
+              <Title level={2}>Our Future</Title>
+              <Paragraph className="mission-text">
+                As we look to the future, Nepal Designers and Builders Pvt Ltd
+                is excited to continue pushing the boundaries of design and
+                construction. We are committed to innovation and excellence,
+                ensuring that we remain at the forefront of the industry,
+                setting new standards in the architecture and construction
+                realm.
+              </Paragraph>
+              <div className="stats-container">
+                <div className="stat-item">
+                  <Text className="stat-number">15+</Text>
+                  <Text className="stat-label">Years Experience</Text>
+                </div>
+                <div className="stat-item">
+                  <Text className="stat-number">500+</Text>
+                  <Text className="stat-label">Projects Delivered</Text>
+                </div>
+                <div className="stat-item">
+                  <Text className="stat-number">98%</Text>
+                  <Text className="stat-label">Client Satisfaction</Text>
                 </div>
               </div>
+            </div>
             {/* </Col> */}
             {/* <Col xs={24} lg={12}>
               <div className="mission-image">
                 <img src="" alt="Our Mission" />
-              </div>
-            </Col> */}
+              </div>*/}
           </Row>
         </div>
       </section>
@@ -132,7 +135,8 @@ const AboutUsPage = () => {
       {/* CEO Section */}
       <section className="ceo-section">
         <div className="container">
-          <Row gutter={[48, 48]} align="middle">
+          {/* <Row gutter={[48, 48]} align="middle"> */}
+          <Row gutter={[32, 32]} align="middle">
             <Col xs={24} lg={12}>
               <div className="ceo-image-container">
                 <img src={CeoImage} alt="CEO" className="ceo-image" />
@@ -178,12 +182,17 @@ const AboutUsPage = () => {
       {/* Contact Section */}
       <section className="contact-section" ref={contactRef} id="contact-us">
         <div className="container">
-          <Row gutter={[48, 48]}>
+          <Row gutter={[32, 32]}>
             <Col xs={24} lg={12}>
-              <div className="contact-content">
-                <Title level={2}>Get in Touch</Title>
+              <div className="contact-content" id="contact-section">
+                <Title level={2}>
+                  <span className="contact-content-1">Contact Us</span> & We Can
+                  Work Together
+                </Title>
                 <Paragraph className="contact-intro">
-                  Ready to transform your business? Let's start a conversation.
+                  Have questions or need assistance? Reach out to us, and let's
+                  collaborate to achieve your goals. We're here to help you
+                  every step of the way.
                 </Paragraph>
 
                 {/* <div className="contact-info">
@@ -209,10 +218,13 @@ const AboutUsPage = () => {
                   className="contact-form"
                 >
                   <Form.Item
-                    name="username"
-                    label="Username"
+                    name="name"
+                    label="Full Name"
                     rules={[
-                      { required: true, message: "Please enter your name" },
+                      {
+                        required: true,
+                        message: "Please enter your full name",
+                      },
                     ]}
                   >
                     <Input size="large" placeholder="Your Name" />
@@ -230,7 +242,7 @@ const AboutUsPage = () => {
                   </Form.Item>
 
                   <Form.Item
-                    name="description"
+                    name="message"
                     label="Message"
                     rules={[
                       { required: true, message: "Please enter your message" },
@@ -251,7 +263,7 @@ const AboutUsPage = () => {
                       loading={loading}
                       className="submit-button"
                     >
-                      Send Message
+                      Submit
                     </Button>
                   </Form.Item>
                 </Form>
@@ -276,7 +288,8 @@ const AboutUsPage = () => {
       </section>
 
       <ScrollToTop />
-    </Layout>
+    </>
+    // </Layout>
   );
 };
 

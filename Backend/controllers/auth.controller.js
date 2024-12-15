@@ -94,6 +94,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     const resetPasswordLink = `http://localhost:5000/api/architecture-web-app/auth/reset-password?token=${token}`;
 
     const sentEmail = await EmailService.sendMail(
+      process.env.EMAIL_FROM,
       user.email,
       "OTP for Password Reset",
       `Click the link below to reset your password:\n\n${resetPasswordLink}`
@@ -123,6 +124,8 @@ const resetPassword = asyncHandler(async (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const { email, otp } = decoded;
 
+    console.log(email, otp);
+
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
@@ -148,6 +151,7 @@ const resetPassword = asyncHandler(async (req, res) => {
 
     res.status(200).json({ message: "Password reset successful" });
   } catch (error) {
+    console.log(error);
     return res.status(400).json({ message: "Invalid or expired token." });
   }
 });
@@ -177,7 +181,10 @@ const editProfile = asyncHandler(async (req, res) => {
   if (gender) updatedFields.gender = gender;
 
   if (req.file) {
-    updatedFields.profileImage = `/uploads/${req.file.filename}`;
+    if (user.profileImage) {
+      await deleteImage(testimonial.profileImage);
+    }
+    imageUrl = await uploadSingleImage(req.file.buffer, `profileImage_${id}`);
   }
 
   if (password || confirmPassword) {

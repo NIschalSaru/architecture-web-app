@@ -1,20 +1,30 @@
 const {
-  uploadAndStoreImageArray,
+  uploadSingleImage,
   deleteImage,
 } = require("../middleware/cloudinary.js");
 const Banner = require("../model/banner.js");
 const { asyncHandler } = require("../services/async.handler.js");
 
 const createOrUpdateBanner = asyncHandler(async (req, res) => {
-  const { imageUrl, heading, subHeading } = req.body;
+  const { heading, subHeading } = req.body;
+  let imagePath = null;
+  let title = `banner_${Date.now()}`;
 
   let result = await Banner.findOne();
 
+  if (req.file) {
+    if (result && result.imageUrl) {
+      await deleteImage(result.imageUrl);
+    }
+    imagePath = await uploadSingleImage(req.file.buffer, title);
+  }
+
   if (result) {
-    result.imageUrl = imageUrl;
     result.heading = heading;
     result.subHeading = subHeading;
-
+    if (imagePath) {
+      result.imageUrl = imagePath;
+    }
     await result.save();
     return res.status(200).json({
       message: "Banner updated successfully",
@@ -23,7 +33,7 @@ const createOrUpdateBanner = asyncHandler(async (req, res) => {
   }
 
   result = await Banner.create({
-    imageUrl,
+    imageUrl: imagePath,
     heading,
     subHeading,
   });
@@ -34,8 +44,20 @@ const createOrUpdateBanner = asyncHandler(async (req, res) => {
   });
 });
 
+const getBanner = asyncHandler(async (req, res) => {
+  const banner = await Banner.findOne();
+  if (banner) {
+    return res.status(200).json({ success: true, data: banner });
+  } else {
+    return res
+      .status(404)
+      .json({ success: false, message: "No recent banner found" });
+  }
+});
+
 module.exports = {
   createOrUpdateBanner,
+  getBanner,
 };
 
 // const getAllBanners = asyncHandler(async (req, res) => {
@@ -79,20 +101,6 @@ module.exports = {
 //   return res.status(update ? 200 : 400).json({
 //     message: update ? "Data updated successfully" : "Update failed",
 //   });
-// });
-
-// const getRecentBanner = asyncHandler(async (req, res) => {
-//   const recentBanner = await Banner.findOne({
-//     order: [["createdAt", "DESC"]],
-//   });
-
-//   if (recentBanner) {
-//     return res.status(200).json({ success: true, data: recentBanner });
-//   } else {
-//     return res
-//       .status(404)
-//       .json({ success: false, message: "No recent banner found" });
-//   }
 // });
 
 // const deleteBanner = async (req, res) => {

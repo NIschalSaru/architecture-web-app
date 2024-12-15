@@ -6,9 +6,7 @@ class ProtectRoute {
       console.log("Cookies: ", req.cookies);
       const token = req.cookies.authToken;
       if (!token) {
-        return res
-          .status(401)
-          .json({ message: "Unauthorized" });
+        return res.status(401).json({ message: "Unauthorized" });
       }
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);

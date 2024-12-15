@@ -18,12 +18,10 @@ module.exports = {
       imageUrl: {
         type: Sequelize.STRING,
       },
-
       title: {
         type: Sequelize.STRING,
         unique: true,
       },
-
       message: {
         type: Sequelize.STRING,
       },
