@@ -75,30 +75,29 @@ const updateTestimonial = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { rating, message, fullname, designation, title } = req.body;
   const testimonial = await Testimonial.findByPk(id);
+
   if (!testimonial) {
     return res
       .status(404)
       .json({ success: false, message: "Testimonial not found" });
   }
 
+  let imageUrl = testimonial.imageUrl;
   if (req.file) {
     if (testimonial.imageUrl) {
       await deleteImage(testimonial.imageUrl);
     }
-    const imageUrl = await uploadSingleImage(
-      req.file.buffer,
-      `testimonial_${id}`
-    );
-
-    await testimonial.update({
-      rating,
-      imageUrl,
-      message,
-      fullname,
-      designation,
-      title,
-    });
+    imageUrl = await uploadSingleImage(req.file.buffer, `testimonial_${id}`);
   }
+  await testimonial.update({
+    rating,
+    imageUrl,
+    message,
+    fullname,
+    designation,
+    title,
+  });
+
   return res.status(200).json({
     message: "Data updated successfully",
     data: {

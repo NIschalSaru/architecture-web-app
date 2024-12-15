@@ -12,7 +12,7 @@ const {
 } = require("../middleware/multer.middleware.js");
 
 router.post("/", ProtectRoute, upload.single("imageUrl"), createTestimonial);
-router.get("/", ProtectRoute, getAllTestimonials);
+router.get("/", getAllTestimonials);
 // router.get('/:id', getTestimonialById);
 router.put("/:id", ProtectRoute, upload.single("imageUrl"), updateTestimonial);
 router.delete("/:id", ProtectRoute, deleteTestimonial);

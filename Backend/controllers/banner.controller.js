@@ -44,8 +44,20 @@ const createOrUpdateBanner = asyncHandler(async (req, res) => {
   });
 });
 
+const getBanner = asyncHandler(async (req, res) => {
+  const banner = await Banner.findOne();
+  if (banner) {
+    return res.status(200).json({ success: true, data: banner });
+  } else {
+    return res
+      .status(404)
+      .json({ success: false, message: "No recent banner found" });
+  }
+});
+
 module.exports = {
   createOrUpdateBanner,
+  getBanner,
 };
 
 // const getAllBanners = asyncHandler(async (req, res) => {
@@ -89,20 +101,6 @@ module.exports = {
 //   return res.status(update ? 200 : 400).json({
 //     message: update ? "Data updated successfully" : "Update failed",
 //   });
-// });
-
-// const getRecentBanner = asyncHandler(async (req, res) => {
-//   const recentBanner = await Banner.findOne({
-//     order: [["createdAt", "DESC"]],
-//   });
-
-//   if (recentBanner) {
-//     return res.status(200).json({ success: true, data: recentBanner });
-//   } else {
-//     return res
-//       .status(404)
-//       .json({ success: false, message: "No recent banner found" });
-//   }
 // });
 
 // const deleteBanner = async (req, res) => {

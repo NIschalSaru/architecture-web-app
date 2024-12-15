@@ -28,10 +28,9 @@ sequelizeInstance
     console.error("Unable to connect to the database:", err.message);
     process.exit(1);
   });
-
-// app.use((err, req, res, next) => {
-//   console.error(err);
-//   res
-//     .status(500)
-//     .json({ success: false, message: err.message || "Internal Server Error" });
-// });
+app.use((err, req, res, next) => {
+  console.error(err);
+  res
+    .status(500)
+    .json({ success: false, message: err.message || "Internal Server Error" });
+});
