@@ -32,9 +32,18 @@ const generateAccessToken = async (userData, res) => {
   return token;
 };
 
+const generateResetPasswordToken = async (email, otp) => {
+  const token = jwt.sign({ email, otp }, process.env.JWT_SECRET, {
+    expiresIn: "10m",
+  });
+
+  return token;
+};
+
 module.exports = {
   hashPassword,
   comparePassword,
   resetPasswordOtp,
   generateAccessToken,
+  generateResetPasswordToken,
 };
