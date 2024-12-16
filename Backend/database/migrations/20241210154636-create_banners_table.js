@@ -1,0 +1,36 @@
+"use strict";
+
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable("Banners", {
+      id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      imageUrl: {
+        type: Sequelize.STRING,
+      },
+      heading: {
+        type: Sequelize.STRING,
+      },
+      subHeading: {
+        type: Sequelize.STRING,
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+      },
+      deletedAt: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
+    });
+  },
+
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable("Banners");
+  },
+};
