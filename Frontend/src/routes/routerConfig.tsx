@@ -7,19 +7,21 @@ import PageNotFound from "../pages/page-not-found";
 import Home from "../pages/home";
 import LoginPage from "../pages/auth/login";
 import Services from "../pages/Service/index";
+import Projects from "../pages/projects";
 
 const RouteConfig = () => {
-    // console.log(isAuthenticated());
+  // console.log(isAuthenticated());
   return (
     <Suspense fallback="Loading...">
       <Routes>
-         <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
         {/*<Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/changePassword" element={<ChangePasswordPage />} /> */}
 
         <Route path="/" element={<FrontContainer />}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutUsPage />} />
+          <Route path="/projects" element={<Projects />} />
           <Route path="/services" element={<Services />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
@@ -42,7 +44,7 @@ const RouteConfig = () => {
             <Route path="*" element={<Navigate to="/admin/banner" replace />} />
           </Route>
         </Route> */}
-        <Route path="/page-not-found" element={<PageNotFound/>} />
+        <Route path="/page-not-found" element={<PageNotFound />} />
       </Routes>
     </Suspense>
   );

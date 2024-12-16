@@ -1,0 +1,84 @@
+/* Projects.css */
+
+.project-area {
+  padding: 60px 0;
+}
+
+.header-content {
+  text-align: center;
+}
+
+.page-title {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.breadcrumb {
+  font-size: 16px;
+}
+
+.breadcrumb a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.breadcrumb .separator {
+  margin: 0 5px;
+}
+
+.filters ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.filters ul li {
+  cursor: pointer;
+  padding: 8px 15px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+}
+
+.filters ul li.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.filters-content .grid-item {
+  margin-bottom: 30px;
+}
+
+.single-project {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.thumb img {
+  width: 100%;
+  height: auto;
+}
+
+.middle {
+  padding: 20px;
+  background-color: #fff;
+}
+
+.middle h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.middle .cat {
+  color: #666;
+}
+
+.single-project:hover .overlay {
+  display: block;
+}
+
+.overlay a {
+  display: block;
+  height: 100%;
+}
