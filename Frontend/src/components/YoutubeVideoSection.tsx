@@ -1,17 +1,11 @@
 import React, { useCallback, useState } from "react";
-import { Row, Col, Button, Modal } from "antd";
+import { Row, Col, Modal, Button } from "antd";
 import { PlayCircleOutlined } from "@ant-design/icons";
+import { Building2, Trophy, Award } from "lucide-react";
 import { motion } from "framer-motion";
-import "../assets/scss/components/_youtubeVideoSection.scss";
 import thumnbnail from "../assets/images/Img1.jpg";
-import backgroundImg from "../assets/images/Outlined1.jpg";
-
-interface CounterItemProps {
-  number: number;
-  title: string;
-  text: string;
-  delay?: number;
-}
+import bgImg from "../assets/images/Outlined3.png";
+// import "../assets/scss/components/_youtubeVideoSection.scss";
 
 interface VideoModalProps {
   isOpen: boolean;
@@ -19,11 +13,7 @@ interface VideoModalProps {
   videoId: string;
 }
 
-const VideoModal: React.FC<VideoModalProps> = ({
-  isOpen,
-  onClose,
-  videoId,
-}) => (
+const VideoModal: React.FC<VideoModalProps> = ({ isOpen, onClose, videoId }) => (
   <Modal
     open={isOpen}
     onCancel={onClose}
@@ -45,62 +35,41 @@ const VideoModal: React.FC<VideoModalProps> = ({
   </Modal>
 );
 
-const CounterItem: React.FC<CounterItemProps> = ({
-  number,
-  title,
-  text,
-  delay = 0,
-}) => {
-  return (
-    <motion.div
-      className="youtube-section__counter"
-      initial={{ opacity: 0, x: 20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.6, delay }}
-      viewport={{ once: true }}
-    >
-      <div className="youtube-section__counter-number">{number}</div>
-      <h6 className="youtube-section__counter-title">{title}</h6>
-      <div className="youtube-section__counter-text">{text}</div>
-    </motion.div>
-  );
-};
-
 const YouTubeVideoSection: React.FC = () => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const videoId = "KYu3Xtjd7J4";
 
-  // Handle mouse movement
   const handleMouseMove = useCallback(
     (e: { currentTarget: any; clientX: number; clientY: number }) => {
       const container = e.currentTarget;
       const { left, top, width, height } = container.getBoundingClientRect();
-
-      // Calculate mouse position relative to container center
       const x = (e.clientX - left) / width - 0.5;
       const y = (e.clientY - top) / height - 0.5;
-
       setMousePosition({ x, y });
     },
     []
   );
-  const counterData = [
-    {
-      number: 7,
-      title: "Years",
-      text: "We have been working in the industry since 2011.",
+
+  const statsData = [
+    { 
+      icon: Building2, 
+      number: 7, 
+      title: "Years", 
+      description: "We have been working in the industry since 2011." 
     },
-    {
-      number: 54,
-      title: "Projects",
-      text: "To this day, we have designed 54 residential projects.",
+    { 
+      icon: Trophy, 
+      number: 54, 
+      title: "Projects", 
+      description: "To this day, we have designed 54 residential projects." 
     },
-    {
-      number: 11,
-      title: "Awards",
-      text: "Spectrum has been awarded for creativity many times.",
-    },
+    { 
+      icon: Award, 
+      number: 11, 
+      title: "Awards", 
+      description: "Spectrum has been awarded for creativity many times." 
+    }
   ];
 
   return (
@@ -141,7 +110,6 @@ const YouTubeVideoSection: React.FC = () => {
                 onClick={() => setIsVideoModalOpen(true)}
               >
                 <img
-                  // src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
                   src={thumnbnail}
                   alt="Nepal Desingers and Developers"
                   className="youtube-section__video-thumbnail"
@@ -154,15 +122,27 @@ const YouTubeVideoSection: React.FC = () => {
           </Col>
 
           <Col md={8} lg={6}>
-            <div style={{ marginTop: 70 }}>
-              {counterData.map((item, index) => (
-                <CounterItem
+            <div className="youtube-section__stats">
+              {statsData.map((stat, index) => (
+                <motion.div
                   key={index}
-                  number={item.number}
-                  title={item.title}
-                  text={item.text}
-                  delay={index * 0.1}
-                />
+                  className="youtube-section__stat-card"
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="youtube-section__stat-icon">
+                    <stat.icon />
+                  </div>
+                  <div className="youtube-section__stat-content">
+                    <div className="youtube-section__stat-header">
+                      <span className="youtube-section__stat-number">{stat.number}</span>
+                      <span className="youtube-section__stat-title">{stat.title}</span>
+                    </div>
+                    <p className="youtube-section__stat-description">{stat.description}</p>
+                  </div>
+                </motion.div>
               ))}
 
               <motion.div
@@ -171,50 +151,33 @@ const YouTubeVideoSection: React.FC = () => {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 viewport={{ once: true }}
               >
-                <Button
-                  type="primary"
-                  className="youtube-section__contact-button"
-                >
-                  Contact Us
+                <Button type="primary" className="youtube-section__contact-button">
+                  <a href="#home-contact" target="_self">
+                    Contact Us
+                  </a>
                 </Button>
               </motion.div>
             </div>
           </Col>
         </Row>
       </div>
+
       <div
         className="youtube-section__background"
         style={{
           transform: `translate(-50%, -50%) 
-                     translate(${mousePosition.x * 30}px, ${
-            mousePosition.y * 30
-          }px)`,
+                     translate(${mousePosition.x * 30}px, ${mousePosition.y * 30}px)`,
         }}
       >
         <img
-          src={backgroundImg}
+          src={bgImg}
           alt="Background decoration"
           style={{
             transform: `scale(1.1) 
-                       translate(${mousePosition.x * -20}px, ${
-              mousePosition.y * -20
-            }px)`,
+                       translate(${mousePosition.x * -20}px, ${mousePosition.y * -20}px)`,
           }}
         />
       </div>
-      {/* <motion.div
-        className="youtube-section__background"
-        initial={{ opacity: 0, x: 50 }}
-        whileInView={{ opacity: 0.1, x: 0 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true }}
-      >
-        <img
-          // src="/api/placeholder/853/574"
-          src={backgroundImg}
-          alt="Background decoration"
-        />
-      </motion.div> */}
 
       <VideoModal
         isOpen={isVideoModalOpen}

@@ -16,18 +16,18 @@
   // Updated background styling to match YouTube section
   &__background {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 60%;
+    left: 55%;
     transform: translate(-50%, -50%);
-    opacity: 0.14;
+    opacity: 0.15;
     z-index: 0;
     pointer-events: none;
     width: 90%;
-    height: 90%;
-    transition: transform 0.6s ease-out;
+    height: 80%;
+    transition: transform 0.4s ease-out;
 
     img {
-      width: 80%;
+      width: 90%;
       height: 90%;
       object-fit: contain;
       object-position: center;
