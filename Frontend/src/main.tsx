@@ -12,13 +12,6 @@ import 'swiper/css/bundle';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-// createRoot(document.getElementById("root")!).render(
-//   <ConfigProvider theme={ANT_CONFIG}>
-//     <BrowserRouter>
-//       <App />
-//     </BrowserRouter>
-//   </ConfigProvider>
-// );
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ConfigProvider theme={ANT_CONFIG}>
     <BrowserRouter>
