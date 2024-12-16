@@ -1,0 +1,319 @@
+// Design Variables
+$color-primary: #002E63;       // Deep navy blue
+$color-secondary: #0047AB;     // Muted slate blue
+$color-accent: #D90429;        // Gold accent
+$color-background: #F4F6F9;    // Soft light blue-gray
+$color-text-primary: #1A2B3C;
+$color-text-secondary: #4A5F73;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin transition-smooth {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+// Architectural Expertise Styles
+.architectural-expertise {
+  background-color: $color-background;
+  padding: 6rem 0;
+  overflow: hidden;
+
+  &__container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 2.75rem;
+    color: $color-primary;
+    margin-bottom: 4rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 3px;
+      background-color: $color-accent;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.expertise-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 2.5rem;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(50, 50, 93, 0.08);
+  @include transition-smooth;
+
+  &:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 20px 45px rgba(50, 50, 93, 0.12);
+  }
+
+  &__icon {
+    @include flex-center;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: rgba($color-accent, 0.1);
+    margin: 0 auto 1.5rem;
+    color: $color-accent;
+  }
+
+  &__title {
+    font-size: 1.6rem;
+    color: $color-primary;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+  }
+
+  &__description {
+    color: $color-text-secondary;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  &__details {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+
+    li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: $color-text-secondary;
+
+      &::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        color: $color-accent;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+// Responsive Adjustments
+@media (max-width: 768px) {
+  .architectural-expertise {
+    &__title {
+      font-size: 2.25rem;
+    }
+  }
+
+  .expertise-card {
+    padding: 2rem;
+
+    &__icon {
+      width: 100px;
+      height: 100px;
+    }
+  }
+}
+
+
+
+
+
+
+// .why-us-section {
+//     padding: 120px 0;
+//     background-color: #fafafa;
+//     position: relative;
+//     overflow: hidden;
+  
+//     &::before {
+//       content: '';
+//       position: absolute;
+//       top: 0;
+//       left: 0;
+//       right: 0;
+//       height: 1px;
+//       background: linear-gradient(90deg, 
+//         rgba(0,0,0,0) 0%,
+//         rgba(0,0,0,0.1) 50%,
+//         rgba(0,0,0,0) 100%);
+//     }
+//   }
+  
+//   .why-us-container {
+//     max-width: 1440px;
+//     margin: 0 auto;
+//     padding: 0 48px;
+//   }
+  
+//   .section-header {
+//     text-align: center;
+//     margin-bottom: 80px;
+    
+//     .overline {
+//       font-size: 14px;
+//       text-transform: uppercase;
+//       letter-spacing: 3px;
+//       color: #666;
+//       display: block;
+//       margin-bottom: 16px;
+//     }
+  
+//     h2 {
+//       font-size: 48px;
+//       font-weight: 300;
+//       color: #111;
+//       margin-bottom: 24px;
+//       font-family: 'Times New Roman', serif;
+//     }
+  
+//     .subtitle {
+//       font-size: 18px;
+//       color: #666;
+//       max-width: 600px;
+//       margin: 0 auto;
+//       line-height: 1.6;
+//     }
+//   }
+  
+//   .features-grid {
+//     display: grid;
+//     grid-template-columns: repeat(3, 1fr);
+//     gap: 28px;
+//     position: relative;
+  
+//     @media (max-width: 1024px) {
+//       grid-template-columns: repeat(2, 1fr);
+//     }
+  
+//     @media (max-width: 768px) {
+//       grid-template-columns: 1fr;
+//     }
+//   }
+  
+//   .feature-card {
+//     opacity: 0;
+//     transform: translateY(30px);
+//     transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+    
+//     &.animate {
+//       opacity: 1;
+//       transform: translateY(0);
+//     }
+  
+//     &:nth-child(2) {
+//       transition-delay: 0.2s;
+//     }
+  
+//     &:nth-child(3) {
+//       transition-delay: 0.4s;
+//     }
+//   }
+  
+//   .feature-content {
+//     background: white;
+//     padding: 48px;
+//     border: 1px solid rgba(0,0,0,0.08);
+//     height: 100%;
+//     position: relative;
+//     transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+//     &:hover {
+//       transform: translateY(-8px);
+//       box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  
+//       .icon-container {
+//         transform: translateY(-5px);
+//       }
+//     }
+  
+//     h3 {
+//       font-size: 24px;
+//       color: #111;
+//       margin: 24px 0 16px;
+//       font-weight: 500;
+//     }
+  
+//     p {
+//       font-size: 16px;
+//       line-height: 1.8;
+//       color: #666;
+//       margin-bottom: 32px;
+//     }
+//   }
+  
+//   .icon-container {
+//     width: 64px;
+//     height: 64px;
+//     transition: transform 0.3s ease;
+  
+//     .feature-icon {
+//       width: 100%;
+//       height: 100%;
+//       stroke: #111;
+//     }
+//   }
+  
+//   .stats {
+//     border-top: 1px solid rgba(0,0,0,0.08);
+//     padding-top: 24px;
+//     display: flex;
+//     flex-direction: column;
+//     gap: 4px;
+  
+//     .stat-value {
+//       font-size: 32px;
+//       font-weight: 300;
+//       color: #111;
+//       font-family: 'Times New Roman', serif;
+//     }
+  
+//     .stat-label {
+//       font-size: 14px;
+//       color: #666;
+//       text-transform: uppercase;
+//       letter-spacing: 1px;
+//     }
+//   }
+  
+//   @media (max-width: 768px) {
+//     .why-us-section {
+//       padding: 80px 0;
+//     }
+  
+//     .why-us-container {
+//       padding: 0 24px;
+//     }
+  
+//     .section-header {
+//       h2 {
+//         font-size: 36px;
+//       }
+//     }
+  
+//     .feature-content {
+//       padding: 32px;
+//     }
+//   }
