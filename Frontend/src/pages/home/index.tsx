@@ -7,6 +7,7 @@ import YoutubeVideoSection from "../../components/YoutubeVideoSection.tsx";
 import TestimonialSlider from "../../components/Testimonial.tsx";
 import ProjectsSection from "../../components/ProjectsSection.tsx";
 import Services from "./services.tsx";
+import WhyUs from "../../components/WhyUs.tsx";
 
 const Home = () => {
   // const { Title } = Typography;
@@ -25,6 +26,10 @@ const Home = () => {
 
       <Layout>
         <ProjectsSection />
+      </Layout>
+      
+      <Layout>
+        <WhyUs />
       </Layout>
 
       <Layout>
