@@ -3,14 +3,15 @@ const { sequelizeInstance } = require("./database/databaseConnection.js");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const mainRoutes = require("./routes");
-
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
+const corsOptions = require("./services/corsOptions");
 
-app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors(corsOptions));
+app.use(cookieParser());
 
 app.use("/api/architecture-web-app", mainRoutes);
 
