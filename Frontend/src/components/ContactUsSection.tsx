@@ -1,15 +1,16 @@
 import React, { useState, useCallback } from "react";
 import { Form, Input, Button, Row, Col } from "antd";
 import "../assets/scss/components/_contactUsSection.scss";
-import MiddleImage from "../assets/images/Outlined1.jpg";
+import bgImage from "../assets/images/Outlined3.png";
 import "linearicons/dist/web-font/style.css";
-import ApartmentIcon from "../assets/svg/lnr-apartment.svg";
-import PenIcon from "../assets/svg/penIcon.svg";
-import BulbIcon from "../assets/svg/lightbulbIcon.svg";
+import ApartmentIcon from "../assets/svg/apt.svg";
+import PenIcon from "../assets/svg/pen.svg";
+import BulbIcon from "../assets/svg/bulb.svg";
 
 const ContactUsSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { TextArea } = Input;
+    // const contactRef = useRef(null);
   // Updated mouse move handler to match YouTube section
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
@@ -30,7 +31,7 @@ const ContactUsSection: React.FC = () => {
   };
 
   return (
-    <section className="architecture-section" onMouseMove={handleMouseMove}>
+    <section className="architecture-section" onMouseMove={handleMouseMove} id='home-contact'>
       <div className="container">
         <Row
           gutter={[50, 50]}
@@ -146,7 +147,7 @@ const ContactUsSection: React.FC = () => {
         }}
       >
         <img
-          src={MiddleImage}
+          src={bgImage}
           alt="Background decoration"
           style={{
             transform: `scale(1.1) translate(${mousePosition.x * -20}px, ${
