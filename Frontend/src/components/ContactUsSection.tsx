@@ -3,9 +3,9 @@ import { Form, Input, Button, Row, Col } from "antd";
 import "../assets/scss/components/_contactUsSection.scss";
 import bgImage from "../assets/images/Outlined3.png";
 import "linearicons/dist/web-font/style.css";
-import ApartmentIcon from "../assets/svg/lnr-apartment.svg";
-import PenIcon from "../assets/svg/penIcon.svg";
-import BulbIcon from "../assets/svg/lightbulbIcon.svg";
+import ApartmentIcon from "../assets/svg/apt.svg";
+import PenIcon from "../assets/svg/pen.svg";
+import BulbIcon from "../assets/svg/bulb.svg";
 
 const ContactUsSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
