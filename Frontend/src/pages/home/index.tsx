@@ -19,19 +19,15 @@ const Home = () => {
       <Layout>
         <YoutubeVideoSection />
       </Layout>
-
-      <Layout>
-        <TestimonialSlider />
-      </Layout>
-
-      <Layout>
-        <ProjectsSection />
-      </Layout>
-      
       <Layout>
         <WhyUs />
       </Layout>
-
+      {/* <Layout>
+        <ProjectsSection />
+      </Layout> */}
+      <Layout>
+        <TestimonialSlider />
+      </Layout>
       <Layout>
         <ContactUsSection />
       </Layout>

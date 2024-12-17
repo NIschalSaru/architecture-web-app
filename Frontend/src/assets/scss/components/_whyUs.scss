@@ -31,7 +31,7 @@ $color-text-secondary: #4A5F73;
 
   &__title {
     text-align: center;
-    font-size: 2.75rem;
+    font-size: 2.125rem;
     color: $color-primary;
     margin-bottom: 4rem;
     font-weight: 600;
@@ -76,8 +76,8 @@ $color-text-secondary: #4A5F73;
 
   &__icon {
     @include flex-center;
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     background-color: rgba($color-accent, 0.1);
     margin: 0 auto 1.5rem;
@@ -85,7 +85,7 @@ $color-text-secondary: #4A5F73;
   }
 
   &__title {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     color: $color-primary;
     margin-bottom: 1.25rem;
     font-weight: 600;

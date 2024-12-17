@@ -147,7 +147,7 @@ const NavbarComponent: React.FC = () => {
               ) : (
                 <Link to="/login">
                   <Button size="large" ghost>
-                    "navigation.login"
+                    login
                   </Button>
                 </Link>
               )}

@@ -12,31 +12,31 @@ const WhyUs: React.FC<WhyChooseUsProps> = ({ className }) => {
       icon: <Palette size={56} strokeWidth={1.5} />,
       title: 'Visionary Design Philosophy',
       description: 'We transcend traditional architectural boundaries, crafting spaces that are not just structures, but narratives of innovation, cultural context, and human experience.',
-      details: [
-        'Integrated design approach',
+      // details: [
+      //   'Integrated design approach',
         // 'Contextual architectural solutions',
         // 'Unique spatial storytelling'
-      ]
+      // ]
     },
     {
       icon: <Building size={56} strokeWidth={1.5} />,
       title: 'Precision Engineering & Sustainability',
       description: 'Combining cutting-edge technological precision with sustainable design principles, we create environmentally responsible architectures that harmonize with their surroundings.',
-      details: [
-        'Advanced computational design',
+      // details: [
+      //   'Advanced computational design',
         // 'Green building certifications',
         // 'Energy-efficient solutions'
-      ]
+      // ]
     },
     {
       icon: <Globe size={56} strokeWidth={1.5} />,
       title: 'Global Perspective, Local Sensitivity',
       description: 'Our global design expertise is balanced with a deep understanding of local architectural traditions, cultural nuances, and site-specific environmental considerations.',
-      details: [
-        'International design portfolio',
+      // details: [
+      //   'International design portfolio',
         // 'Contextual architectural research',
         // 'Adaptive design strategies'
-      ]
+      // ]
     }
   ];
 
@@ -69,11 +69,11 @@ const WhyUs: React.FC<WhyChooseUsProps> = ({ className }) => {
               </div>
               <h3 className="expertise-card__title">{area.title}</h3>
               <p className="expertise-card__description">{area.description}</p>
-              <ul className="expertise-card__details">
+              {/* <ul className="expertise-card__details">
                 {area.details.map((detail) => (
                   <li key={detail}>{detail}</li>
                 ))}
-              </ul>
+              </ul> */}
             </motion.div>
           ))}
         </div>
