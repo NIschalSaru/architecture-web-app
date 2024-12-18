@@ -8,9 +8,8 @@ import { BrowserRouter } from "react-router-dom";
 // import "./index.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import 'swiper/css/bundle';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+import 'swiper/swiper-bundle.css';
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ConfigProvider theme={ANT_CONFIG}>
