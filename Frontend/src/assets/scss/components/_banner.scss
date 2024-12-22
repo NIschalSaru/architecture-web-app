@@ -82,7 +82,7 @@
   }
 
   .side-button {
-    position: absolute;
+    position: fixed;
     top: 50%;
     right: -40px;
     transform: translateY(-50%) rotate(270deg);
@@ -103,3 +103,153 @@
     }
   }
 }
+
+// Add styles for the drawer
+.booking-drawer {
+  .ant-drawer-header {
+    background-color: #262262;
+    .ant-drawer-title {
+      color: white;
+      font-weight: 600;
+    }
+    .ant-drawer-close {
+      color: white;
+    }
+  }
+
+  .ant-form {
+    .ant-form-item-label > label {
+      font-weight: 500;
+    }
+    
+    .ant-input, .ant-input-textarea {
+      border-radius: 4px;
+      &:focus, &:hover {
+        border-color: #262262;
+      }
+    }
+
+    .ant-btn-primary {
+      background-color: #262262;
+      border: none;
+      height: 40px;
+      font-weight: 600;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: #be1e2d;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+// .banner {
+//   height: 100vh;
+//   position: relative;
+
+//   @media (max-width: 767px) {
+//     height: 60vh;
+//   }
+
+//   &::after {
+//     content: "";
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+//     background: linear-gradient(
+//       to right,
+//       rgba(97, 97, 97, 0.4),
+//       rgba(0, 0, 0, 0.6)
+//     );
+//     z-index: 1;
+//   }
+
+//   img {
+//     width: 100%;
+//     height: 100%;
+//     object-fit: cover;
+//     position: absolute;
+//   }
+
+//   .banner-info {
+//     z-index: 2;
+//     position: relative;
+//     padding-top: 30%;
+
+//     h3 {
+//       font-size: 58px;
+//       color: #fff;
+//       margin-bottom: 18px;
+//       text-transform: capitalize;
+//       font-weight: 700;
+
+//       @media (max-width: 767px) {
+//         font-size: 30px;
+//       }
+//     }
+
+//     &--text {
+//       display: flex;
+//       align-items: center;
+//       gap: 8px;
+//       font-size: 22px;
+//       color: #fff;
+//       font-weight: bolder;
+//     }
+
+//     button {
+//       margin-top: 30px;
+//       border: 2px solid #fff;
+//       border-radius: 50px;
+//       height: auto;
+//       display: block;
+//       font-weight: 600;
+//       background-color: transparent;
+//       color: #fff;
+//     }
+//   }
+
+//   .text-blue {
+//     color: #262262;
+//   }
+
+//   .text-red {
+//     color: #be1e2d;
+//   }
+
+//   .dot {
+//     width: 8px;
+//     height: 8px;
+//     background-color: #be1e2d;
+//     border-radius: 50%;
+//   }
+
+//   .side-button {
+//     position: absolute;
+//     top: 50%;
+//     right: -40px;
+//     transform: translateY(-50%) rotate(270deg);
+//     transform-origin: center;
+//     background-color: #262262;
+//     color: #ffffff;
+//     border: 2px solid #ffffff;
+//     border-top-left-radius: 0px;
+//     border-top-right-radius: 0px;
+//     padding: 10px 20px;
+//     font-weight: bold;
+//     z-index: 3;
+//     transition: all 0.3s;
+
+//     &:hover {
+//       background-color: #be1e2d;
+//       color: #ffffff;
+//     }
+//   }
+// }
