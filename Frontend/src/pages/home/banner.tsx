@@ -1,6 +1,7 @@
 import { Button, Typography, Form, Input, Drawer } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Phone, Mail, User, MessageSquare } from 'lucide-react';
 import bannerImg from "../../assets/images/banner.jpg";
 
 const BannerComponent = () => {
@@ -41,7 +42,7 @@ const BannerComponent = () => {
             </Button>
           </div>
         </div>  
-        {/* Side Button */}
+        
         <Button
           className="side-button"
           onClick={() => setIsDrawerOpen(true)}
@@ -50,35 +51,47 @@ const BannerComponent = () => {
         </Button>
 
         <Drawer
-          title="Book a Consultation"
+          title={
+            <div className="drawer-title">
+              {/* <span className="drawer-dot"></span> */}
+              Book a Consultation
+            </div>
+          }
           placement="right"
           onClose={() => setIsDrawerOpen(false)}
           open={isDrawerOpen}
-          width={400}
+          width={420}
           className="booking-drawer"
         >
           <Form
             form={form}
             layout="vertical"
             onFinish={handleSubmit}
+            className="consultation-form"
           >
             <Form.Item
               name="name"
               label="Full Name"
               rules={[{ required: true, message: 'Please enter your name' }]}
             >
-              <Input placeholder="Enter your full name" />
+              <Input 
+                prefix={<User className="form-icon" />}
+                placeholder="Enter your full name"
+              />
             </Form.Item>
 
             <Form.Item
               name="email"
-              label="Email"
+              label="Email Address"
               rules={[
                 { required: true, message: 'Please enter your email' },
                 { type: 'email', message: 'Please enter a valid email' }
               ]}
             >
-              <Input placeholder="Enter your email" />
+              <Input 
+                prefix={<Mail className="form-icon" />}
+                placeholder="Enter your email address"
+              />
             </Form.Item>
 
             <Form.Item
@@ -86,22 +99,26 @@ const BannerComponent = () => {
               label="Phone Number"
               rules={[{ required: true, message: 'Please enter your phone number' }]}
             >
-              <Input placeholder="Enter your phone number" />
+              <Input 
+                prefix={<Phone className="form-icon" />}
+                placeholder="Enter your phone number"
+              />
             </Form.Item>
 
             <Form.Item
               name="message"
               label="Message"
+              rules={[{ required: true, message: 'Please enter your Message' }]}
             >
               <Input.TextArea 
-                placeholder="Tell us about your project"
+                placeholder="Tell us about your project requirements"
                 rows={4}
               />
             </Form.Item>
 
-            <Form.Item>
+            <Form.Item className="submit-button">
               <Button type="primary" htmlType="submit" block>
-                Submit Request
+                Submit
               </Button>
             </Form.Item>
           </Form>
