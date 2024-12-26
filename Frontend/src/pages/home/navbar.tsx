@@ -123,7 +123,7 @@ const NavbarComponent: React.FC = () => {
               ) : (
                 <Link to="/login">
                   <Button size="large" ghost>
-                    Login
+                    Get in Touch
                   </Button>
                 </Link>
               )}

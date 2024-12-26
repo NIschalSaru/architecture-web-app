@@ -1,4 +1,5 @@
 import img from "../../assets/images/banner.jpg";
+import ScrollToTop from "../../components/ScrollToTop";
 
 // interface ServiceItem {
 //     title: string;
@@ -82,6 +83,7 @@ const Services = () => {
             </div>
           ))}
         </div>
+        <ScrollToTop/>
       </section>
     </>
   );
