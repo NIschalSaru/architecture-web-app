@@ -6,6 +6,8 @@ import { Typography } from 'antd';
 import { faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons';
 import useGetAPI from '../hooks/useGetAPI';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import LoadingSpinner from './LoadingSpinner';
+
 
 const TestimonialSlider: React.FC = () => {
   const { data: testimonials, loading, error } = useGetAPI<{ 
@@ -39,8 +41,12 @@ const TestimonialSlider: React.FC = () => {
     );
   };
 
-  if (loading) return <p>Loading testimonials...</p>;
-  if (error) return <p>Error loading testimonials: {error}</p>;
+  if (loading) return <LoadingSpinner />;
+  if (error) return (
+    <div className="error-container">
+      <p className="error-message">Error loading testimonials: {error}</p>
+    </div>
+  );
 
   return (
     <div className="testimonial-section">
