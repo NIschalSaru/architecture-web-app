@@ -111,7 +111,8 @@ $gray-text: #6c757d;
     top: 1rem;
     left: 1rem;
     color: $primary-color;
-    opacity: 0.1;
+    opacity: 1;
+    fill: $primary-color;
   }
 
   .testimonial-avatar {
@@ -132,7 +133,7 @@ $gray-text: #6c757d;
   .testimonial-rating {
     color: #ffc107;
     margin-bottom: 1rem;
-    font-size: 1.5rem;
+    font-size: 1.125rem;
   }
 
   .testimonial-text {
