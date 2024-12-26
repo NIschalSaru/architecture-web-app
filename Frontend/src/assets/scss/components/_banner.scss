@@ -1,6 +1,6 @@
 // Variables
-$primary-color: #262262;
-$secondary-color: #be1e2d;
+// $primary-color: #be1e2d;
+// $secondary-color: #262262;
 $white: #ffffff;
 
 .banner {
@@ -70,24 +70,24 @@ $white: #ffffff;
       color: $white;
       
       &:hover {
-        background-color: $secondary-color;
-        border-color: $secondary-color;
+        background-color: $secondary;
+        border-color: $secondary;
       }
     }
   }
 
   .text-blue {
-    color: $primary-color;
+    color: $secondary;
   }
 
   .text-red {
-    color: $secondary-color;
+    color: $primary;
   }
 
   .dot {
     width: 8px;
     height: 8px;
-    background-color: $secondary-color;
+    background-color: $secondary;
     border-radius: 50%;
   }
 
@@ -97,7 +97,7 @@ $white: #ffffff;
     right: -40px;
     transform: translateY(-50%) rotate(270deg);
     transform-origin: center;
-    background-color: $primary-color;
+    background-color: $secondary;
     color: $white;
     border: 2px solid $white;
     border-top-left-radius: 0;
@@ -108,7 +108,7 @@ $white: #ffffff;
     transition: all 0.3s;
 
     &:hover {
-      background-color: $secondary-color;
+      background-color: $primary;
       border-color: $white;
       color: $white;
       right: -38px;
@@ -118,7 +118,7 @@ $white: #ffffff;
 
 .booking-drawer {
   .ant-drawer-header {
-    background: linear-gradient(135deg, $primary-color, darken($primary-color, 10%));
+    background: linear-gradient(135deg, $secondary, darken($secondary, 10%));
     padding: 24px;
     border-bottom: 1px solid rgba($white, 0.1);
 
@@ -134,7 +134,7 @@ $white: #ffffff;
       
       &:hover {
         transform: rotate(90deg);
-        color: $secondary-color;
+        color: $secondary;
       }
     }
   }
@@ -167,8 +167,8 @@ $white: #ffffff;
       transition: all 0.3s;
 
       &:hover, &:focus, &-focused {
-        border-color: $primary-color;
-        box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+        border-color: $primary;
+        box-shadow: 0 0 0 2px rgba($primary, 0.1);
       }
 
       .form-icon {
@@ -194,8 +194,8 @@ $white: #ffffff;
         min-height: 100px;
         
         &:hover, &:focus {
-          border-color: $primary-color;
-          box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+          border-color: $primary;
+          box-shadow: 0 0 0 2px rgba($primary, 0.1);
         }
       }
     }
@@ -207,13 +207,13 @@ $white: #ffffff;
         height: 45px;
         font-size: 16px;
         font-weight: 600;
-        background-color: $primary-color;
+        background-color: $secondary;
         border: none;
         border-radius: 4px;
         transition: all 0.3s;
 
         &:hover {
-          background-color: $secondary-color;
+          background-color: $secondary;
         }
       }
     }
@@ -227,8 +227,6 @@ $white: #ffffff;
     }
   }
 }
-
-
 
 
 

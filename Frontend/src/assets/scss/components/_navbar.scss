@@ -1,12 +1,12 @@
 // Variables
-$primary: #262262;
-$secondary: #be1e2d;
+// $primary: #be1e2d;
+// $secondary: #262262;
 $white: #ffffff;
 $black: #000000;
 
 // Top Bar Styles
 .top-bar {
-  background: $primary;
+  background: $secondary;
   padding: 10px 0;
   color: $white;
 
@@ -39,7 +39,7 @@ $black: #000000;
       gap: 5px;
 
       &:hover {
-        color: $secondary;
+        color: $primary;
       }
 
       .anticon {
@@ -128,7 +128,7 @@ $black: #000000;
         transition: color 0.3s ease;
 
         &:hover {
-          color: $secondary;
+          color: $primary;
         }
       }
 
