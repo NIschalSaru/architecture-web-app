@@ -1,4 +1,5 @@
 import { useState } from "react";
+import InnerHeader from "../../components/InnerHeader";
 
 // Define the Project type
 interface Project {
@@ -114,16 +115,7 @@ const Projects = () => {
 
   return (
     <>
-      <div className="inner-header">
-        <div className="header-content">
-          <h1 className="page-title">PROJECTS</h1>
-          <div className="breadcrumb">
-            <a href="/">HOME</a>
-            <span className="separator">/</span>
-            <span className="current">PROJECTS</span>
-          </div>
-        </div>
-      </div>
+      <InnerHeader title="PROJECTS" currentPage="PROJECTS" />
       <section className="project-area section-gap-top" id="project">
         <div className="container">
           <div className="row d-flex justify-content-center">

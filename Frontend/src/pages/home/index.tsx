@@ -8,12 +8,14 @@ import TestimonialSlider from "../../components/Testimonial.tsx";
 // import ProjectsSection from "../../components/ProjectsSection.tsx";
 import Services from "./services.tsx";
 import WhyUs from "../../components/WhyUs.tsx";
+// import LoadingSpinner from '../../components/LoadingSpinner.tsx';
 
 const Home = () => {
   // const { Title } = Typography;
-
+  // if (loading) return <LoadingSpinner />;
   return (
     <>
+      {/* <LoadingSpinner /> */}
       <BannerComponent />
       <Services/>
       <Layout>

@@ -18,7 +18,7 @@ const TestimonialSlider: React.FC = () => {
     message: string; 
     fullname: string; 
     designation: string;
-  }[]>("http://localhost:5000/api/architecture-web-app/testimonial");
+  }[]>("architecture-web-app/testimonial");
 
   // Function to render star rating
   const renderStarRating = (rating: number) => {

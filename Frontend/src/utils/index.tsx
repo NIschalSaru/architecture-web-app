@@ -1,17 +1,17 @@
-import type { GetProp, UploadProps } from 'antd';
+// import type { GetProp, UploadProps } from 'antd';
 import { NavigateFunction } from 'react-router-dom';
 
-type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
+// type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
-export const getBase64 = (file: FileType): Promise<string> =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error);
-  });
+// export const getBase64 = (file: FileType): Promise<string> =>
+//   new Promise((resolve, reject) => {
+//     const reader = new FileReader();
+//     reader.readAsDataURL(file);
+//     reader.onload = () => resolve(reader.result as string);
+//     reader.onerror = (error) => reject(error);
+//   });
 
-export const apiUrl = "https://ndnb.com/api/v1";
+export const apiUrl = "http://localhost:5000/api";
 
 export const getTokenFromLocalStorage = (): string | null => {
   return localStorage.getItem('token');
