@@ -1,13 +1,13 @@
 import { Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import AboutUsPage from "../pages/about";
+import AboutUsPage from "../pages/client/about";
 
-import FrontContainer from "../pages/container";
-import PageNotFound from "../pages/page-not-found";
-import Home from "../pages/home";
-import LoginPage from "../pages/auth/login";
-import Services from "../pages/Service/index";
-import Projects from "../pages/projects";
+import FrontContainer from "../pages/client/container";
+import PageNotFound from "../pages/client/page-not-found";
+import Home from "../pages/client/home";
+import LoginPage from "../pages/client/auth/login";
+import Services from "../pages/client/Service/index";
+import Projects from "../pages/client/projects";
 
 const RouteConfig = () => {
   // console.log(isAuthenticated());

@@ -4,7 +4,7 @@ import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import { Quote } from 'lucide-react';
 import { Typography } from 'antd';
 import { faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons';
-import useGetAPI from '../hooks/useGetAPI';
+import useGetAPI from '../../hooks/useGetAPI';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LoadingSpinner from './LoadingSpinner';
 

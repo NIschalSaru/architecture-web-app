@@ -2,9 +2,9 @@ import React, { useCallback, useState } from "react";
 import { Row, Col, Button } from "antd";
 import { Building2, Trophy, Award } from "lucide-react";
 import { motion } from "framer-motion";
-import thumnbnail from "../assets/images/Img1.jpg";
-import bgImg from "../assets/images/Outlined3.png";
-import yt from "../assets/images/youtube.png";
+import thumnbnail from "../../assets/images/Img1.jpg";
+import bgImg from "../../assets/images/Outlined3.png";
+import yt from "../../assets/images/youtube.png";
 
 const YouTubeVideoSection: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);

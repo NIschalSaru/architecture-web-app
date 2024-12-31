@@ -1,6 +1,6 @@
-import img from "../../assets/images/banner.jpg";
-import ScrollToTop from "../../components/ScrollToTop";
-import {InnerHeader} from "../../components/InnerHeader";
+import img from "../../../assets/images/banner.jpg";
+import ScrollToTop from "../../../components/client/ScrollToTop";
+import {InnerHeader} from "../../../components/client/InnerHeader";
 
 
 const Services = () => {

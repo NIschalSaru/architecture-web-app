@@ -1,5 +1,5 @@
 import { useState } from "react";
-import InnerHeader from "../../components/InnerHeader";
+import InnerHeader from "../../../components/client/InnerHeader";
 
 // Define the Project type
 interface Project {

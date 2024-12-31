@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from '../assets/images/Nepal-Designers-Builders-Logo.png'; // Import your logo
+import Logo from '../../assets/images/Nepal-Designers-Builders-Logo.png'; // Import your logo
 
 const LoadingSpinner: React.FC = () => {
   return (

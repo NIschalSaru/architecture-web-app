@@ -8,14 +8,14 @@ import {
 } from "antd";
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { RouteList } from "../../routes/routeList";
-import Logo from "../../assets/images/Nepal-Designers-Builders-Logo.png";
+import { RouteList } from "../../../routes/routeList";
+import Logo from "../../../assets/images/Nepal-Designers-Builders-Logo.png";
 import { MenuOutlined, UserOutlined, PhoneOutlined, MailOutlined, EnvironmentOutlined } from "@ant-design/icons";
-import { isAuthenticated } from "../../API/auth";
-import fb from "../../assets/svg/facebook.svg";
-import yt from "../../assets/svg/youtube.svg";
-import ld from "../../assets/svg/linkedin.svg";
-import ig from "../../assets/svg/instagram.svg";
+import { isAuthenticated } from "../../../API/auth";
+import fb from "../../../assets/svg/facebook.svg";
+import yt from "../../../assets/svg/youtube.svg";
+import ld from "../../../assets/svg/linkedin.svg";
+import ig from "../../../assets/svg/instagram.svg";
 
 const { Header } = Layout;
 

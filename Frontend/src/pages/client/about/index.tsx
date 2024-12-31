@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 import { Button, Col, Form, Input, Row, Typography } from "antd";
 import { useLocation } from "react-router-dom";
-import usePostAPI from "../../hooks/usePostAPI";
+import usePostAPI from "../../../hooks/usePostAPI";
 // import { MailOutlined, PhoneOutlined, EnvironmentOutlined } from '@ant-design/icons';
-import ScrollToTop from "../../components/ScrollToTop";
-import CeoImage from "../../assets/images/Founder.jpg";
+import ScrollToTop from "../../../components/client/ScrollToTop";
+import CeoImage from "../../../assets/images/Founder.jpg";
 
 const AboutUsPage = () => {
   const { TextArea } = Input;

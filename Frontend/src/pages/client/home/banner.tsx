@@ -2,8 +2,8 @@ import { Button, Typography, Form, Input, Drawer } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Phone, Mail, User } from "lucide-react";
-import useGetAPI from "../../hooks/useGetAPI";
-import LoadingSpinner from "../../components/LoadingSpinner";
+import useGetAPI from "../../../hooks/useGetAPI";
+import LoadingSpinner from "../../../components/client/LoadingSpinner";
 
 interface BannerData {
   id: number;
