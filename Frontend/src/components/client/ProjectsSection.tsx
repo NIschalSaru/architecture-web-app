@@ -54,6 +54,17 @@ const ProjectsSection = () => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
+    customPaging: (i: number) => <button>{i + 1}</button>,
+    appendDots: (dots: React.ReactNode[]) => (
+      <div style={{ marginTop: "20px" }}>
+        <ul
+          className="slick-dots"
+          style={{ display: "flex", justifyContent: "center" }}
+        >
+          {dots.slice(0, 4)} {/* Show only the first 4 dots */}
+        </ul>
+      </div>
+    ),
     responsive: [
       {
         breakpoint: 1024,
