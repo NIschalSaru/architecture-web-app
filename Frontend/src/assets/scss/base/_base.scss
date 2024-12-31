@@ -12,7 +12,7 @@ html {
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   color: $black;
   background-color: $white;
 }
@@ -55,4 +55,5 @@ body {
 .slick-slider .slick-list {
   display: flex;
   align-items: center;
+  gap: 20px;
 }

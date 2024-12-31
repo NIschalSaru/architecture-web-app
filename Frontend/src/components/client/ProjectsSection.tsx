@@ -1,112 +1,123 @@
-import { useState } from "react";
-import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
-
+import React from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { motion } from "framer-motion";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Icon library
 const projects = [
   {
-    title: "Comfy house in the woods",
-    description:
-      "Here is my first attempt of architectural visualization for design studio House was made in Blender, Environment - Megascans, renders - UE5.",
-    imageUrl:
-      "https://cdna.artstation.com/p/assets/images/images/012/517/584/large/shubhanghi-maheshwari-exterior-final01.jpg?1535182073",
-    date: "March 15, 2019",
-    tag: "Architecture",
+    id: 1,
+    className: "rest",
+    bgImage:
+      "https://images.unsplash.com/photo-1728606987255-920740a48fe5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDMzfE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D", // Use local image or fallback
+    title: "Biggest Restaurations",
+    date: "Jan 19, 2018",
   },
   {
-    title: "Urban High-Rise",
-    description:
-      "A high-rise apartment complex with breathtaking views and state-of-the-art amenities.",
-    imageUrl:
-      "https://cdnb.artstation.com/p/assets/images/images/051/802/287/large/ilya-galinsky-day-01a-logo.jpg?1658215706",
-    date: "June 19, 2019",
-    tag: "Exterior design",
+    id: 2,
+    className: "build",
+    bgImage:
+      "https://plus.unsplash.com/premium_photo-1734549547891-02d562030eb8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDIwfE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D",
+    title: "Office Building",
+    date: "Jan 19, 2018",
   },
   {
-    title: "Residential Community",
-    description:
-      "A sustainable residential community designed with eco-friendly materials and smart home technology.",
-    imageUrl:
-      "https://cdna.artstation.com/p/assets/images/images/065/296/804/large/moin-khan-villa-architecture-house-by-moin.jpg?1690005212",
-    date: "January 10, 2019",
-    tag: "Landscape design",
+    id: 3,
+    className: "apart",
+    bgImage:
+      "https://images.unsplash.com/photo-1724931420584-d360afc3e1f8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDQ0fE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D",
+    title: "Nice Apartments",
+    date: "Jan 19, 2018",
   },
   {
-    title: "Modern Office Building",
-    description:
-      "A sleek and modern office space featuring open-plan layouts and innovative use of glass and steel.",
-    imageUrl:
-      "https://cdnb.artstation.com/p/assets/images/images/055/700/937/large/forpinik-07.jpg?1667552422",
-    date: "May 22, 2020",
-    tag: "Urban design",
+    id: 4,
+    className: "rest",
+    bgImage:
+      "https://images.unsplash.com/photo-1734217673457-cab58c9c29a0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDYwfE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D",
+    title: "Biggest Restaurations",
+    date: "Jan 19, 2018",
+  },
+  {
+    id: 5,
+    className: "apart",
+    bgImage:
+      "https://images.unsplash.com/photo-1719125217488-be5eab036dd6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDY4fE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D",
+    title: "Office Building",
+    date: "Jan 19, 2018",
   },
 ];
 
 const ProjectsSection = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [animationClass, setAnimationClass] = useState("fade-in");
-
-  // Function to go to the next project
-  const nextProject = () => {
-    setAnimationClass("fade-out");
-    setTimeout(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % projects.length);
-      setAnimationClass("fade-in");
-    }, 300); // Matches fade-out duration
-  };
-
-  // Function to go to the previous project
-  const prevProject = () => {
-    setAnimationClass("fade-out");
-    setTimeout(() => {
-      setCurrentIndex(
-        (prevIndex) => (prevIndex - 1 + projects.length) % projects.length
-      );
-      setAnimationClass("fade-in");
-    }, 300); // Matches fade-out duration
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+    prevArrow: (
+      <button style={{ marginTop: "7px" }} type="button" className="slick-prev">
+        <FaChevronLeft size={24} />
+      </button>
+    ),
+    nextArrow: (
+      <button style={{ marginTop: "7px" }} type="button" className="slick-next">
+        <FaChevronRight size={24} />
+      </button>
+    ),
   };
 
   return (
-    <div className="projects-section">
-      <div className="project-section-title">
-        <h2>Recent Projects</h2>
-      </div>
-      <div className={`project-card ${animationClass}`}>
-        <div className="image-and-navbutton">
-          <div className="project-figure">
+    <div id="projects-carousel" className="projects-slider">
+      <motion.h2
+        className="architectural-expertise__title"
+        initial={{ opacity: 0, translateY: 50 }}
+        whileInView={{ opacity: 1, translateY: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        OUR RECENT PROJECTS
+      </motion.h2>
+      <Slider {...sliderSettings}>
+        {projects.map((project) => (
+          <div
+            key={project.id}
+            className={`single-project ${project.className}`}
+          >
             <img
-              src={projects[currentIndex].imageUrl}
-              alt={projects[currentIndex].title}
-              className="project-image"
+              src={project.bgImage}
+              alt={project.title}
+              style={{ width: "100%", height: "100%", borderRadius: "10px" }}
             />
+            <div className="project-content">
+              <h2>
+                {project.title.split(" ").map((line, index) => (
+                  <React.Fragment key={index}>
+                    {line}
+                    <br />
+                  </React.Fragment>
+                ))}
+              </h2>
+              <p>{project.date}</p>
+              <a href="#" className="seemore">
+                See Project
+              </a>
+            </div>
           </div>
-          <div className="navigation-buttons">
-            <button className="next-btn" onClick={nextProject}>
-              <ArrowRightOutlined />
-            </button>
-            <button className="prev-btn" onClick={prevProject}>
-              <ArrowLeftOutlined />
-            </button>
-          </div>
-        </div>
-        <div className="project-content">
-          <ul className="project-panel">
-            <li className="project-panel-item">
-              <time
-                className="project-time"
-                dateTime={projects[currentIndex].date}
-              >
-                {projects[currentIndex].date}
-              </time>
-            </li>
-            <li className="project-panel-item">
-              <div className="project-tag">{projects[currentIndex].tag}</div>
-            </li>
-          </ul>
-          <div className="project-details">
-            <h3 className="project-title">{projects[currentIndex].title}</h3>
-            <p className="project-text">{projects[currentIndex].description}</p>
-          </div>
-        </div>
-      </div>
+        ))}
+      </Slider>
     </div>
   );
 };
