@@ -12,6 +12,8 @@ const projects = [
       "https://images.unsplash.com/photo-1728606987255-920740a48fe5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDMzfE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D", // Use local image or fallback
     title: "Biggest Restaurations",
     date: "Jan 19, 2018",
+    description:
+      "This project involved extensive restoration work, making it one of the most significant restorations of the year.",
   },
   {
     id: 2,
@@ -20,6 +22,8 @@ const projects = [
       "https://plus.unsplash.com/premium_photo-1734549547891-02d562030eb8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDIwfE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D",
     title: "Office Building",
     date: "Jan 19, 2018",
+    description:
+      "This project involved extensive restoration work, making it one of the most significant restorations of the year.",
   },
   {
     id: 3,
@@ -28,6 +32,8 @@ const projects = [
       "https://images.unsplash.com/photo-1724931420584-d360afc3e1f8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDQ0fE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D",
     title: "Nice Apartments",
     date: "Jan 19, 2018",
+    description:
+      "This project involved extensive restoration work, making it one of the most significant restorations of the year.This project involved extensive restoration work, making it one of the most significant restorations of the year.This project involved extensive restoration work, making it one of the most significant restorations of the year.",
   },
   {
     id: 4,
@@ -36,6 +42,8 @@ const projects = [
       "https://images.unsplash.com/photo-1734217673457-cab58c9c29a0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDYwfE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D",
     title: "Biggest Restaurations",
     date: "Jan 19, 2018",
+    description:
+      "This project involved extensive restoration work, making it one of the most significant restorations of the year.",
   },
   {
     id: 5,
@@ -44,6 +52,8 @@ const projects = [
       "https://images.unsplash.com/photo-1719125217488-be5eab036dd6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDY4fE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D",
     title: "Office Building",
     date: "Jan 19, 2018",
+    description:
+      "This project involved extensive restoration work, making it one of the most significant restorations of the year.",
   },
 ];
 
@@ -122,6 +132,7 @@ const ProjectsSection = () => {
                 ))}
               </h2>
               <p>{project.date}</p>
+              <p className="project-description">{project.description}</p>{" "}
               <a href="#" className="seemore">
                 See Project
               </a>

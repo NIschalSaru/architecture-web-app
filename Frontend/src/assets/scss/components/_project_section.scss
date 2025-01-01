@@ -31,10 +31,11 @@ $default-bg: #333;
       bottom: 0;
       left: 0;
       width: 100%;
-      padding: 20px;
+      padding: 40px;
       background: $bg-overlay; // Dark overlay for text contrast
       color: $text-color;
       text-align: left;
+      height: 400px;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.4s ease, transform 0.4s ease;
@@ -53,15 +54,15 @@ $default-bg: #333;
 
       p {
         font-size: 14px;
-        color: $hover-color;
+        color: #ffffff;
         font-weight: 500;
         margin: 0 0 10px;
       }
 
       .seemore {
         display: inline-block;
-        background: $hover-color;
-        color: #222;
+        background: $hover-color-slider;
+        color: #ffffff;
         font-size: 14px;
         font-weight: 600;
         padding: 8px 15px;
