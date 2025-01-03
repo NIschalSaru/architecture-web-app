@@ -1,23 +1,29 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation, Autoplay } from 'swiper/modules';
-import { Quote } from 'lucide-react';
-import { Typography } from 'antd';
-import { faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons';
-import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
-import useGetAPI from '../../hooks/useGetAPI';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import LoadingSpinner from './LoadingSpinner';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation, Autoplay } from "swiper/modules";
+import { Quote } from "lucide-react";
+import { Typography } from "antd";
+import { faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
+import { faStar as faStarEmpty } from "@fortawesome/free-regular-svg-icons";
+import useGetAPI from "../../hooks/useGetAPI";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import LoadingSpinner from "./LoadingSpinner";
 
 const TestimonialSlider: React.FC = () => {
-  const { data: testimonials, loading, error } = useGetAPI<{ 
-    id: number; 
-    rating: number; 
-    title: string; 
-    imageUrl: string | null; 
-    message: string; 
-    fullname: string; 
-    designation: string;
-  }[]>("architecture-web-app/testimonial");
+  const {
+    data: testimonials,
+    loading,
+    error,
+  } = useGetAPI<
+    {
+      id: number;
+      rating: number;
+      title: string;
+      imageUrl: string | null;
+      message: string;
+      fullname: string;
+      designation: string;
+    }[]
+  >("architecture-web-app/testimonial");
 
   // Function to render star rating
   const renderStarRating = (rating: number) => {
@@ -29,24 +35,24 @@ const TestimonialSlider: React.FC = () => {
       <>
         {/* Render full stars */}
         {[...Array(fullStars)].map((_, i) => (
-          <FontAwesomeIcon 
-            key={`full-${i}`} 
-            icon={faStar} 
-            style={{ color: 'red' }} 
+          <FontAwesomeIcon
+            key={`full-${i}`}
+            icon={faStar}
+            style={{ color: "red" }}
           />
         ))}
         {halfStar === 1 && (
-          <FontAwesomeIcon 
-            key="half" 
-            icon={faStarHalfAlt} 
-            style={{ color: 'red' }} 
+          <FontAwesomeIcon
+            key="half"
+            icon={faStarHalfAlt}
+            style={{ color: "red" }}
           />
         )}
         {[...Array(emptyStars)].map((_, i) => (
-          <FontAwesomeIcon 
-            key={`empty-${i}`} 
-            icon={faStarEmpty} 
-            style={{ color: 'red' }} 
+          <FontAwesomeIcon
+            key={`empty-${i}`}
+            icon={faStarEmpty}
+            style={{ color: "red" }}
           />
         ))}
       </>
@@ -54,11 +60,12 @@ const TestimonialSlider: React.FC = () => {
   };
 
   if (loading) return <LoadingSpinner />;
-  if (error) return (
-    <div className="error-container">
-      <p className="error-message">Error loading testimonials: {error}</p>
-    </div>
-  );
+  if (error)
+    return (
+      <div className="error-container">
+        <p className="error-message">Error loading testimonials: {error}</p>
+      </div>
+    );
 
   return (
     <div className="testimonial-section">
@@ -89,32 +96,39 @@ const TestimonialSlider: React.FC = () => {
         >
           {testimonials?.map((testimonial) => (
             <SwiperSlide key={testimonial.id}>
-              <div className="testimonial-card">
-                <Quote className="testimonial-quote-icon" size={48} />
-                <div className="testimonial-content">
+            <div className="testimonial-card">
+              <Quote className="testimonial-quote-icon" size={48} />
+              <div className="testimonial-content">
+                <div className="testimonial-top-content">
                   <div className="testimonial-avatar">
                     <img
                       src={testimonial.imageUrl || 'default-avatar.png'}
                       alt={testimonial.fullname}
                     />
                   </div>
-                  <div className="testimonial-details">
-                    <div className="testimonial-rating">
-                      {renderStarRating(testimonial.rating)}
-                    </div>
+                  <div className="testimonial-rating">
+                    {renderStarRating(testimonial.rating)}
+                  </div>
+                  <div className="testimonial-text-container">
                     <p className="testimonial-text">
                       "{testimonial.message}"
                     </p>
-                    <div className="testimonial-author">
-                      <h4>{testimonial.fullname}</h4>
-                      <p className="testimonial-location">
-                        {testimonial.designation}
-                      </p>
-                    </div>
+                    {testimonial.message.length > 150 && (
+                      <div className="testimonial-tooltip">
+                        {testimonial.message}
+                      </div>
+                    )}
                   </div>
                 </div>
+                <div className="testimonial-author">
+                  <h4>{testimonial.fullname}</h4>
+                  <p className="testimonial-location">
+                    {testimonial.designation}
+                  </p>
+                </div>
               </div>
-            </SwiperSlide>
+            </div>
+          </SwiperSlide>
           ))}
         </Swiper>
       </div>
