@@ -8,6 +8,7 @@ import Home from "../pages/client/home";
 import LoginPage from "../pages/client/auth/login";
 import Services from "../pages/client/Service/index";
 import Projects from "../pages/client/projects";
+import DashboardContainer from "../pages/admin/dashboardContainer";
 
 const RouteConfig = () => {
   // console.log(isAuthenticated());
@@ -26,8 +27,8 @@ const RouteConfig = () => {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
 
-        {/* <Route element={<DashboardContainer />}>
-          <Route path="/admin" element={<ProtectedRoute  />}>
+        <Route  path="/dashboard" element={<DashboardContainer />}>
+          {/* <Route path="/admin" element={<ProtectedRoute  />}>
             <Route path="/admin/banner" element="" />
             <Route
               path="/admin/testimonials"
@@ -42,8 +43,8 @@ const RouteConfig = () => {
               element={<Navigate to="/admin/banner" replace />}
             />
             <Route path="*" element={<Navigate to="/admin/banner" replace />} />
-          </Route>
-        </Route> */}
+          </Route> */}
+        </Route> 
         <Route path="/page-not-found" element={<PageNotFound />} />
       </Routes>
     </Suspense>
