@@ -1,42 +1,13 @@
 import React, { useCallback, useState } from "react";
-import { Row, Col, Modal, Button } from "antd";
-import { PlayCircleOutlined } from "@ant-design/icons";
+import { Row, Col, Button } from "antd";
 import { Building2, Trophy, Award } from "lucide-react";
 import { motion } from "framer-motion";
-import thumnbnail from "../assets/images/Img1.jpg";
-import bgImg from "../assets/images/Outlined3.png";
-// import "../assets/scss/components/_youtubeVideoSection.scss";
-
-interface VideoModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  videoId: string;
-}
-
-const VideoModal: React.FC<VideoModalProps> = ({ isOpen, onClose, videoId }) => (
-  <Modal
-    open={isOpen}
-    onCancel={onClose}
-    footer={null}
-    width="90%"
-    centered
-    className="youtube-section__video-modal"
-    destroyOnClose
-  >
-    <div className="youtube-section__video-container">
-      <iframe
-        src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      />
-    </div>
-  </Modal>
-);
+import thumnbnail from "../../assets/images/Img1.jpg";
+import bgImg from "../../assets/images/Outlined3.png";
+import yt from "../../assets/images/youtube.png";
 
 const YouTubeVideoSection: React.FC = () => {
-  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const videoId = "KYu3Xtjd7J4";
 
@@ -52,24 +23,24 @@ const YouTubeVideoSection: React.FC = () => {
   );
 
   const statsData = [
-    { 
-      icon: Building2, 
-      number: 7, 
-      title: "Years", 
-      description: "We have been working in the industry since 2011." 
+    {
+      icon: Building2,
+      number: 7,
+      title: "Years",
+      description: "We have been working in the industry since 2011.",
     },
-    { 
-      icon: Trophy, 
-      number: 54, 
-      title: "Projects", 
-      description: "To this day, we have designed 54 residential projects." 
+    {
+      icon: Trophy,
+      number: 54,
+      title: "Projects",
+      description: "To this day, we have designed 54 residential projects.",
     },
-    { 
-      icon: Award, 
-      number: 11, 
-      title: "Awards", 
-      description: "Spectrum has been awarded for creativity many times." 
-    }
+    {
+      icon: Award,
+      number: 11,
+      title: "Awards",
+      description: "Spectrum has been awarded for creativity many times.",
+    },
   ];
 
   return (
@@ -105,18 +76,32 @@ const YouTubeVideoSection: React.FC = () => {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <div
-                className="youtube-section__video"
-                onClick={() => setIsVideoModalOpen(true)}
-              >
-                <img
-                  src={thumnbnail}
-                  alt="Nepal Desingers and Developers"
-                  className="youtube-section__video-thumbnail"
-                />
-                <div className="youtube-section__play-button">
-                  <PlayCircleOutlined />
-                </div>
+              <div className="youtube-section__video">
+                {!isPlaying ? (
+                  <>
+                    <img
+                      src={thumnbnail}
+                      alt="Nepal Designers and Developers"
+                      className="youtube-section__video-thumbnail"
+                    />
+                    <div
+                      className="youtube-section__play-button"
+                      onClick={() => setIsPlaying(true)}
+                    >
+                      <img src={yt} alt="Play Video" />
+                    </div>
+                  </>
+                ) : (
+                  <div className="youtube-section__video-container">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                )}
               </div>
             </motion.div>
           </Col>
@@ -137,10 +122,16 @@ const YouTubeVideoSection: React.FC = () => {
                   </div>
                   <div className="youtube-section__stat-content">
                     <div className="youtube-section__stat-header">
-                      <span className="youtube-section__stat-number">{stat.number}</span>
-                      <span className="youtube-section__stat-title">{stat.title}</span>
+                      <span className="youtube-section__stat-number">
+                        {stat.number}
+                      </span>
+                      <span className="youtube-section__stat-title">
+                        {stat.title}
+                      </span>
                     </div>
-                    <p className="youtube-section__stat-description">{stat.description}</p>
+                    <p className="youtube-section__stat-description">
+                      {stat.description}
+                    </p>
                   </div>
                 </motion.div>
               ))}
@@ -151,7 +142,10 @@ const YouTubeVideoSection: React.FC = () => {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 viewport={{ once: true }}
               >
-                <Button type="primary" className="youtube-section__contact-button">
+                <Button
+                  type="primary"
+                  className="youtube-section__contact-button"
+                >
                   <a href="#home-contact" target="_self">
                     Contact Us
                   </a>
@@ -166,7 +160,9 @@ const YouTubeVideoSection: React.FC = () => {
         className="youtube-section__background"
         style={{
           transform: `translate(-50%, -50%) 
-                     translate(${mousePosition.x * 30}px, ${mousePosition.y * 30}px)`,
+                     translate(${mousePosition.x * 30}px, ${
+            mousePosition.y * 30
+          }px)`,
         }}
       >
         <img
@@ -174,16 +170,12 @@ const YouTubeVideoSection: React.FC = () => {
           alt="Background decoration"
           style={{
             transform: `scale(1.1) 
-                       translate(${mousePosition.x * -20}px, ${mousePosition.y * -20}px)`,
+                       translate(${mousePosition.x * -20}px, ${
+              mousePosition.y * -20
+            }px)`,
           }}
         />
       </div>
-
-      <VideoModal
-        isOpen={isVideoModalOpen}
-        onClose={() => setIsVideoModalOpen(false)}
-        videoId={videoId}
-      />
     </section>
   );
 };

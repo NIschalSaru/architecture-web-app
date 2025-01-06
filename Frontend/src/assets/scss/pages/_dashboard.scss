@@ -1,0 +1,144 @@
+.dashboard {
+  min-height: 100vh;
+
+  .ant-layout-sider {
+    background-color: #2b2b5a !important; // Change Sider background color
+  }
+
+  /* Dark theme styles */
+  .dashboard.dark {
+    background-color: #001529;
+    color: white;
+  }
+
+  /* Light theme styles */
+  .dashboard.light {
+    background-color: #f0f2f5;
+    color: black;
+  }
+
+  .sider.dark {
+    background-color: #001529;
+  }
+
+  .sider.light {
+    background-color: #ffffff;
+  }
+
+  .dashboard-menu {
+    .ant-menu-item {
+      &:hover {
+        background-color: white !important; // White background on hover
+        color: rgb(25, 10, 10) !important; // Black text for contrast
+
+        .anticon {
+          color: rgb(47, 34, 34) !important; // Black icon on hover
+        }
+      }
+    }
+  }
+  .dashboard-logout-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .ant-dropdown-menu {
+    margin-top: 8px; /* Adjust the value as needed */
+  }
+
+  .account-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &-logo {
+    width: 100%;
+    padding: 10px 50px;
+    display: block;
+    transition: all ease 200ms;
+
+    img {
+      transition: all ease 200ms;
+      width: 100%;
+    }
+  }
+
+  &-logo-collapsed {
+    padding: 10px 5px;
+  }
+
+  &-nav {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 16px;
+
+    padding: 0 24px;
+
+    h5 {
+      margin-bottom: 0;
+    }
+  }
+
+  &-content {
+    margin: 24px 16px;
+    padding: 40px 60px;
+    min-height: 280px;
+    background-color: $white;
+    border-radius: 8px;
+
+    @media (max-width: 767px) {
+      padding: 20px;
+    }
+  }
+
+  &-card {
+    h3 {
+      margin-bottom: 30px;
+    }
+
+    input {
+      padding: 13px 20px;
+    }
+
+    .ant-upload {
+      width: 100%;
+
+      .ant-btn {
+        height: auto;
+        padding: 13px 20px;
+      }
+    }
+
+    .ant-btn.ant-btn-lg {
+      margin-top: 20px;
+      padding: 13px 45px;
+      border-radius: 4px;
+      height: auto;
+      display: block;
+      font-weight: 600;
+    }
+
+    @media (max-width: 767px) {
+      .ant-upload-list-item-container {
+        width: 100% !important;
+        height: 200px !important;
+      }
+    }
+  }
+
+  .gallery-card .ant-upload-list-item-container {
+    height: 200px !important;
+    width: 200px !important;
+
+    @media (max-width: 767px) {
+      width: 100% !important;
+    }
+  }
+
+  .ant-upload.ant-upload-select {
+    display: block;
+  }
+}

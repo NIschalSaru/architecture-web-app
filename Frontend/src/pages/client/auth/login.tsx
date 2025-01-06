@@ -2,7 +2,7 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import { GoogleOutlined, FacebookFilled, GithubOutlined, LinkedinFilled } from '@ant-design/icons';
 // import './login.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../assets/images/Nepal-Designers-Builders-Logo.png';
+import logo from '../../../assets/images/Nepal-Designers-Builders-Logo.png';
 
 const LoginPage = () => {
   const [form] = Form.useForm();

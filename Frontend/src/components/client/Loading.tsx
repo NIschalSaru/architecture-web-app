@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import "../assets/scss/components/_loading.scss";
 
 const Loading = () => {

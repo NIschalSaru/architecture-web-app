@@ -3,6 +3,7 @@
   padding: 40px 0;
   position: relative;
   overflow: hidden;
+  background: #ffffff;
 
   &__container {
     max-width: 1200px;
@@ -32,8 +33,8 @@
     border: 2px solid rgba(0, 0, 0, 0.1);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    height: 23rem;
-    width: 38rem;
+    height: 22rem;
+    width: 36rem;
 
     img {
       width: 100%;
@@ -45,8 +46,8 @@
       box-shadow: 0 8px 30px rgba(8, 0, 255, 0.15);
 
       .youtube-section__play-button {
-        transform: translate(-50%, -50%) scale(1.1);
-        background: red;
+        transform: translate(-50%, -50%) scale(1.4);
+        // background: red;
         
         .anticon {
           color: white;
@@ -59,39 +60,18 @@
     }
   }
 
-  // Video Modal Styles (keeping your original styles)
-  &__video-modal {
-    .ant-modal-content {
-      padding: 0;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-    }
-
-    .ant-modal-close {
-      top: -30px;
-      right: -30px;
-      color: white;
-    }
-
-    .ant-modal-body {
-      padding: 0;
-    }
-  }
-
   &__video-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
     iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
       width: 100%;
       height: 100%;
       border: none;
+      background: #ffffff;
     }
   }
 
@@ -103,6 +83,11 @@
     height: 100%;
     object-fit: cover;
     z-index: 1;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    
+    &:hover {
+      filter: brightness(0.85);
+    }
   }
 
   &__play-button {
@@ -110,34 +95,31 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: white;
-    border-radius: 50%;
-    width: 64px;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    z-index: 2;
+    cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    z-index: 1;
+    background: transparent; // Ensure no background
+    border: none; // Remove any borders
+    padding: 0; // Remove padding that might cause square appearance
+    outline: none; // Remove outline that might appear
 
-    .anticon {
-      font-size: 24px;
-      color: #1890ff;
-      transition: color 0.3s ease;
-    }
-
-    &:hover {
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    img {
+      width: 10rem;
+      height: auto;
+      transition: transform 0.3s ease;
+      display: block; // Prevents any unwanted space
+      pointer-events: none;
     }
   }
 
-  // New Stats Styles
+
   &__stats {
-    // margin-top: 0px;
     display: flex;
     flex-direction: column;
     gap: 23px;
+    background: #ffffff;
+    position: relative;
+    z-index: 1; 
   }
 
   &__stat-card {
@@ -145,13 +127,15 @@
     align-items: flex-start;
     gap: 16px;
     padding: 20px;
-    background: white;
+    background: #ffffff;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none; 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 8px 24px rgba(216, 21, 21, 0.515);
     }
   }
 
@@ -207,12 +191,10 @@
     background-color: #D90429;
     margin-top: 12px;
     width: 100%;
-    // margin-left: auto;
-    // margin-right: auto;
-    // display: block;
 
     &:hover {
-      transform: translateY(-2px);
+      // background: #262262;
+      transform: translatey(-2px);
     }
 
     a {
@@ -231,8 +213,19 @@
     pointer-events: none;
     width: 90%;
     height: 85%;
-    transition: transform 0.4s ease-out;
+    transition: transform 0.2s ease-out;
 
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #ffffff;
+      z-index: -1;
+    }
+    
     img {
       width: 100%;
       height: 90%;
@@ -252,13 +245,6 @@
 
     &__subtitle {
       font-size: 16px;
-    }
-
-    &__video-modal {
-      .ant-modal-close {
-        top: -40px;
-        right: 0;
-      }
     }
 
     &__video {

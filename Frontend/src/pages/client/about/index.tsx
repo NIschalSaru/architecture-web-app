@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
-import { Button, Col, Form, Input, Layout, Row, Typography } from "antd";
+import { Button, Col, Form, Input, Row, Typography } from "antd";
 import { useLocation } from "react-router-dom";
-import usePostAPI from "../../hooks/usePostAPI";
+import usePostAPI from "../../../hooks/usePostAPI";
 // import { MailOutlined, PhoneOutlined, EnvironmentOutlined } from '@ant-design/icons';
-import ScrollToTop from "../../components/ScrollToTop";
-import CeoImage from "../../assets/images/CEO.jpeg";
+import ScrollToTop from "../../../components/client/ScrollToTop";
+import CeoImage from "../../../assets/images/Founder.jpg";
 
 const AboutUsPage = () => {
   const { TextArea } = Input;
@@ -147,14 +147,14 @@ const AboutUsPage = () => {
               <div className="ceo-content">
                 <Title level={2}>Chief Executive Officer</Title>
                 <Title level={3} className="ceo-name">
-                  Amar Chor
+                  Rajan Karki
                 </Title>
                 <Text className="ceo-title">
                   Founder & Chief Executive Officer
                 </Text>
                 <Paragraph className="ceo-bio">
                   With over two decades of experience in technology and
-                  innovation, John has been at the forefront of digital
+                  innovation, Rajan has been at the forefront of digital
                   transformation. His vision has guided our company to become a
                   leading force in technology consulting, helping businesses
                   across the globe achieve their digital ambitions.
