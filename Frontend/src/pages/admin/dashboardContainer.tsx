@@ -9,7 +9,7 @@ import {
 } from "@ant-design/icons";
 import { Avatar, Dropdown, Layout, Menu, Typography } from "antd";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import Logo from "../../assets/images/ndbn-logo-white.png";
 import { handleSignOut } from "../../utils";
 
@@ -25,7 +25,7 @@ const items = [
     label: "Testimonial Settings",
   },
   {
-    key: "gallery",
+    key: "Projects",
     icon: <FileImageOutlined />,
     label: "Gallery",
   },
@@ -37,21 +37,18 @@ const items = [
 ];
 
 const DashboardContainer = () => {
-  const { Title } = Typography;
   const { Header, Content, Sider } = Layout;
-
+  const location = useLocation();
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
-  const [selectedMenu, setSelectedMenu] = useState("dashboard");
+  const [selectedMenu, setSelectedMenu] = useState("banner"); // Default to banner
 
-  const handleMenuChange = (e) => {
-    const path = e.keyPath.reverse().toString().replace(",", "/");
+  const handleMenuChange = (e: { key: string; keyPath: string[] }) => {
     setSelectedMenu(e.key);
-    navigate(`/admin/${path}`);
+    navigate(`/admin/${e.key}`);
   };
 
-  const handleDropdownClick = (e) => {
-    // Prevent default behavior to stop link redirection
+  const handleDropdownClick = (e: React.MouseEvent) => {
     e.preventDefault();
   };
 
@@ -74,11 +71,10 @@ const DashboardContainer = () => {
   );
 
   useEffect(() => {
-    if (location) {
-      const pathname = location.pathname?.replace("/admin/", "");
-      setSelectedMenu(pathname);
-    }
-  }, []);
+    const pathSegments = location.pathname.split('/');
+    const currentPath = pathSegments[pathSegments.length - 1];
+    setSelectedMenu(currentPath || 'banner');
+  }, [location]);
 
   return (
     <Layout className="dashboard">
@@ -95,7 +91,7 @@ const DashboardContainer = () => {
             collapsed ? "dashboard-logo-collapsed" : ""
           }`}
         >
-          <img src={Logo} alt="Akarui Shorai Logo" />
+          <img src={Logo} alt="Logo" />
         </Link>
         <hr />
         <Menu
@@ -104,7 +100,7 @@ const DashboardContainer = () => {
           mode="inline"
           items={items}
           onClick={handleMenuChange}
-          className="dashboard-menu ant-layout-sider "
+          className="dashboard-menu ant-layout-sider"
         />
       </Sider>
       <Layout>
@@ -130,27 +126,25 @@ const DashboardContainer = () => {
             </div>
             <span>Admin</span>
             <div>
-              <div>
-                <Dropdown
-                  overlay={menu}
-                  trigger={["click"]}
-                  overlayStyle={{
-                    right: "2%",
-                    top: "10%",
-                    width: "200px",
-                  }}
-                >
-                  <a onClick={handleDropdownClick} className="icon-spacing">
-                    <Avatar size={40} shape="circle" icon={<UserOutlined />} />
-                  </a>
-                </Dropdown>
-              </div>
+              <Dropdown
+                overlay={menu}
+                trigger={["click"]}
+                overlayStyle={{
+                  right: "2%",
+                  top: "10%",
+                  width: "200px",
+                }}
+              >
+                <a onClick={handleDropdownClick} className="icon-spacing">
+                  <Avatar size={40} shape="circle" icon={<UserOutlined />} />
+                </a>
+              </Dropdown>
             </div>
           </div>
         </Header>
-        {/* <Content className="dashboard-content">
+        <Content className="dashboard-content">
           <Outlet />
-        </Content> */}
+        </Content>
       </Layout>
     </Layout>
   );

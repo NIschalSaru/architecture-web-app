@@ -9,6 +9,7 @@ import LoginPage from "../pages/client/auth/login";
 import Services from "../pages/client/Service/index";
 import Projects from "../pages/client/projects";
 import DashboardContainer from "../pages/admin/dashboardContainer";
+import BannerSettings from "../pages/admin/Banner/Index";
 
 const RouteConfig = () => {
   // console.log(isAuthenticated());
@@ -27,24 +28,11 @@ const RouteConfig = () => {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
 
-        <Route  path="/dashboard" element={<DashboardContainer />}>
-          {/* <Route path="/admin" element={<ProtectedRoute  />}>
-            <Route path="/admin/banner" element="" />
-            <Route
-              path="/admin/testimonials"
-              element={<TestimonialSettings />}
-            />
-             <Route path="/admin/partners" element={<PartnerSettings />} />
-            <Route path="/admin/about" element={<AdminAboutUsForm />} />
-            <Route path="/admin/gallery" element={<AdminGalleryForm />} /> 
-             <Route path="/admin/user" element={<Users />} /> 
-            <Route
-              path="/admin"
-              element={<Navigate to="/admin/banner" replace />}
-            />
-            <Route path="*" element={<Navigate to="/admin/banner" replace />} />
-          </Route> */}
-        </Route> 
+        <Route path="/admin" element={<DashboardContainer />}>
+          <Route index element={<Navigate to="banner" replace />} />
+          <Route path="banner" element={<BannerSettings />} />
+          {/* Add other routes as needed */}
+        </Route>
         <Route path="/page-not-found" element={<PageNotFound />} />
       </Routes>
     </Suspense>
