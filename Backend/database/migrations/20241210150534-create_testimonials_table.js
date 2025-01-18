@@ -23,7 +23,7 @@ module.exports = {
         unique: true,
       },
       message: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       fullname: {
         type: Sequelize.STRING,
