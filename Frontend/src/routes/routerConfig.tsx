@@ -8,6 +8,7 @@ import Home from "../pages/client/home";
 import LoginPage from "../pages/client/auth/login";
 import Services from "../pages/client/Service/index";
 import Projects from "../pages/client/projects";
+import ProjectDetails from "../pages/client/projects/projectDetails";
 
 const RouteConfig = () => {
   // console.log(isAuthenticated());
@@ -23,6 +24,7 @@ const RouteConfig = () => {
           <Route path="/about" element={<AboutUsPage />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/project/:id" element={<ProjectDetails />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
 
