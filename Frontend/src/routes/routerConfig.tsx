@@ -9,11 +9,7 @@ import Services from "../pages/client/Service/index";
 import Projects from "../pages/client/projects";
 import DashboardContainer from "../pages/admin/dashboardContainer";
 import BannerSettings from "../pages/admin/Banner/Index";
-<<<<<<< HEAD
 import TestimonialSetting from "../pages/admin/Testimonials/index";
-=======
-import ProjectDetails from "../pages/client/projects/projectDetails";
->>>>>>> 240b0c56af3f53769d89ef2bcccc551d29171c99
 
 const RouteConfig = () => {
   return (
@@ -24,18 +20,10 @@ const RouteConfig = () => {
 
         {/* Public Routes */}
         <Route path="/" element={<FrontContainer />}>
-<<<<<<< HEAD
           <Route index element={<Home />} /> {/* Default route */}
           <Route path="about" element={<AboutUsPage />} />
           <Route path="projects" element={<Projects />} />
           <Route path="services" element={<Services />} />
-=======
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<AboutUsPage />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/project/:id" element={<ProjectDetails />} />
->>>>>>> 240b0c56af3f53769d89ef2bcccc551d29171c99
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
 
