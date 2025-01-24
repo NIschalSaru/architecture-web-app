@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import AboutUsPage from "../pages/client/about";
-
 import FrontContainer from "../pages/client/container";
 import PageNotFound from "../pages/client/page-not-found";
 import Home from "../pages/client/home";
@@ -10,32 +9,35 @@ import Services from "../pages/client/Service/index";
 import Projects from "../pages/client/projects";
 import DashboardContainer from "../pages/admin/dashboardContainer";
 import BannerSettings from "../pages/admin/Banner/Index";
-import ProjectDetails from "../pages/client/projects/projectDetails";
+import TestimonialSetting from "../pages/admin/Testimonials/index";
 
 const RouteConfig = () => {
-  // console.log(isAuthenticated());
   return (
     <Suspense fallback="Loading...">
       <Routes>
+        {/* Login Route */}
         <Route path="/login" element={<LoginPage />} />
-        {/*<Route path="/sign-up" element={<SignUpPage />} />
-        <Route path="/changePassword" element={<ChangePasswordPage />} /> */}
 
+        {/* Public Routes */}
         <Route path="/" element={<FrontContainer />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<AboutUsPage />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/project/:id" element={<ProjectDetails />} />
+          <Route index element={<Home />} /> {/* Default route */}
+          <Route path="about" element={<AboutUsPage />} />
+          <Route path="projects" element={<Projects />} />
+          <Route path="services" element={<Services />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
 
+        {/* Admin Routes */}
         <Route path="/admin" element={<DashboardContainer />}>
-          <Route index element={<Navigate to="banner" replace />} />
+          <Route index element={<Navigate to="banner" replace />} />{" "}
+          {/* Default admin route */}
           <Route path="banner" element={<BannerSettings />} />
-          {/* Add other routes as needed */}
+          <Route path="testimonials" element={<TestimonialSetting />} />
         </Route>
+
+        {/* 404 Page */}
         <Route path="/page-not-found" element={<PageNotFound />} />
+        <Route path="*" element={<Navigate to="/page-not-found" replace />} />
       </Routes>
     </Suspense>
   );

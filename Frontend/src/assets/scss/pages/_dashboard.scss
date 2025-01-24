@@ -35,6 +35,15 @@
           color: rgb(47, 34, 34) !important; // Black icon on hover
         }
       }
+    } 
+
+    .ant-menu-item-selected {
+      background-color: white !important; // White background for selected menu item
+      color: rgb(25, 10, 10) !important; // Black text for contrast
+
+      .anticon {
+        color: rgb(25, 10, 10) !important; // Icon color for selected menu item
+      }
     }
   }
   .dashboard-logout-button {
