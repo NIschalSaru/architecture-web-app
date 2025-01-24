@@ -133,7 +133,7 @@ const ProjectsSection = () => {
               </h2>
               <p>{project.date}</p>
               <p className="project-description">{project.description}</p>{" "}
-              <a href="#" className="seemore">
+              <a href="/projects" className="seemore">
                 See Project
               </a>
             </div>

@@ -1,0 +1,145 @@
+// .container {
+//   min-width: 1400px;
+// }
+
+// .inner-header {
+//   margin-bottom: 0;
+// }
+
+.project-header .project-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  height: 197px;
+}
+
+.project-header {
+  margin-bottom: 100px;
+}
+
+.project-header h2 {
+  font-size: 4rem;
+  color: #262262;
+}
+
+.project-header h4 {
+  font-size: 2rem;
+  position: relative;
+  text-align: left; /* Align text to the right */
+  color: #be1e2d;
+}
+
+.project-header h4::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  letter-spacing: 2px;
+  height: 2px;
+  background-color: #be1e2d;
+}
+.project-header .project-subtitle {
+  color: #555;
+  font-size: 1.2rem;
+}
+.project-details__content-left {
+  margin: 1rem;
+}
+.project-image {
+  // max-height: 400px;
+  object-fit: cover;
+  height: 500px;
+  width: 553px;
+}
+.project-image-section {
+  text-align: center;
+}
+.project-details-section h3,
+.project-highlights h3 {
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.project-details-section hr,
+.project-highlights hr {
+  margin: 10px 0;
+  border: 0;
+  border-top: 2px solid #ddd;
+}
+
+.project-highlights {
+  // display: flex;
+  margin-top: 64px;
+  // gap: 10px;
+}
+.project-highlights img {
+  object-fit: contain;
+}
+.highlights-list {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.highlights-list li {
+  margin-bottom: 10px;
+}
+
+.project-cta .btn {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+}
+
+.project-details__details-box {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.detail-card-row-4 {
+  display: flex;
+  justify-content: center;
+}
+
+.details-card {
+  background-color: #fff;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 13px 6px rgb(237 0 0 / 20%);
+}
+
+.details-label {
+  font-size: 30px;
+  color: #be1e2d;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.details-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #262262;
+}
+.project-title {
+  color: #262262;
+  font-size: 3rem;
+}
+
+.project-description {
+  width: 50%;
+  margin: 10px 0;
+}
+@media (max-width: 768px) {
+  .details-card {
+    margin-bottom: 15px;
+  }
+  .details-label {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .details-label {
+    font-size: 11px;
+  }
+}

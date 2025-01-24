@@ -1,14 +1,17 @@
 import { useState } from "react";
 import InnerHeader from "../../../components/client/InnerHeader";
-
+import { useNavigate } from "react-router-dom";
 // Define the Project type
 interface Project {
   title: string;
+  sub_title: string;
   location: string;
   date: string;
   sqft: string;
   category: string;
   client: string;
+  discription: string;
+  sub_discription: string;
   categories: string;
   rating: number;
   website: string;
@@ -17,16 +20,19 @@ interface Project {
 
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState<string>("all");
-  const [modalData, setModalData] = useState<Project | null>(null);
-
+  const navigate = useNavigate();
   const projects: Project[] = [
     {
       title: "Dell Villa",
       location: "New York",
+      sub_title: "Modern Residential Architecture",
       date: "2024-12-15",
       sqft: "2500 sq ft",
       category: "following",
-      client: "Colorlib",
+      client: "John Doe",
+      sub_discription: "Blending Elegance and Functionality in Urban Living",
+      discription:
+        "This residence showcases a blend of classical European architecture and contemporary design elements, with intricate details that bring out the elegance of urban living. Built on 13690 sq ft of land, the structure integrates aspects of local Kathmandu architecture, creating a perfect harmony of styles.",
       categories: "Exterior",
       rating: 4.8,
       website: "https://examplesite.com/dell-villa",
@@ -36,10 +42,14 @@ const Projects = () => {
     {
       title: "Eden Park",
       location: "Singapore",
+      sub_title: "Urban Living Redefined",
       date: "2024-11-10",
+      sub_discription: "Elevating Community Living through Contemporary Design",
       sqft: "3200 sq ft",
-      category: "upcoming",
-      client: "Colorlib",
+      discription:
+        "Nestled in the heart of Singapore, this modern residence exemplifies luxurious urban architecture. Designed for functionality and style, it features open spaces and a minimalist approach, creating a sophisticated living environment.",
+      category: "design",
+      client: "Emily Carter",
       categories: "Urban",
       rating: 4.5,
       website: "https://examplesite.com/eden-park",
@@ -50,9 +60,13 @@ const Projects = () => {
       title: "Sky Build",
       location: "Paris",
       date: "2024-10-05",
+      sub_title: "Elevated Modernism",
+      sub_discription: "Redefining Skylines with Iconic Structures",
       sqft: "4000 sq ft",
-      category: "popular",
-      client: "Colorlib",
+      discription:
+        "A stunning display of contemporary architecture, this building offers a seamless blend of form and function. Designed with cutting-edge materials, it caters to luxury and efficiency, overlooking the heart of Paris.",
+      category: "construction",
+      client: "Michael Bennett",
       categories: "Modern",
       rating: 5,
       website: "https://examplesite.com/sky-build",
@@ -63,9 +77,13 @@ const Projects = () => {
       title: "Green View",
       location: "London",
       date: "2024-09-20",
+      sub_title: "Sustainable Architectural Marvel",
+      sub_discription: "Integrating Green Technologies for a Brighter Future",
       sqft: "2900 sq ft",
-      category: "latest",
-      client: "Colorlib",
+      discription:
+        "An eco-friendly masterpiece, this residence integrates green technologies with modern architecture. Located amidst lush surroundings, it provides a serene and sustainable living space.",
+      category: "design",
+      client: "Sophia Taylor",
       categories: "Eco-friendly",
       rating: 4.6,
       website: "https://examplesite.com/green-view",
@@ -76,9 +94,13 @@ const Projects = () => {
       title: "Sunshine Tower",
       location: "Tokyo",
       date: "2024-08-12",
+      sub_title: "Urban High-Rise Excellence",
+      sub_discription: "Elevating High-Rise Living with Energy Efficiency",
       sqft: "3600 sq ft",
-      category: "popular",
-      client: "Colorlib",
+      discription:
+        "A beacon of modern high-rise design, this skyscraper offers panoramic views and state-of-the-art amenities. Built with precision, it stands tall as a landmark in Tokyo's skyline.",
+      category: "construction",
+      client: "David Johnson",
       categories: "High-rise",
       rating: 4.9,
       website: "https://examplesite.com/sunshine-tower",
@@ -89,9 +111,13 @@ const Projects = () => {
       title: "Ocean Heights",
       location: "Dubai",
       date: "2024-07-25",
+      sub_title: "Luxury Meets Architecture",
+      sub_discription: "Inspiring Coastal Designs with Modern Elegance",
       sqft: "4200 sq ft",
-      category: "upcoming",
-      client: "Colorlib",
+      discription:
+        "A luxurious waterfront property, Ocean Heights redefines architectural excellence with its sleek design and breathtaking views. The property is a perfect blend of elegance and modernity.",
+      category: "design",
+      client: "Olivia White",
       categories: "Luxury",
       rating: 5,
       website: "https://examplesite.com/ocean-heights",
@@ -105,14 +131,11 @@ const Projects = () => {
       ? projects
       : projects.filter((project) => project.category === activeCategory);
 
-  const openModal = (project: Project) => {
-    setModalData(project);
+  const openProjectPage = (project: Project) => {
+    navigate(`/project/${encodeURIComponent(project.title)}`, {
+      state: project,
+    });
   };
-
-  const closeModal = () => {
-    setModalData(null);
-  };
-
   return (
     <>
       <InnerHeader title="PROJECTS" currentPage="PROJECTS" />
@@ -127,17 +150,15 @@ const Projects = () => {
             <div className="col-lg-12">
               <div className="filters mb-4">
                 <ul>
-                  {["all", "popular", "latest", "following", "upcoming"].map(
-                    (category) => (
-                      <li
-                        key={category}
-                        className={activeCategory === category ? "active" : ""}
-                        onClick={() => setActiveCategory(category)}
-                      >
-                        {category.charAt(0).toUpperCase() + category.slice(1)}
-                      </li>
-                    )
-                  )}
+                  {["all", "design", "construction"].map((category) => (
+                    <li
+                      key={category}
+                      className={activeCategory === category ? "active" : ""}
+                      onClick={() => setActiveCategory(category)}
+                    >
+                      {category.charAt(0).toUpperCase() + category.slice(1)}
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -147,7 +168,7 @@ const Projects = () => {
               <div
                 className="single-project"
                 key={index}
-                onClick={() => openModal(project)}
+                onClick={() => openProjectPage(project)}
               >
                 <div className="thumb">
                   <img
@@ -167,53 +188,6 @@ const Projects = () => {
           </div>
         </div>
       </section>
-
-      {/* Modal */}
-      {modalData && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <button className="close-modal" onClick={closeModal}>
-              &times;
-            </button>
-            <h3>{modalData.title}</h3>
-            <div className="modal-image-and-details">
-              <div className="modal-image">
-                <img src={modalData.image} alt="projetcs-pictures" />
-              </div>
-              <div className="modal-data-details">
-                <p>
-                  <strong>Location:</strong> {modalData.location}
-                </p>
-                <p>
-                  <strong>Date:</strong> {modalData.date}
-                </p>
-                <p>
-                  <strong>Size:</strong> {modalData.sqft}
-                </p>
-                <p>
-                  <strong>Client:</strong> {modalData.client}
-                </p>
-                <p>
-                  <strong>Categories:</strong> {modalData.categories}
-                </p>
-                <p>
-                  <strong>Rating:</strong> {modalData.rating} ⭐
-                </p>
-                <p>
-                  <strong>Website:</strong>{" "}
-                  <a
-                    href={modalData.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {modalData.website}
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 };
