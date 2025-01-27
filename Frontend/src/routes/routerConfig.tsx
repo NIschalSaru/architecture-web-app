@@ -11,6 +11,7 @@ import Projects from "../pages/client/projects";
 import DashboardContainer from "../pages/admin/dashboardContainer";
 import BannerSettings from "../pages/admin/Banner/Index";
 import ProjectDetails from "../pages/client/projects/projectDetails";
+// import ProtectedRoute from "../components/ProtectedRoute";
 
 const RouteConfig = () => {
   // console.log(isAuthenticated());
@@ -31,10 +32,17 @@ const RouteConfig = () => {
         </Route>
 
         <Route path="/admin" element={<DashboardContainer />}>
-          <Route index element={<Navigate to="banner" replace />} />
-          <Route path="banner" element={<BannerSettings />} />
-          {/* Add other routes as needed */}
-        </Route>
+                  <Route index element={<Navigate to="banner" replace />} />
+                  <Route 
+                    path="banner" 
+                    element={
+                      // <ProtectedRoute>
+                        <BannerSettings />
+                      // </ProtectedRoute>
+                    } 
+                  />
+                  {/* Add other protected routes as needed */}
+                </Route>
         <Route path="/page-not-found" element={<PageNotFound />} />
       </Routes>
     </Suspense>
