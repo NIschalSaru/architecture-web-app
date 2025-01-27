@@ -26,6 +26,13 @@ const usePostAPI = <T>(
       const response: AxiosResponse = await axios.post(
         `${apiUrl}/${url}`,
         requestData
+        ,
+        { 
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
       );
 
       if (response && response.data) {

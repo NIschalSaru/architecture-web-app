@@ -44,3 +44,15 @@ const RouteConfig = () => {
 };
 
 export default RouteConfig;
+
+
+{/* <Route index element={<Navigate to="banner" replace />} />
+                  <Route 
+                    path="banner" 
+                    element={
+                      <ProtectedRoute>
+                        <BannerSettings />
+                       </ProtectedRoute>
+                    } 
+                  />
+                </Route> */}

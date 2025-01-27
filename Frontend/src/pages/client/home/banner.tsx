@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Phone, Mail, User } from "lucide-react";
 import useGetAPI from "../../../hooks/useGetAPI";
 import LoadingSpinner from "../../../components/client/LoadingSpinner";
+import { isAuthenticated } from "../../../utils";
 
 interface BannerData {
   id: number;
@@ -30,6 +31,9 @@ const BannerComponent = () => {
     form.resetFields();
   };
 
+  const isUserAuthenticated = isAuthenticated(); 
+  console.log("Is User Authenticated:", isUserAuthenticated);
+  
   if (loading) return <LoadingSpinner />;
   if (error)
     return <div className="error-message">Error loading banner: {error}</div>;
