@@ -43,6 +43,12 @@ const DashboardContainer = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState("banner"); // Default to banner
 
+  useEffect(() => {
+    const pathSegments = location.pathname.split("/");
+    const currentPath = pathSegments[pathSegments.length - 1];
+    setSelectedMenu(currentPath || "banner");
+  }, [location]);
+
   const handleMenuChange = (e: { key: string; keyPath: string[] }) => {
     setSelectedMenu(e.key);
     navigate(`/admin/${e.key}`);
@@ -60,7 +66,6 @@ const DashboardContainer = () => {
           <span>Account Setting</span>
         </div>
       </Menu.Item>
-
       <Menu.Item onClick={() => handleSignOut(navigate)}>
         <div style={{ display: "flex", alignItems: "center" }}>
           <LogoutOutlined style={{ marginRight: "8px" }} />
@@ -69,12 +74,6 @@ const DashboardContainer = () => {
       </Menu.Item>
     </Menu>
   );
-
-  useEffect(() => {
-    const pathSegments = location.pathname.split('/');
-    const currentPath = pathSegments[pathSegments.length - 1];
-    setSelectedMenu(currentPath || 'banner');
-  }, [location]);
 
   return (
     <Layout className="dashboard">
