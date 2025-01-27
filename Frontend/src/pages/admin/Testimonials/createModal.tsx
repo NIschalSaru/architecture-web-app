@@ -42,6 +42,13 @@ const CreateModal: React.FC<CreateModalProps> = ({
       });
   };
 
+  const normFile = (e: any) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e?.fileList;
+  };
+
   return (
     <Modal
       title="Create New Entry"
@@ -84,7 +91,7 @@ const CreateModal: React.FC<CreateModalProps> = ({
           <Col span={12}>
             <Form.Item
               label="Ratings"
-              name="ratings"
+              name="rating"
               rules={[{ required: true, message: "Ratings are required" }]}
             >
               <Rate allowHalf />
@@ -103,13 +110,22 @@ const CreateModal: React.FC<CreateModalProps> = ({
         </Row>
 
         <Form.Item
-          label="Image File"
-          name="imagefile"
-          valuePropName="file"
-          rules={[{ required: false, message: "Image file is required" }]}
+          name="imageUrl"
+          label="Image"
+          valuePropName="fileList"
+          getValueFromEvent={normFile}
+          rules={[{ required: true, message: "Image is required!" }]}
         >
-          <Upload beforeUpload={() => false} accept="image/*">
-            <Button icon={<UploadOutlined />}>Upload Image</Button>
+          <Upload
+            name="imageUrl"
+            listType="picture"
+            maxCount={1}
+            accept=".jpg,.jpeg,.png"
+            beforeUpload={() => false}
+          >
+            <Button icon={<UploadOutlined />} block>
+              Click to upload
+            </Button>
           </Upload>
         </Form.Item>
       </Form>

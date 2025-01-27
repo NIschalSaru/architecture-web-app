@@ -63,7 +63,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
           <Col span={12}>
             <Form.Item
               label="Full Name"
-              name="fullname"
+              name="name"
               rules={[{ required: true, message: "Full Name is required" }]}
             >
               <Input placeholder="Enter full name" />
@@ -85,7 +85,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
           <Col span={12}>
             <Form.Item
               label="Ratings"
-              name="ratings"
+              name="rating"
               rules={[{ required: true, message: "Ratings are required" }]}
             >
               <Rate allowHalf />
@@ -107,7 +107,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
           label="Image File"
           name="imagefile"
           valuePropName="file"
-          rules={[{ required: true, message: "Image file is required" }]}
+          rules={[{ required: false, message: "Image file is required" }]}
         >
           <Upload beforeUpload={() => false} accept="image/*">
             <Button icon={<UploadOutlined />}>Upload Image</Button>
