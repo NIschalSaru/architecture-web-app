@@ -2,8 +2,8 @@ import { Button, Col, Form, Input, Row, Typography, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useEffect } from "react";
 import type { UploadFile } from "antd/es/upload/interface";
-import usePostAPI from '../../../hooks/usePostAPI';
-import useGetAPI from '../../../hooks/useGetAPI';
+import usePostAPI from "../../../hooks/usePostAPI";
+import useGetAPI from "../../../hooks/useGetAPI";
 import LoadingSpinner from "../../../components/client/LoadingSpinner";
 
 const { Title } = Typography;
@@ -30,9 +30,15 @@ type FieldType = typeof initialValues;
 
 const BannerSettings = () => {
   const [form] = Form.useForm();
-  
-  const { loading: isSubmitting, postData } = usePostAPI<any>('architecture-web-app/banner');
-  const { loading: isLoading, data: bannerData } = useGetAPI<BannerData>('architecture-web-app/banner', true, true);
+
+  const { loading: isSubmitting, postData } = usePostAPI<any>(
+    "architecture-web-app/banner"
+  );
+  const { loading: isLoading, data: bannerData } = useGetAPI<BannerData>(
+    "architecture-web-app/banner",
+    true,
+    true
+  );
 
   // Update form when data is fetched
   useEffect(() => {
@@ -40,14 +46,16 @@ const BannerSettings = () => {
       const formData: FormBannerData = {
         heading: bannerData.heading || "",
         subHeading: bannerData.subHeading || "",
-        imageUrl: bannerData.imageUrl ? [
-          {
-            uid: '-1',
-            url: bannerData.imageUrl,
-            name: 'banner-image',
-            status: 'done',
-          } as UploadFile
-        ] : [],
+        imageUrl: bannerData.imageUrl
+          ? [
+              {
+                uid: "-1",
+                url: bannerData.imageUrl,
+                name: "banner-image",
+                status: "done",
+              } as UploadFile,
+            ]
+          : [],
       };
       form.setFieldsValue(formData);
     }
@@ -65,7 +73,7 @@ const BannerSettings = () => {
       }
 
       const response = await postData(formData);
-      
+
       if (response) {
         // The page will automatically refresh due to useGetAPI's effect
         // No need to manually fetch data again
@@ -74,6 +82,47 @@ const BannerSettings = () => {
       console.error('Error updating banner:', error);
     }
   };
+  // const onFinish = async (values: FieldType) => {
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("heading", values.heading);
+  //     formData.append("subHeading", values.subHeading);
+
+  //     const fileList = form.getFieldValue("imageUrl");
+
+  //     // Check if there's a new file selected
+  //     if (fileList?.[0]?.originFileObj) {
+  //       // Directly append the file object, not the whole fileList
+  //       formData.append("imageUrl", fileList[0].originFileObj);
+  //     } else if (bannerData?.imageUrl) {
+  //       // If no new file is selected, keep the existing image URL
+  //       formData.append("imageUrl", bannerData.imageUrl);
+  //     }
+
+  //     const response = await postData(formData);
+  //     if (response) {
+  //       form.resetFields();
+  //     }
+  //   } catch (error) {
+  //     console.error("Error updating banner:", error);
+  //   }
+  // };
+
+  // Modify the normFile function to ensure we get the file properly
+  // const normFile = (e: any) => {
+  //   if (Array.isArray(e)) {
+  //     return e;
+  //   }
+  //   return e?.fileList?.map((file: any) => {
+  //     if (file.originFileObj) {
+  //       return {
+  //         ...file,
+  //         status: "done",
+  //       };
+  //     }
+  //     return file;
+  //   });
+  // };
 
   const normFile = (e: any) => {
     if (Array.isArray(e)) {
@@ -118,6 +167,33 @@ const BannerSettings = () => {
           </Col>
 
           <Col sm={24} lg={12}>
+            {/* <Form.Item
+              name="imageUrl"
+              label="Banner Image"
+              valuePropName="fileList"
+              getValueFromEvent={normFile}
+              rules={[{ required: true, message: "Banner Image is required!" }]}
+            >
+              <Upload
+                name="imageUrl"
+                listType="picture"
+                maxCount={1}
+                accept=".jpg,.jpeg,.png"
+                beforeUpload={(file) => {
+                  // Validate file type and size if needed
+                  const isJpgOrPng =
+                    file.type === "image/jpeg" || file.type === "image/png";
+                  if (!isJpgOrPng) {
+                    console.error("You can only upload JPG/PNG file!");
+                  }
+                  return false; // Return false to prevent auto upload
+                }}
+              >
+                <Button icon={<UploadOutlined />} block>
+                  Click to upload
+                </Button>
+              </Upload>
+            </Form.Item> */}
             <Form.Item
               name="imageUrl"
               label="Banner Image"
@@ -140,9 +216,9 @@ const BannerSettings = () => {
           </Col>
 
           <Col sm={24}>
-            <Button 
-              type="primary" 
-              htmlType="submit" 
+            <Button
+              type="primary"
+              htmlType="submit"
               size="large"
               loading={isSubmitting}
             >
@@ -156,34 +232,6 @@ const BannerSettings = () => {
 };
 
 export default BannerSettings;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import { Button, Col, Form, Input, Row, Spin, Typography, Upload } from "antd";
 // import { UploadOutlined } from "@ant-design/icons";
@@ -214,7 +262,7 @@ export default BannerSettings;
 //   const [form] = Form.useForm();
 //   const [formData, setFormData] = useState<BannerData>(initialValues);
 //   const [isLoading, setIsLoading] = useState(false);
-  
+
 //   const { loading: isSubmitting, postData } = usePostAPI<any>('architecture-web-app/banner');
 
 //   const fetchBannerData = async () => {
@@ -222,7 +270,7 @@ export default BannerSettings;
 //     try {
 //       const response = await axios.get(`${apiUrl}/architecture-web-app/banner`);
 //       const data = response.data;
-      
+
 //       const initialValue: BannerData = {
 //         heading: data.heading || "",
 //         subHeading: data.subHeading || "",
@@ -257,7 +305,7 @@ export default BannerSettings;
 //       }
 
 //       const response = await postData(formData);
-      
+
 //       if (response) {
 //         await fetchBannerData();
 //       }
@@ -333,9 +381,9 @@ export default BannerSettings;
 //             </Col>
 
 //             <Col sm={24}>
-//               <Button 
-//                 type="primary" 
-//                 htmlType="submit" 
+//               <Button
+//                 type="primary"
+//                 htmlType="submit"
 //                 size="large"
 //                 loading={isSubmitting}
 //               >

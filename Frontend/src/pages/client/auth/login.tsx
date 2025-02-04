@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import usePostAPI from '../../../hooks/usePostAPI';
 import logo from '../../../assets/images/Nepal-Designers-Builders-Logo.png';
-import { Cookie } from 'lucide-react';
 
 interface LoginResponse {
   id: number;
@@ -19,33 +18,15 @@ interface LoginFormValues {
   remember?: boolean;
 }
 
-// Utility function to check for authentication cookie
-const isAuthenticated = () => {
-  // Get the raw cookie string first to debug
-  const rawCookies = document.cookie;
-  console.log("Raw cookie string:", rawCookies);
-
-  // Split and find our auth token
-  const cookieArray = rawCookies.split(';').map(cookie => cookie.trim());
-  console.log("Cookie array:", cookieArray);
-
-  const hasAuthToken = cookieArray.some(cookie => {
-    const [name] = cookie.split('=');
-    const matches = name === 'authToken';
-    console.log(`Checking cookie: ${cookie}, name: ${name}, matches: ${matches}`);
-    return matches;
-  });
-
-  return hasAuthToken;
-};
 const LoginPage = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const { loading, postData } = usePostAPI<LoginResponse>('architecture-web-app/auth/login');
 
-  // Check for authentication on component mount
   useEffect(() => {
-    if (isAuthenticated()) {
+    // Check if user is already logged in
+    const userData = localStorage.getItem('userData');
+    if (userData) {
       navigate('/admin/banner');
     }
   }, [navigate]);
@@ -58,15 +39,17 @@ const LoginPage = () => {
       });
 
       if (response) {
-        const isUserAuthenticated = isAuthenticated(); 
-        console.log("Is User Authenticated:", isUserAuthenticated);
-        // After login, check if the cookie was set by the server
-        if (isAuthenticated()) {
-          navigate('/admin/banner');
-        }
+        localStorage.setItem('userId', response.id.toString());
+        localStorage.setItem('fullName', response.fullName);
+        localStorage.setItem('userEmail', response.email);
+        
+        localStorage.setItem('userData', JSON.stringify(response));
+        navigate('/admin/banner');
+
       }
     } catch (error) {
       console.error('Login error:', error);
+      // You might want to show an error message to the user here
     }
   };
 
