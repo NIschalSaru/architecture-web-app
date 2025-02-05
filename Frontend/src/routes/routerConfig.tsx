@@ -10,6 +10,7 @@ import Projects from "../pages/client/projects";
 import DashboardContainer from "../pages/admin/dashboardContainer";
 import BannerSettings from "../pages/admin/Banner/Index";
 import TestimonialSetting from "../pages/admin/Testimonials/index";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 const RouteConfig = () => {
   return (
@@ -20,19 +21,20 @@ const RouteConfig = () => {
 
         {/* Public Routes */}
         <Route path="/" element={<FrontContainer />}>
-          <Route index element={<Home />} /> {/* Default route */}
+          <Route index element={<Home />} />
           <Route path="about" element={<AboutUsPage />} />
           <Route path="projects" element={<Projects />} />
           <Route path="services" element={<Services />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
 
-        {/* Admin Routes */}
-        <Route path="/admin" element={<DashboardContainer />}>
-          <Route index element={<Navigate to="banner" replace />} />{" "}
-          {/* Default admin route */}
-          <Route path="banner" element={<BannerSettings />} />
-          <Route path="testimonials" element={<TestimonialSetting />} />
+        {/* Protected Admin Routes */}
+        <Route path="/admin" element={<ProtectedRoute />}>
+          <Route element={<DashboardContainer />}>
+            <Route index element={<Navigate to="banner" replace />} />
+            <Route path="banner" element={<BannerSettings />} />
+            <Route path="testimonials" element={<TestimonialSetting />} />
+          </Route>
         </Route>
 
         {/* 404 Page */}
@@ -44,15 +46,3 @@ const RouteConfig = () => {
 };
 
 export default RouteConfig;
-
-
-{/* <Route index element={<Navigate to="banner" replace />} />
-                  <Route 
-                    path="banner" 
-                    element={
-                      <ProtectedRoute>
-                        <BannerSettings />
-                       </ProtectedRoute>
-                    } 
-                  />
-                </Route> */}
