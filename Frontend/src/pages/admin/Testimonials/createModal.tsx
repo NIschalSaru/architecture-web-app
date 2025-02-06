@@ -1,20 +1,12 @@
-import React from "react";
-import { Modal, Form, Input, Upload, Rate, Button, Row, Col } from "antd";
+import React, { useState } from "react";
+import { Modal, Form, Input, Upload, Rate, Button, Row, Col, Spin } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { RcFile } from "antd/lib/upload";
+import { UploadFile } from "antd/es/upload/interface";
 
 interface CreateModalProps {
   visible: boolean;
   onCancel: () => void;
-  onCreate: (values: CreateFormValues) => void;
-}
-
-interface CreateFormValues {
-  fullname: string;
-  message: string;
-  ratings: number;
-  designation: string;
-  imagefile: RcFile;
+  onCreate: (values: FormData) => Promise<void>;
 }
 
 const CreateModal: React.FC<CreateModalProps> = ({
@@ -22,113 +14,121 @@ const CreateModal: React.FC<CreateModalProps> = ({
   onCancel,
   onCreate,
 }) => {
-  const [form] = Form.useForm<CreateFormValues>();
+  const [form] = Form.useForm();
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const handleCreate = () => {
-    form
-      .validateFields()
-      .then((values) => {
-        // Extract the file from the Upload field
-        const file = values.imagefile?.fileList?.[0]?.originFileObj;
-        const formData = {
-          ...values,
-          imagefile: file, // Replace fileList with the actual file
-        };
-        onCreate(formData);
-        form.resetFields();
-      })
-      .catch((info) => {
-        console.log("Validate Failed:", info);
-      });
+  const handleFileChange = ({ fileList }: { fileList: UploadFile[] }) => {
+    setFileList(fileList.slice(-1));
   };
 
-  const normFile = (e: any) => {
-    if (Array.isArray(e)) {
-      return e;
+  const handleCreate = async () => {
+    try {
+      setLoading(true);
+      const values = await form.validateFields();
+      const formData = new FormData();
+      formData.append("fullname", values.fullname);
+      formData.append("designation", values.designation);
+      formData.append("rating", values.rating?.toString() || "0");
+      formData.append("message", values.message);
+
+      if (fileList.length > 0) {
+        formData.append("imageUrl", fileList[0].originFileObj as Blob);
+      }
+
+      await onCreate(formData);
+      form.resetFields();
+      setFileList([]);
+    } catch (error) {
+      console.error("Validation Failed:", error);
+    } finally {
+      setLoading(false);
     }
-    return e?.fileList;
   };
 
   return (
     <Modal
       title="Create New Entry"
-      visible={visible}
+      open={visible}
       onCancel={onCancel}
       footer={[
-        <Button key="back" onClick={onCancel}>
+        <Button key="back" onClick={onCancel} disabled={loading}>
           Cancel
         </Button>,
-        <Button key="submit" type="primary" onClick={handleCreate}>
+        <Button
+          key="submit"
+          type="primary"
+          onClick={handleCreate}
+          disabled={loading}
+        >
           Create
         </Button>,
       ]}
       width={800}
     >
-      <Form form={form} layout="vertical" name="create_form">
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item
-              label="Full Name"
-              name="fullname"
-              rules={[{ required: true, message: "Full Name is required" }]}
-            >
-              <Input placeholder="Enter full name" />
-            </Form.Item>
-          </Col>
+      <Spin spinning={loading}>
+        <Form form={form} layout="vertical">
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                label="Full Name"
+                name="fullname"
+                rules={[{ required: true, message: "Full Name is required" }]}
+              >
+                <Input placeholder="Enter full name" disabled={loading} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                label="Designation"
+                name="designation"
+                rules={[{ required: true, message: "Designation is required" }]}
+              >
+                <Input placeholder="Enter designation" disabled={loading} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                label="Ratings"
+                name="rating"
+                rules={[{ required: true, message: "Ratings are required" }]}
+              >
+                <Rate allowHalf disabled={loading} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                label="Message"
+                name="message"
+                rules={[{ required: true, message: "Message is required" }]}
+              >
+                <Input.TextArea
+                  rows={3}
+                  placeholder="Enter message"
+                  disabled={loading}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
 
-          <Col span={12}>
-            <Form.Item
-              label="Designation"
-              name="designation"
-              rules={[{ required: true, message: "Designation is required" }]}
+          <Form.Item label="Image" name="imageUrl">
+            <Upload
+              beforeUpload={() => false}
+              fileList={fileList}
+              onChange={handleFileChange}
+              multiple={false}
+              listType="picture"
+              disabled={loading}
             >
-              <Input placeholder="Enter designation" />
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item
-              label="Ratings"
-              name="rating"
-              rules={[{ required: true, message: "Ratings are required" }]}
-            >
-              <Rate allowHalf />
-            </Form.Item>
-          </Col>
-
-          <Col span={12}>
-            <Form.Item
-              label="Message"
-              name="message"
-              rules={[{ required: true, message: "Message is required" }]}
-            >
-              <Input.TextArea rows={3} placeholder="Enter message" />
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Form.Item
-          name="imageUrl"
-          label="Image"
-          valuePropName="fileList"
-          getValueFromEvent={normFile}
-          rules={[{ required: true, message: "Image is required!" }]}
-        >
-          <Upload
-            name="imageUrl"
-            listType="picture"
-            maxCount={1}
-            accept=".jpg,.jpeg,.png"
-            beforeUpload={() => false}
-          >
-            <Button icon={<UploadOutlined />} block>
-              Click to upload
-            </Button>
-          </Upload>
-        </Form.Item>
-      </Form>
+              <Button icon={<UploadOutlined />} disabled={loading}>
+                Upload
+              </Button>
+            </Upload>
+          </Form.Item>
+        </Form>
+      </Spin>
     </Modal>
   );
 };

@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { Space, Table, Button, message, Form, Spin, Tooltip } from "antd";
+import { Space, Table, Button, message, Tooltip, Rate, UploadFile } from "antd";
 import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import CreateModal from "./createModal";
 import UpdateModal from "./updateModal";
-import DeleteModal from "./deleteModal"; // Import DeleteModal
+import DeleteModal from "./deleteModal";
 import { apiUrl } from "../../../utils";
-
+import LoadingSpinner from "../../../components/client/LoadingSpinner";
 interface DataType {
   key: string;
-  name: string;
+  fullname: string;
   designation: string;
   rating: number;
   message: string;
+  imagefile: UploadFile | null;
 }
 
 const TestimonialSetting = () => {
@@ -24,8 +25,6 @@ const TestimonialSetting = () => {
   const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
   const [recordName, setRecordName] = useState<string>("");
 
-  const [form] = Form.useForm();
-
   // Fetch data from API
   const fetchData = async () => {
     setLoading(true);
@@ -35,10 +34,11 @@ const TestimonialSetting = () => {
       );
       const fetchedData = response.data.data.map((testimonial: any) => ({
         key: testimonial.id.toString(),
-        name: testimonial.fullname,
+        fullname: testimonial.fullname,
         designation: testimonial.designation,
         rating: testimonial.rating,
         message: testimonial.message,
+        imageUrl: testimonial.imageUrl || "",
       }));
       setData(fetchedData);
     } catch (error: unknown) {
@@ -53,73 +53,79 @@ const TestimonialSetting = () => {
     fetchData();
   }, []);
 
-  const handleCreate = async (values: any) => {
+  const handleCreate = async (formData: FormData) => {
     try {
-      const formData = new FormData();
-      formData.append("fullname", values.fullname);
-      formData.append("designation", values.designation);
-      formData.append("rating", values.rating.toString());
-      formData.append("message", values.message);
-      const fileList = form.getFieldValue("imageUrl");
-      if (fileList?.[0]?.originFileObj) {
-        formData.append("imageUrl", fileList[0].originFileObj);
-      }
-
       const response = await axios.post(
         `${apiUrl}/architecture-web-app/testimonial`,
-        formData
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
+
       if (response.status === 201) {
         message.success("Testimonial created successfully!");
         setModalVisible(false);
         fetchData();
       }
-    } catch (error) {
-      message.error("Failed to create testimonial");
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        message.error(
+          error.response?.data.message || "Failed to create testimonial"
+        );
+      } else {
+        message.error("An unexpected error occurred");
+      }
     }
   };
 
-  const handleUpdate = async (values: any) => {
+  const handleUpdate = async (formData: FormData) => {
+    console.log(`${editingRecord?.key}`);
     try {
-      const formData = new FormData();
-      formData.append("fullname", values.fullname);
-      formData.append("designation", values.designation);
-      formData.append("rating", values.rating.toString());
-      formData.append("message", values.message);
-      if (values.imagefile) {
-        formData.append("imageUrl", values.imageUrl);
-      }
-
       const response = await axios.put(
         `${apiUrl}/architecture-web-app/testimonial/${editingRecord?.key}`,
-        formData
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
       if (response.status === 200) {
         message.success("Testimonial updated successfully!");
         setEditModalVisible(false);
         fetchData();
       }
-    } catch (error) {
-      message.error("Failed to update testimonial");
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        message.error(
+          error.response?.data.message || "Failed to update testimonial"
+        );
+      } else {
+        message.error("An unexpected error occurred");
+      }
     }
   };
 
   const handleDeleteClick = (record: DataType) => {
     setEditingRecord(record);
-    setRecordName(record.name);
+    setRecordName(record.fullname);
     setDeleteModalVisible(true);
   };
 
   const handleDeleteConfirm = async () => {
     try {
-      console.log(`${editingRecord?.key}`);
       const response = await axios.delete(
         `${apiUrl}/architecture-web-app/testimonial/${editingRecord?.key}`,
         { withCredentials: true }
       );
       if (response.status === 200) {
         setData(data.filter((item) => item.key !== editingRecord?.key));
-        message.success(`${editingRecord?.name} has been deleted`);
+        message.success(`${editingRecord?.fullname} has been deleted`);
         setDeleteModalVisible(false);
       }
     } catch (error) {
@@ -135,8 +141,8 @@ const TestimonialSetting = () => {
   const columns = [
     {
       title: "Name",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "fullname",
+      key: "fullname",
     },
     {
       title: "Designation",
@@ -147,6 +153,29 @@ const TestimonialSetting = () => {
       title: "Rating",
       dataIndex: "rating",
       key: "rating",
+      render: (rating: number) => (
+        <Rate
+          disabled
+          value={rating}
+          allowHalf
+          style={{ fontSize: "18px", color: "#fadb14" }}
+        />
+      ),
+    },
+    {
+      title: "Image",
+      dataIndex: "imageUrl",
+      key: "imageUrl",
+      render: (imageUrl: string) =>
+        imageUrl ? (
+          <img
+            src={imageUrl}
+            alt="Testimonial"
+            style={{ width: 30, height: 30, borderRadius: "50%" }}
+          />
+        ) : (
+          <span>No Image</span>
+        ),
     },
     {
       title: "Action",
@@ -155,9 +184,9 @@ const TestimonialSetting = () => {
         <Space size="middle">
           <Tooltip title="Update">
             <Button
-              type="text"
               icon={<EditOutlined />}
               onClick={() => handleUpdateClick(record)}
+              style={{ color: "green", borderColor: "white" }}
             />
           </Tooltip>
 
@@ -166,7 +195,7 @@ const TestimonialSetting = () => {
               type="text"
               danger
               icon={<DeleteOutlined />}
-              onClick={() => handleDeleteClick(record)} // Updated here
+              onClick={() => handleDeleteClick(record)}
             />
           </Tooltip>
         </Space>
@@ -175,52 +204,58 @@ const TestimonialSetting = () => {
   ];
 
   return (
-    <Spin spinning={loading}>
-      <div
-        style={{
-          marginBottom: "16px",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={() => setModalVisible(true)}
-          style={{ backgroundColor: "#b0190e", border: "none" }}
-        >
-          Create
-        </Button>
-      </div>
+    <div>
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <div>
+          <div
+            style={{
+              marginBottom: "16px",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => setModalVisible(true)}
+            >
+              Create
+            </Button>
+          </div>
 
-      <Table<DataType>
-        columns={columns}
-        dataSource={data}
-        pagination={{ pageSize: 10 }}
-      />
+          <Table<DataType>
+            columns={columns}
+            dataSource={data}
+            pagination={{ pageSize: 10 }}
+            scroll={{ x: "max-content" }}
+          />
 
-      <CreateModal
-        visible={modalVisible}
-        onCancel={() => setModalVisible(false)}
-        onCreate={handleCreate}
-      />
+          <CreateModal
+            visible={modalVisible}
+            onCancel={() => setModalVisible(false)}
+            onCreate={handleCreate}
+          />
 
-      {editingRecord && (
-        <UpdateModal
-          visible={editModalVisible}
-          onCancel={() => setEditModalVisible(false)}
-          onUpdate={handleUpdate}
-          initialValues={editingRecord}
-        />
+          {editingRecord && (
+            <UpdateModal
+              visible={editModalVisible}
+              onCancel={() => setEditModalVisible(false)}
+              onUpdate={handleUpdate}
+              initialValues={editingRecord}
+            />
+          )}
+
+          <DeleteModal
+            visible={deleteModalVisible}
+            onCancel={() => setDeleteModalVisible(false)}
+            onConfirm={handleDeleteConfirm}
+            recordName={editingRecord?.fullname || ""}
+          />
+        </div>
       )}
-
-      <DeleteModal
-        visible={deleteModalVisible}
-        onCancel={() => setDeleteModalVisible(false)}
-        onConfirm={handleDeleteConfirm}
-        recordName={editingRecord?.name || ""}
-      />
-    </Spin>
+    </div>
   );
 };
 
