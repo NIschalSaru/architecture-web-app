@@ -1,10 +1,11 @@
-import { Button, Col, Form, Input, Row, Typography, Upload } from "antd";
+import { Button, Col, Form, Input, Row, Typography, Upload,message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { UploadFile } from "antd/es/upload/interface";
-import usePostAPI from "../../../hooks/usePostAPI";
 import useGetAPI from "../../../hooks/useGetAPI";
 import LoadingSpinner from "../../../components/client/LoadingSpinner";
+import axios from "axios";
+import { apiUrl } from '../../../utils/index';
 
 const { Title } = Typography;
 
@@ -30,17 +31,15 @@ type FieldType = typeof initialValues;
 
 const BannerSettings = () => {
   const [form] = Form.useForm();
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const { loading: isSubmitting, postData } = usePostAPI<any>(
-    "architecture-web-app/banner"
-  );
   const { loading: isLoading, data: bannerData } = useGetAPI<BannerData>(
     "architecture-web-app/banner",
     true,
     true
   );
 
-  // Update form when data is fetched
   useEffect(() => {
     if (bannerData) {
       const formData: FormBannerData = {
@@ -58,343 +57,128 @@ const BannerSettings = () => {
           : [],
       };
       form.setFieldsValue(formData);
+      setFileList(formData.imageUrl);
     }
   }, [bannerData, form]);
 
-  const onFinish = async (values: FieldType) => {
+  const handleFileChange = ({ fileList }: { fileList: UploadFile[] }) => {
+    setFileList(fileList.slice(-1));
+    form.setFieldsValue({ imageUrl: fileList.slice(-1) });
+  };
+
+  const handleSubmit = async () => {
     try {
+      setLoading(true);
+      const values = await form.validateFields();
+      
       const formData = new FormData();
-      formData.append('heading', values.heading);
-      formData.append('subHeading', values.subHeading);
+      formData.append("heading", values.heading);
+      formData.append("subHeading", values.subHeading);
 
-      const fileList = form.getFieldValue('imageUrl');
-      if (fileList?.[0]?.originFileObj) {
-        formData.append('imageUrl', fileList[0].originFileObj);
+      if (fileList.length > 0 && fileList[0].originFileObj) {
+        const file = fileList[0].originFileObj;
+        formData.append("imageUrl", file, file.name);
       }
 
-      const response = await postData(formData);
-
-      if (response) {
-        // The page will automatically refresh due to useGetAPI's effect
-        // No need to manually fetch data again
-      }
+      const response =await axios.post(`${apiUrl}/architecture-web-app/banner`, formData, {
+        withCredentials: true,
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+    if (response.data?.message) {
+      message.success(response.data.message);
+    }
+      
     } catch (error) {
-      console.error('Error updating banner:', error);
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
-  // const onFinish = async (values: FieldType) => {
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append("heading", values.heading);
-  //     formData.append("subHeading", values.subHeading);
 
-  //     const fileList = form.getFieldValue("imageUrl");
-
-  //     // Check if there's a new file selected
-  //     if (fileList?.[0]?.originFileObj) {
-  //       // Directly append the file object, not the whole fileList
-  //       formData.append("imageUrl", fileList[0].originFileObj);
-  //     } else if (bannerData?.imageUrl) {
-  //       // If no new file is selected, keep the existing image URL
-  //       formData.append("imageUrl", bannerData.imageUrl);
-  //     }
-
-  //     const response = await postData(formData);
-  //     if (response) {
-  //       form.resetFields();
-  //     }
-  //   } catch (error) {
-  //     console.error("Error updating banner:", error);
-  //   }
-  // };
-
-  // Modify the normFile function to ensure we get the file properly
-  // const normFile = (e: any) => {
-  //   if (Array.isArray(e)) {
-  //     return e;
-  //   }
-  //   return e?.fileList?.map((file: any) => {
-  //     if (file.originFileObj) {
-  //       return {
-  //         ...file,
-  //         status: "done",
-  //       };
-  //     }
-  //     return file;
-  //   });
-  // };
-
-  const normFile = (e: any) => {
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e?.fileList;
-  };
-
-  if (isLoading || isSubmitting) {
+  if (isLoading) {
     return <LoadingSpinner />;
   }
-
+  if (loading) {
+    return <LoadingSpinner />;
+  }
   return (
     <div className="dashboard-card">
       <Title level={3}>Banner Information</Title>
-      <Form
-        form={form}
-        layout="vertical"
-        name="banner_settings"
-        onFinish={onFinish}
-        initialValues={initialValues}
-      >
-        <Row gutter={[50, 10]}>
-          <Col sm={24} lg={12}>
-            <Form.Item<FieldType>
-              label="Heading"
-              name="heading"
-              rules={[{ required: true, message: "Heading is required!" }]}
-            >
-              <Input placeholder="Enter heading..." />
-            </Form.Item>
-          </Col>
-
-          <Col sm={24} lg={12}>
-            <Form.Item<FieldType>
-              label="Sub Heading"
-              name="subHeading"
-              rules={[{ required: true, message: "Sub Heading is required!" }]}
-            >
-              <Input placeholder="Enter sub heading..." />
-            </Form.Item>
-          </Col>
-
-          <Col sm={24} lg={12}>
-            {/* <Form.Item
-              name="imageUrl"
-              label="Banner Image"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
-              rules={[{ required: true, message: "Banner Image is required!" }]}
-            >
-              <Upload
-                name="imageUrl"
-                listType="picture"
-                maxCount={1}
-                accept=".jpg,.jpeg,.png"
-                beforeUpload={(file) => {
-                  // Validate file type and size if needed
-                  const isJpgOrPng =
-                    file.type === "image/jpeg" || file.type === "image/png";
-                  if (!isJpgOrPng) {
-                    console.error("You can only upload JPG/PNG file!");
-                  }
-                  return false; // Return false to prevent auto upload
-                }}
+        <Form
+          form={form}
+          layout="vertical"
+          name="banner_settings"
+          initialValues={initialValues}
+        >
+          <Row gutter={[50, 10]}>
+            <Col sm={24} lg={12}>
+              <Form.Item<FieldType>
+                label="Heading"
+                name="heading"
+                rules={[{ required: true, message: "Heading is required!" }]}
               >
-                <Button icon={<UploadOutlined />} block>
-                  Click to upload
-                </Button>
-              </Upload>
-            </Form.Item> */}
-            <Form.Item
-              name="imageUrl"
-              label="Banner Image"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
-              rules={[{ required: true, message: "Banner Image is required!" }]}
-            >
-              <Upload
-                name="imageUrl"
-                listType="picture"
-                maxCount={1}
-                accept=".jpg,.jpeg,.png"
-                beforeUpload={() => false}
-              >
-                <Button icon={<UploadOutlined />} block>
-                  Click to upload
-                </Button>
-              </Upload>
-            </Form.Item>
-          </Col>
+                <Input 
+                  placeholder="Enter heading..." 
+                  disabled={loading}
+                />
+              </Form.Item>
+            </Col>
 
-          <Col sm={24}>
-            <Button
-              type="primary"
-              htmlType="submit"
-              size="large"
-              loading={isSubmitting}
-            >
-              Submit
-            </Button>
-          </Col>
-        </Row>
-      </Form>
+            <Col sm={24} lg={12}>
+              <Form.Item<FieldType>
+                label="Sub Heading"
+                name="subHeading"
+                rules={[{ required: true, message: "Sub Heading is required!" }]}
+              >
+                <Input 
+                  placeholder="Enter sub heading..." 
+                  disabled={loading}
+                />
+              </Form.Item>
+            </Col>
+
+            <Col sm={24} lg={12}>
+              <Form.Item
+                label="Banner Image"
+                name="imageUrl"
+                rules={[{ required: true, message: "Banner Image is required!" }]}
+              >
+                <Upload
+                  beforeUpload={() => false}
+                  fileList={fileList}
+                  onChange={handleFileChange}
+                  multiple={false}
+                  listType="picture"
+                  accept=".jpg,.jpeg,.png,.webp"
+                  disabled={loading}
+                >
+                  <Button 
+                    icon={<UploadOutlined />} 
+                    disabled={loading}
+                    block
+                  >
+                    Click to upload
+                  </Button>
+                </Upload>
+              </Form.Item>
+            </Col>
+
+            <Col sm={24}>
+              <Button
+                type="primary"
+                onClick={handleSubmit}
+                size="large"
+                loading={loading}
+              >
+                Submit
+              </Button>
+            </Col>
+          </Row>
+        </Form>
     </div>
   );
 };
 
 export default BannerSettings;
-
-// import { Button, Col, Form, Input, Row, Spin, Typography, Upload } from "antd";
-// import { UploadOutlined } from "@ant-design/icons";
-// import { useEffect, useState } from "react";
-// import type { UploadFile } from "antd/es/upload/interface";
-// import usePostAPI from '../../../hooks/usePostAPI'; // Update with correct path
-// import axios from 'axios';
-// import { apiUrl } from '../../../utils/index'; // Update with correct path
-// import LoadingSpinner from "../../../components/client/LoadingSpinner";
-
-// const { Title } = Typography;
-
-// interface BannerData {
-//   heading: string;
-//   subHeading: string;
-//   imageUrl: UploadFile[];
-// }
-
-// const initialValues: BannerData = {
-//   heading: "",
-//   subHeading: "",
-//   imageUrl: [],
-// };
-
-// type FieldType = typeof initialValues;
-
-// const BannerSettings = () => {
-//   const [form] = Form.useForm();
-//   const [formData, setFormData] = useState<BannerData>(initialValues);
-//   const [isLoading, setIsLoading] = useState(false);
-
-//   const { loading: isSubmitting, postData } = usePostAPI<any>('architecture-web-app/banner');
-
-//   const fetchBannerData = async () => {
-//     setIsLoading(true);
-//     try {
-//       const response = await axios.get(`${apiUrl}/architecture-web-app/banner`);
-//       const data = response.data;
-
-//       const initialValue: BannerData = {
-//         heading: data.heading || "",
-//         subHeading: data.subHeading || "",
-//         imageUrl: data.imageUrl ? [
-//           {
-//             uid: '-1',
-//             url: data.imageUrl,
-//             name: 'banner-image',
-//             status: 'done',
-//           } as UploadFile
-//         ] : [],
-//       };
-
-//       setFormData(initialValue);
-//       form.setFieldsValue(initialValue);
-//     } catch (error) {
-//       console.error('Error fetching banner data:', error);
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   };
-
-//   const onFinish = async (values: FieldType) => {
-//     try {
-//       const formData = new FormData();
-//       formData.append('heading', values.heading);
-//       formData.append('subHeading', values.subHeading);
-
-//       const fileList = form.getFieldValue('imageUrl');
-//       if (fileList?.[0]?.originFileObj) {
-//         formData.append('imageUrl', fileList[0].originFileObj);
-//       }
-
-//       const response = await postData(formData);
-
-//       if (response) {
-//         await fetchBannerData();
-//       }
-//     } catch (error) {
-//       console.error('Error updating banner:', error);
-//     }
-//   };
-
-//   const normFile = (e: any) => {
-//     if (Array.isArray(e)) {
-//       return e;
-//     }
-//     return e?.fileList;
-//   };
-
-//   useEffect(() => {
-//     fetchBannerData();
-//   }, []);
-
-//   return (
-//     <Spin spinning={isLoading || isSubmitting}>
-//       <LoadingSpinner/>
-//       <div className="dashboard-card">
-//         <Title level={3}>Banner Information</Title>
-//         <Form
-//           form={form}
-//           layout="vertical"
-//           name="banner_settings"
-//           onFinish={onFinish}
-//           initialValues={formData}
-//         >
-//           <Row gutter={[50, 10]}>
-//             <Col sm={24} lg={12}>
-//               <Form.Item<FieldType>
-//                 label="Heading"
-//                 name="heading"
-//                 rules={[{ required: true, message: "Heading is required!" }]}
-//               >
-//                 <Input placeholder="Enter heading..." />
-//               </Form.Item>
-//             </Col>
-
-//             <Col sm={24} lg={12}>
-//               <Form.Item<FieldType>
-//                 label="Sub Heading"
-//                 name="subHeading"
-//                 rules={[{ required: true, message: "Sub Heading is required!" }]}
-//               >
-//                 <Input placeholder="Enter sub heading..." />
-//               </Form.Item>
-//             </Col>
-
-//             <Col sm={24} lg={12}>
-//               <Form.Item
-//                 name="imageUrl"
-//                 label="Banner Image"
-//                 valuePropName="fileList"
-//                 getValueFromEvent={normFile}
-//                 rules={[{ required: true, message: "Banner Image is required!" }]}
-//               >
-//                 <Upload
-//                   name="imageUrl"
-//                   listType="picture"
-//                   maxCount={1}
-//                   accept=".jpg,.jpeg,.png"
-//                   beforeUpload={() => false}
-//                 >
-//                   <Button icon={<UploadOutlined />} block>
-//                     Click to upload
-//                   </Button>
-//                 </Upload>
-//               </Form.Item>
-//             </Col>
-
-//             <Col sm={24}>
-//               <Button
-//                 type="primary"
-//                 htmlType="submit"
-//                 size="large"
-//                 loading={isSubmitting}
-//               >
-//                 Submit
-//               </Button>
-//             </Col>
-//           </Row>
-//         </Form>
-//       </div>
-//     </Spin>
-//   );
-// };
-
-// export default BannerSettings;

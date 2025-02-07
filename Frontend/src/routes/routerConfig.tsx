@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import AboutUsPage from "../pages/client/about";
 import FrontContainer from "../pages/client/container";
-import PageNotFound from "../pages/client/page-not-found";
+import PageNotFound from "../pages/client/page-not-found/index";
 import Home from "../pages/client/home";
 import LoginPage from "../pages/client/auth/login";
 import Services from "../pages/client/Service/index";
