@@ -15,7 +15,7 @@ interface Project {
   categories: string;
   rating: number;
   website: string;
-  image: string;
+  images: string[]; // Update from 'image' to 'images'
 }
 
 const Projects = () => {
@@ -36,8 +36,9 @@ const Projects = () => {
       categories: "Exterior",
       rating: 4.8,
       website: "https://examplesite.com/dell-villa",
-      image:
+      images: [
         "https://cdnb.artstation.com/p/assets/images/images/028/842/911/smaller_square/rashed-abdullah-01-guest-room-1.jpg?1595685596",
+      ],
     },
     {
       title: "Eden Park",
@@ -47,14 +48,19 @@ const Projects = () => {
       sub_discription: "Elevating Community Living through Contemporary Design",
       sqft: "3200 sq ft",
       discription:
-        "Nestled in the heart of Singapore, this modern residence exemplifies luxurious urban architecture. Designed for functionality and style, it features open spaces and a minimalist approach, creating a sophisticated living environment.",
+        "Nestled in the heart of Singapore, this modern residence exemplifies luxurious urban architecture. Designed for functionality and style, it features open spaces and a minimalist approach, creating a sophisticated living environment.Nestled in the heart of Singapore, this modern residence exemplifies luxurious urban architecture. Designed for functionality and style, it features open spaces and a minimalist approach, creating a sophisticated living environment.Nestled in the heart of Singapore, this modern residence exemplifies luxurious urban architecture. Designed for functionality and style, it features open spaces and a minimalist approach, creating a sophisticated living environment.Nestled in the heart of Singapore, this modern residence exemplifies luxurious urban architecture. Designed for functionality and style, it features open spaces and a minimalist approach, creating a sophisticated living environment.",
       category: "design",
       client: "Emily Carter",
       categories: "Urban",
       rating: 4.5,
       website: "https://examplesite.com/eden-park",
-      image:
-        "https://cdna.artstation.com/p/assets/images/images/017/941/688/smaller_square/juan-pablo-orrego-contador-rainyfacade.jpg?1557932336",
+      images: [
+        "https://cdnb.artstation.com/p/assets/images/images/036/508/313/large/asim-salman-zicatela-1.jpg?1617858483",
+        "https://cdnb.artstation.com/p/assets/images/images/036/508/315/large/asim-salman-zicatela-4.jpg?1617858489",
+        "https://cdnb.artstation.com/p/assets/images/images/036/508/319/large/asim-salman-zicatela-5.jpg?1617858494",
+        "https://cdna.artstation.com/p/assets/images/images/036/508/324/large/asim-salman-zicatela-8.jpg?1617858511",
+        "https://cdnb.artstation.com/p/assets/images/images/036/508/327/large/asim-salman-zicatela-9.jpg?1617858516",
+      ],
     },
     {
       title: "Sky Build",
@@ -64,14 +70,18 @@ const Projects = () => {
       sub_discription: "Redefining Skylines with Iconic Structures",
       sqft: "4000 sq ft",
       discription:
-        "A stunning display of contemporary architecture, this building offers a seamless blend of form and function. Designed with cutting-edge materials, it caters to luxury and efficiency, overlooking the heart of Paris.",
+        "A stunning display of contemporary architecture, this building offers a seamless blend of form and function. Designed with cutting-edge materials, it caters to luxury and efficiency, overlooking the heart of Paris. A stunning display of contemporary architecture, this building offers a seamless blend of form and function. Designed with cutting-edge materials, it caters to luxury and efficiency, overlooking the heart of Paris.A stunning display of contemporary architecture, this building offers a seamless blend of form and function. Designed with cutting-edge materials, it caters to luxury and efficiency, overlooking the heart of Paris.A stunning display of contemporary architecture, this building offers a seamless blend of form and function. Designed with cutting-edge materials, it caters to luxury and efficiency, overlooking the heart of Paris.A stunning display of contemporary architecture, this building offers a seamless blend of form and function. Designed with cutting-edge materials, it caters to luxury and efficiency, overlooking the heart of Paris. A stunning display of contemporary architecture, this building offers a seamless blend of form and function. Designed with cutting-edge materials, it caters to luxury and efficiency, overlooking the heart of Paris.A stunning display of contemporary architecture, this building offers a seamless blend of form and function. Designed with cutting-edge materials, it caters to luxury and efficiency, overlooking the heart of Paris.",
       category: "construction",
       client: "Michael Bennett",
       categories: "Modern",
       rating: 5,
       website: "https://examplesite.com/sky-build",
-      image:
-        "https://cdnb.artstation.com/p/assets/images/images/051/802/287/20220719022825/smaller_square/ilya-galinsky-day-01a-logo.jpg?1658215706",
+      images: [
+        "https://cdna.artstation.com/p/assets/images/images/078/323/294/large/ben-nicholas-bennicholas-stellastar-architecture-rowhouse-01.jpg?1721788671",
+        "https://cdnb.artstation.com/p/assets/images/images/078/323/295/large/ben-nicholas-bennicholas-stellastar-architecture-rowhouse-02.jpg?1721788679",
+        "https://cdnb.artstation.com/p/assets/images/images/078/323/301/large/ben-nicholas-bennicholas-stellastar-architecture-rowhouse-03.jpg?1721788714",
+        "https://cdnb.artstation.com/p/assets/images/images/078/323/303/large/ben-nicholas-bennicholas-stellastar-architecture-rowhouse-05.jpg?1721788728",
+      ],
     },
     {
       title: "Green View",
@@ -87,8 +97,9 @@ const Projects = () => {
       categories: "Eco-friendly",
       rating: 4.6,
       website: "https://examplesite.com/green-view",
-      image:
+      images: [
         "https://cdnb.artstation.com/p/assets/images/images/047/048/647/smaller_square/yantram-architectural-design-studio-3d-exterior-modeling-of-small-house-with-garden-by-architectural-design-studio.jpg?1646647795",
+      ],
     },
     {
       title: "Sunshine Tower",
@@ -104,8 +115,9 @@ const Projects = () => {
       categories: "High-rise",
       rating: 4.9,
       website: "https://examplesite.com/sunshine-tower",
-      image:
+      images: [
         "https://cdnb.artstation.com/p/assets/covers/images/053/806/567/smaller_square/andi-inzinger-andi-inzinger-sakura-exterior-preview.jpg?1663079291",
+      ],
     },
     {
       title: "Ocean Heights",
@@ -121,8 +133,9 @@ const Projects = () => {
       categories: "Luxury",
       rating: 5,
       website: "https://examplesite.com/ocean-heights",
-      image:
+      images: [
         "https://cdna.artstation.com/p/assets/images/images/021/205/002/smaller_square/yantram-architectural-design-studio-first-floor-residential-3d-floor-house-design-by-archtectural-design-studio.jpg?1570772900",
+      ],
     },
   ];
 
@@ -171,10 +184,11 @@ const Projects = () => {
                 onClick={() => openProjectPage(project)}
               >
                 <div className="thumb">
+                  {/* Display only the first image */}
                   <img
                     className="image img-fluid"
-                    src={project.image}
-                    alt={project.title}
+                    src={project.images[0]} // Display the first image
+                    alt={`${project.title}`}
                   />
                 </div>
                 <div className="middle">
