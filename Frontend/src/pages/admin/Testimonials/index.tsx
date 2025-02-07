@@ -1,68 +1,148 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { Space, Table, Button, message, Tooltip } from "antd";
+import { Space, Table, Button, message, Tooltip, Rate, UploadFile } from "antd";
 import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import CreateModal from "./createModal";
 import UpdateModal from "./updateModal";
-
+import DeleteModal from "./deleteModal";
+import { apiUrl } from "../../../utils";
+import LoadingSpinner from "../../../components/client/LoadingSpinner";
 interface DataType {
   key: string;
-  name: string;
+  fullname: string;
   designation: string;
-  ratings: number;
+  rating: number;
   message: string;
+  imagefile: UploadFile | null;
 }
 
 const TestimonialSetting = () => {
   const [data, setData] = useState<DataType[]>([]);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
-  const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [editingRecord, setEditingRecord] = useState<DataType | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
+  const [recordName, setRecordName] = useState<string>("");
 
   // Fetch data from API
-  const fetchData = async () => {};
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `${apiUrl}/architecture-web-app/testimonial`
+      );
+      const fetchedData = response.data.data.map((testimonial: any) => ({
+        key: testimonial.id.toString(),
+        fullname: testimonial.fullname,
+        designation: testimonial.designation,
+        rating: testimonial.rating,
+        message: testimonial.message,
+        imageUrl: testimonial.imageUrl || "",
+      }));
+      setData(fetchedData);
+    } catch (error: unknown) {
+      console.error("Error:", (error as Error).message);
+      message.error("Failed to fetch testimonials");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const handleCreateClick = () => {
-    setIsEditMode(false);
-    setModalVisible(true);
-  };
-
-  const handleUpdate = (record: DataType) => {
-    setIsEditMode(true);
-    setEditingRecord(record);
-    setEditModalVisible(true);
-  };
-
-  const handleDelete = async (record: DataType) => {
+  const handleCreate = async (formData: FormData) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:5000/api/architecture-web-app/testimonial/${record.key}`
+      const response = await axios.post(
+        `${apiUrl}/architecture-web-app/testimonial`,
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response.status === 201) {
+        message.success("Testimonial created successfully!");
+        setModalVisible(false);
+        fetchData();
+      }
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        message.error(
+          error.response?.data.message || "Failed to create testimonial"
+        );
+      } else {
+        message.error("An unexpected error occurred");
+      }
+    }
+  };
+
+  const handleUpdate = async (formData: FormData) => {
+    console.log(`${editingRecord?.key}`);
+    try {
+      const response = await axios.put(
+        `${apiUrl}/architecture-web-app/testimonial/${editingRecord?.key}`,
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
       if (response.status === 200) {
-        setData(data.filter((item) => item.key !== record.key));
-        message.success(`${record.name} has been deleted`);
+        message.success("Testimonial updated successfully!");
+        setEditModalVisible(false);
+        fetchData();
+      }
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        message.error(
+          error.response?.data.message || "Failed to update testimonial"
+        );
       } else {
-        message.error("Failed to delete the record");
+        message.error("An unexpected error occurred");
+      }
+    }
+  };
+
+  const handleDeleteClick = (record: DataType) => {
+    setEditingRecord(record);
+    setRecordName(record.fullname);
+    setDeleteModalVisible(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    try {
+      const response = await axios.delete(
+        `${apiUrl}/architecture-web-app/testimonial/${editingRecord?.key}`,
+        { withCredentials: true }
+      );
+      if (response.status === 200) {
+        setData(data.filter((item) => item.key !== editingRecord?.key));
+        message.success(`${editingRecord?.fullname} has been deleted`);
+        setDeleteModalVisible(false);
       }
     } catch (error) {
-      console.error("Error deleting record:", error);
       message.error("Error deleting record");
     }
   };
 
-  const handleFormSubmit = async (values: any) => {};
+  const handleUpdateClick = (record: DataType) => {
+    setEditingRecord(record);
+    setEditModalVisible(true);
+  };
 
   const columns = [
     {
       title: "Name",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "fullname",
+      key: "fullname",
     },
     {
       title: "Designation",
@@ -71,8 +151,31 @@ const TestimonialSetting = () => {
     },
     {
       title: "Rating",
-      dataIndex: "ratings",
-      key: "ratings",
+      dataIndex: "rating",
+      key: "rating",
+      render: (rating: number) => (
+        <Rate
+          disabled
+          value={rating}
+          allowHalf
+          style={{ fontSize: "18px", color: "#fadb14" }}
+        />
+      ),
+    },
+    {
+      title: "Image",
+      dataIndex: "imageUrl",
+      key: "imageUrl",
+      render: (imageUrl: string) =>
+        imageUrl ? (
+          <img
+            src={imageUrl}
+            alt="Testimonial"
+            style={{ width: 30, height: 30, borderRadius: "50%" }}
+          />
+        ) : (
+          <span>No Image</span>
+        ),
     },
     {
       title: "Action",
@@ -81,9 +184,9 @@ const TestimonialSetting = () => {
         <Space size="middle">
           <Tooltip title="Update">
             <Button
-              type="text"
               icon={<EditOutlined />}
-              onClick={() => handleUpdate(record)}
+              onClick={() => handleUpdateClick(record)}
+              style={{ color: "green", borderColor: "white" }}
             />
           </Tooltip>
 
@@ -92,7 +195,7 @@ const TestimonialSetting = () => {
               type="text"
               danger
               icon={<DeleteOutlined />}
-              onClick={() => handleDelete(record)}
+              onClick={() => handleDeleteClick(record)}
             />
           </Tooltip>
         </Space>
@@ -101,46 +204,58 @@ const TestimonialSetting = () => {
   ];
 
   return (
-    <>
-      <div
-        style={{
-          marginBottom: "16px",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={handleCreateClick}
-          style={{ backgroundColor: "#b0190e", border: "none" }}
-        >
-          Create
-        </Button>
-      </div>
+    <div>
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <div>
+          <div
+            style={{
+              marginBottom: "16px",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => setModalVisible(true)}
+            >
+              Create
+            </Button>
+          </div>
 
-      <Table<DataType>
-        columns={columns}
-        dataSource={data}
-        loading={loading}
-        pagination={{ pageSize: 5 }}
-      />
+          <Table<DataType>
+            columns={columns}
+            dataSource={data}
+            pagination={{ pageSize: 10 }}
+            scroll={{ x: "max-content" }}
+          />
 
-      <CreateModal
-        visible={modalVisible}
-        onCancel={() => setModalVisible(false)}
-        onCreate={handleFormSubmit}
-      />
+          <CreateModal
+            visible={modalVisible}
+            onCancel={() => setModalVisible(false)}
+            onCreate={handleCreate}
+          />
 
-      {editingRecord && (
-        <UpdateModal
-          visible={editModalVisible}
-          onCancel={() => setEditModalVisible(false)}
-          onUpdate={handleFormSubmit}
-          initialValues={editingRecord}
-        />
+          {editingRecord && (
+            <UpdateModal
+              visible={editModalVisible}
+              onCancel={() => setEditModalVisible(false)}
+              onUpdate={handleUpdate}
+              initialValues={editingRecord}
+            />
+          )}
+
+          <DeleteModal
+            visible={deleteModalVisible}
+            onCancel={() => setDeleteModalVisible(false)}
+            onConfirm={handleDeleteConfirm}
+            recordName={editingRecord?.fullname || ""}
+          />
+        </div>
       )}
-    </>
+    </div>
   );
 };
 

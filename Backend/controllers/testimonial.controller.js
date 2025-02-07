@@ -7,7 +7,6 @@ const { asyncHandler } = require("../services/async.handler.js");
 
 const createTestimonial = asyncHandler(async (req, res) => {
   const { fullname, designation, message, rating } = req.body;
-
   if (!fullname || !designation || !message || !rating) {
     return res.status(400).json({ message: "All fields are required" });
   }
@@ -15,7 +14,6 @@ const createTestimonial = asyncHandler(async (req, res) => {
   try {
     let imagePath = null;
     let title = `testimonial_${Date.now()}`;
-
     if (req.file) {
       imagePath = await uploadSingleImage(req.file.buffer, title);
     }
@@ -24,7 +22,7 @@ const createTestimonial = asyncHandler(async (req, res) => {
       fullname,
       designation,
       message,
-      imageUrl: imagePath,
+      imageUrl: imagePath || "",
       title,
       rating,
     });
