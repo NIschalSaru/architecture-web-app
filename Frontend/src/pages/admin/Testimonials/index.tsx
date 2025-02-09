@@ -21,13 +21,14 @@ const TestimonialSetting = () => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   const [editingRecord, setEditingRecord] = useState<DataType | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
   const [recordName, setRecordName] = useState<string>("");
+  const [pageLoading, setPageLoading] = useState<boolean>(false); // New global loading state
+
 
   // Fetch data from API
   const fetchData = async () => {
-    setLoading(true);
+    setPageLoading(true);
     try {
       const response = await axios.get(
         `${apiUrl}/architecture-web-app/testimonial`
@@ -45,7 +46,7 @@ const TestimonialSetting = () => {
       console.error("Error:", (error as Error).message);
       message.error("Failed to fetch testimonials");
     } finally {
-      setLoading(false);
+      setPageLoading(false);
     }
   };
 
@@ -54,6 +55,7 @@ const TestimonialSetting = () => {
   }, []);
 
   const handleCreate = async (formData: FormData) => {
+    setPageLoading(true);
     try {
       const response = await axios.post(
         `${apiUrl}/architecture-web-app/testimonial`,
@@ -80,9 +82,13 @@ const TestimonialSetting = () => {
         message.error("An unexpected error occurred");
       }
     }
+    finally {
+      setPageLoading(false);
+    }
   };
 
   const handleUpdate = async (formData: FormData) => {
+    setPageLoading(true);
     console.log(`${editingRecord?.key}`);
     try {
       const response = await axios.put(
@@ -109,6 +115,9 @@ const TestimonialSetting = () => {
         message.error("An unexpected error occurred");
       }
     }
+    finally {
+      setPageLoading(false);
+    }
   };
 
   const handleDeleteClick = (record: DataType) => {
@@ -118,6 +127,7 @@ const TestimonialSetting = () => {
   };
 
   const handleDeleteConfirm = async () => {
+    setPageLoading(true);
     try {
       const response = await axios.delete(
         `${apiUrl}/architecture-web-app/testimonial/${editingRecord?.key}`,
@@ -130,6 +140,9 @@ const TestimonialSetting = () => {
       }
     } catch (error) {
       message.error("Error deleting record");
+    }
+    finally {
+      setPageLoading(false);
     }
   };
 
@@ -205,7 +218,7 @@ const TestimonialSetting = () => {
 
   return (
     <div>
-      {loading ? (
+      {pageLoading  ? (
         <LoadingSpinner />
       ) : (
         <div>
@@ -220,6 +233,7 @@ const TestimonialSetting = () => {
               type="primary"
               icon={<PlusOutlined />}
               onClick={() => setModalVisible(true)}
+              className="create-btn"
             >
               Create
             </Button>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Form, Input, Upload, Rate, Button, Row, Col, Spin } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { Modal, Form, Input, Upload, Rate, Button, Row, Col } from "antd";
+import { UploadOutlined, UserOutlined, StarOutlined } from "@ant-design/icons";
 import { UploadFile } from "antd/es/upload/interface";
+import LoadingSpinner from "../../../components/client/LoadingSpinner";
 
 interface UpdateModalProps {
   visible: boolean;
@@ -35,22 +36,20 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
         message: initialValues.message,
       });
 
-      // // Set the initial image if available
-      // if (initialValues.imageUrl) {
-      //   setFileList([
-      //     {
-      //       uid: "-1",
-      //       name: "image.png", // You can change the file name dynamically if needed
-      //       status: "done",
-      //       url: initialValues.imageUrl,
-      //     },
-      //   ]);
-      // }
+      if (initialValues.imageUrl) {
+        setFileList([
+          {
+            uid: "-1",
+            name: "current-image",
+            status: "done",
+            url: initialValues.imageUrl,
+          },
+        ]);
+      }
     }
-  }, [visible, initialValues]);
+  }, [visible, initialValues, form]);
 
   const handleFileChange = ({ fileList }: { fileList: UploadFile[] }) => {
-    // setFileList(fileList);
     setFileList(fileList.slice(-1));
   };
 
@@ -70,7 +69,6 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
         formData.append("imageUrl", initialValues.imageUrl);
       }
 
-      console.log(formData);
       await onUpdate(formData);
       form.resetFields();
       setFileList([]);
@@ -81,9 +79,13 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
     }
   };
 
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <Modal
-      title="Update Entry"
+      title="Update Testimonial"
       open={visible}
       onCancel={onCancel}
       footer={[
@@ -96,66 +98,97 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
           onClick={handleUpdate}
           disabled={loading}
         >
-          Update
+          Submit
         </Button>,
       ]}
-      width={800}
+      width={850}
+      className="testimonial-modal"
+      destroyOnClose
     >
-      <Spin spinning={loading}>
-        <Form form={form} layout="vertical">
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                label="Full Name"
-                name="fullname"
-                rules={[{ required: true, message: "Full Name is required" }]}
-              >
-                <Input placeholder="Enter full name" />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item
-                label="Designation"
-                name="designation"
-                rules={[{ required: true, message: "Designation is required" }]}
-              >
-                <Input placeholder="Enter designation" />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                label="Ratings"
-                name="rating"
-                rules={[{ required: true, message: "Ratings are required" }]}
-              >
-                <Rate allowHalf />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item
-                label="Message"
-                name="message"
-                rules={[{ required: true, message: "Message is required" }]}
-              >
-                <Input.TextArea rows={3} placeholder="Enter message" />
-              </Form.Item>
-            </Col>
-          </Row>
-
-          <Form.Item label="Image" name="imageUrl">
-            <Upload
-              beforeUpload={() => false}
-              onChange={handleFileChange}
-              fileList={fileList}
-              listType="picture"
+      <Form form={form} layout="vertical" className="compact-form">
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item
+              label="Full Name"
+              name="fullname"
+              rules={[{ required: true, message: "Required" }]}
             >
-              <Button icon={<UploadOutlined />}>Upload</Button>
-            </Upload>
-          </Form.Item>
-        </Form>
-      </Spin>
+              <Input 
+                prefix={<UserOutlined />}
+                placeholder="Enter full name" 
+                disabled={loading}
+                className="fullName"
+              />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              label="Designation"
+              name="designation"
+              rules={[{ required: true, message: "Required" }]}
+            >
+              <Input 
+                prefix={<UserOutlined />}
+                placeholder="Enter designation" 
+                disabled={loading}
+                className="fullName"
+              />
+            </Form.Item>
+          </Col>
+          <Col span={24}>
+            <Form.Item
+              label="Rating"
+              name="rating"
+              rules={[{ required: true, message: "Required" }]}
+            >
+              <Rate 
+                allowHalf 
+                disabled={loading}
+                character={<StarOutlined />}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={24}>
+            <Form.Item
+              label="Message"
+              name="message"
+              rules={[{ required: true, message: "Required" }]}
+            >
+              <Input.TextArea
+                rows={3}
+                placeholder="Enter testimonial message"
+                disabled={loading}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={24}>
+            <Form.Item 
+              label="Profile Image"
+              name="imageUrl"
+              className="upload-wrapper"
+            >
+              <Upload
+                beforeUpload={() => false}
+                fileList={fileList}
+                onChange={handleFileChange}
+                multiple={false}
+                listType="picture-card"
+                disabled={loading}
+                accept="image/jpeg,image/png"
+                maxCount={1}
+                className="testimonial-upload"
+              >
+                {fileList.length === 0 && (
+                  <div>
+                    <UploadOutlined className="upload-icon" />
+                    <div className="upload-text">Upload Photo</div>
+                  </div>
+                )}
+              </Upload>
+            </Form.Item>
+          </Col>
+        </Row>
+      </Form>
     </Modal>
   );
 };

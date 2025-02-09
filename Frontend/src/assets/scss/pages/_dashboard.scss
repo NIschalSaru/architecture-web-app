@@ -151,3 +151,186 @@
     display: block;
   }
 }
+
+
+// styles/_testimonialModal.scss
+
+.create-btn{
+  height: 2.6rem;
+  width: 7.5rem;
+}
+
+.testimonial-modal {
+  .ant-modal-content {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    
+    .ant-modal-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid #f0f0f0;
+      background: #fff;
+      
+      .ant-modal-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #262626;
+      }
+    }
+
+    .ant-modal-body {
+      padding: 24px;
+      
+      .compact-form {
+        .ant-form-item {
+          margin-bottom: 14px;
+          
+          &:last-child {
+            margin-bottom: 1.125rem;
+          }
+        }
+
+        .ant-form-item-label {
+          padding-bottom: 8px;
+          
+          label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #262626;
+          }
+        }
+        
+        .ant-input {
+          border-radius: 6px;
+          
+          &:hover,
+          &:focus {
+            border-color: #262626;
+            box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1);
+          }
+        }
+        .fullName{
+          height:40px;
+        }
+
+        .ant-rate {
+          font-size: 20px;
+        }
+
+        .upload-wrapper {
+          .testimonial-upload {
+            .ant-upload.ant-upload-select {
+              width: 100%;
+              height: 70px;
+              border-radius: 6px;
+              background: #fafafa;
+              border: 2px dashed #d9d9d9;
+              
+              &:hover {
+                border-color: #262626;
+              }
+              
+              .upload-icon {
+                font-size: 24px;
+                color: #999;
+                margin-bottom: 8px;
+              }
+              
+              .upload-text {
+                color: #666;
+                font-size: 14px;
+              }
+            }
+            
+            .ant-upload-list-picture-card-container {
+              width: 100%;
+              height: 120px;
+              
+              .ant-upload-list-item {
+                padding: 0;
+                border-radius: 6px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .ant-modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid #f0f0f0;
+      
+      .ant-btn {
+        height: 36px;
+        padding: 0 16px;
+        font-size: 14px;
+        border-radius: 6px;
+        
+        &-primary {
+          background: #3e1e73;
+          
+          &:hover {
+            background: #3e1e73;
+          }
+        }
+      }
+    }
+  }
+  &.delete-modal {
+    .ant-modal-content {
+      .ant-modal-body {
+        padding: 32px 24px;
+
+        .delete-content {
+          text-align: center;
+          
+          .warning-icon {
+            font-size: 48px;
+            color: #ff4d4f;
+            margin-bottom: 16px;
+          }
+          
+          .delete-message {
+            font-size: 16px;
+            color: #262626;
+            margin-bottom: 8px;
+            
+            strong {
+              color: #262626;
+              font-weight: 600;
+            }
+          }
+          
+          .delete-warning {
+            font-size: 14px;
+            color: #8c8c8c;
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      .ant-modal-footer {
+        .delete-btn {
+          background: #ff4d4f;
+          border-color: #ff4d4f;
+          
+          &:hover {
+            background: #ff7875;
+            border-color: #ff7875;
+          }
+          
+          &:active {
+            background: #d9363e;
+            border-color: #d9363e;
+          }
+        }
+        
+        .cancel-btn {
+          &:hover {
+            border-color: #262626;
+            color: #262626;
+          }
+        }
+      }
+    }
+  }
+}
