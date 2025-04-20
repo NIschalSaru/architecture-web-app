@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "architecturedb_zrbi_user",
-    "password": "wsXceDVkNQX2JTjIqBRvZnp9FUAicArP",
-    "database": "architecturedb_zrbi",
-    "host": "dpg-cu5nhqd2ng1s73bh30o0-a.oregon-postgres.render.com",
+    "username": "architecturedb_stdu_user",
+    "password": "jyNJpAR55JsFt4b3URhgv7LMSfq7hSvq",
+    "database": "architecturedb_stdu",
+    "host": "dpg-d02cqouuk2gs73ebhhkg-a.oregon-postgres.render.com",
     "dialect": "postgres",
     "dialectOptions": {
       "ssl": {
