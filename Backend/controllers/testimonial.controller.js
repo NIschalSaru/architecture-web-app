@@ -15,8 +15,8 @@ const createTestimonial = asyncHandler(async (req, res) => {
   try {
     let imagePath = null;
     let title = `testimonial_${Date.now()}`;
-
     if (req.file) {
+      console.log(req.file);
       imagePath = await uploadSingleImage(req.file.buffer, title);
     }
 
@@ -24,7 +24,7 @@ const createTestimonial = asyncHandler(async (req, res) => {
       fullname,
       designation,
       message,
-      imageUrl: imagePath,
+      imageUrl: imagePath || "",
       title,
       rating,
     });

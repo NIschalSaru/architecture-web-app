@@ -13,12 +13,33 @@ import { NavigateFunction } from 'react-router-dom';
 
 export const apiUrl = "http://localhost:5000/api";
 
-export const getTokenFromLocalStorage = (): string | null => {
-  return localStorage.getItem('token');
+// export const getTokenFromLocalStorage = (): string | null => {
+//   return localStorage.getItem('token');
+// };
+
+// export const handleSignOut = (navigate: NavigateFunction) => {
+//   localStorage.removeItem('username');
+//   localStorage.removeItem('token');
+//   navigate('/');
+// };
+
+
+// Authentication check function
+export const isAuthenticated = (): boolean => {
+  const userData = localStorage.getItem('userData');
+  return userData !== null;
 };
 
-export const handleSignOut = (navigate: NavigateFunction) => {
-  localStorage.removeItem('username');
-  localStorage.removeItem('token');
-  navigate('/');
+// Logout function
+export const handleSignOut = (): void => {
+  // Clear all localStorage items
+  localStorage.clear();
+  
+  // Clear specific cookies
+  const cookies = document.cookie.split(';');
+  
+  for (let cookie of cookies) {
+    const [name] = cookie.trim().split('=');
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;`;
+  }
 };

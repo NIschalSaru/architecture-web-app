@@ -1,0 +1,122 @@
+.image-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+#container {
+  display: flex;
+}
+.project-images-section {
+  width: 64%;
+}
+.project-details {
+  width: 44%;
+}
+.main-image-section {
+  text-align: center;
+}
+
+.details-title {
+  font-size: 2rem;
+  color: #be1e2d;
+  font-weight: bold;
+}
+.details-location {
+  color: #262262;
+}
+.details-description {
+  font-size: 1.2rem;
+  color: #000000;
+}
+
+/* Container for the right-side content */
+.project-details__content-right {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Details box wrapper */
+.project-details__details-box {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Row layout for detail cards */
+.detail-card-row-4 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+/* Individual detail cards */
+.details-card {
+  flex: 1 1 calc(0% - 10px);
+  max-width: calc(50% - 9px);
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f4f4f4;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect for cards */
+.details-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Label text styling */
+.details-label {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #262262;
+  margin-bottom: 5px;
+}
+
+/* Value text styling */
+.details-value {
+  font-size: 1.2rem;
+  color: #be1e2d;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .details-card {
+    flex: 1 1 100%; /* Full width cards for smaller screens */
+    max-width: 100%;
+  }
+
+  .details-label {
+    font-size: 0.9rem;
+  }
+
+  .details-value {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .details-card {
+    margin-bottom: 15px;
+  }
+  .details-label {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .details-label {
+    font-size: 11px;
+  }
+}

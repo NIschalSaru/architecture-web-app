@@ -1,17 +1,56 @@
 import { Form, Input, Button, Checkbox } from 'antd';
 import { GoogleOutlined, FacebookFilled, GithubOutlined, LinkedinFilled } from '@ant-design/icons';
-// import './login.scss';
 import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import usePostAPI from '../../../hooks/usePostAPI';
 import logo from '../../../assets/images/Nepal-Designers-Builders-Logo.png';
+
+interface LoginResponse {
+  id: number;
+  fullName: string;
+  email: string;
+  message: string;
+}
+
+interface LoginFormValues {
+  email: string;
+  password: string;
+  remember?: boolean;
+}
 
 const LoginPage = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  const { loading, postData } = usePostAPI<LoginResponse>('architecture-web-app/auth/login');
 
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-    // Add your login logic here
-    navigate('/home'); // Navigate to home page after successful login
+  useEffect(() => {
+    // Check if user is already logged in
+    const userData = localStorage.getItem('userData');
+    if (userData) {
+      navigate('/admin/banner');
+    }
+  }, [navigate]);
+
+  const onFinish = async (values: LoginFormValues) => {
+    try {
+      const response = await postData({
+        email: values.email,
+        password: values.password,
+      });
+
+      if (response) {
+        localStorage.setItem('userId', response.id.toString());
+        localStorage.setItem('fullName', response.fullName);
+        localStorage.setItem('userEmail', response.email);
+        
+        localStorage.setItem('userData', JSON.stringify(response));
+        navigate('/admin/banner');
+
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      // You might want to show an error message to the user here
+    }
   };
 
   return (
@@ -19,19 +58,15 @@ const LoginPage = () => {
       <div className="left-section">
         <div className="content">
           <div className="logo">
-
             <Link to="/" className="logo-link">
               <img src={logo} alt="Logo" className="logo" />
             </Link>
           </div>
-          {/* <h1>Welcome Back!</h1>
-          <p>Enter your credentials to access your account</p> */}
         </div>
       </div>
 
       <div className="right-section">
         <div className="form-container">
-          {/* <h2>Login to Your Account</h2> */}
           <h2>LOGIN</h2>
           
           <div className="social-buttons">
@@ -58,7 +93,11 @@ const LoginPage = () => {
                 { type: 'email', message: 'Please enter a valid email!' }
               ]}
             >
-              <Input placeholder="Email" className="form-input" />
+              <Input 
+                placeholder="Email" 
+                className="form-input"
+                disabled={loading}
+              />
             </Form.Item>
 
             <Form.Item
@@ -66,7 +105,11 @@ const LoginPage = () => {
               label="Password"
               rules={[{ required: true, message: 'Please input your password!' }]}
             >
-              <Input.Password placeholder="Password" className="form-input" />
+              <Input.Password 
+                placeholder="Password" 
+                className="form-input"
+                disabled={loading}
+              />
             </Form.Item>
 
             <div className="form-options">
@@ -79,7 +122,13 @@ const LoginPage = () => {
             </div>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit" className="login-btn">
+              <Button 
+                type="primary" 
+                htmlType="submit" 
+                className="login-btn"
+                loading={loading}
+                block
+              >
                 LOGIN
               </Button>
             </Form.Item>
@@ -91,126 +140,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
-
-
-
-
-
-
-
-
-
-
-
-// import { Button, Checkbox, Form, Input } from 'antd';
-// import { UserOutlined, LockOutlined } from '@ant-design/icons';
-// // import './Login.scss';
-// import loginImg from '../../assets/svg/undraw_login.svg';
-// // import loginImg1 from '../../assets/images/pattern1.jpg';
-// import logo from '../../assets/images/Nepal-Designers-Builders-Logo.png';
-
-// interface LoginFormValues {
-//   username: string;
-//   password: string;
-// }
-
-// const Login = () => {
-//   const onFinish = (values: LoginFormValues) => {
-//     console.log('Success:', values);
-//     // Add your login logic here
-//   };
-
-//   return (
-//     <div className="login-container">
-//       {/* <div className="logo-wrapper">
-//         <img src={logo} alt="Logo" className="logo" />
-//       </div> */}
-//       <div className="login-left">
-//         <div className="illustration-wrapper">
-//           <div className="illustration-content">
-//             {/* <h1>Welcome Back!</h1>
-//             <p>Enter your credentials to access your account</p> */}
-//             <div className="logo-wrapper">
-//               <img src={logo} alt="Logo" className="logo" />
-//             </div>
-//             {/* You can add your illustration/image here */}
-
-//             {/* <div className="decoration-circle"></div> */}
-//             <img src={loginImg} alt='login Image'></img>
-//             {/* <img src={loginImg1} alt='login Image'></img> */}
-//           </div>
-//         </div>
-//       </div>
-      
-//       <div className="login-right">
-//         <div className="login-form-wrapper">
-//           <div className="login-header">
-//             <h2>LOG IN</h2>
-//             <p>Please login to continue</p>
-//             {/* <div className="logo-wrapper">
-//               <img src={logo} alt="Logo" className="logo" />
-//             </div> */}
-//           </div>
-          
-//           <Form
-//             name="login-form"
-//             className="login-form"
-//             onFinish={onFinish}
-//             layout="vertical"
-//           >
-//             <Form.Item
-//               name="username"
-//               rules={[
-//                 {
-//                   required: true,
-//                   message: 'Please input your username!',
-//                 },
-//               ]}
-//             >
-//               <Input
-//                 prefix={<UserOutlined />}
-//                 placeholder="Username"
-//                 size="large"
-//               />
-//             </Form.Item>
-
-//             <Form.Item
-//               name="password"
-//               rules={[
-//                 {
-//                   required: true,
-//                   message: 'Please input your password!',
-//                 },
-//               ]}
-//             >
-//               <Input.Password
-//                 prefix={<LockOutlined />}
-//                 placeholder="Password"
-//                 size="large"
-//               />
-//             </Form.Item>
-//             <Form.Item>
-//             <Form.Item name="remember" valuePropName="checked" noStyle>
-//               <Checkbox>Remember me</Checkbox>
-//             </Form.Item>
-//           </Form.Item>
-//             <Form.Item>
-//               <Button
-//                 type="primary"
-//                 htmlType="submit"
-//                 className="login-button"
-//                 size="large"
-//                 block
-//               >
-//                 Log In
-//               </Button>
-//             </Form.Item>
-//           </Form>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Login;

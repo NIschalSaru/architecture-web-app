@@ -1,51 +1,47 @@
 import { Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import AboutUsPage from "../pages/client/about";
-
 import FrontContainer from "../pages/client/container";
-import PageNotFound from "../pages/client/page-not-found";
+import PageNotFound from "../pages/client/page-not-found/index";
 import Home from "../pages/client/home";
 import LoginPage from "../pages/client/auth/login";
 import Services from "../pages/client/Service/index";
 import Projects from "../pages/client/projects";
 import DashboardContainer from "../pages/admin/dashboardContainer";
-
+import BannerSettings from "../pages/admin/Banner/Index";
+import TestimonialSetting from "../pages/admin/Testimonials/index";
+import ProtectedRoute from "../components/ProtectedRoute";
+import ProjectDetails from "../pages/client/projects/projectDetails"; // Import your project details page
 const RouteConfig = () => {
-  // console.log(isAuthenticated());
   return (
     <Suspense fallback="Loading...">
       <Routes>
+        {/* Login Route */}
         <Route path="/login" element={<LoginPage />} />
-        {/*<Route path="/sign-up" element={<SignUpPage />} />
-        <Route path="/changePassword" element={<ChangePasswordPage />} /> */}
 
+        {/* Public Routes */}
         <Route path="/" element={<FrontContainer />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<AboutUsPage />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/services" element={<Services />} />
+          <Route index element={<Home />} />
+          <Route path="about" element={<AboutUsPage />} />
+          <Route path="projects" element={<Projects />} />
+          <Route path="services" element={<Services />} />
+          <Route path="project/:title" element={<ProjectDetails />} />{" "}
+          {/* Add this line */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
 
-        <Route  path="/dashboard" element={<DashboardContainer />}>
-          {/* <Route path="/admin" element={<ProtectedRoute  />}>
-            <Route path="/admin/banner" element="" />
-            <Route
-              path="/admin/testimonials"
-              element={<TestimonialSettings />}
-            />
-             <Route path="/admin/partners" element={<PartnerSettings />} />
-            <Route path="/admin/about" element={<AdminAboutUsForm />} />
-            <Route path="/admin/gallery" element={<AdminGalleryForm />} /> 
-             <Route path="/admin/user" element={<Users />} /> 
-            <Route
-              path="/admin"
-              element={<Navigate to="/admin/banner" replace />}
-            />
-            <Route path="*" element={<Navigate to="/admin/banner" replace />} />
-          </Route> */}
-        </Route> 
+        {/* Protected Admin Routes */}
+        <Route path="/admin" element={<ProtectedRoute />}>
+          <Route element={<DashboardContainer />}>
+            <Route index element={<Navigate to="banner" replace />} />
+            <Route path="banner" element={<BannerSettings />} />
+            <Route path="testimonials" element={<TestimonialSetting />} />
+          </Route>
+        </Route>
+
+        {/* 404 Page */}
         <Route path="/page-not-found" element={<PageNotFound />} />
+        <Route path="*" element={<Navigate to="/page-not-found" replace />} />
       </Routes>
     </Suspense>
   );
