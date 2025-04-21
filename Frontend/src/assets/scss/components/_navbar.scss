@@ -116,13 +116,13 @@
       padding: 0 20px;
 
       a {
-        color: $white;
+        color: $secondary;
         font-weight: 600;
         font-size: 1.1rem;
         transition: color 0.3s ease;
 
         &:hover {
-          color: $primary;
+          color: rgba($secondary,0.50);
         }
       }
 
@@ -157,11 +157,13 @@
     button {
       border-radius: 20px;
       padding: 6px 20px;
-      border: 2px solid $white;
+      border: 2px solid $secondary;
+      color: $secondary;
+      // border-color: $primary;
       
       &:hover {
-        border-color: $primary;
-        color: $primary;
+        border-color: $white;
+        color: $white;
       }
     }
   }
