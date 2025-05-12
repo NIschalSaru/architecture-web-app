@@ -116,7 +116,7 @@
       padding: 0 20px;
 
       a {
-        color: $secondary;
+        color: white;
         font-weight: 600;
         font-size: 1.1rem;
         transition: color 0.3s ease;
@@ -157,8 +157,8 @@
     button {
       border-radius: 20px;
       padding: 6px 20px;
-      border: 2px solid $secondary;
-      color: $secondary;
+      border: 2px solid $white;
+      color: white;
       // border-color: $primary;
       
       &:hover {
