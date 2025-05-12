@@ -119,11 +119,16 @@ const NavbarComponent: React.FC = () => {
                     Admin
                   </Button>
                 </Link> */}
-                <Link to="/login">
+                <Link to="/about#contact-us">
+                  <Button size="large" ghost>
+                    Contact Us
+                  </Button>
+                </Link>
+                {/* <Link to="/login">
                   <Button size="large" ghost>
                     Login
                   </Button>
-                </Link>
+                </Link> */}
             </div>
           </div>
         </div>
