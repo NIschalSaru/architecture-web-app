@@ -6,7 +6,7 @@
   .left-section {
     width: 45%;
     background: $secondary;
-    background-image: url("../images/login2.jpg");
+    background-image: url("../images/login-pattern.jpg");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -132,7 +132,7 @@
             padding: 0;
 
             &:hover {
-              color: darken($secondary, 10%);
+              color: color.adjust($secondary, $lightness: -10%);
             }
           }
         }
@@ -146,7 +146,7 @@
           margin-top: 1rem;
 
           &:hover {
-            background: darken($secondary, 10%);
+            color: color.adjust($secondary, $lightness: -10%);
           }
         }
       }

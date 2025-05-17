@@ -27,12 +27,12 @@ const items = [
   {
     key: "Projects",
     icon: <FileImageOutlined />,
-    label: "Gallery",
+    label: "Project Settings",
   },
   {
     key: "user",
     icon: <UserOutlined />,
-    label: "Manage Users",
+    label: "User Settings",
   },
 ];
 

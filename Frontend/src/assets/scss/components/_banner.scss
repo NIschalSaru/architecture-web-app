@@ -236,3 +236,365 @@
 
 
 
+
+
+// // Mixins
+// @mixin fade-in($delay: 0s) {
+//   animation: fadeIn 0.8s ease-out $delay;
+// }
+
+// // Animations
+// @keyframes fadeIn {
+//   from { opacity: 0; transform: translateY(20px); }
+//   to { opacity: 1; transform: translateY(0); }
+// }
+
+// @keyframes slideIn {
+//   from { transform: translateX(20px); opacity: 0; }
+//   to { transform: translateX(0); opacity: 1; }
+// }
+
+// // Banner Section
+// .banner-section {
+//   position: relative;
+//   height: 100vh;
+//   overflow: hidden;
+  
+//   .banner-image {
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+//     z-index: 1;
+    
+//     img {
+//       width: 100%;
+//       height: 100%;
+//       object-fit: cover;
+//     }
+//   }
+  
+//   .banner-content {
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     z-index: 2;
+//     max-width: 1400px;
+//     padding: 0 2rem;
+//     width: 100%;
+    
+//     .banner-text {
+//       text-align: center;
+//       max-width: 800px;
+//       margin: 0 auto;
+//       background: rgba($dark, 0.17);
+//       padding: 2rem 3rem;
+//       border-radius: 12px;
+//       backdrop-filter: blur(4px);
+      
+//       .banner-heading {
+//         color: $white;
+//         font-size: 3.5rem;
+//         font-weight: 800;
+//         line-height: 1.2;
+//         margin-bottom: 1.5rem;
+//         text-transform: capitalize;
+//         text-shadow: 0 3px 6px rgba($dark, 0.5), 0 0 8px rgba($dark, 0.3);
+//         @include fade-in;
+//       }
+      
+//       .banner-subheading {
+//         color: rgba($white, 0.95);
+//         font-size: 1.5rem;
+//         font-weight: 400;
+//         line-height: 1.6;
+//         margin-bottom: 2.5rem;
+//         display: block;
+//         text-shadow: 0 2px 4px rgba($dark, 0.5), 0 0 6px rgba($dark, 0.3);
+//         @include fade-in(0.2s);
+//       }
+      
+//       .banner-cta {
+//         background: $primary;
+//         border: none;
+//         border-radius: 10px;
+//         padding: 1rem 2.5rem;
+//         font-size: 1.2rem;
+//         font-weight: 600;
+//         transition: all 0.3s ease;
+//         @include fade-in(0.4s);
+        
+//         &:hover {
+//           background: darken($primary, 10%);
+//           transform: translateY(-3px);
+//           box-shadow: 0 6px 16px rgba($dark, 0.3);
+//         }
+//       }
+//     }
+//   }
+  
+//   // .banner-side-btn {
+//   //   position: absolute;
+//   //   top: 50%;
+//   //   // right: 0;
+//   //   transform: translateY(-50%) rotate(270deg);
+//   //   transform-origin: center;
+//   //   background: $secondary;
+//   //   border: none;
+//   //   border-radius: 8px 8px 0 0;
+//   //   padding: 1rem 2rem;
+//   //   font-size: 1.1rem;
+//   //   font-weight: 600;
+//   //   color: $white;
+//   //   z-index: 3;
+//   //   transition: all 0.3s ease;
+//   //   @include fade-in(0.6s);
+    
+//   //   &:hover {
+//   //     background: $primary;
+//   //     // right: -42px;
+//   //     transform: translateY(-50%) rotate(270deg) scale(1.05);
+//   //     box-shadow: 0 4px 12px rgba($dark, 0.3);
+//   //   }
+//   // }
+//   .banner-side-btn {
+//     position: absolute;
+//     top: 50%;
+//     right: -40px;
+//     transform: translateY(-50%) rotate(270deg);
+//     transform-origin: center;
+//     background-color: $primary;
+//     color: $white;
+//     border: 2px solid $white;
+//     border-top-left-radius: 0;
+//     border-top-right-radius: 0;
+//     padding: 10px 20px;
+//     font-weight: bold;
+//     z-index: 3;
+//     transition: all 0.3s;
+
+//     &:hover {
+//       background-color: $primary;
+//       border-color: $white;
+//       color: $white;
+//       right: -38px;
+//     }
+//   }
+// }
+
+// // Drawer Form
+// .banner-drawer {
+//   .ant-drawer-header {
+//     background: $secondary;
+//     padding: 1.5rem;
+//     border-bottom: none;
+    
+//     .banner-drawer-title {
+//       color: $white;
+//       font-size: 1.5rem;
+//       font-weight: 700;
+//     }
+    
+//     .ant-drawer-close {
+//       color: $white;
+//       font-size: 1.2rem;
+//       transition: all 0.3s ease;
+      
+//       &:hover {
+//         color: $primary;
+//         transform: rotate(90deg);
+//       }
+//     }
+//   }
+  
+//   .ant-drawer-body {
+//     background: #f5f6f5;
+//     padding: 2rem;
+//   }
+  
+//   .banner-form {
+//     background: $white;
+//     padding: 2rem;
+//     border-radius: 12px;
+//     box-shadow: 0 8px 20px rgba($dark, 0.1);
+//     animation: slideIn 0.5s ease-out;
+    
+//     .ant-form-item {
+//       margin-bottom: 1.5rem;
+      
+//       &-label > label {
+//         font-size: 1rem;
+//         font-weight: 600;
+//         color: $dark;
+//       }
+//     }
+    
+//     .banner-form-input {
+//       padding: 0.8rem;
+//       border-radius: 8px;
+//       border: 1px solid #e2e8f0;
+//       transition: all 0.3s ease;
+      
+//       &:hover, &:focus, &.ant-input-affix-wrapper-focused {
+//         border-color: $primary;
+//         box-shadow: 0 0 0 3px rgba($primary, 0.1);
+//       }
+      
+//       .banner-form-icon {
+//         color: #a0a0a0;
+//         width: 1.2rem;
+//         height: 1.2rem;
+//         margin-right: 0.5rem;
+//       }
+      
+//       .ant-input {
+//         font-size: 1rem;
+//         color: $dark;
+        
+//         &::placeholder {
+//           color: #a0a0a0;
+//         }
+//       }
+//     }
+    
+//     .banner-form-textarea {
+//       padding: 0.8rem;
+//       border-radius: 8px;
+//       border: 1px solid #e2e8f0;
+//       font-size: 1rem;
+//       color: $dark;
+//       transition: all 0.3s ease;
+      
+//       &:hover, &:focus {
+//         border-color: $primary;
+//         box-shadow: 0 0 0 3px rgba($primary, 0.1);
+//       }
+      
+//       &::placeholder {
+//         color: #a0a0a0;
+//       }
+//     }
+    
+//     .banner-form-submit {
+//       margin-bottom: 0;
+      
+//       .banner-form-submit-btn {
+//         height: 3rem;
+//         font-size: 1.1rem;
+//         font-weight: 600;
+//         background: $secondary;
+//         border: none;
+//         border-radius: 8px;
+//         transition: all 0.3s ease;
+        
+//         &:hover {
+//           background: darken($primary, 10%);
+//           transform: translateY(-2px);
+//           box-shadow: 0 6px 16px rgba($dark, 0.3);
+//         }
+//       }
+//     }
+//   }
+// }
+
+// // Error Message
+// .banner-error {
+//   text-align: center;
+//   padding: 2rem;
+//   color: $primary;
+//   font-size: 1.2rem;
+//   background: rgba($white, 0.9);
+// }
+
+// // Responsive Styles
+// @media (max-width: 1024px) {
+//   .banner-section {
+//     .banner-content {
+//       .banner-text {
+//         .banner-heading {
+//           font-size: 4rem;
+//         }
+        
+//         .banner-subheading {
+//           font-size: 1.5rem;
+//         }
+//       }
+//     }
+    
+//     .banner-side-btn {
+//       right: -40px;
+//       padding: 0.8rem 1.5rem;
+//       font-size: 1rem;
+//     }
+//   }
+// }
+
+// @media (max-width: 767px) {
+//   .banner-section {
+//     height: 60vh;
+    
+//     .banner-content {
+//       padding: 0 1rem;
+      
+//       .banner-text {
+//         .banner-heading {
+//           font-size: 2.8rem;
+//         }
+        
+//         .banner-subheading {
+//           font-size: 1.2rem;
+//           margin-bottom: 2rem;
+//         }
+        
+//         .banner-cta {
+//           width: 100%;
+//           padding: 0.8rem;
+//           font-size: 1.1rem;
+//         }
+//       }
+//     }
+    
+//     .banner-side-btn {
+//       right: -35px;
+//       padding: 0.6rem 1.2rem;
+//       font-size: 0.9rem;
+      
+//       &:hover {
+//         right: -33px;
+//       }
+//     }
+//   }
+  
+//   .banner-drawer {
+//     .ant-drawer-content-wrapper {
+//       width: 100% !important;
+//     }
+    
+//     .ant-drawer-header {
+//       padding: 1rem;
+      
+//       .banner-drawer-title {
+//         font-size: 1.3rem;
+//       }
+//     }
+    
+//     .ant-drawer-body {
+//       padding: 1.5rem;
+//     }
+    
+//     .banner-form {
+//       padding: 1.5rem;
+      
+//       .banner-form-input, .banner-form-textarea {
+//         padding: 0.6rem;
+//       }
+      
+//       .banner-form-submit-btn {
+//         height: 2.8rem;
+//         font-size: 1rem;
+//       }
+//     }
+//   }
+// }
