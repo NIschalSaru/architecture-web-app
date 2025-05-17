@@ -114,16 +114,21 @@ const NavbarComponent: React.FC = () => {
             </ul>
 
             <div className="auth-section">
-                <Link to="/admin">
+                {/* <Link to="/admin">
                   <Button size="large" ghost>
                     Admin
                   </Button>
+                </Link> */}
+                <Link to="/about#contact-us">
+                  <Button size="large" ghost>
+                    Contact Us
+                  </Button>
                 </Link>
-                <Link to="/login">
+                {/* <Link to="/login">
                   <Button size="large" ghost>
                     Login
                   </Button>
-                </Link>
+                </Link> */}
             </div>
           </div>
         </div>

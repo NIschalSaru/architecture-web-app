@@ -31,10 +31,10 @@ export const isAuthenticated = (): boolean => {
 };
 
 // Logout function
-export const handleSignOut = (): void => {
+export const handleSignOut = (navigate: NavigateFunction): void => {
   // Clear all localStorage items
   localStorage.clear();
-  
+  navigate("/login");
   // Clear specific cookies
   const cookies = document.cookie.split(';');
   

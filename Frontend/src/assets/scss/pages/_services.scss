@@ -115,7 +115,7 @@
           .title-decorator-page {
             width: 80px;
             height: 3px;
-            background: linear-gradient(90deg, $primary, lighten($primary, 20%));
+            background: linear-gradient(90deg, $primary, color.adjust($primary, $lightness: 20%));
             margin-top: 0.5rem;
             border-radius: 2px;
             animation: slideIn 0.5s ease-out;
@@ -179,7 +179,7 @@
           transition: all 0.3s ease;
           
           &:hover {
-            background-color: darken($primary, 10%);
+            color: color.adjust($secondary, $lightness: -10%);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba($primary, 0.2);
           }
