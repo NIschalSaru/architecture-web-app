@@ -16,6 +16,10 @@ const Banner = sequelizeInstance.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     tableName: "Banners",
