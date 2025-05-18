@@ -8,19 +8,15 @@ const { asyncHandler } = require("../services/async.handler.js");
 const createOrUpdateBanner = asyncHandler(async (req, res) => {
   const { heading, subHeading, description } = req.body;
   console.log("req.body", req.body);
-
   let imagePath = null;
   const title = `banner_${Date.now()}`;
-
   let banner = await Banner.findOne();
-
   if (req.file) {
     if (banner && banner.imageUrl) {
       await deleteImage(banner.imageUrl);
     }
     imagePath = await uploadSingleImage(req.file.buffer, title);
   }
-
   if (banner) {
     banner.heading = heading;
     banner.subHeading = subHeading;
@@ -34,14 +30,12 @@ const createOrUpdateBanner = asyncHandler(async (req, res) => {
       data: banner,
     });
   }
-
   banner = await Banner.create({
     imageUrl: imagePath,
     heading,
     subHeading,
     description,
   });
-
   return res.status(201).json({
     message: "Banner created successfully",
     data: banner,

@@ -18,7 +18,6 @@ const sendContactFormEmail = async (req, res) => {
     const html = await readHTMLFile("resource/contactFormSubmission.hbs");
     const template = handlebars.compile(html);
     const htmlToSend = template(req.body);
-
     await EmailService.sendMail(
       req.body.email,
       process.env.EMAIL_FROM,
