@@ -18,11 +18,11 @@ const Banner = sequelizeInstance.define(
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
   },
   {
-    tableName: "Banners",
+    tableName: "banners",
     timestamps: true,
     paranoid: true,
   }
