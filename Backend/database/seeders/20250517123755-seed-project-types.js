@@ -14,7 +14,7 @@ module.exports = {
 
     const data = projectTypes.map((title) => ({
       title,
-      status: "active",
+      status: true,
       createdAt: new Date(),
       updatedAt: new Date(),
     }));

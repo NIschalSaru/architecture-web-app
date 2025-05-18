@@ -3,14 +3,11 @@ const { asyncHandler } = require("../../services/async.handler.js");
 
 const createProjectType = asyncHandler(async (req, res) => {
   const { title, status } = req.body;
-
   if (!title || !status) {
     return res.status(400).json({ message: "Title and status are required" });
   }
-
   try {
     const data = await ProjectType.create({ title, status });
-
     res.status(201).json({
       message: "Record created successfully",
       data,
@@ -37,16 +34,13 @@ const getAllProjectTypes = asyncHandler(async (req, res) => {
 const updateProjectType = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { title, status } = req.body;
-
   const projectType = await ProjectType.findByPk(id);
   if (!projectType) {
     return res
       .status(404)
       .json({ success: false, message: "ProjectType not found" });
   }
-
   await projectType.update({ title, status });
-
   res.status(200).json({
     message: "Data updated successfully",
     data: projectType,
@@ -56,11 +50,9 @@ const updateProjectType = asyncHandler(async (req, res) => {
 const deleteProjectType = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const projectType = await ProjectType.findByPk(id);
-
   if (!projectType) {
     return res.status(404).json({ success: false, message: "Data not found" });
   }
-
   try {
     await projectType.destroy();
     res.status(200).json({
@@ -75,26 +67,6 @@ const deleteProjectType = asyncHandler(async (req, res) => {
     });
   }
 });
-
-// const updateStatus = asyncHandler(async (req, res) => {
-//   const { id } = req.params;
-
-//   const projectType = await ProjectType.findByPk(id);
-//   if (!projectType) {
-//     return res.status(404).json({ message: "ProjectType not found" });
-//   }
-
-//   const newStatus = projectType.status === 0 ? 1 : 0;
-
-//   await projectType.update({ status: newStatus });
-
-//   const message =
-//     newStatus === 1
-//       ? "Project type activated successfully."
-//       : "Project type deactivated successfully.";
-
-//   res.status(200).json({ message });
-// });
 
 module.exports = {
   createProjectType,

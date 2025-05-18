@@ -9,8 +9,8 @@ const ProjectType = sequelizeInstance.define(
       allowNull: false,
     },
     status: {
-      type: DataTypes.STRING,
-      defaultValue: "active",
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
     },
   },
   {
@@ -19,5 +19,12 @@ const ProjectType = sequelizeInstance.define(
     paranoid: true,
   }
 );
+
+ProjectType.associate = (models) => {
+  ProjectType.hasMany(models.Project, {
+    foreignKey: "project_type_id",
+    as: "projects",
+  });
+};
 
 module.exports = ProjectType;
