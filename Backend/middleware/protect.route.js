@@ -3,14 +3,14 @@ const User = require("../model/user.js");
 class ProtectRoute {
   static async authorize(req, res, next) {
     try {
-      console.log("Cookies: ", req.cookies);
+      // console.log("Cookies: ", req.cookies);
       const token = req.cookies.authToken;
       if (!token) {
         return res.status(401).json({ message: "Unauthorized" });
       }
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      console.log(decoded);
+      // console.log(decoded);
       if (!decoded)
         return res
           .status(401)

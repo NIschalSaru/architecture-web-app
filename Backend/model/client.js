@@ -30,4 +30,11 @@ const Client = sequelizeInstance.define(
   }
 );
 
+Client.associate = (models) => {
+  Client.belongsTo(models.Project, {
+    foreignKey: "project_id",
+    as: "project",
+  });
+};
+
 module.exports = Client;

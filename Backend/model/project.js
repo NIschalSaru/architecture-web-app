@@ -32,4 +32,21 @@ const Project = sequelizeInstance.define(
   }
 );
 
+Project.associate = (models) => {
+  Project.hasOne(models.Client, {
+    foreignKey: "project_id",
+    as: "client",
+  });
+
+  Project.belongsTo(models.ProjectType, {
+    foreignKey: "project_type_id",
+    as: "projectType",
+  });
+
+  Project.hasMany(models.Media, {
+    foreignKey: "project_id",
+    as: "media",
+  });
+};
+
 module.exports = Project;

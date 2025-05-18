@@ -12,6 +12,7 @@ import BannerSettings from "../pages/admin/Banner/Index";
 import TestimonialSetting from "../pages/admin/Testimonials/index";
 import ProtectedRoute from "../components/ProtectedRoute";
 import ProjectDetails from "../pages/client/projects/projectDetails"; // Import your project details page
+import CategorizeProjects from "../pages/client/projects/catagorizeProjects";
 const RouteConfig = () => {
   return (
     <Suspense fallback="Loading...">
@@ -25,9 +26,14 @@ const RouteConfig = () => {
           <Route path="about" element={<AboutUsPage />} />
           <Route path="projects" element={<Projects />} />
           <Route path="services" element={<Services />} />
-          <Route path="project/:title" element={<ProjectDetails />} />{" "}
-          {/* Add this line */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          {/* <Route path="project/:title" element={<ProjectDetails />} /> */}
+          <Route path="projects/details/:title" element={<ProjectDetails />} />
+
+          <Route path="page-not-found" element={<PageNotFound />} />
+          <Route
+            path="projects/category/:categoryKey"
+            element={<CategorizeProjects />}
+          />
         </Route>
 
         {/* Protected Admin Routes */}

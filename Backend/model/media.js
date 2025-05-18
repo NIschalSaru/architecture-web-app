@@ -29,4 +29,11 @@ const Media = sequelizeInstance.define(
   }
 );
 
+Media.associate = (models) => {
+  Media.belongsTo(models.Project, {
+    foreignKey: "project_id",
+    as: "project",
+  });
+};
+
 module.exports = Media;
