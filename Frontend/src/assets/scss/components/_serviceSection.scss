@@ -1,9 +1,10 @@
 .services-section {
-    padding: 100px 0;
-    background-color: #fff;
+    padding: 80px 0;
+    // background-color: #fff;
+    // background: url('/src/assets/images/service-Bg1.png') no-repeat center center/cover;
   
     .services-container {
-      max-width: 1200px;
+      max-width: 1250px;
       margin: 0 auto;
       padding: 0 20px;
     }
@@ -47,13 +48,13 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 30px;
-      justify-items: center;
+      justify-items: start;
     }
   
     .service-card {
       background: #fff;
       padding: 40px 30px;
-      text-align: center;
+      text-align: left;
       border-radius: 10px;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
       transition: transform 0.3s ease;
@@ -115,13 +116,49 @@
         font-weight: 600;
         margin: 0 0 15px;
         color: #333;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        .nepali-title {
+          font-size: 1.4rem;
+          font-weight: 700;
+        }
+
+        .english-title {
+          font-size: 1.1rem;
+          font-weight: 500;
+          color: #666;
+          font-style: italic;
+        }
       }
   
       .service-description {
-        color: #666;
-        line-height: 1.6;
+        list-style: none;
+        padding: 0;
         margin: 0;
-        font-size: 1rem;
+        text-align: left;
+
+        li {
+          position: relative;
+          padding-left: 20px;
+          margin-bottom: 10px;
+          line-height: 1.5;
+          color: #666;
+          font-size: 1rem;
+
+          &:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: black;
+            font-size: 1.2em;
+          }
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
       }
     }
   }
@@ -139,6 +176,17 @@
       .services-grid {
         grid-template-columns: 1fr;
         gap: 20px;
+      }
+
+      .service-card {
+        .service-title {
+          .nepali-title {
+            font-size: 1.3rem;
+          }
+          .english-title {
+            font-size: 1rem;
+          }
+        }
       }
     }
   }

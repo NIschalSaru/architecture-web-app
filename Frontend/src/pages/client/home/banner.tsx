@@ -1,40 +1,31 @@
 import { Button, Typography, Form, Input, Drawer } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Phone, Mail, User } from "lucide-react";
-import useGetAPI from "../../../hooks/useGetAPI";
-import LoadingSpinner from "../../../components/client/LoadingSpinner";
+import { Phone, Mail, User, ArrowRight } from "lucide-react";
 
 interface BannerData {
   id: number;
   imageUrl: string;
   heading: string;
   subHeading: string;
+  description: string;
 }
 
-const BannerComponent = () => {
+interface BannerComponentProps {
+  bannerData: BannerData;
+}
+
+const BannerComponent = ({ bannerData }: BannerComponentProps) => {
   const { Title, Text } = Typography;
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [form] = Form.useForm();
-
-  const {
-    data: bannerData,
-    loading,
-    error,
-  } = useGetAPI<BannerData>(`architecture-web-app/banner`);
 
   const handleSubmit = (values: any) => {
     console.log("Form values:", values);
     setIsDrawerOpen(false);
     form.resetFields();
   };
-
-  
-  if (loading) return <LoadingSpinner />;
-  if (error)
-    return <div className="error-message">Error loading banner: {error}</div>;
-  if (!bannerData) return null;
 
   return (
     <div className="banner">
@@ -46,17 +37,16 @@ const BannerComponent = () => {
               {bannerData.heading}
             </Title>
             <Text className="banner-info--text">
-              {/* <span className="text-blue">We Design,</span>{" "}
-              <span className="text-red">We Develop</span> */}
               <span>{bannerData.subHeading}</span>
             </Text>
-
+            <Text className="banner-info--description">
+              {bannerData.description}
+            </Text>
             <Button
-              
               size="large"
               onClick={() => navigate("/about")}
             >
-              Read More
+              <span> Know More <ArrowRight /></span>
             </Button>
           </div>
         </div>
@@ -64,6 +54,12 @@ const BannerComponent = () => {
         <Button className="side-button" onClick={() => setIsDrawerOpen(true)}>
           Book Here
         </Button>
+
+        <div className="banner-ribbon">
+          <Text className="ribbon-text">
+            We design and construct all types of buildings across Nepal with a skilled team of architects, engineers and construction technicians of respective fields.
+          </Text>
+        </div>
 
         <Drawer
           title={<div className="drawer-title">Book a Consultation</div>}

@@ -4,18 +4,39 @@ const Services: React.FC = () => {
   const services = [
     {
       icon: <ToolOutlined />,
-      title: 'Design Approach',
-      description: 'Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.'
+      title: {
+        nepali: 'डिजाइन र नगरपाललकाको प्रक्रिया',
+        english: '(Design & Municipal Process)'
+      },
+      description: [
+        "Understanding of Client's Needs, Budget, and Vision",
+        "Understanding Architectural, Structural Drawings, and 3D Photos & Videos",
+        "Understanding the required documents for municipal drawings and the approval process"
+      ]
     },
     {
       icon: <BulbOutlined />,
-      title: 'Innovative Solutions',
-      description: 'Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.'
+      title: {
+        nepali: 'निर्माण प्रक्रिया',
+        english: '(Construction Process)'
+      },
+      description: [
+        "Full-Time Contract: We manage materials, labor, and full supervision with 24/7 CCTV monitoring",
+        "Half-Time Contract: Client provides materials, and we oversee labor and supervision",
+        "Supervision Only Contract: Our engineers ensure quality and safety throughout the construction"
+      ]
     },
     {
       icon: <ProjectOutlined />,
-      title: 'Project Management',
-      description: 'Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.'
+      title: {
+        nepali: 'वास्तु शास्त्र',
+        english: '(Vaastu Shastra)'
+      },
+      description: [
+        "Brings Positive Energy",
+        "Makes your space more comfortable",
+        "Prevent future issues"
+      ]
     }
   ];
 
@@ -25,9 +46,9 @@ const Services: React.FC = () => {
         <div className="services-header">
           <h3 className="subtitle">OUR SERVICES</h3>
           <h2 className="title">
-            We Focused On Modern
+            हजुरको सपना पुरा गर्नको 
             <br />
-            Architecture And Interior Design
+            लागि सही मार्गदर्शन र उपयोगी जानकारी
           </h2>
         </div>
 
@@ -43,8 +64,15 @@ const Services: React.FC = () => {
                   {service.icon}
                 </div>
               </div>
-              <h3 className="service-title">{service.title}</h3>
-              <p className="service-description">{service.description}</p>
+              <h3 className="service-title">
+                <span className="nepali-title">{service.title.nepali}</span>
+                <span className="english-title">{service.title.english}</span>
+              </h3>
+              <ul className="service-description">
+                {service.description.map((item, idx) => (
+                  <li key={idx}>{item}</li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>

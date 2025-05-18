@@ -13,18 +13,21 @@ interface BannerData {
   heading: string;
   subHeading: string;
   imageUrl: string;
+  description: string;
 }
 
 interface FormBannerData {
   heading: string;
   subHeading: string;
   imageUrl: UploadFile[];
+  description: string;
 }
 
 const initialValues: FormBannerData = {
   heading: "",
   subHeading: "",
   imageUrl: [],
+  description: "",
 };
 
 type FieldType = typeof initialValues;
@@ -45,6 +48,7 @@ const BannerSettings = () => {
       const formData: FormBannerData = {
         heading: bannerData.heading || "",
         subHeading: bannerData.subHeading || "",
+        description: bannerData.description || "",
         imageUrl: bannerData.imageUrl
           ? [
               {
@@ -74,13 +78,14 @@ const BannerSettings = () => {
       const formData = new FormData();
       formData.append("heading", values.heading);
       formData.append("subHeading", values.subHeading);
+      formData.append("description", values.description);
 
       if (fileList.length > 0 && fileList[0].originFileObj) {
         const file = fileList[0].originFileObj;
         formData.append("imageUrl", file, file.name);
       }
 
-      const response =await axios.post(`${apiUrl}/architecture-web-app/banner`, formData, {
+      const response = await axios.post(`${apiUrl}/architecture-web-app/banner`, formData, {
         withCredentials: true,
         headers: {
             "Content-Type": "multipart/form-data",
@@ -135,6 +140,20 @@ const BannerSettings = () => {
                 <Input 
                   placeholder="Enter sub heading..." 
                   disabled={loading}
+                />
+              </Form.Item>
+            </Col>
+
+            <Col sm={24}>
+              <Form.Item<FieldType>
+                label="Description"
+                name="description"
+                rules={[{ required: true, message: "Description is required!" }]}
+              >
+                <Input.TextArea 
+                  placeholder="Enter description..." 
+                  disabled={loading}
+                  rows={4}
                 />
               </Form.Item>
             </Col>
