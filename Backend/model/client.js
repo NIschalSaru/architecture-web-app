@@ -1,31 +1,33 @@
 const { DataTypes } = require("sequelize");
 const { sequelizeInstance } = require("../database/databaseConnection.js");
 
-const Banner = sequelizeInstance.define(
-  "Banner",
+const Client = sequelizeInstance.define(
+  "Client",
   {
-    imageUrl: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    heading: {
-      type: DataTypes.STRING,
+    project_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-    subHeading: {
+    fullName: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
-    description: {
+    email: {
       type: DataTypes.STRING,
-      allowNull: false,
+      unique: true,
+    },
+    mobile: {
+      type: DataTypes.STRING,
+      unique: true,
+    },
+    address: {
+      type: DataTypes.STRING,
     },
   },
   {
-    tableName: "banners",
+    tableName: "clients",
     timestamps: true,
     paranoid: true,
   }
 );
 
-module.exports = Banner;
+module.exports = Client;

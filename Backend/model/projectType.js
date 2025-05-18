@@ -9,12 +9,12 @@ const ProjectType = sequelizeInstance.define(
       allowNull: false,
     },
     status: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true,
+      type: DataTypes.STRING,
+      defaultValue: "active",
     },
   },
   {
-    tableName: "Project_type",
+    tableName: "project_types",
     timestamps: true,
     paranoid: true,
   }

@@ -2,34 +2,38 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("testimonials", {
+    await queryInterface.createTable("projects", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
+        allowNull: false,
       },
-      rating: {
-        type: Sequelize.FLOAT,
-        validate: {
-          max: 5,
-          min: 0,
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      project_type_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "project_types", 
+          key: "id",
         },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
-      imageUrl: {
+      location: {
         type: Sequelize.STRING,
+        allowNull: true,
       },
-      title: {
+      site_area: {
         type: Sequelize.STRING,
-        unique: true,
+        allowNull: true,
       },
-      message: {
+      description: {
         type: Sequelize.TEXT,
-      },
-      fullname: {
-        type: Sequelize.STRING,
-      },
-      designation: {
-        type: Sequelize.STRING,
+        allowNull: true,
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -45,6 +49,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("testimonials");
+    await queryInterface.dropTable("projects");
   },
 };

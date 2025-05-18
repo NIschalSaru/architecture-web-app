@@ -37,7 +37,7 @@ Testimonial.init(
   {
     sequelize: sequelizeInstance,
     modelName: "Testimonial",
-    tableName: "Testimonials",
+    tableName: "testimonials",
     paranoid: true,
     timestamps: true,
   }
