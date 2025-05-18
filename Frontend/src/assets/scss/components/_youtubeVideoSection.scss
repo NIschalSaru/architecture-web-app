@@ -1,5 +1,6 @@
 .youtube-section {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: $white;
+  // background: url('../../assets/images/yt-sectionBg.jpeg') no-repeat center center/cover;
   padding: 40px 0;
   position: relative;
   overflow: hidden;

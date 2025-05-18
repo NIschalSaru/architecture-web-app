@@ -23,6 +23,7 @@ const RouteConfig = () => {
         {/* Public Routes */}
         <Route path="/" element={<FrontContainer />}>
           <Route index element={<Home />} />
+          <Route path="home" element={<Home />} />
           <Route path="about" element={<AboutUsPage />} />
           <Route path="projects" element={<Projects />} />
           <Route path="services" element={<Services />} />

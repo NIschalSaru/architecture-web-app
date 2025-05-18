@@ -258,6 +258,29 @@ a {
   text-decoration: none;
 }
 
+.app-store-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  margin-top: 25px;
+  justify-content: flex-start;
+}
+
+.app-store-link {
+  display: block;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.app-store-image {
+  height: 35px;
+  width: auto;
+  border-radius: 8px;
+}
+
 /* Media Query For different screens */
 @media (min-width: 320px) and (max-width: 479px) {
   /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
@@ -315,9 +338,38 @@ a {
   .footer-content-column {
     width: 24.99%;
   }
+
+  .app-store-buttons {
+    margin-top: 30px;
+  }
+
+  .app-store-image {
+    height: 41px;
+  }
 }
 @media (min-width: 568px) {
   /* .footer-content-column {
       width: 49.99%;
   } */
+}
+
+@media (max-width: 759px) {
+  .app-store-buttons {
+    margin-top: 25px;
+    justify-content: center;
+  }
+
+  .app-store-image {
+    height: 35px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-store-buttons {
+    margin-top: 20px;
+  }
+
+  .app-store-image {
+    height: 30px;
+  }
 }
