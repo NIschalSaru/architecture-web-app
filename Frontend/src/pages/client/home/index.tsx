@@ -8,16 +8,34 @@ import TestimonialSlider from "../../../components/client/Testimonial.tsx";
 import ProjectsSection from "../../../components/client/ProjectsSection.tsx";
 import Services from "./services.tsx";
 import WhyUs from "../../../components/client/WhyUs.tsx";
-// import LoadingSpinner from '../../components/LoadingSpinner.tsx';
+import LoadingSpinner from '../../../components/client/LoadingSpinner';
+import useGetAPI from "../../../hooks/useGetAPI";
+
+interface BannerData {
+  id: number;
+  imageUrl: string;
+  heading: string;
+  subHeading: string;
+  description: string;
+}
 
 const Home = () => {
-  // const { Title } = Typography;
-  // if (loading) return <LoadingSpinner />;
+  const {
+    data: bannerData,
+    loading,
+    error,
+  } = useGetAPI<BannerData>(`architecture-web-app/banner`);
+
+  if (loading) return <LoadingSpinner />;
+  if (error) return <div className="error-message">Error loading page: {error}</div>;
+  if (!bannerData) return null;
+
   return (
     <>
-      {/* <LoadingSpinner /> */}
-      <BannerComponent />
-      <Services />
+      <BannerComponent bannerData={bannerData} />
+      <Layout>
+        <Services />
+      </Layout>
       <Layout>
         <YoutubeVideoSection />
       </Layout>
