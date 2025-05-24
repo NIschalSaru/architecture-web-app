@@ -12,25 +12,25 @@ const categories: CategoryCard[] = [
     key: "residentialProjects",
     title: "Residential Projects",
     image:
-      "https://cdna.artstation.com/p/assets/images/images/036/508/324/large/asim-salman-zicatela-8.jpg?1617858511",
+      "https://images.unsplash.com/photo-1565363887715-8884629e09ee?q=80&w=1376&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     key: "commercialProjects",
     title: "Commercial Projects",
     image:
-      "https://cdna.artstation.com/p/assets/images/images/042/667/458/large/mipe-group-exterior-03.jpg?1635150466",
+      "https://plus.unsplash.com/premium_photo-1691030924664-94108416699e?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     key: "restaurantCafeProjects",
     title: "Restaurant & Cafe Projects",
     image:
-      "https://cdna.artstation.com/p/assets/images/images/015/811/820/large/fotoref-com-photo-packs-artstation-image-2bc212b3-3908-11e7-a07c-0242ac120003-5c5f4c4082176.jpg?1549749352",
+      "https://images.unsplash.com/photo-1689079564957-83e3641c7fd8?q=80&w=1486&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     key: "hotelResortProjects",
     title: "Hotel & Resort Projects",
     image:
-      "https://cdnb.artstation.com/p/assets/images/images/083/879/253/large/yavi-yener-44-modern-tiny-house-02.jpg?1736998332",
+      "https://images.unsplash.com/photo-1559235196-38074cb7b7cb?q=80&w=1530&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     key: "entertainmentProjects",
@@ -42,7 +42,7 @@ const categories: CategoryCard[] = [
     key: "renovationProjects",
     title: "Renovation Projects",
     image:
-      "https://cdnb.artstation.com/p/assets/images/images/047/048/647/smaller_square/yantram-architectural-design-studio-3d-exterior-modeling-of-small-house-with-garden-by-architectural-design-studio.jpg?1646647795",
+      "https://images.unsplash.com/photo-1718810456574-a0336bdff3f3?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     key: "constructionProjects",
