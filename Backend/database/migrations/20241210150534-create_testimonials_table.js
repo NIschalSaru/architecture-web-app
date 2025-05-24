@@ -15,8 +15,17 @@ module.exports = {
           min: 0,
         },
       },
+      filename: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      filepath: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       imageUrl: {
         type: Sequelize.STRING,
+        allowNull: true,
       },
       title: {
         type: Sequelize.STRING,

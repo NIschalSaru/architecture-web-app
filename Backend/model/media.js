@@ -16,7 +16,15 @@ const Media = sequelizeInstance.define(
       type: DataTypes.ENUM("feature", "gallery"),
       allowNull: false,
     },
-    path: {
+    filename: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    filepath: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    fileurl: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,

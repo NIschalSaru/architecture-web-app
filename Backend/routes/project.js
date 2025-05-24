@@ -4,7 +4,6 @@ const {
   getAllProjectTypes,
   updateProjectType,
   deleteProjectType,
-  updateStatus,
 } = require("../controllers/project/projectType.controller.js");
 
 const {
@@ -13,8 +12,10 @@ const {
   deleteProject,
   getClientByProjectTypeId,
   getProjectByClientId,
+  deleteMediaById,
 } = require("../controllers/project/project.controller.js");
 const ProtectRoute = require("../middleware/protect.route.js");
+const { uploadImages } = require("../middleware/multer.middleware.js");
 
 // Project Type Routes
 router.post("/project-types/", ProtectRoute, createProjectType);
@@ -23,9 +24,10 @@ router.put("/project-types/:id", ProtectRoute, updateProjectType);
 router.delete("/project-types/:id", ProtectRoute, deleteProjectType);
 
 // Project Routes
-router.post("/", ProtectRoute, createProject);
-router.put("/:id", ProtectRoute, updateProject);
+router.post("/", ProtectRoute, uploadImages, createProject);
+router.put("/:id", ProtectRoute, uploadImages, updateProject);
 router.delete("/:id", ProtectRoute, deleteProject);
+router.delete("/media/:id", ProtectRoute, deleteMediaById);
 router.get("/get-clients/:project_type_id", getClientByProjectTypeId);
 router.get("/get-project/:client_id", getProjectByClientId);
 

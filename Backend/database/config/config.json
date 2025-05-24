@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "architecturedb_stdu_user",
-    "password": "jyNJpAR55JsFt4b3URhgv7LMSfq7hSvq",
-    "database": "architecturedb_stdu",
-    "host": "dpg-d02cqouuk2gs73ebhhkg-a.oregon-postgres.render.com",
+    "username": "architecturedwebapp_user",
+    "password": "1OvRKTkMhf33qGw8hiZrIsukma8LZeKT",
+    "database": "architecturedwebapp",
+    "host": "dpg-d0muhqruibrs73f25mkg-a.oregon-postgres.render.com",
     "dialect": "postgres",
     "dialectOptions": {
       "ssl": {

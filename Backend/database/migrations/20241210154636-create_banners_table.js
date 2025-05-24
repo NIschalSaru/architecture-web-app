@@ -8,6 +8,14 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
+      filename: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      filepath: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       imageUrl: {
         type: Sequelize.STRING,
       },

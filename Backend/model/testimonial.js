@@ -18,12 +18,20 @@ Testimonial.init(
       allowNull: false,
       unique: true,
     },
+    filename: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    filepath: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     imageUrl: {
       type: DataTypes.STRING,
       allowNull: true,
     },
     message: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     fullname: {
@@ -32,6 +40,7 @@ Testimonial.init(
     },
     designation: {
       type: DataTypes.STRING,
+      allowNull: true,
     },
   },
   {
