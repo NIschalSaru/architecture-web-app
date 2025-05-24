@@ -1,4 +1,3 @@
-// models/user.js
 const { DataTypes, Model } = require("sequelize");
 const { sequelizeInstance } = require("../database/databaseConnection.js");
 
@@ -20,7 +19,11 @@ User.init(
       allowNull: false,
       unique: true,
     },
-    profileImage: {
+    filename: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    filepath: {
       type: DataTypes.STRING,
       allowNull: true,
     },
@@ -33,7 +36,7 @@ User.init(
       defaultValue: "user",
     },
     gender: {
-      type: DataTypes.ENUM("male", "female", "other"),
+      type: DataTypes.ENUM("male", "female"),
       allowNull: false,
     },
     passwordChangedAt: {
@@ -52,6 +55,7 @@ User.init(
     modelName: "User",
     tableName: "users",
     timestamps: true,
+    paranoid: true,
   }
 );
 

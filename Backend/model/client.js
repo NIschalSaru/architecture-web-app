@@ -13,11 +13,9 @@ const Client = sequelizeInstance.define(
     },
     email: {
       type: DataTypes.STRING,
-      unique: true,
     },
     mobile: {
       type: DataTypes.STRING,
-      unique: true,
     },
     address: {
       type: DataTypes.STRING,

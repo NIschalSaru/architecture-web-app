@@ -14,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 app.use(cookieParser());
 
+app.use("/api/architecture-web-app/uploads", express.static("storage/uploads"));
 app.use("/api/architecture-web-app", mainRoutes);
 
 sequelizeInstance

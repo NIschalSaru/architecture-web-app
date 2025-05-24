@@ -1,28 +1,64 @@
+const fs = require("fs");
+const path = require("path");
+const dayjs = require("dayjs");
+const Banner = require("../model/banner.js");
+const { asyncHandler } = require("../services/async.handler.js");
 const {
   uploadSingleImage,
   deleteImage,
 } = require("../middleware/cloudinary.js");
-const Banner = require("../model/banner.js");
-const { asyncHandler } = require("../services/async.handler.js");
 
 const createOrUpdateBanner = asyncHandler(async (req, res) => {
   const { heading, subHeading, description } = req.body;
-  console.log("req.body", req.body);
   let imagePath = null;
-  const title = `banner_${Date.now()}`;
-  let banner = await Banner.findOne();
-  if (req.file) {
-    if (banner && banner.imageUrl) {
-      await deleteImage(banner.imageUrl);
+  let imageUrl = null;
+  const banner = await Banner.findOne();
+  const uploadedImage = req.files?.image?.[0];
+  if (uploadedImage) {
+    if (banner) {
+      if (banner.filepath) {
+        const sanitizedPath = banner.filepath.replace(/^\/+/, "");
+        const oldLocalPath = path.join(
+          __dirname,
+          "..",
+          "storage",
+          sanitizedPath
+        );
+        if (fs.existsSync(oldLocalPath)) {
+          fs.unlinkSync(oldLocalPath);
+        }
+      }
+      if (banner.imageUrl) {
+        try {
+          await deleteImage(banner.imageUrl);
+        } catch (err) {
+          console.error("Cloudinary deletion failed:", err.message);
+        }
+      }
     }
-    imagePath = await uploadSingleImage(req.file.buffer, title);
+    const folderName = dayjs().format("YYYYMMDD");
+    imagePath = `/uploads/${folderName}/${uploadedImage.filename}`;
+    const fullLocalPath = path.join(__dirname, "..", "storage", imagePath);
+    try {
+      const fileBuffer = fs.readFileSync(fullLocalPath);
+      imageUrl = await uploadSingleImage(fileBuffer, uploadedImage.filename);
+    } catch (err) {
+      return res.status(500).json({
+        message: "Cloudinary upload failed",
+        error: err.message,
+      });
+    }
   }
   if (banner) {
     banner.heading = heading;
     banner.subHeading = subHeading;
     banner.description = description;
     if (imagePath) {
-      banner.imageUrl = imagePath;
+      banner.filepath = imagePath;
+      banner.filename = uploadedImage.filename;
+    }
+    if (imageUrl) {
+      banner.imageUrl = imageUrl;
     }
     await banner.save();
     return res.status(200).json({
@@ -30,15 +66,17 @@ const createOrUpdateBanner = asyncHandler(async (req, res) => {
       data: banner,
     });
   }
-  banner = await Banner.create({
-    imageUrl: imagePath,
+  const newBanner = await Banner.create({
     heading,
     subHeading,
     description,
+    filename: uploadedImage?.filename || null,
+    filepath: imagePath || null,
+    imageUrl: imageUrl || null,
   });
   return res.status(201).json({
     message: "Banner created successfully",
-    data: banner,
+    data: newBanner,
   });
 });
 
