@@ -9,8 +9,9 @@ const {
 } = require("../controllers/auth.controller.js");
 const router = express.Router();
 const {
-  upload,
-  multipleFileUpload,
+  // upload,
+  // multipleFileUpload,
+  uploadImages,
 } = require("../middleware/multer.middleware.js");
 const ProtectRoute = require("../middleware/protect.route.js");
 
@@ -22,7 +23,8 @@ router.post("/reset-password", resetPassword);
 router.put(
   "/edit-profile/:id",
   ProtectRoute,
-  upload.single("profile-image"),
+  // upload.single("profile-image"),
+  uploadImages,
   editProfile
 );
 

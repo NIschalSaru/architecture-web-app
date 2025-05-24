@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("media", {
+    await queryInterface.createTable("clients", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -19,16 +19,17 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
-      name: {
+      fullName: {
         type: Sequelize.STRING,
       },
-      image_type: {
-        type: Sequelize.ENUM("feature", "gallery"),
-        allowNull: false,
-      },
-      path: {
+      email: {
         type: Sequelize.STRING,
-        unique: true,
+      },
+      mobile: {
+        type: Sequelize.STRING,
+      },
+      address: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -44,6 +45,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("media");
+    await queryInterface.dropTable("clients");
   },
 };

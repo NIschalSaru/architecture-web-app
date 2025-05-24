@@ -19,7 +19,11 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true,
       },
-      profileImage: {
+      filename: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      filepath: {
         type: Sequelize.STRING,
         allowNull: true,
       },
@@ -31,7 +35,7 @@ module.exports = {
         defaultValue: "user",
       },
       gender: {
-        type: Sequelize.ENUM("male", "female", "other"),
+        type: Sequelize.ENUM("male", "female"),
         defaultValue: "male",
       },
       createdAt: {

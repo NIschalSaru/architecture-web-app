@@ -4,6 +4,14 @@ const { sequelizeInstance } = require("../database/databaseConnection.js");
 const Banner = sequelizeInstance.define(
   "Banner",
   {
+    filename: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    filepath: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     imageUrl: {
       type: DataTypes.STRING,
       allowNull: true,

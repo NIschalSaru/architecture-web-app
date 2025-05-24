@@ -73,5 +73,4 @@ module.exports = {
   getAllProjectTypes,
   updateProjectType,
   deleteProjectType,
-  //   updateStatus,
 };

@@ -8,7 +8,6 @@ class ProtectRoute {
       if (!token) {
         return res.status(401).json({ message: "Unauthorized" });
       }
-
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       // console.log(decoded);
       if (!decoded)
@@ -19,7 +18,6 @@ class ProtectRoute {
         where: { id: decoded.userData.id },
         attributes: { exclude: ["password"] },
       });
-
       if (!user) {
         return res.status(404).json({ message: "Unauthorized" });
       }
