@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("Project_type", {
+    await queryInterface.createTable("project_types", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -14,14 +14,24 @@ module.exports = {
         allowNull: false,
       },
       status: {
-        type: Sequelize.STRING,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
-        defaultValue: "active",
+        defaultValue: true,
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+      },
+      deletedAt: {
+        type: Sequelize.DATE,
+        allowNull: true,
       },
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("Project_type");
+    await queryInterface.dropTable("project_types");
   },
 };

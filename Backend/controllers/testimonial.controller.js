@@ -1,61 +1,163 @@
+const fs = require("fs");
+const path = require("path");
+const dayjs = require("dayjs");
+const Testimonial = require("../model/testimonial.js");
+const { asyncHandler } = require("../services/async.handler.js");
 const {
   uploadSingleImage,
   deleteImage,
 } = require("../middleware/cloudinary.js");
-const Testimonial = require("../model/testimonial.js");
-const { asyncHandler } = require("../services/async.handler.js");
 
 const createTestimonial = asyncHandler(async (req, res) => {
   const { fullname, designation, message, rating } = req.body;
-
   if (!fullname || !designation || !message || !rating) {
     return res.status(400).json({ message: "All fields are required" });
   }
-
-  try {
-    let imagePath = null;
-    let title = `testimonial_${Date.now()}`;
-    if (req.file) {
-      console.log(req.file);
-      imagePath = await uploadSingleImage(req.file.buffer, title);
+  const uploadedImage = req.files?.image?.[0];
+  let filename = null;
+  let imagePath = null;
+  let imageUrl = null;
+  if (uploadedImage) {
+    const folderName = dayjs().format("YYYYMMDD");
+    filename = uploadedImage.filename;
+    imagePath = `/uploads/${folderName}/${filename}`;
+    const fullPath = path.join(__dirname, "..", "storage", imagePath);
+    try {
+      const fileBuffer = fs.readFileSync(fullPath);
+      imageUrl = await uploadSingleImage(fileBuffer, filename);
+    } catch (err) {
+      return res.status(500).json({
+        message: "Cloudinary upload failed",
+        error: err.message,
+      });
     }
-
-    const data = await Testimonial.create({
+  }
+  const title = `testimonial_${Date.now()}`;
+  const data = await Testimonial.create({
+    fullname,
+    designation,
+    message,
+    rating,
+    filename,
+    filepath: imagePath,
+    imageUrl,
+    title,
+  });
+  res.status(201).json({
+    message: "Testimonial created successfully",
+    data: {
       fullname,
       designation,
-      message,
-      imageUrl: imagePath || "",
-      title,
       rating,
-    });
+      imageUrl,
+      filepath: imagePath,
+    },
+  });
+});
 
-    res.status(201).json({
-      message: "Testimonial created successfully",
-      data: {
-        fullname,
-        designation,
-        rating,
-        imageUrl: imagePath,
-      },
-    });
-  } catch (error) {
-    console.error("Error creating testimonial:", error.message);
-    res.status(500).json({ message: "Failed to create testimonial" });
+const updateTestimonial = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { rating, message, fullname, designation, title } = req.body;
+  const testimonial = await Testimonial.findByPk(id);
+  if (!testimonial) {
+    return res.status(404).json({ success: false, message: "Not found" });
   }
+  const uploadedImage = req.files?.image?.[0];
+  let filename = testimonial.filename;
+  let filepath = testimonial.filepath;
+  let imageUrl = testimonial.imageUrl;
+  if (uploadedImage) {
+    if (testimonial.imageUrl) {
+      try {
+        await deleteImage(testimonial.imageUrl);
+      } catch (err) {
+        console.warn("Failed to delete Cloudinary image:", err.message);
+      }
+    }
+    if (testimonial.filepath) {
+      const sanitizedPath = testimonial.filepath.replace(/^\/+/, "");
+      const localPath = path.resolve(__dirname, "..", "storage", sanitizedPath);
+      if (fs.existsSync(localPath)) {
+        try {
+          fs.unlinkSync(localPath);
+        } catch (err) {
+          console.warn("Failed to delete local file:", err.message);
+        }
+      }
+    }
+    const folderName = dayjs().format("YYYYMMDD");
+    filepath = `/uploads/${folderName}/${uploadedImage.filename}`;
+    const fullPath = path.join(__dirname, "..", "storage", filepath);
+    filename = uploadedImage.filename;
+    try {
+      const fileBuffer = fs.readFileSync(fullPath);
+      imageUrl = await uploadSingleImage(fileBuffer, filename);
+    } catch (err) {
+      return res.status(500).json({
+        message: "Image update failed",
+        error: err.message,
+      });
+    }
+  }
+  await testimonial.update({
+    fullname,
+    designation,
+    message,
+    rating,
+    title,
+    filename,
+    filepath,
+    imageUrl,
+  });
+  return res.status(200).json({
+    message: "Testimonial updated successfully",
+    data: {
+      fullname,
+      designation,
+      rating,
+      title,
+      imageUrl,
+      filepath,
+    },
+  });
+});
+
+const deleteTestimonial = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const testimonial = await Testimonial.findByPk(id);
+  if (!testimonial) {
+    return res.status(404).json({ message: "Data not found" });
+  }
+  if (testimonial.imageUrl) {
+    try {
+      await deleteImage(testimonial.imageUrl);
+    } catch (err) {
+      console.warn("Failed to delete Cloudinary image:", err.message);
+    }
+  }
+  if (testimonial.filepath) {
+    const sanitizedPath = testimonial.filepath.replace(/^\/+/, "");
+    const localPath = path.resolve(__dirname, "..", "storage", sanitizedPath);
+    if (fs.existsSync(localPath)) {
+      try {
+        fs.unlinkSync(localPath);
+      } catch (err) {
+        console.warn("Failed to delete local file:", err.message);
+      }
+    }
+  }
+  await testimonial.destroy();
+  return res.status(200).json({
+    success: true,
+    message: "Testimonial deleted successfully",
+  });
 });
 
 const getAllTestimonials = asyncHandler(async (req, res) => {
-  try {
-    const testimonials = await Testimonial.findAll({
-      order: [["createdAt", "DESC"]],
-    });
-    return res.status(200).json({ success: true, data: testimonials });
-  } catch (error) {
-    console.error("Error fetching testimonials:", error);
-    return res
-      .status(500)
-      .json({ success: false, message: "Internal Server Error" });
-  }
+  const testimonials = await Testimonial.findAll({
+    order: [["createdAt", "DESC"]],
+  });
+  return res.status(200).json({ success: true, data: testimonials });
 });
 
 const getTestimonialsById = asyncHandler(async (req, res) => {
@@ -64,77 +166,10 @@ const getTestimonialsById = asyncHandler(async (req, res) => {
   if (!testimonial) {
     return res.status(404).json({ error: "Data not found!" });
   }
-
   return res.status(200).json({
     message: "Data fetched successfully",
     data: testimonial,
   });
-});
-
-const updateTestimonial = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  const { rating, message, fullname, designation, title } = req.body;
-  const testimonial = await Testimonial.findByPk(id);
-
-  if (!testimonial) {
-    return res
-      .status(404)
-      .json({ success: false, message: "Testimonial not found" });
-  }
-
-  let imageUrl = testimonial.imageUrl;
-  if (req.file) {
-    if (testimonial.imageUrl) {
-      await deleteImage(testimonial.imageUrl);
-    }
-    imageUrl = await uploadSingleImage(req.file.buffer, `testimonial_${id}`);
-  }
-  await testimonial.update({
-    rating,
-    imageUrl,
-    message,
-    fullname,
-    designation,
-    title,
-  });
-
-  return res.status(200).json({
-    message: "Data updated successfully",
-    data: {
-      fullname,
-      rating,
-      imageUrl,
-    },
-  });
-});
-
-const deleteTestimonial = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  const testimonial = await Testimonial.findByPk(id);
-
-  if (!testimonial) {
-    return res.status(404).json({ success: false, message: "Data not found" });
-  }
-
-  try {
-    if (testimonial.imageUrl) {
-      const imageDeleted = await deleteImage(testimonial.imageUrl);
-      if (!imageDeleted) {
-        console.warn("Failed to delete file in cloudinary.");
-      }
-    }
-    await testimonial.destroy();
-    return res.status(200).json({
-      success: true,
-      message: "Data and associated file (if any) deleted successfully",
-    });
-  } catch (error) {
-    console.error("Error deleting testimonial:", error.message);
-    return res.status(500).json({
-      success: false,
-      message: "Failed to delete testimonial",
-    });
-  }
 });
 
 module.exports = {

@@ -6,6 +6,9 @@ import {
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import Logo from "../../../assets/images/ndbn-logo-white.png";
+import AppStore from "../../../assets/svg/app-store.svg";
+import PlayStore from "../../../assets/svg/google-play.svg";
+
 const Footer = () => {
   return (
     <div className="pg-footer">
@@ -91,6 +94,14 @@ const Footer = () => {
                   <a href="#">Contact Us</a>
                 </li>
               </ul>
+            </div>
+            <div className="app-store-buttons">
+              <a href="https://apps.apple.com/np/app/nepal-designers-builders-ndb/id6743044434" className="app-store-link">
+                <img src={AppStore} alt="Download on App Store" className="app-store-image" />
+              </a>
+              <a href="https://play.google.com/store/apps/details?id=com.theyetilabs.enirman.ndb&pli=1" className="app-store-link">
+                <img src={PlayStore} alt="Get it on Google Play" className="app-store-image" />
+              </a>
             </div>
           </div>
           <div className="footer-content-column">

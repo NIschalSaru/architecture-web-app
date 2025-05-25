@@ -21,10 +21,11 @@ const ProjectDetails = () => {
   return (
     <section className="project-details-and-discription">
       <InnerHeader
-        title="PROJECTS"
+        title={`${project.title}`}
         className="no-margin"
         currentPage="PROJECT DETAILS"
       />
+
       <div className="container" id="container">
         <div className="project-images-section my-4">
           <div className="main-image-section mb-4">
@@ -64,8 +65,7 @@ const ProjectDetails = () => {
             {project.title} -{" "}
             <span className="details-location">{project.location}</span>
           </h2>
-
-          <p className="details-description">{project.discription}</p>
+          <p className="details-description">{project.description}</p>
         </div>
       </div>
       <div className="project-details-overview">

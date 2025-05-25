@@ -95,7 +95,7 @@
 
 // First, let's define a common container class if you haven't already
 .container {
-  max-width: 1400px; // Match this with your navbar container width
+  max-width: 1250px; // Match this with your navbar container width
   margin: 0 auto;
   padding: 0 15px;
   width: 100%;
@@ -116,7 +116,7 @@
 .inner-header {
   position: relative;
   width: 100%;
-  height: 450px;
+  height: 400px;
   display: flex;
   align-items: center;
   margin-bottom: 3rem;
@@ -154,7 +154,7 @@
     z-index: 2;
     color: #ffffff;
     width: 100%;
-    max-width: 1400px; // Match container width
+    max-width: 1250px; // Match container width
     margin: 0 auto;
     padding: 0 15px; // Match container padding
 

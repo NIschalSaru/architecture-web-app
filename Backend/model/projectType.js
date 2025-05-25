@@ -14,10 +14,17 @@ const ProjectType = sequelizeInstance.define(
     },
   },
   {
-    tableName: "Project_type",
+    tableName: "project_types",
     timestamps: true,
     paranoid: true,
   }
 );
+
+ProjectType.associate = (models) => {
+  ProjectType.hasMany(models.Project, {
+    foreignKey: "project_type_id",
+    as: "projects",
+  });
+};
 
 module.exports = ProjectType;

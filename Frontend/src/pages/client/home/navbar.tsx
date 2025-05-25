@@ -16,6 +16,9 @@ import fb from "../../../assets/svg/facebook.svg";
 import yt from "../../../assets/svg/youtube.svg";
 import ld from "../../../assets/svg/linkedin.svg";
 import ig from "../../../assets/svg/instagram.svg";
+import tk from "../../../assets/svg/tiktok.svg";
+import up from "../../../assets/svg/upwork.svg";
+import x from "../../../assets/svg/x.svg";
 
 const { Header } = Layout;
 
@@ -78,12 +81,13 @@ const NavbarComponent: React.FC = () => {
               </span>
             </div>
             <div className="social-links">
-              <a href="#" className="facebook">
-                  <img src={fb} alt="facebook"></img>
-              </a>
+              <a href="#" className="facebook"><img src={fb} alt="facebook"></img></a>
               <a href="#" className="Instagram"><img src={ig} alt="Instagram"></img></a>
               <a href="#" className="Youtube"><img src={yt} alt="Youtube"></img></a>
+              <a href="#" className="Tiktok"><img src={tk} alt="Tiktok"></img></a>
               <a href="#" className="linkedin"><img src={ld} alt="Linkedin"></img></a>
+              <a href="#" className="Upwork"><img src={up} alt="Upwork"></img></a>
+              <a href="#" className="X"><img src={x} alt="X"></img></a>
             </div>
           </div>
         </div>

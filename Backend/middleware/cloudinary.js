@@ -12,7 +12,6 @@ async function uploadSingleImage(fileBuffer, title) {
   if (!fileBuffer) {
     throw new Error("File buffer is required for upload.");
   }
-
   return new Promise((resolve, reject) => {
     cloudinary.uploader
       .upload_stream(
@@ -26,7 +25,7 @@ async function uploadSingleImage(fileBuffer, title) {
             console.error("Error uploading image:", error.message);
             return reject("Failed to upload image.");
           }
-          console.log("Image uploaded successfully:", result.secure_url);
+          // console.log("Image uploaded successfully:", result.secure_url);
           resolve(result.secure_url);
         }
       )
@@ -35,26 +34,29 @@ async function uploadSingleImage(fileBuffer, title) {
 }
 
 // Function to upload multiple images using file buffers
-async function uploadMultipleImages(files) {
-  if (!Array.isArray(files) || files.length === 0) {
-    throw new Error("Invalid input. An array of file is required.");
-  }
-
-  const uploadPromises = files.map((file, index) => {
-    const title = `image_${Date.now()}_${index + 1}`;
-    return uploadSingleImage(file.buffer, title);
-  });
-
-  return Promise.all(uploadPromises);
-}
+// async function uploadMultipleImages(files) {
+//   if (!Array.isArray(files) || files.length === 0) {
+//     throw new Error("Invalid input. An array of file is required.");
+//   }
+//   const uploadPromises = files.map((file, index) => {
+//     const title = `image_${Date.now()}_${index + 1}`;
+//     return uploadSingleImage(file.buffer, title);
+//   });
+//   return Promise.all(uploadPromises);
+// }
 
 function extractPublicIdFromCloudinaryURL(url, folderName) {
   try {
     if (!folderName.endsWith("/")) {
       folderName += "/";
     }
-
-    const publicId = url.split(folderName)[1].split(".")[0];
+    let publicIdWithExtension = url.split(folderName)[1];
+    publicIdWithExtension = publicIdWithExtension.replace(/^v\d+\//, "");
+    const lastDotIndex = publicIdWithExtension.lastIndexOf(".");
+    if (lastDotIndex === -1) {
+      return folderName + publicIdWithExtension;
+    }
+    const publicId = publicIdWithExtension.substring(0, lastDotIndex);
     return folderName + publicId;
   } catch (error) {
     console.error("Error extracting public ID:", error);
@@ -64,26 +66,19 @@ function extractPublicIdFromCloudinaryURL(url, folderName) {
 
 async function deleteImage(imageUrl) {
   try {
-    const iamgePublicId = extractPublicIdFromCloudinaryURL(
-      imageUrl,
-      folderName
-    );
-
-    let resp = await cloudinary.uploader.destroy(
-      iamgePublicId,
-      (error, result) => {
-        if (error) {
-          console.error("Error deleting image:", error);
-          return false;
-        }
-        console.log("Image deleted successfully:", result);
-        return true;
-      }
-    );
+    const publicId = extractPublicIdFromCloudinaryURL(imageUrl, folderName);
+    if (!publicId) {
+      throw new Error("Could not extract public ID.");
+    }
+    const resp = await cloudinary.uploader.destroy(publicId, {
+      invalidate: true,
+    });
+    // console.log("Image deleted successfully:", resp);
     return resp;
   } catch (error) {
+    console.error("Error deleting image:", error);
     throw error;
   }
 }
 
-module.exports = { uploadSingleImage, uploadMultipleImages, deleteImage };
+module.exports = { uploadSingleImage, deleteImage };

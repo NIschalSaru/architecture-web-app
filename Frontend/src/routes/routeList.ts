@@ -4,7 +4,7 @@ export const RouteList = [
     path: "/home",
   },
   {
-    label: "Our Projects",
+    label: "Selected Projects",
     path: "/projects",
   },
   {
