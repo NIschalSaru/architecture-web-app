@@ -5,7 +5,7 @@ const ProjectDetails = () => {
   const location = useLocation();
   const project = location.state; // Retrieve the project data passed via navigate
   const { title } = useParams<{ title: string }>();
-
+  const { id } = useParams();
   if (!project) {
     return <div>Project not found!</div>;
   }

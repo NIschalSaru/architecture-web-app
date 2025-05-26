@@ -1,4 +1,4 @@
-@use 'sass:color';
+@use "sass:color";
 @import "base/font";
 @import "base/variable";
 @import "base/base";
@@ -17,6 +17,7 @@
 @import "pages/aboutUs";
 @import "pages/login";
 @import "pages/projects";
+@import "pages/newProjects";
 @import "pages/project_details";
 @import "pages/services";
 @import "pages/inner_page";

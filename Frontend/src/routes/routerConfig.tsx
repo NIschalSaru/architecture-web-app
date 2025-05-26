@@ -28,6 +28,8 @@ const RouteConfig = () => {
           <Route path="projects" element={<Projects />} />
           <Route path="services" element={<Services />} />
           {/* <Route path="project/:title" element={<ProjectDetails />} /> */}
+          <Route path="/projects/:id" element={<ProjectDetails />} />
+
           <Route path="projects/details/:title" element={<ProjectDetails />} />
 
           <Route path="page-not-found" element={<PageNotFound />} />
