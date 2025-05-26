@@ -8,7 +8,6 @@ const {
   deleteImage,
 } = require("../../middleware/cloudinary.js");
 const { sequelize } = require("../../database/models/index.js");
-const { log } = require("console");
 
 const createProject = asyncHandler(async (req, res) => {
   const {

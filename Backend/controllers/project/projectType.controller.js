@@ -21,7 +21,7 @@ const createProjectType = asyncHandler(async (req, res) => {
 const getAllProjectTypes = asyncHandler(async (req, res) => {
   try {
     const projectTypes = await ProjectType.findAll({
-      attributes: ["id", "title"],
+      attributes: ["id", "title", "status"],
       order: [["createdAt", "DESC"]],
     });
     res.status(200).json({ success: true, data: projectTypes });
