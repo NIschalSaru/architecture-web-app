@@ -10,6 +10,8 @@ import Services from "./services.tsx";
 import WhyUs from "../../../components/client/WhyUs.tsx";
 import LoadingSpinner from '../../../components/client/LoadingSpinner';
 import useGetAPI from "../../../hooks/useGetAPI";
+import ClientsSection from "../../../components/client/ProjectsSection.tsx";
+
 
 interface BannerData {
   id: number;

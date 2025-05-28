@@ -10,9 +10,14 @@ import Projects from "../pages/client/projects";
 import DashboardContainer from "../pages/admin/dashboardContainer";
 import BannerSettings from "../pages/admin/Banner/Index";
 import TestimonialSetting from "../pages/admin/Testimonials/index";
+import ProjectSetting from "../pages/admin/Projects/AddNewProjects/Index";
+import ProjectTypeSetting from "../pages/admin/Projects/ProjectTypes/Index";
+import ProjectClients from "../pages/admin/Projects/Clients/Index";
 import ProtectedRoute from "../components/ProtectedRoute";
-import ProjectDetails from "../pages/client/projects/projectDetails"; // Import your project details page
+import ProjectDetails from "../pages/client/projects/projectDetails";
 import CategorizeProjects from "../pages/client/projects/catagorizeProjects";
+import AddProject from "../pages/admin/Projects/AddNewProjects/AddProject";
+import ClientReqForm from "../pages/admin/ClientRequirementForm/Index";
 const RouteConfig = () => {
   return (
     <Suspense fallback="Loading...">
@@ -48,6 +53,11 @@ const RouteConfig = () => {
             <Route index element={<Navigate to="banner" replace />} />
             <Route path="banner" element={<BannerSettings />} />
             <Route path="testimonials" element={<TestimonialSetting />} />
+            <Route path="projects-settings/:project_id" element={<ProjectSetting />} />
+            <Route path="projects-categories" element={<ProjectTypeSetting />} />
+            <Route path="projects-clients/:id" element={<ProjectClients />} />
+            <Route path="add-project/:project_id" element={<AddProject />} />
+            <Route path="Client-Requirement-Form" element={<ClientReqForm />} />
           </Route>
         </Route>
 

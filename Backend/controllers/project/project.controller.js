@@ -311,11 +311,21 @@ const getClientByProjectTypeId = asyncHandler(async (req, res) => {
       {
         model: Project,
         as: "project",
-        where: { project_type_id },
-        attributes: [],
+        attributes: ["id"],
+        where: {
+          project_type_id,
+        },
+        include: [
+          {
+            model: Media,
+            as: "media",
+            where: {
+              image_type: "feature",
+            },
+          },
+        ],
       },
     ],
-    raw: false,
   });
   if (!clients || clients.length === 0) {
     return res.status(404).json({

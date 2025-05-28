@@ -222,6 +222,7 @@ const TestimonialSetting = () => {
         <LoadingSpinner />
       ) : (
         <div>
+          <div className="dashboard-Headings">Testimonial Informations</div>
           <div
             style={{
               marginBottom: "16px",
