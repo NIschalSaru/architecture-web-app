@@ -225,13 +225,19 @@ const AboutUsPage = () => {
             <Col xs={24} lg={12}>
               <div className="contact-content" id="contact-section">
                 <Title level={2}>
-                  <span className="contact-content-1">Contact Us</span> & We Can
-                  Work Together
+                  {/* <span className="contact-content-1">Contact Us</span> & We Can
+                  Work Together */}
+                  We’re Here for You
                 </Title>
+                
+
                 <Paragraph className="contact-intro">
-                  Have questions or need assistance? Reach out to us, and let's
-                  collaborate to achieve your goals. We're here to help you
-                  every step of the way.
+                Got a question or need help with your project?
+                Contact us from any medium +977-9851356590/ +977-
+                9851340040 anytime! <br />
+                We’ll get back to you soon.<br />
+                We’re here to make your dream project a reality!
+
                 </Paragraph>
                 <Form
                   form={form}
@@ -242,36 +248,48 @@ const AboutUsPage = () => {
                 >
                   <Form.Item
                     name="name"
-                    label="Full Name"
+                    label="Full Name / Location"
                     rules={[
                       {
                         required: true,
-                        message: "Please enter your full name",
+                        message: "Please enter your full name / location",
                       },
                     ]}
                   >
-                    <Input size="large" placeholder="Your Name" />
+                    <Input size="large" placeholder="Your Name / Location" />
                   </Form.Item>
                   <Form.Item
                     name="email"
-                    label="Email"
+                    label="Contact Number"
                     rules={[
-                      { required: true, message: "Please enter your email" },
-                      { type: "email", message: "Please enter a valid email" },
+                      { required: true, message: "Please enter your contact number" },
                     ]}
                   >
-                    <Input size="large" placeholder="Your Email" />
+                    <Input size="large" placeholder="Your Contact Number" />
                   </Form.Item>
                   <Form.Item
                     name="message"
-                    label="Message"
+                    label="Tell us about your project requirements:"
                     rules={[
-                      { required: true, message: "Please enter your message" },
+                      { required: true, message: "Please enter your project requirements" },
                     ]}
                   >
                     <TextArea
                       rows={4}
-                      placeholder="Your Message"
+                      placeholder="Tell us about your project requirements"
+                      className="message-input"
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name="message1"
+                    label="What Kind of services do you want from design to construction?"
+                    rules={[
+                      { required: true, message: "Please enter What Kind of services do you want from design to construction" },
+                    ]}
+                  >
+                    <TextArea
+                      rows={4}
+                      placeholder="What Kind of services do you want from design to construction?"
                       className="message-input"
                     />
                   </Form.Item>

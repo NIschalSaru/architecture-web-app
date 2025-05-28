@@ -7,6 +7,7 @@ import { faStar as faStarEmpty } from "@fortawesome/free-regular-svg-icons";
 import useGetAPI from "../../hooks/useGetAPI";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LoadingSpinner from "./LoadingSpinner";
+import { useState, useRef, useEffect } from "react";
 
 const TestimonialSlider: React.FC = () => {
   const {
@@ -59,6 +60,43 @@ const TestimonialSlider: React.FC = () => {
     );
   };
 
+  // Component for handling text truncation and tooltip
+  const TruncatedText: React.FC<{ text: string; maxLength: number }> = ({ text, maxLength }) => {
+    const [showTooltip, setShowTooltip] = useState(false);
+    const [isTruncated, setIsTruncated] = useState(false);
+    const textRef = useRef<HTMLParagraphElement>(null);
+
+    useEffect(() => {
+      if (textRef.current) {
+        const element = textRef.current;
+        setIsTruncated(element.scrollHeight > element.clientHeight);
+      }
+    }, [text]);
+
+    const shouldTruncate = text.length > maxLength;
+    const displayText = shouldTruncate ? text.substring(0, maxLength) + "..." : text;
+
+    return (
+      <div 
+        className="testimonial-text-container"
+        onMouseEnter={() => (shouldTruncate || isTruncated) && setShowTooltip(true)}
+        onMouseLeave={() => setShowTooltip(false)}
+      >
+        <p 
+          ref={textRef}
+          className={`testimonial-text ${(shouldTruncate || isTruncated) ? 'has-tooltip' : ''}`}
+        >
+          "{displayText}"
+        </p>
+        {showTooltip && (shouldTruncate || isTruncated) && (
+          <div className="testimonial-tooltip">
+            "{text}"
+          </div>
+        )}
+      </div>
+    );
+  };
+
   if (loading) return <LoadingSpinner />;
   if (error)
     return (
@@ -96,39 +134,30 @@ const TestimonialSlider: React.FC = () => {
         >
           {testimonials?.map((testimonial) => (
             <SwiperSlide key={testimonial.id}>
-            <div className="testimonial-card">
-              <Quote className="testimonial-quote-icon" size={48} />
-              <div className="testimonial-content">
-                <div className="testimonial-top-content">
-                  <div className="testimonial-avatar">
-                    <img
-                      src={testimonial.imageUrl || 'default-avatar.png'}
-                      alt={testimonial.fullname}
-                    />
+              <div className="testimonial-card">
+                <Quote className="testimonial-quote-icon" size={48} />
+                <div className="testimonial-content">
+                  <div className="testimonial-top-content">
+                    <div className="testimonial-avatar">
+                      <img
+                        src={testimonial.imageUrl || 'default-avatar.png'}
+                        alt={testimonial.fullname}
+                      />
+                    </div>
+                    <div className="testimonial-rating">
+                      {renderStarRating(testimonial.rating)}
+                    </div>
+                    <TruncatedText text={testimonial.message} maxLength={150} />
                   </div>
-                  <div className="testimonial-rating">
-                    {renderStarRating(testimonial.rating)}
-                  </div>
-                  <div className="testimonial-text-container">
-                    <p className="testimonial-text">
-                      "{testimonial.message}"
+                  <div className="testimonial-author">
+                    <h4>{testimonial.fullname}</h4>
+                    <p className="testimonial-location">
+                      {testimonial.designation}
                     </p>
-                    {testimonial.message.length > 150 && (
-                      <div className="testimonial-tooltip">
-                        {testimonial.message}
-                      </div>
-                    )}
                   </div>
-                </div>
-                <div className="testimonial-author">
-                  <h4>{testimonial.fullname}</h4>
-                  <p className="testimonial-location">
-                    {testimonial.designation}
-                  </p>
                 </div>
               </div>
-            </div>
-          </SwiperSlide>
+            </SwiperSlide>
           ))}
         </Swiper>
       </div>

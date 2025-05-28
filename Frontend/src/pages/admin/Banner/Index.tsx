@@ -82,7 +82,7 @@ const BannerSettings = () => {
 
       if (fileList.length > 0 && fileList[0].originFileObj) {
         const file = fileList[0].originFileObj;
-        formData.append("imageUrl", file, file.name);
+        formData.append("image", file, file.name);
       }
 
       const response = await axios.post(`${apiUrl}/architecture-web-app/banner`, formData, {
@@ -110,7 +110,8 @@ const BannerSettings = () => {
   }
   return (
     <div className="dashboard-card">
-      <Title level={3}>Banner Information</Title>
+      {/* <Title level={3}>Banner Information</Title> */}
+      <div className="dashboard-Headings">Banner Information</div>
         <Form
           form={form}
           layout="vertical"
