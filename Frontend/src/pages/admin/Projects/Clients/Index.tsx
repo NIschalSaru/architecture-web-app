@@ -93,7 +93,8 @@ const Clients = () => {
       render: (_: any, record: DataType) => (
         <Space size="middle">
           <Tooltip title="View Projects">
-          <Link to={`/admin/projects-settings/${record.project_id}`}>
+          {/* <Link to={`/admin/projects-settings/${record.project_id}`}> */}
+          <Link to={`/admin/projects-settings/${record.id}`}>
           <Button
                 icon={<EyeOutlined />}
                 style={{ color: "purple", borderColor: "white" }}

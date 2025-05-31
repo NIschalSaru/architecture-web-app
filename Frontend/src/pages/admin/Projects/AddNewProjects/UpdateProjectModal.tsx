@@ -280,7 +280,7 @@ const UpdateProjectModal = ({
               <Input placeholder="Enter client email" />
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col span={12}>
             <Form.Item
               name="client_mobile"
               label="Client Mobile"
@@ -289,7 +289,7 @@ const UpdateProjectModal = ({
               <Input placeholder="Enter client mobile" />
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col span={12}>
             <Form.Item
               name="client_address"
               label="Client Address"
@@ -298,13 +298,13 @@ const UpdateProjectModal = ({
               <Input placeholder="Enter client address" />
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col span={24}>
             <Form.Item
               name="description"
               label="Description"
               rules={[{ required: true, message: "Please enter the description" }]}
             >
-              <Input.TextArea placeholder="Enter description" rows={1} />
+              <Input.TextArea placeholder="Enter description" rows={3} />
             </Form.Item>
           </Col>
           <Col span={12}>
