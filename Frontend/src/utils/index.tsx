@@ -12,8 +12,8 @@ import Cookies from 'js-cookie';
 //     reader.onerror = (error) => reject(error);
 //   });
 
-export const apiUrl = "https://ndnb.onrender.com/api";
 // export const apiUrl = "http://localhost:5000/api";
+export const apiUrl = "https://ndnb.onrender.com/api";
 
 // export const getTokenFromLocalStorage = (): string | null => {
 //   return localStorage.getItem('token');
@@ -24,7 +24,6 @@ export const apiUrl = "https://ndnb.onrender.com/api";
 //   localStorage.removeItem('token');
 //   navigate('/');
 // };
-
 
 // Authentication check function
 export const isAuthenticated = (): boolean => {

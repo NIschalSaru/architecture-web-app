@@ -1,101 +1,264 @@
+import { useParams, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { apiUrl } from "../../../utils";
 import InnerHeader from "../../../components/client/InnerHeader";
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import {
+  ArrowLeft,
+  MapPin,
+  Square,
+  Calendar,
+  User,
+  Mail,
+  Phone,
+  Home,
+} from "lucide-react";
+
+interface Media {
+  id: number;
+  project_id: number;
+  image_type: string;
+  filename: string;
+  filepath: string;
+  fileurl: string;
+}
+
+interface Project {
+  id: number;
+  name: string;
+  project_type_id: number;
+  location: string;
+  site_area: string;
+  description: string;
+  media: Media[];
+}
+
+interface Client {
+  id: number;
+  project_id: number;
+  fullName: string;
+  email: string;
+  mobile: string;
+  address: string;
+  project: Project;
+}
+
 const ProjectDetails = () => {
-  const location = useLocation();
-  const project = location.state; // Retrieve the project data passed via navigate
-  // const { title } = useParams<{ title: string }>();
+  const { id } = useParams<{ id: string }>();
+  const [client, setClient] = useState<Client | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState<string>("");
 
-  if (!project) {
-    return <div>Project not found!</div>;
-  }
+  useEffect(() => {
+    if (!id) return;
 
-  // State to track the current main image
-  const [mainImage, setMainImage] = useState<string>(project.images[0]);
+    const fetchClientDetails = async () => {
+      try {
+        const response = await axios.get(
+          `${apiUrl}/architecture-web-app/projects/get-project/${id}`
+        );
+        setClient(response.data.data.client);
+        // Set first image as selected by default
+        if (response.data.data.client?.project?.media?.length > 0) {
+          setSelectedImage(response.data.data.client.project.media[0].fileurl);
+        }
+      } catch (error) {
+        console.error("Error fetching client details:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // Handle the thumbnail click
-  const handleThumbnailClick = (image: string) => {
-    setMainImage(image);
-  };
+    fetchClientDetails();
+  }, [id]);
 
-  return (
-    <section className="project-details-and-discription">
-      <InnerHeader
-        title={`${project.title}`}
-        className="no-margin"
-        currentPage="PROJECT DETAILS"
-      />
-
-      <div className="container" id="container">
-        <div className="project-images-section my-4">
-          <div className="main-image-section mb-4">
-            <img
-              className="main-image img-fluid rounded shadow"
-              src={mainImage}
-              alt="Main Project Image"
-              style={{
-                maxWidth: "800px",
-                maxHeight: "500px",
-                marginBottom: "20px",
-                padding: "20px",
-              }}
-            />
-          </div>
-          <div className="image-gallery">
-            {/* Display thumbnails of other images */}
-            {project.images.map((image: string, index: number) => (
-              <img
-                key={index}
-                className="thumbnail-image img-fluid rounded"
-                src={image}
-                alt={`${project.title} - ${index + 1}`}
-                style={{
-                  margin: "10px",
-                  width: "100px",
-                  maxWidth: "120px",
-                  cursor: "pointer",
-                }}
-                onClick={() => handleThumbnailClick(image)} // On click, set the main image
-              />
-            ))}
-          </div>
-        </div>
-        <div className="project-details" style={{ padding: "20px" }}>
-          <h2 className="details-title">
-            {project.title} -{" "}
-            <span className="details-location">{project.location}</span>
-          </h2>
-          <p className="details-description">{project.description}</p>
+  if (loading) {
+    return (
+      <div className="project-details-container">
+        <InnerHeader title="PROJECTS" currentPage="PROJECTS" />
+        <div className="loading-container">
+          <div className="loading-spinner"></div>
         </div>
       </div>
-      <div className="project-details-overview">
-        <div className="project-details__content-right">
-          <div className="project-details__details-box pb-30">
-            <div className="detail-card-row-4">
-              <div className="details-card">
-                <p className="details-label">Category</p>
-                <h4 className="details-value">
-                  {project.category.charAt(0).toUpperCase() +
-                    project.category.slice(1)}
-                </h4>
+    );
+  }
+
+  if (!client) {
+    return (
+      <div className="project-details-container">
+        <InnerHeader title="PROJECTS" currentPage="PROJECTS" />
+        <div className="not-found">
+          <h2>No project found</h2>
+          <Link to="/projects" className="back-button">
+            <ArrowLeft className="back-icon" />
+            Back to Projects
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <InnerHeader title="PROJECTS" currentPage="PROJECTS" />
+      <div className="project-details-container">
+        <div className="main-content">
+          {/* Back Button */}
+          <Link to="/projects" className="back-button">
+            <ArrowLeft className="back-icon" />
+            Back to Projects
+          </Link>
+          <div className="project-title-location">
+            <h1 className="project-title">{client.project.name}</h1>
+            <div className="project-location">
+              <MapPin className="location-icon" />
+              <span>{client.project.location}</span>
+            </div>
+          </div>
+          {/* Main Content Grid */}
+          <div className="content-grid">
+            {/* Left Column - Image Gallery */}
+            <div className="image-section">
+              {/* Main Image */}
+              {selectedImage && (
+                <div className="main-image-container">
+                  <img
+                    src={selectedImage}
+                    alt="Selected project view"
+                    className="main-image"
+                  />
+                </div>
+              )}
+
+              {/* Thumbnail Gallery */}
+              {client.project.media.length > 1 && (
+                <div className="gallery-container">
+                  <h3 className="gallery-title">Project Gallery</h3>
+                  <div className="thumbnail-grid">
+                    {client.project.media.map((media) => (
+                      <button
+                        key={media.id}
+                        onClick={() => setSelectedImage(media.fileurl)}
+                        className={`thumbnail-button ${
+                          selectedImage === media.fileurl ? "active" : ""
+                        }`}
+                      >
+                        <img
+                          src={media.fileurl}
+                          alt={`Project view ${media.id}`}
+                          className="thumbnail-image"
+                        />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {/* Description */}
+              <div className="description-section">
+                <h3>Project Description</h3>
+                <p className="description-text">{client.project.description}</p>
               </div>
-              <div className="details-card">
-                <p className="details-label">Project</p>
-                <h4 className="details-value">{project.title}</h4>
+            </div>
+
+            {/* Right Column - Project Details */}
+            <div className="details-section">
+              {/* Project Info Card */}
+              <div className="info-card">
+                {/* Project Stats */}
+                <div className="stats-grid">
+                  <div className="stat-box area">
+                    <Square className="stat-icon area" />
+                    <div>
+                      <p className="stat-label area">Site Area</p>
+                      <p className="stat-value area">
+                        {client.project.site_area}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="stat-box year">
+                    <Calendar className="stat-icon year" />
+                    <div>
+                      <p className="stat-label year">Year Completed</p>
+                      <p className="stat-value year">2025</p>
+                    </div>
+                  </div>
+                </div>{" "}
               </div>
-              <div className="details-card">
-                <p className="details-label">Location</p>
-                <h4 className="details-value">{project.location}</h4>
+
+              {/* Services Card */}
+              <div className="info-card">
+                <h3 className="services-title">Services</h3>
+                <div className="services-tags">
+                  <span className="service-tag architecture">Architecture</span>
+                  <span className="service-tag landscape">
+                    Landscape Architecture
+                  </span>
+                  <span className="service-tag planning">Planning</span>
+                </div>
               </div>
-              <div className="details-card">
-                <p className="details-label">Built-Up Area</p>
-                <h4 className="details-value">{project.sqft}</h4>
+
+              {/* Client Info Card */}
+              <div className="info-card">
+                <h3 className="client-section-title">
+                  <User className="client-title-icon" />
+                  Client Information
+                </h3>
+
+                <div className="client-info">
+                  <div className="client-item">
+                    <User className="client-icon" />
+                    <div>
+                      <p className="client-label">Client Name</p>
+                      <p className="client-value">{client.fullName}</p>
+                    </div>
+                  </div>
+
+                  <div className="client-item">
+                    <Mail className="client-icon" />
+                    <div>
+                      <p className="client-label">Email</p>
+                      <a
+                        href={`mailto:${client.email}`}
+                        className="client-link"
+                      >
+                        {client.email}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="client-item">
+                    <Phone className="client-icon" />
+                    <div>
+                      <p className="client-label">Mobile</p>
+                      <a href={`tel:${client.mobile}`} className="client-link">
+                        {client.mobile}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="client-item">
+                    <Home className="client-icon" />
+                    <div>
+                      <p className="client-label">Address</p>
+                      <p className="client-value">{client.address}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Contact Action */}
+              <div className="cta-card">
+                <h3 className="cta-title">Interested in Similar Work?</h3>
+                <p className="cta-description">
+                  Get in touch to discuss your architectural project.
+                </p>
+                <button className="cta-button">Contact Us</button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </>
   );
 };
 

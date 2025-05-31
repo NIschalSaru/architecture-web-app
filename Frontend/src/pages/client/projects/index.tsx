@@ -1,94 +1,158 @@
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import InnerHeader from "../../../components/client/InnerHeader";
+import axios from "axios";
+import { apiUrl } from "../../../utils";
 
-interface CategoryCard {
+interface ProjectTypes {
   key: string;
   title: string;
-  image: string;
 }
 
-const categories: CategoryCard[] = [
-  {
-    key: "residentialProjects",
-    title: "Residential Projects",
-    image:
-      "https://cdna.artstation.com/p/assets/images/images/036/508/324/large/asim-salman-zicatela-8.jpg?1617858511",
-  },
-  {
-    key: "commercialProjects",
-    title: "Commercial Projects",
-    image:
-      "https://cdna.artstation.com/p/assets/images/images/042/667/458/large/mipe-group-exterior-03.jpg?1635150466",
-  },
-  {
-    key: "restaurantCafeProjects",
-    title: "Restaurant & Cafe Projects",
-    image:
-      "https://cdna.artstation.com/p/assets/images/images/015/811/820/large/fotoref-com-photo-packs-artstation-image-2bc212b3-3908-11e7-a07c-0242ac120003-5c5f4c4082176.jpg?1549749352",
-  },
-  {
-    key: "hotelResortProjects",
-    title: "Hotel & Resort Projects",
-    image:
-      "https://cdnb.artstation.com/p/assets/images/images/083/879/253/large/yavi-yener-44-modern-tiny-house-02.jpg?1736998332",
-  },
-  {
-    key: "entertainmentProjects",
-    title: "Entertainment Projects",
-    image:
-      "https://cdna.artstation.com/p/assets/images/images/078/323/303/large/ben-nicholas-bennicholas-stellastar-architecture-rowhouse-05.jpg?1721788728",
-  },
-  {
-    key: "renovationProjects",
-    title: "Renovation Projects",
-    image:
-      "https://cdnb.artstation.com/p/assets/images/images/047/048/647/smaller_square/yantram-architectural-design-studio-3d-exterior-modeling-of-small-house-with-garden-by-architectural-design-studio.jpg?1646647795",
-  },
-  {
-    key: "constructionProjects",
-    title: "Construction Projects",
-    image:
-      "https://cdna.artstation.com/p/assets/images/images/021/205/002/smaller_square/yantram-architectural-design-studio-first-floor-residential-3d-floor-house-design-by-archtectural-design-studio.jpg?1570772900",
-  },
-];
+interface ClientType {
+  id: number;
+  project_id: number;
+  fullName: string;
+  email: string;
+  mobile: string;
+  address: string;
+}
+
+interface Media {
+  id: number;
+  project_id: number;
+  image_type: string;
+  filename: string;
+  filepath: string;
+  fileurl: string;
+}
+
+interface Project {
+  id: number;
+  name: string;
+  project_type_id: number;
+  location: string;
+  site_area: string;
+  description: string;
+  media: Media[];
+}
+
+interface Client {
+  id: number;
+  project_id: number;
+  fullName: string;
+  email: string;
+  mobile: string;
+  address: string;
+  project: Project;
+}
 
 const Projects = () => {
+  const [projectTypes, setProjectTypes] = useState<ProjectTypes[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [clients, setClients] = useState<ClientType[]>([]);
+  const [selectedClient, setSelectedClient] = useState<Client | null>(null);
+
+  const fetchProjectTypes = async () => {
+    try {
+      const response = await axios.get(
+        `${apiUrl}/architecture-web-app/projects/project-types/`
+      );
+      const fetchedData = response.data.data.map((item: any) => ({
+        key: item.id.toString(),
+        title: item.title,
+      }));
+      setProjectTypes(fetchedData);
+
+      if (fetchedData.length > 0) {
+        setSelectedCategory(fetchedData[0].key);
+      }
+    } catch (error: unknown) {
+      console.error("Error fetching project types:", error as Error);
+    }
+  };
+
+  const fetchClients = async (id: string) => {
+    try {
+      const response = await axios.get(
+        `${apiUrl}/architecture-web-app/projects/get-clients/${id}`
+      );
+
+      setClients(response.data.data);
+    } catch (error) {
+      console.error("Error fetching clients:", error);
+    }
+  };
+
+  const navigate = useNavigate();
+
+  const handleClientClick = (clientId: number) => {
+    navigate(`/projects/${clientId}`);
+  };
+
+  useEffect(() => {
+    fetchProjectTypes();
+  }, []);
+
+  useEffect(() => {
+    if (selectedCategory) {
+      setClients([]);
+      fetchClients(selectedCategory);
+    }
+  }, [selectedCategory]);
+
+  const handleCategoryClick = (key: string) => {
+    setSelectedCategory(key);
+  };
+
   return (
     <>
       <InnerHeader title="PROJECTS" currentPage="PROJECTS" />
       <section className="project-area section-gap-top" id="project">
         <div className="container">
-          <div className="row d-flex justify-content-center">
-            <div className="col-lg-8">
-              <div className="section-title text-center">
-                <h2>Explore Project Categories</h2>
-              </div>
-            </div>
+          <div className="section-title text-center mb-5">
+            <h2>Explore Project Categories</h2>
           </div>
 
-          <div className="row">
-            {categories.map((category) => (
-              <div
-                className="col-lg-3 col-md-6 mb-4"
-                key={category.key}
-                style={{ cursor: "default" }}
-              >
-                <Link to={`/projects/category/${category.key}`}>
-                  <div className="card category-card shadow-sm border-0 h-100">
-                    <div className="card-image-wrapper">
-                      <img
-                        src={category.image}
-                        alt={category.title}
-                        className="card-img-top"
-                      />
-                      <div className="card-overlay">
-                        <h5 className="card-title-overlay">{category.title}</h5>
-                      </div>
-                    </div>
+          <div className="project-layout d-flex gap-4">
+            {/* === Sidebar === */}
+            <div className="sidebar">
+              {projectTypes.map((projectType) => (
+                <button
+                  key={projectType.key}
+                  onClick={() => handleCategoryClick(projectType.key)}
+                  className={
+                    selectedCategory === projectType.key ? "active" : ""
+                  }
+                >
+                  {projectType.title}
+                </button>
+              ))}
+            </div>
+
+            {/* === Client List Area === */}
+            <div className="client-grid">
+              {clients.map((client) => (
+                <div
+                  className="client-card card category-card"
+                  key={client.id}
+                  onClick={() => handleClientClick(client.id)}
+                >
+                  <div className="client-card-body">
+                    <h4 className="client-name">{client.fullName}</h4>
+                    <p>
+                      <strong>Email:</strong> {client.email}
+                    </p>
+                    <p>
+                      <strong>Mobile:</strong> {client.mobile}
+                    </p>
+                    <p>
+                      <strong>Address:</strong> {client.address}
+                    </p>
                   </div>
-                </Link>
-              </div>
-            ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
