@@ -93,7 +93,7 @@ const CreateProjectModal = ({
             form.resetFields();
             setFileList([]);
           })
-          .catch((error) => {
+          .catch(() => {
             message.error("Please fill all required fields correctly");
           });
       }}

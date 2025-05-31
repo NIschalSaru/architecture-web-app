@@ -20,8 +20,8 @@ interface DataType {
 const Clients = () => {
   const { id } = useParams<{ id: string }>();
   const [data, setData] = useState<DataType[]>([]);
-  const [editingRecord, setEditingRecord] = useState<DataType | null>(null);
-  const [recordName, setRecordName] = useState<string>("");
+  // const [editingRecord, setEditingRecord] = useState<DataType | null>(null);
+  // const [recordName, setRecordName] = useState<string>("");
   const [pageLoading, setPageLoading] = useState<boolean>(false);
 
   // Fetch clients from API

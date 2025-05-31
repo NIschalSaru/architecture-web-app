@@ -1,5 +1,5 @@
-import { Modal, Form, Input, Button, Upload, message, Row, Col, Select, Image } from "antd";
-import { UploadOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Modal, Form, Input, Button, Upload, message, Row, Col, Select } from "antd";
+import { UploadOutlined } from "@ant-design/icons"; //DeleteOutlined
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { apiUrl } from "../../../../utils";
@@ -18,14 +18,14 @@ interface MediaType {
   filename: string;
 }
 
-interface ClientType {
-  id: number;
-  project_id: number;
-  fullName: string;
-  email: string;
-  mobile: string;
-  address: string;
-}
+// interface ClientType {
+//   id: number;
+//   project_id: number;
+//   fullName: string;
+//   email: string;
+//   mobile: string;
+//   address: string;
+// }
 
 interface UpdateProjectModalProps {
   visible: boolean;
@@ -148,32 +148,32 @@ const UpdateProjectModal = ({
   };
 
   // Handle media deletion
-  const handleDeleteMedia = async (file: any) => {
-    if (file.url && !file.originFileObj) {
-      // Existing media (from server)
-      const mediaId = file.uid;
-      try {
-        await axios.delete(`${apiUrl}/architecture-web-app/projects/media/${mediaId}`, {
-          withCredentials: true,
-        });
-        message.success("Media deleted successfully");
-        setDeletedMediaIds((prev) => [...prev, parseInt(mediaId)]);
-        // Remove from gallery file list
-        setGalleryFileList((prev) => prev.filter((item) => item.uid !== mediaId));
-        form.setFieldsValue({
-          gallery: form.getFieldValue("gallery").filter((item: any) => item.uid !== mediaId),
-        });
-      } catch (error) {
-        message.error("Failed to delete media");
-      }
-    } else {
-      // New file (not yet uploaded)
-      setGalleryFileList((prev) => prev.filter((item) => item.uid !== file.uid));
-      form.setFieldsValue({
-        gallery: form.getFieldValue("gallery").filter((item: any) => item.uid !== file.uid),
-      });
-    }
-  };
+  // const handleDeleteMedia = async (file: any) => {
+  //   if (file.url && !file.originFileObj) {
+  //     // Existing media (from server)
+  //     const mediaId = file.uid;
+  //     try {
+  //       await axios.delete(`${apiUrl}/architecture-web-app/projects/media/${mediaId}`, {
+  //         withCredentials: true,
+  //       });
+  //       message.success("Media deleted successfully");
+  //       setDeletedMediaIds((prev) => [...prev, parseInt(mediaId)]);
+  //       // Remove from gallery file list
+  //       setGalleryFileList((prev) => prev.filter((item) => item.uid !== mediaId));
+  //       form.setFieldsValue({
+  //         gallery: form.getFieldValue("gallery").filter((item: any) => item.uid !== mediaId),
+  //       });
+  //     } catch (error) {
+  //       message.error("Failed to delete media");
+  //     }
+  //   } else {
+  //     // New file (not yet uploaded)
+  //     setGalleryFileList((prev) => prev.filter((item) => item.uid !== file.uid));
+  //     form.setFieldsValue({
+  //       gallery: form.getFieldValue("gallery").filter((item: any) => item.uid !== file.uid),
+  //     });
+  //   }
+  // };
 
   const onFinish = async (values: any) => {
     const updatedValues = { ...values, deletedMediaIds };
@@ -194,7 +194,7 @@ const UpdateProjectModal = ({
             setGalleryFileList([]);
             setDeletedMediaIds([]);
           })
-          .catch((error) => {
+          .catch(() => {
             message.error("Please fill all required fields correctly");
           });
       }}

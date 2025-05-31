@@ -178,7 +178,8 @@
         transition: color 0.3s ease;
 
         &:hover {
-          color: var(--primary-color, $primary);
+          // color: var(--primary-color, $primary);
+          color: $primary-light;
         }
       }
 
@@ -188,7 +189,8 @@
       }
 
       .current {
-        color: var(--primary-color, $primary);
+        // color: var(--primary-color, $primary);
+        color: $white;
       }
     }
   }

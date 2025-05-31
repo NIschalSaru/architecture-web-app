@@ -3,11 +3,11 @@ import { Button, Col, Form, Input, Row, Typography } from "antd";
 import { useLocation } from "react-router-dom";
 import usePostAPI from "../../../hooks/usePostAPI";
 import ScrollToTop from "../../../components/client/ScrollToTop";
-import CeoImage from "../../../assets/images/Founder.jpg";
+// import CeoImage from "../../../assets/images/Founder.jpg";
 
 const AboutUsPage = () => {
   const { TextArea } = Input;
-  const { Title, Paragraph, Text } = Typography;
+  const { Title, Paragraph } = Typography;
   const { loading, postData } = usePostAPI("consultancy/email/send-email");
   const [form] = Form.useForm();
   const contactRef = useRef(null);
@@ -143,33 +143,11 @@ const AboutUsPage = () => {
               </div>
             </Col>
           </Row>
-          {/* <div className="stats-section">
-            <Row gutter={[24, 24]}>
-              <Col xs={24} sm={12} md={8}>
-                <div className="stat-card">
-                  <div className="stat-icon">15+</div>
-                  <Text className="stat-label">Years Experience</Text>
-                </div>
-              </Col>
-              <Col xs={24} sm={12} md={8}>
-                <div className="stat-card">
-                  <div className="stat-icon">500+</div>
-                  <Text className="stat-label">Projects Delivered</Text>
-                </div>
-              </Col>
-              <Col xs={24} sm={12} md={8}>
-                <div className="stat-card">
-                  <div className="stat-icon">98%</div>
-                  <Text className="stat-label">Client Satisfaction</Text>
-                </div>
-              </Col>
-            </Row>
-          </div> */}
         </div>
       </section>
 
       {/* CEO Section */}
-      <section className="ceo-section">
+      {/* <section className="ceo-section">
         <div className="container">
           <Row gutter={[32, 32]} align="middle">
             <Col xs={24} lg={12}>
@@ -216,7 +194,7 @@ const AboutUsPage = () => {
             </Col>
           </Row>
         </div>
-      </section>
+      </section> */}
 
       {/* Contact Section */}
       <section className="contact-section" ref={contactRef} id="contact-us">
@@ -225,9 +203,9 @@ const AboutUsPage = () => {
             <Col xs={24} lg={12}>
               <div className="contact-content" id="contact-section">
                 <Title level={2}>
-                  {/* <span className="contact-content-1">Contact Us</span> & We Can
-                  Work Together */}
-                  We’re Here for You
+                  <span className="contact-content-1">Contact Us</span> & We Can
+                  Work Together
+                  {/* We’re Here for You */}
                 </Title>
                 
 
