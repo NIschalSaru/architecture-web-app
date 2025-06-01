@@ -8,7 +8,7 @@ cloudinary.config({
 
 const folderName = "uploads";
 
-async function uploadSingleImage(fileBuffer, title) {
+async function uploadSingleImage(fileBuffer, title, resourceType = "raw") {
   if (!fileBuffer) {
     throw new Error("File buffer is required for upload.");
   }
@@ -16,14 +16,14 @@ async function uploadSingleImage(fileBuffer, title) {
     cloudinary.uploader
       .upload_stream(
         {
-          resource_type: "image",
+          resource_type: resourceType,
           folder: folderName,
           public_id: title,
         },
         (error, result) => {
           if (error) {
-            console.error("Error uploading image:", error.message);
-            return reject("Failed to upload image.");
+            console.error(`Error uploading ${resourceType}:`, error.message);
+            return reject(`Failed to upload ${resourceType}.`);
           }
           // console.log("Image uploaded successfully:", result.secure_url);
           resolve(result.secure_url);
