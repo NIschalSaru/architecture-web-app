@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Table, message, Button, Space, Tooltip } from "antd";
-import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons"; //PlusOutlined
 import useGetAPI from "../../../hooks/useGetAPI";
-import usePostAPI from "../../../hooks/usePostAPI"; // Assuming you have this from previous interactions
+// import usePostAPI from "../../../hooks/usePostAPI"; // Assuming you have this from previous interactions
 import axios from "axios";
 import { apiUrl } from "../../../utils";
 import LoadingSpinner from "../../../components/client/LoadingSpinner";
@@ -35,8 +35,8 @@ interface ClientFormData {
 
 const ClientFormSetting = () => {
   const { data, loading, error } = useGetAPI<ClientFormData[]>("architecture-web-app/forms");
-  const { postData } = usePostAPI("/architecture-web-app/forms");
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  // const { postData } = usePostAPI("/architecture-web-app/forms");
+  // const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
   const [editingRecord, setEditingRecord] = useState<ClientFormData | null>(null);
@@ -49,18 +49,18 @@ const ClientFormSetting = () => {
     }
   }, [error]);
 
-  const handleCreate = async (values: any) => {
-    setPageLoading(true);
-    try {
-      await postData(values);
-      message.success("Client form created successfully!");
-      setModalVisible(false);
-    } catch (err) {
-      message.error("Failed to create client form");
-    } finally {
-      setPageLoading(false);
-    }
-  };
+  // const handleCreate = async (values: any) => {
+  //   setPageLoading(true);
+  //   try {
+  //     await postData(values);
+  //     message.success("Client form created successfully!");
+  //     setModalVisible(false);
+  //   } catch (err) {
+  //     message.error("Failed to create client form");
+  //   } finally {
+  //     setPageLoading(false);
+  //   }
+  // };
 
   const handleUpdate = async (values: any) => {
     setPageLoading(true);

@@ -22,7 +22,7 @@ const ProjectCategorySetting = () => {
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   const [editingRecord, setEditingRecord] = useState<DataType | null>(null);
   const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
-  const [recordName, setRecordName] = useState<string>("");
+  const [, setRecordName] = useState<string>("");
   const [pageLoading, setPageLoading] = useState<boolean>(false);
 
   // Fetch data from API

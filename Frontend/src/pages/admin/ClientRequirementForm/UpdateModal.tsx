@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Form, Input, Checkbox, Button, Row, Col } from "antd";
 import {
-  User, Mail, Phone, MapPin, Ruler, Home, Clock, Mountain, Compass, FileText, Layers, ParkingCircle
+  Mail
 } from "lucide-react";
 import LoadingSpinner from "../../../components/client/LoadingSpinner";
 

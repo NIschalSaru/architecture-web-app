@@ -6,7 +6,7 @@ import UpdateProjectModal from "./UpdateProjectModal";
 import DeleteProjectModal from "./DeleteProjectModal";
 import { apiUrl } from "../../../../utils";
 import LoadingSpinner from "../../../../components/client/LoadingSpinner";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import CreateProjectModal from "./CreateProjectModal";
 
 interface MediaType {
@@ -44,18 +44,40 @@ interface DataType {
   media: MediaType[];
 }
 
+interface ProjectType {
+  id: number;
+  title: string;
+  status: boolean;
+}
+
 const ProjectSetting = () => {
   const { project_id } = useParams<{ project_id: string }>();
-  const navigate = useNavigate();
   const [data, componentSetData] = useState<DataType[]>([]);
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
   const [mediaModalVisible, setMediaModalVisible] = useState<boolean>(false);
   const [selectedMedia, setSelectedMedia] = useState<MediaType[]>([]);
   const [editingRecord, setEditingRecord] = useState<DataType | null>(null);
-  const [recordName, setRecordName] = useState<string>("");
+  const [, setRecordName] = useState<string>("");
   const [pageLoading, setPageLoading] = useState<boolean>(false);
   const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
+  const [projectTypes, setProjectTypes] = useState<ProjectType[]>([]);
+
+  // Fetch project types
+  const fetchProjectTypes = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/architecture-web-app/projects/project-types`, {
+        withCredentials: true,
+      });
+      if (response.data.success) {
+        setProjectTypes(response.data.data);
+      } else {
+        message.error("Failed to fetch project types");
+      }
+    } catch (error) {
+      message.error("Error fetching project types");
+    }
+  };
 
   const fetchData = async () => {
     if (!project_id) {
@@ -111,6 +133,7 @@ const ProjectSetting = () => {
 
   useEffect(() => {
     fetchData();
+    fetchProjectTypes(); // Fetch project types on component mount
   }, [project_id]);
 
   const handleUpdate = async (values: {
@@ -140,13 +163,11 @@ const ProjectSetting = () => {
       formData.append("client_mobile", values.client_mobile);
       formData.append("client_address", values.client_address);
 
-      // Handle single image
       if (values.image && values.image.originFileObj) {
         formData.append("image", values.image.originFileObj);
         console.log("Image appended:", values.image.originFileObj.name);
       }
 
-      // Handle gallery images
       if (values.gallery && Array.isArray(values.gallery) && values.gallery.length > 0) {
         values.gallery.forEach((file: any) => {
           if (file.originFileObj) {
@@ -156,12 +177,10 @@ const ProjectSetting = () => {
         });
       }
 
-      // Append deleted media IDs
       if (values.deletedMediaIds && values.deletedMediaIds.length > 0) {
         formData.append("deletedMediaIds", JSON.stringify(values.deletedMediaIds));
       }
 
-      // Log FormData for debugging
       for (const [key, value] of formData.entries()) {
         console.log(`${key}: ${value instanceof File ? value.name : value}`);
       }
@@ -241,8 +260,7 @@ const ProjectSetting = () => {
       formData.append("client_email", values.client_email);
       formData.append("client_mobile", values.client_mobile);
       formData.append("client_address", values.client_address);
-  
-      // Handle single image
+
       if (values.image && values.image.originFileObj) {
         formData.append("image", values.image.originFileObj);
         console.log("Image appended:", values.image.originFileObj.name);
@@ -252,8 +270,7 @@ const ProjectSetting = () => {
         setPageLoading(false);
         return;
       }
-  
-      // Handle gallery images
+
       if (values.gallery && Array.isArray(values.gallery) && values.gallery.length > 0) {
         values.gallery.forEach((file: any) => {
           if (file.originFileObj) {
@@ -267,12 +284,11 @@ const ProjectSetting = () => {
         setPageLoading(false);
         return;
       }
-  
-      // Log FormData for debugging
+
       for (const [key, value] of formData.entries()) {
         console.log(`${key}: ${value instanceof File ? value.name : value}`);
       }
-  
+
       const response = await axios.post(
         `${apiUrl}/architecture-web-app/projects`,
         formData,
@@ -283,7 +299,7 @@ const ProjectSetting = () => {
           withCredentials: true,
         }
       );
-  
+
       if (response.status === 201) {
         message.success("Project created successfully!");
         setCreateModalVisible(false);
@@ -388,6 +404,9 @@ const ProjectSetting = () => {
     },
   ];
 
+  // Get the project_type_id from the fetched project data
+  const currentProjectTypeId = data.length > 0 ? data[0].project_type_id : projectTypes[0]?.id || 1;
+
   return (
     <div>
       {pageLoading ? (
@@ -473,7 +492,7 @@ const ProjectSetting = () => {
             visible={createModalVisible}
             onCancel={() => setCreateModalVisible(false)}
             onCreate={handleCreate}
-            projectTypeId={project_id ? parseInt(project_id) : 0}
+            projectTypeId={currentProjectTypeId} // Pass the project_type_id from fetched data
           />
         </div>
       )}

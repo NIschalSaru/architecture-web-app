@@ -1,17 +1,14 @@
 import {
-  Avatar,
   Button,
   Drawer,
-  Dropdown,
   Layout,
-  Menu,
 } from "antd";
 import React, { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { RouteList } from "../../../routes/routeList";
 import Logo from "../../../assets/images/Nepal-Designers-Builders-Logo.png";
-import { MenuOutlined, UserOutlined, PhoneOutlined, MailOutlined, EnvironmentOutlined } from "@ant-design/icons";
-import { isAuthenticated } from "../../../API/auth";
+import { MenuOutlined, PhoneOutlined, MailOutlined, EnvironmentOutlined } from "@ant-design/icons";
+// import { isAuthenticated } from "../../../API/auth";
 import fb from "../../../assets/svg/facebook.svg";
 import yt from "../../../assets/svg/youtube.svg";
 import ld from "../../../assets/svg/linkedin.svg";
@@ -23,23 +20,23 @@ import x from "../../../assets/svg/x.svg";
 const { Header } = Layout;
 
 const NavbarComponent: React.FC = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
+  // const location = useLocation();
+  // const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
-  const validator = localStorage.getItem('validator');
+  // const validator = localStorage.getItem('validator');
 
   const showDrawer = () => {
     setVisible(!visible);
   };
 
-  const handleLogout = () => {
-    localStorage.clear();
-    isAuthenticated()
-      ? localStorage.getItem("isAdmin") === "true"
-        ? navigate("/admin")
-        : navigate("/home")
-      : navigate("/home");
-  };
+  // const handleLogout = () => {
+  //   localStorage.clear();
+  //   isAuthenticated()
+  //     ? localStorage.getItem("isAdmin") === "true"
+  //       ? navigate("/admin")
+  //       : navigate("/home")
+  //     : navigate("/home");
+  // };
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -48,21 +45,21 @@ const NavbarComponent: React.FC = () => {
     });
   };
 
-  const menu = (
-    <Menu>
-      { validator ?
-        <Menu.Item>
-          <Link to="/admin">Admin Panel</Link>
-        </Menu.Item> : <></>
-      }
-      <Menu.Item>
-        <Link to="/changePassword">Change Password</Link>
-      </Menu.Item>
-      <Menu.Item key="1" onClick={handleLogout}>
-        Logout
-      </Menu.Item>
-    </Menu>
-  );
+  // const menu = (
+  //   <Menu>
+  //     { validator ?
+  //       <Menu.Item>
+  //         <Link to="/admin">Admin Panel</Link>
+  //       </Menu.Item> : <></>
+  //     }
+  //     <Menu.Item>
+  //       <Link to="/changePassword">Change Password</Link>
+  //     </Menu.Item>
+  //     <Menu.Item key="1" onClick={handleLogout}>
+  //       Logout
+  //     </Menu.Item>
+  //   </Menu>
+  // );
 
   return (
     <>
@@ -123,9 +120,11 @@ const NavbarComponent: React.FC = () => {
                     Admin
                   </Button>
                 </Link> */}
-                <Link to="/about#contact-us">
+                <Link to="/admin">
+                {/* <Link to="/about#contact-us"> */}
                   <Button size="large" ghost>
-                    Contact Us
+                    {/* Contact Us */}
+                    Login
                   </Button>
                 </Link>
                 {/* <Link to="/login">

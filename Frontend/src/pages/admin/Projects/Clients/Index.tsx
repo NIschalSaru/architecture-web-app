@@ -20,8 +20,8 @@ interface DataType {
 const Clients = () => {
   const { id } = useParams<{ id: string }>();
   const [data, setData] = useState<DataType[]>([]);
-  const [editingRecord, setEditingRecord] = useState<DataType | null>(null);
-  const [recordName, setRecordName] = useState<string>("");
+  // const [editingRecord, setEditingRecord] = useState<DataType | null>(null);
+  // const [recordName, setRecordName] = useState<string>("");
   const [pageLoading, setPageLoading] = useState<boolean>(false);
 
   // Fetch clients from API
@@ -93,7 +93,8 @@ const Clients = () => {
       render: (_: any, record: DataType) => (
         <Space size="middle">
           <Tooltip title="View Projects">
-          <Link to={`/admin/projects-settings/${record.project_id}`}>
+          {/* <Link to={`/admin/projects-settings/${record.project_id}`}> */}
+          <Link to={`/admin/projects-settings/${record.id}`}>
           <Button
                 icon={<EyeOutlined />}
                 style={{ color: "purple", borderColor: "white" }}

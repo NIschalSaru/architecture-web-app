@@ -10,14 +10,14 @@ interface ProjectTypes {
   title: string;
 }
 
-interface Media {
-  id: number;
-  project_id: number;
-  image_type: string;
-  filename: string;
-  filepath: string;
-  fileurl: string;
-}
+// interface Media {
+//   id: number;
+//   project_id: number;
+//   image_type: string;
+//   filename: string;
+//   filepath: string;
+//   fileurl: string;
+// }
 
 interface Project {
   id: number;
@@ -44,6 +44,8 @@ const Projects = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [clients, setClients] = useState<Client[]>([]);
   const navigate = useNavigate();
+  const [clients, setClients] = useState<ClientType[]>([]);
+  // const [selectedClient, setSelectedClient] = useState<Client | null>(null);
 
   const fetchProjectTypes = async () => {
     try {
