@@ -1,3 +1,6 @@
+@use "../base/variable" as *;
+@use "sass:color";
+
 // Mixins
 @mixin section-padding {
   padding: 2rem 0;
@@ -37,7 +40,7 @@
 // Services Section (Services Page)
 .services-section-page {
   @include section-padding;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  // background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   
   .service-card-page {
     display: flex;

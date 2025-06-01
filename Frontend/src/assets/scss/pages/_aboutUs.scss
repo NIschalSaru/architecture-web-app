@@ -1,3 +1,6 @@
+@use "../base/variable" as *;
+@use "sass:color";
+
 // Mixins
 @mixin section-padding {
   padding: 3.5rem 0;
@@ -304,7 +307,7 @@
 .contact-section {
   @include section-padding;
   // margin-top: 5px;
-  background-color: whitesmoke;
+  // background-color: $white;
   
   .contact-content {
     h2 {

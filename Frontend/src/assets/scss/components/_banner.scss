@@ -1,3 +1,6 @@
+@use "../base/variable" as *;
+@use "sass:color";
+
 .banner {
   height: calc(100vh - 53px);
   position: relative;
@@ -156,7 +159,7 @@
 
 .booking-drawer {
   .ant-drawer-header {
-    background: linear-gradient(135deg, $secondary, darken($secondary, 10%));
+    background: linear-gradient(135deg, $secondary, color.adjust($secondary, $lightness: -10%));
     padding: 24px;
     border-bottom: 1px solid rgba($white, 0.1);
 
