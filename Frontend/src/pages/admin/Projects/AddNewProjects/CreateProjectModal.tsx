@@ -14,7 +14,7 @@ interface CreateProjectModalProps {
   visible: boolean;
   onCancel: () => void;
   onCreate: (values: any) => void;
-  projectTypeId: number;
+  projectTypeId?: number;
 }
 
 const CreateProjectModal = ({
