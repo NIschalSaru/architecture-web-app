@@ -6,7 +6,7 @@ import UpdateProjectModal from "./UpdateProjectModal";
 import DeleteProjectModal from "./DeleteProjectModal";
 import { apiUrl } from "../../../../utils";
 import LoadingSpinner from "../../../../components/client/LoadingSpinner";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import CreateProjectModal from "./CreateProjectModal";
 
 interface MediaType {
@@ -46,14 +46,13 @@ interface DataType {
 
 const ProjectSetting = () => {
   const { project_id } = useParams<{ project_id: string }>();
-  const navigate = useNavigate();
   const [data, componentSetData] = useState<DataType[]>([]);
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
   const [mediaModalVisible, setMediaModalVisible] = useState<boolean>(false);
   const [selectedMedia, setSelectedMedia] = useState<MediaType[]>([]);
   const [editingRecord, setEditingRecord] = useState<DataType | null>(null);
-  const [recordName, setRecordName] = useState<string>("");
+  const [, setRecordName] = useState<string>("");
   const [pageLoading, setPageLoading] = useState<boolean>(false);
   const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
 

@@ -1,3 +1,5 @@
+@use "../base/variable" as *;
+
 .youtube-section {
   background: $white;
   // background: url('../../assets/images/yt-sectionBg.jpeg') no-repeat center center/cover;

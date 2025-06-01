@@ -93,7 +93,7 @@ const CreateProjectModal = ({
             form.resetFields();
             setFileList([]);
           })
-          .catch((error) => {
+          .catch(() => {
             message.error("Please fill all required fields correctly");
           });
       }}
@@ -178,7 +178,7 @@ const CreateProjectModal = ({
               <Input placeholder="Enter client email" />
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col span={12}>
             <Form.Item
               name="client_mobile"
               label="Client Mobile"
@@ -187,7 +187,7 @@ const CreateProjectModal = ({
               <Input placeholder="Enter client mobile" />
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col span={12}>
             <Form.Item
               name="client_address"
               label="Client Address"
@@ -196,13 +196,13 @@ const CreateProjectModal = ({
               <Input placeholder="Enter client address" />
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col span={24}>
             <Form.Item
               name="description"
               label="Description"
               rules={[{ required: true, message: "Please enter the description" }]}
             >
-              <Input.TextArea placeholder="Enter description" rows={1} />
+              <Input.TextArea placeholder="Enter description" rows={3} />
             </Form.Item>
           </Col>
           <Col span={12}>

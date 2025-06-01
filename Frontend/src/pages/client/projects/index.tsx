@@ -18,40 +18,40 @@ interface ClientType {
   address: string;
 }
 
-interface Media {
-  id: number;
-  project_id: number;
-  image_type: string;
-  filename: string;
-  filepath: string;
-  fileurl: string;
-}
+// interface Media {
+//   id: number;
+//   project_id: number;
+//   image_type: string;
+//   filename: string;
+//   filepath: string;
+//   fileurl: string;
+// }
 
-interface Project {
-  id: number;
-  name: string;
-  project_type_id: number;
-  location: string;
-  site_area: string;
-  description: string;
-  media: Media[];
-}
+// interface Project {
+//   id: number;
+//   name: string;
+//   project_type_id: number;
+//   location: string;
+//   site_area: string;
+//   description: string;
+//   media: Media[];
+// }
 
-interface Client {
-  id: number;
-  project_id: number;
-  fullName: string;
-  email: string;
-  mobile: string;
-  address: string;
-  project: Project;
-}
+// interface Client {
+//   id: number;
+//   project_id: number;
+//   fullName: string;
+//   email: string;
+//   mobile: string;
+//   address: string;
+//   project: Project;
+// }
 
 const Projects = () => {
   const [projectTypes, setProjectTypes] = useState<ProjectTypes[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [clients, setClients] = useState<ClientType[]>([]);
-  const [selectedClient, setSelectedClient] = useState<Client | null>(null);
+  // const [selectedClient, setSelectedClient] = useState<Client | null>(null);
 
   const fetchProjectTypes = async () => {
     try {
