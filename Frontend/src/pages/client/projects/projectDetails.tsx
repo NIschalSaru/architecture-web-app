@@ -2,17 +2,12 @@ import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { apiUrl } from "../../../utils";
-import InnerHeader from "../../../components/client/InnerHeader";
-import {
-  ArrowLeft,
-  MapPin,
-  Square,
-  Calendar,
-  User,
-  Mail,
-  Phone,
-  Home,
-} from "lucide-react";
+// import InnerHeader from "../../../components/client/InnerHeader";
+import ProjectInnerHeader from "../../../components/client/ProjectInnerHeader";
+import ImageViewer from "react-simple-image-viewer";
+import { motion } from "framer-motion";
+
+import { ArrowLeft, User } from "lucide-react";
 
 interface Media {
   id: number;
@@ -50,6 +45,7 @@ const ProjectDetails = () => {
   const [selectedImage, setSelectedImage] = useState<string>("");
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (!id) return;
 
     const fetchClientDetails = async () => {
@@ -57,10 +53,12 @@ const ProjectDetails = () => {
         const response = await axios.get(
           `${apiUrl}/architecture-web-app/projects/get-project/${id}`
         );
-        setClient(response.data.data.client);
-        // Set first image as selected by default
-        if (response.data.data.client?.project?.media?.length > 0) {
-          setSelectedImage(response.data.data.client.project.media[0].fileurl);
+        const clientData = response.data.data.client;
+        setClient(clientData);
+
+        // Set first image as default selected image
+        if (clientData?.project?.media?.length > 0) {
+          setSelectedImage(clientData.project.media[0].fileurl);
         }
       } catch (error) {
         console.error("Error fetching client details:", error);
@@ -72,10 +70,28 @@ const ProjectDetails = () => {
     fetchClientDetails();
   }, [id]);
 
+  // Get the feature image from the project media
+  const featureImage = client?.project?.media.find(
+    (img) => img.image_type === "feature"
+  )?.fileurl;
+
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const openImageViewer = (index: number) => {
+    setCurrentImageIndex(index);
+    setIsViewerOpen(true);
+  };
+
+  const closeImageViewer = () => {
+    setCurrentImageIndex(0);
+    setIsViewerOpen(false);
+  };
+
   if (loading) {
     return (
       <div className="project-details-container">
-        <InnerHeader title="PROJECTS" currentPage="PROJECTS" />
+        <ProjectInnerHeader title="PROJECTS" currentPage="PROJECTS" />
         <div className="loading-container">
           <div className="loading-spinner"></div>
         </div>
@@ -86,7 +102,7 @@ const ProjectDetails = () => {
   if (!client) {
     return (
       <div className="project-details-container">
-        <InnerHeader title="PROJECTS" currentPage="PROJECTS" />
+        <ProjectInnerHeader title="PROJECTS" currentPage="PROJECTS" />
         <div className="not-found">
           <h2>No project found</h2>
           <Link to="/projects" className="back-button">
@@ -100,7 +116,13 @@ const ProjectDetails = () => {
 
   return (
     <>
-      <InnerHeader title="PROJECTS" currentPage="PROJECTS" />
+      <ProjectInnerHeader
+        title="PROJECTS"
+        currentPage="PROJECTS"
+        backgroundImage={featureImage}
+        projectName={client.project.name}
+        address={client.project.location}
+      />
       <div className="project-details-container">
         <div className="main-content">
           {/* Back Button */}
@@ -108,37 +130,96 @@ const ProjectDetails = () => {
             <ArrowLeft className="back-icon" />
             Back to Projects
           </Link>
-          <div className="project-title-location">
-            <h1 className="project-title">{client.project.name}</h1>
-            <div className="project-location">
-              <MapPin className="location-icon" />
-              <span>{client.project.location}</span>
-            </div>
-          </div>
+
           {/* Main Content Grid */}
           <div className="content-grid">
-            {/* Left Column - Image Gallery */}
+            {/* Left Column - Project Details */}
+
+            <div className="details-section">
+              {/* Client Info Card */}
+              <div className="info-card">
+                <div className="client-info">
+                  <div className="client-item">
+                    <User className="client-icon" />
+                    <div>
+                      {/* Description */}
+                      <motion.div
+                        className="description-section"
+                        initial={{ opacity: 0, y: 100 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, ease: "easeOut" }}
+                      >
+                        <div className="description-section">
+                          <h3>Project Description</h3>
+                          <p className="description-text">
+                            {client.project.description}
+                          </p>
+                        </div>
+                      </motion.div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="project-details-overview">
+                <div className="project-details__content-right">
+                  <div className="project-details__details-box pb-30">
+                    <h3 className="section-heading">Project Overview</h3>
+                    <div className="detail-card-row-4">
+                      <div className="details-card">
+                        <p className="details-label">Project</p>
+                        <h4 className="details-value">{client.fullName}</h4>
+                      </div>
+                      <div className="details-card">
+                        <p className="details-label">Location</p>
+                        <h4 className="details-value">
+                          {client.project.location}
+                        </h4>
+                      </div>
+                      <div className="details-card">
+                        <p className="details-label">Built-Up Area</p>
+                        <h4 className="details-value">
+                          {client.project.site_area}
+                        </h4>
+                      </div>
+                      <div className="details-card">
+                        <p className="details-label">Completed</p>
+                        <h4 className="details-value">2021</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* Right Column - Image Gallery */}
+
             <div className="image-section">
               {/* Main Image */}
-              {selectedImage && (
-                <div className="main-image-container">
-                  <img
-                    src={selectedImage}
-                    alt="Selected project view"
-                    className="main-image"
-                  />
-                </div>
-              )}
+              <motion.div
+                className="main-image-container"
+                initial={{ opacity: 0, y: -100 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 2, ease: "easeOut" }}
+              >
+                {selectedImage && (
+                  <div className="main-image-container">
+                    <img
+                      src={selectedImage}
+                      alt="Selected project view"
+                      className="main-image"
+                    />
+                  </div>
+                )}
+              </motion.div>
 
               {/* Thumbnail Gallery */}
               {client.project.media.length > 1 && (
                 <div className="gallery-container">
                   <h3 className="gallery-title">Project Gallery</h3>
                   <div className="thumbnail-grid">
-                    {client.project.media.map((media) => (
+                    {client.project.media.map((media, index) => (
                       <button
                         key={media.id}
-                        onClick={() => setSelectedImage(media.fileurl)}
+                        onClick={() => openImageViewer(index)}
                         className={`thumbnail-button ${
                           selectedImage === media.fileurl ? "active" : ""
                         }`}
@@ -153,109 +234,30 @@ const ProjectDetails = () => {
                   </div>
                 </div>
               )}
-              {/* Description */}
-              <div className="description-section">
-                <h3>Project Description</h3>
-                <p className="description-text">{client.project.description}</p>
-              </div>
-            </div>
-
-            {/* Right Column - Project Details */}
-            <div className="details-section">
-              {/* Project Info Card */}
-              <div className="info-card">
-                {/* Project Stats */}
-                <div className="stats-grid">
-                  <div className="stat-box area">
-                    <Square className="stat-icon area" />
-                    <div>
-                      <p className="stat-label area">Site Area</p>
-                      <p className="stat-value area">
-                        {client.project.site_area}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="stat-box year">
-                    <Calendar className="stat-icon year" />
-                    <div>
-                      <p className="stat-label year">Year Completed</p>
-                      <p className="stat-value year">2025</p>
-                    </div>
-                  </div>
-                </div>{" "}
-              </div>
-
-              {/* Services Card */}
-              <div className="info-card">
-                <h3 className="services-title">Services</h3>
-                <div className="services-tags">
-                  <span className="service-tag architecture">Architecture</span>
-                  <span className="service-tag landscape">
-                    Landscape Architecture
-                  </span>
-                  <span className="service-tag planning">Planning</span>
-                </div>
-              </div>
-
-              {/* Client Info Card */}
-              <div className="info-card">
-                <h3 className="client-section-title">
-                  <User className="client-title-icon" />
-                  Client Information
-                </h3>
-
-                <div className="client-info">
-                  <div className="client-item">
-                    <User className="client-icon" />
-                    <div>
-                      <p className="client-label">Client Name</p>
-                      <p className="client-value">{client.fullName}</p>
-                    </div>
-                  </div>
-
-                  <div className="client-item">
-                    <Mail className="client-icon" />
-                    <div>
-                      <p className="client-label">Email</p>
-                      <a
-                        href={`mailto:${client.email}`}
-                        className="client-link"
-                      >
-                        {client.email}
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="client-item">
-                    <Phone className="client-icon" />
-                    <div>
-                      <p className="client-label">Mobile</p>
-                      <a href={`tel:${client.mobile}`} className="client-link">
-                        {client.mobile}
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="client-item">
-                    <Home className="client-icon" />
-                    <div>
-                      <p className="client-label">Address</p>
-                      <p className="client-value">{client.address}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Contact Action */}
-              <div className="cta-card">
-                <h3 className="cta-title">Interested in Similar Work?</h3>
-                <p className="cta-description">
-                  Get in touch to discuss your architectural project.
-                </p>
-                <button className="cta-button">Contact Us</button>
-              </div>
+              {isViewerOpen && (
+                <ImageViewer
+                  src={client.project.media.map((m) => m.fileurl)}
+                  currentIndex={currentImageIndex}
+                  disableScroll={false}
+                  closeOnClickOutside={true}
+                  onClose={closeImageViewer}
+                  backgroundStyle={{
+                    backgroundColor: "rgba(0,0,0,0.9)",
+                  }}
+                />
+              )}
             </div>
           </div>
+          {/* Contact Action */}
+          {/* <div className="cta-card">
+            <div className="cta-section">
+              <h3 className="cta-title">Interested in Similar Work?</h3>
+              <p className="cta-description">
+                Get in touch to discuss your architectural project.
+              </p>
+              <button className="cta-button">Contact Us</button>
+            </div>
+          </div> */}
         </div>
       </div>
     </>

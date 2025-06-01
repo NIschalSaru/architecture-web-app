@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import InnerHeader from "../../../components/client/InnerHeader";
 import axios from "axios";
 import { apiUrl } from "../../../utils";
@@ -7,15 +8,6 @@ import { apiUrl } from "../../../utils";
 interface ProjectTypes {
   key: string;
   title: string;
-}
-
-interface ClientType {
-  id: number;
-  project_id: number;
-  fullName: string;
-  email: string;
-  mobile: string;
-  address: string;
 }
 
 interface Media {
@@ -50,8 +42,8 @@ interface Client {
 const Projects = () => {
   const [projectTypes, setProjectTypes] = useState<ProjectTypes[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [clients, setClients] = useState<ClientType[]>([]);
-  const [selectedClient, setSelectedClient] = useState<Client | null>(null);
+  const [clients, setClients] = useState<Client[]>([]);
+  const navigate = useNavigate();
 
   const fetchProjectTypes = async () => {
     try {
@@ -63,12 +55,11 @@ const Projects = () => {
         title: item.title,
       }));
       setProjectTypes(fetchedData);
-
       if (fetchedData.length > 0) {
         setSelectedCategory(fetchedData[0].key);
       }
-    } catch (error: unknown) {
-      console.error("Error fetching project types:", error as Error);
+    } catch (error) {
+      console.error("Error fetching project types:", error);
     }
   };
 
@@ -77,17 +68,18 @@ const Projects = () => {
       const response = await axios.get(
         `${apiUrl}/architecture-web-app/projects/get-clients/${id}`
       );
-
       setClients(response.data.data);
     } catch (error) {
       console.error("Error fetching clients:", error);
     }
   };
 
-  const navigate = useNavigate();
-
   const handleClientClick = (clientId: number) => {
     navigate(`/projects/${clientId}`);
+  };
+
+  const handleCategoryClick = (key: string) => {
+    setSelectedCategory(key);
   };
 
   useEffect(() => {
@@ -101,57 +93,106 @@ const Projects = () => {
     }
   }, [selectedCategory]);
 
-  const handleCategoryClick = (key: string) => {
-    setSelectedCategory(key);
-  };
-
   return (
     <>
       <InnerHeader title="PROJECTS" currentPage="PROJECTS" />
-      <section className="project-area section-gap-top" id="project">
+      <section className="project-area" id="project">
         <div className="container">
-          <div className="section-title text-center mb-5">
-            <h2>Explore Project Categories</h2>
-          </div>
+          <motion.div
+            className="section-title text-center mb-5"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <motion.h2
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              Take a closer look at the ideas we've brought to life — each
+              project is a story of innovation, design, and impact
+            </motion.h2>
+          </motion.div>
 
-          <div className="project-layout d-flex gap-4">
-            {/* === Sidebar === */}
-            <div className="sidebar">
+          <div className="project-layout">
+            {/* Sidebar */}
+            <motion.div
+              className="sidebar"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
               {projectTypes.map((projectType) => (
-                <button
+                <motion.button
                   key={projectType.key}
                   onClick={() => handleCategoryClick(projectType.key)}
-                  className={
+                  className={`sidebar-btn ${
                     selectedCategory === projectType.key ? "active" : ""
-                  }
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
                 >
                   {projectType.title}
-                </button>
+                </motion.button>
               ))}
-            </div>
+            </motion.div>
 
-            {/* === Client List Area === */}
-            <div className="client-grid">
-              {clients.map((client) => (
-                <div
-                  className="client-card card category-card"
-                  key={client.id}
-                  onClick={() => handleClientClick(client.id)}
-                >
-                  <div className="client-card-body">
-                    <h4 className="client-name">{client.fullName}</h4>
-                    <p>
-                      <strong>Email:</strong> {client.email}
-                    </p>
-                    <p>
-                      <strong>Mobile:</strong> {client.mobile}
-                    </p>
-                    <p>
-                      <strong>Address:</strong> {client.address}
-                    </p>
-                  </div>
-                </div>
-              ))}
+            {/* Client List */}
+            <div className="client-list">
+              <AnimatePresence>
+                {clients.length > 0 ? (
+                  clients.map((client) => {
+                    console.log("Client project:", client.project);
+
+                    const featureImage = client.project?.media?.find(
+                      (media) => media.image_type === "feature"
+                    );
+
+                    return (
+                      <motion.div
+                        key={client.id}
+                        className="client-item"
+                        onClick={() => handleClientClick(client.id)}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 20 }}
+                        transition={{ duration: 0.4 }}
+                      >
+                        {featureImage && (
+                          <div className="image-wrapper">
+                            <motion.img
+                              src={featureImage.fileurl}
+                              alt={client.fullName}
+                              sizes="(max-width: 479px) 100vw, (max-width: 767px) 96vw, (max-width: 991px) 45vw, 37vw"
+                              whileHover={{ scale: 1.03 }}
+                              transition={{ duration: 0.3 }}
+                              loading="lazy"
+                            />
+                            <motion.div
+                              className="image-overlay"
+                              initial={{ opacity: 0 }}
+                              whileHover={{ opacity: 1 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <h3>{client.fullName}</h3>
+                              <p>{client.address}</p>
+                            </motion.div>
+                          </div>
+                        )}
+                      </motion.div>
+                    );
+                  })
+                ) : (
+                  <motion.p
+                    className="no-projects-message"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    No projects available in this category.
+                  </motion.p>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </div>
