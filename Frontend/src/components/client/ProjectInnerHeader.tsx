@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 interface InnerHeaderProps {
   title: string;
   projectName?: string;
@@ -10,9 +8,7 @@ interface InnerHeaderProps {
 }
 
 export const ProjectInnerHeader: React.FC<InnerHeaderProps> = ({
-  title,
   projectName,
-  currentPage,
   className = "",
   backgroundImage,
   address,
