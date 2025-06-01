@@ -6,7 +6,7 @@ const fs = require("fs");
 const {
   uploadSingleImage,
   deleteImage,
-} = require("../../middleware/cloudinary.js");
+} = require("../../services/cloudinary.js");
 const { sequelize } = require("../../database/models/index.js");
 
 const createProject = asyncHandler(async (req, res) => {
@@ -418,6 +418,74 @@ const deleteMediaById = asyncHandler(async (req, res) => {
   }
 });
 
+const getProjectById = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const project = await Project.findByPk(id, {
+    include: [
+      {
+        model: Client,
+        as: "client",
+      },
+      {
+        model: Media,
+        as: "media",
+      },
+    ],
+  });
+  if (!project) {
+    return res.status(404).json({
+      success: false,
+      message: "Project not found.",
+    });
+  }
+  res.status(200).json({
+    success: true,
+    message: "Project fetched successfully.",
+    data: project,
+  });
+});
+
+const getAllProjects = asyncHandler(async (req, res) => {
+  const projects = await Project.findAll({
+    include: [
+      {
+        model: Client,
+        as: "client",
+      },
+      {
+        model: Media,
+        as: "media",
+      },
+    ],
+  });
+  if (!projects || projects.length === 0) {
+    return res.status(404).json({
+      success: false,
+      message: "No projects found.",
+    });
+  }
+  res.status(200).json({
+    success: true,
+    message: "Projects fetched successfully.",
+    data: projects,
+  });
+});
+
+const getAllClients = asyncHandler(async (req, res) => {
+  const clients = await Client.findAll();
+  if (!clients || clients.length === 0) {
+    return res.status(404).json({
+      success: false,
+      message: "No clients found.",
+    });
+  }
+  res.status(200).json({
+    success: true,
+    message: "Clients fetched successfully.",
+    data: clients,
+  });
+});
+
 module.exports = {
   createProject,
   updateProject,
@@ -425,4 +493,7 @@ module.exports = {
   getClientByProjectTypeId,
   getProjectByClientId,
   deleteMediaById,
+  getProjectById,
+  getAllProjects,
+  getAllClients,
 };
