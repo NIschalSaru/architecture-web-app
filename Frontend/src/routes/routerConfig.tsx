@@ -45,7 +45,7 @@ const RouteConfig = () => {
           <Route path="/client/:id" element={<ClientDetails />} /> */}
           <Route path="/projects/:id" element={<ProjectDetails />} />
           {/* <Route path="/projects/:id" element={<ProjectDetails />} /> */}
-          <Route path="projects/details/:title" element={<ProjectDetails />} />
+          {/* <Route path="projects/details/:title" element={<ProjectDetails />} /> */}
 
           <Route path="page-not-found" element={<PageNotFound />} />
           <Route
@@ -60,8 +60,14 @@ const RouteConfig = () => {
             <Route index element={<Navigate to="banner" replace />} />
             <Route path="banner" element={<BannerSettings />} />
             <Route path="testimonials" element={<TestimonialSetting />} />
-            <Route path="projects-settings/:project_id" element={<ProjectSetting />} />
-            <Route path="projects-categories" element={<ProjectTypeSetting />} />
+            <Route
+              path="projects-settings/:project_id"
+              element={<ProjectSetting />}
+            />
+            <Route
+              path="projects-categories"
+              element={<ProjectTypeSetting />}
+            />
             <Route path="projects-clients/:id" element={<ProjectClients />} />
             <Route path="projects-clients" element={<ProjectClients />} />
             {/* <Route path="add-project/:project_id" element={<AddProject />} /> */}

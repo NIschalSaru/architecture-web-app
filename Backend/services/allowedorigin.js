@@ -3,6 +3,8 @@ const allowOrigin = [
     origin: [
       "http://localhost:3000",
       "https://nepaldesignersandbuilders.netlify.app",
+      "https://nd-nb.netlify.app/",
+      "https://ndnb-uat.netlify.app",
     ],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     preflightContinue: false,

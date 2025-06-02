@@ -6,73 +6,72 @@
   --light-bg: #f8f9fa;
   --text-dark: #1a1a40;
   --card-shadow: rgba(0, 0, 0, 0.06);
+  --gradient-bg: linear-gradient(135deg, #262262, #3b3b98);
+  --overlay-bg: rgba(0, 0, 0, 0.6);
+  --transition: all 0.3s ease;
 }
 
-/* === PROJECT AREA === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  line-height: 1.6;
+  color: var(--text-dark);
+}
+
 .project-area {
-  // padding: 80px 0;
   background: var(--light-bg);
+  padding: 60px 0;
+  min-height: 100vh;
 }
 
-/* === SECTION TITLE === */
-.section-title {
-  margin-bottom: 50px;
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .section-title h2 {
   font-size: 2.5rem;
   font-weight: 700;
-  color: var(--primary-color);
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  color: var(--text-dark);
+  margin-bottom: 10px;
   position: relative;
-  display: inline-block;
 }
 
 .section-title h2::after {
   content: "";
-  display: block;
   width: 60px;
   height: 4px;
-  background-color: var(--secondary-color);
-  margin: 12px auto 0;
-  border-radius: 3px;
+  background: var(--secondary-color);
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-/* === GRID LAYOUT === */
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-}
-
-.col-lg-3,
-.col-md-6,
-.col-sm-6 {
-  flex: 0 0 calc(33.33% - 30px);
-  max-width: calc(33.33% - 30px);
-}
-
+/* Project Layout */
 .project-layout {
   display: flex;
-  flex-wrap: wrap;
   gap: 30px;
-  height: 90vh;
+  flex-wrap: wrap;
 }
 
+/* Sidebar */
 .sidebar {
   flex: 0 0 250px;
   background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px var(--card-shadow);
+  // border-radius: 12px;
+  box-shadow: 0 4px 20px var(--card-shadow);
   padding: 20px;
   height: fit-content;
-  // position: sticky;
-  top: 100px;
 }
 
-.sidebar button {
+.sidebar-btn {
   display: block;
   width: 100%;
   padding: 12px 15px;
@@ -81,148 +80,132 @@
   border-radius: 8px;
   background-color: var(--light-bg);
   color: var(--text-dark);
-  text-align: left;
+  font-size: 1rem;
   font-weight: 500;
-  transition: 0.3s;
+  text-align: left;
   cursor: pointer;
+  transition: var(--transition);
 }
 
-.sidebar button:hover,
-.sidebar button.active {
-  background-color: var(--primary-color);
+.sidebar-btn.active,
+.sidebar-btn:hover {
+  background: var(--gradient-bg);
   color: #fff;
+  transform: translateX(5px);
 }
 
-.project-content {
+// .sidebar-btn:hover {
+//   background: var(--secondary-color);
+//   color: #fff;
+//   transform: translateX(5px);
+// }
+
+/* Client List */
+.client-list {
   flex: 1;
-}
-
-@media (max-width: 992px) {
-  .col-lg-3,
-  .col-md-6 {
-    flex: 0 0 calc(33.33% - 30px);
-    max-width: calc(33.33% - 30px);
-  }
-}
-
-@media (max-width: 768px) {
-  .col-lg-3,
-  .col-md-6,
-  .col-sm-6 {
-    flex: 0 0 calc(50% - 30px);
-    max-width: calc(50% - 30px);
-  }
-}
-
-@media (max-width: 480px) {
-  .col-lg-3,
-  .col-md-6,
-  .col-sm-6 {
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-}
-
-/* === CARD STYLING === */
-.card {
-  border: none;
-  border-radius: 16px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background: #ffffff;
-  box-shadow: 0 8px 20px var(--card-shadow);
-  cursor: pointer;
-}
-
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
-}
-
-.card-img-top {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-.grid-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem; /* increased gap */
-  list-style: none;
-  padding: 0;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
 }
 
-.client-card {
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  padding: 2rem; /* more padding */
-  background-color: #fefefe;
-  font-size: 1.1rem; /* larger text */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
-}
-
-.client-card h5 {
-  font-size: 1.4rem;
-  margin-bottom: 0.75rem;
-}
-
-.client-card p {
-  margin: 0.5rem 0;
-}
-
-/* Optional: subtle hover effect */
-.client-card:hover {
-  transform: scale(1.02);
-}
-
-/* === CUSTOM CATEGORY CARD OVERLAY === */
-.category-card {
+.client-item {
+  cursor: pointer;
   position: relative;
-  border-radius: 16px;
+}
+
+.image-wrapper {
+  position: relative;
   overflow: hidden;
+  // border-radius: 8px;
+  box-shadow: 0 4px 12px var(--card-shadow);
 }
 
-.card-image-wrapper {
-  position: relative;
+.client-item img {
   width: 100%;
-  height: 220px;
+  height: 300px;
+  object-fit: cover;
+  display: block;
 }
 
-.card-overlay {
+.image-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--primary-color) semi-transparent;
+  background: var(--overlay-bg);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: background 0.3s ease;
-}
-
-.card-title-overlay {
-  color: #fff;
-  font-size: 1.2rem;
-  font-weight: 600;
   text-align: center;
-  padding: 10px 15px;
-  // background-color: rgba(
-  //   190,
-  //   30,
-  //   45,
-  //   0.8
-  // ); /* var(--secondary-color) semi-transparent */
-  border-radius: 8px;
-  text-transform: capitalize;
+  padding: 20px;
+  opacity: 0;
+  transition: var(--transition);
 }
 
-.category-card:hover .card-img-top {
-  transform: scale(1.05);
+.image-overlay h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+  margin-bottom: 5px;
 }
 
-.category-card:hover .card-overlay {
-  background: rgba(38, 34, 98, 0.6);
+.image-overlay p {
+  font-size: 1rem;
+  color: #ddd;
+}
+
+.no-projects-message {
+  font-size: 1.2rem;
+  color: #777;
+  text-align: center;
+  padding: 20px;
+  grid-column: 1 / -1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .project-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    flex: 0 0 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .sidebar-btn {
+    flex: 1 1 120px;
+    text-align: center;
+  }
+
+  .client-list {
+    grid-template-columns: 1fr;
+  }
+
+  .client-item img {
+    height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title h2 {
+    font-size: 2rem;
+  }
+
+  .client-item img {
+    height: 200px;
+  }
+
+  .image-overlay h3 {
+    font-size: 1.25rem;
+  }
+
+  .image-overlay p {
+    font-size: 0.9rem;
+  }
 }
