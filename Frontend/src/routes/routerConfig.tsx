@@ -16,8 +16,14 @@ import ProjectClients from "../pages/admin/Projects/Clients/Index";
 import ProtectedRoute from "../components/ProtectedRoute";
 import ProjectDetails from "../pages/client/projects/projectDetails";
 import CategorizeProjects from "../pages/client/projects/catagorizeProjects";
-import AddProject from "../pages/admin/Projects/AddNewProjects/AddProject";
+// import AddProject from "../pages/admin/Projects/AddNewProjects/AddProject";
+import ProjectSettings from "../pages/admin/Projects/AddNewProjects/Index";
 import ClientReqForm from "../pages/admin/ClientRequirementForm/Index";
+import TrustedClient from "../pages/admin/TrustedClients/Index";
+import BlogsAdmin from "../pages/admin/Blogs/Index";
+import Blogs from "../pages/client/Blogs/index";
+
+
 const RouteConfig = () => {
   return (
     <Suspense fallback="Loading...">
@@ -32,6 +38,7 @@ const RouteConfig = () => {
           <Route path="about" element={<AboutUsPage />} />
           <Route path="projects" element={<Projects />} />
           <Route path="services" element={<Services />} />
+          <Route path="blogs" element={<Blogs />} />
           {/* <Route path="project/:title" element={<ProjectDetails />} /> */}
 
           {/* 
@@ -62,8 +69,12 @@ const RouteConfig = () => {
               element={<ProjectTypeSetting />}
             />
             <Route path="projects-clients/:id" element={<ProjectClients />} />
-            <Route path="add-project/:project_id" element={<AddProject />} />
+            <Route path="projects-clients" element={<ProjectClients />} />
+            {/* <Route path="add-project/:project_id" element={<AddProject />} /> */}
+            <Route path="projects-settings" element={<ProjectSettings />} />
             <Route path="Client-Requirement-Form" element={<ClientReqForm />} />
+            <Route path="trusted-clients" element={<TrustedClient />} />
+            <Route path="blogs" element={<BlogsAdmin />} />
           </Route>
         </Route>
 

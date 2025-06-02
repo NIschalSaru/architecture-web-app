@@ -27,12 +27,15 @@ const Clients = () => {
   // Fetch clients from API
   const fetchData = async () => {
     console.log(id);
-    if (!id) return;
+    let url;
+    if (!id) {
+      url = `${apiUrl}/architecture-web-app/projects/get-clients`;
+    } else {
+      url = `${apiUrl}/architecture-web-app/projects/get-clients/${id}`;
+    }
     setPageLoading(true);
     try {
-      const response = await axios.get(
-        `${apiUrl}/architecture-web-app/projects/get-clients/${id}`
-      );
+      const response = await axios.get(url);
       const fetchedData = response.data.data.map((client: any) => ({
         key: client.id.toString(),
         id: client.id,

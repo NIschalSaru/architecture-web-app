@@ -401,20 +401,20 @@
     }
   }
   
-  .ceo-section {
-    .ceo-achievements {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  // .ceo-section {
+  //   .ceo-achievements {
+  //     grid-template-columns: repeat(2, 1fr);
+  //   }
     
-    .ceo-content {
-      padding-left: 0;
-      margin-top: 2rem;
-    }
+  //   .ceo-content {
+  //     padding-left: 0;
+  //     margin-top: 2rem;
+  //   }
     
-    .ceo-image-container {
-      padding-right: 0;
-    }
-  }
+  //   .ceo-image-container {
+  //     padding-right: 0;
+  //   }
+  // }
   
   .map-container {
     height: 400px;
@@ -451,39 +451,39 @@
     }
   }
   
-  .ceo-section {
-    text-align: center;
+  // .ceo-section {
+  //   text-align: center;
     
-    .ceo-content {
-      .section-title-wrapper {
-        .section-title {
-          font-size: 1.8rem;
-        }
+  //   .ceo-content {
+  //     .section-title-wrapper {
+  //       .section-title {
+  //         font-size: 1.8rem;
+  //       }
         
-        .title-decorator {
-          width: 60px;
-          margin-left: auto;
-          margin-right: auto;
-        }
-      }
+  //       .title-decorator {
+  //         width: 60px;
+  //         margin-left: auto;
+  //         margin-right: auto;
+  //       }
+  //     }
       
-      .ceo-achievements {
-        grid-template-columns: 1fr;
+  //     .ceo-achievements {
+  //       grid-template-columns: 1fr;
         
-        .achievement-card {
-          min-height: 100px; // Slightly smaller for mobile
-        }
-      }
-    }
+  //       .achievement-card {
+  //         min-height: 100px; // Slightly smaller for mobile
+  //       }
+  //     }
+  //   }
     
-    .ceo-image-container {
-      margin-bottom: 2rem;
+  //   .ceo-image-container {
+  //     margin-bottom: 2rem;
       
-      .ceo-background-shape {
-        display: none;
-      }
-    }
-  }
+  //     .ceo-background-shape {
+  //       display: none;
+  //     }
+  //   }
+  // }
   
   .contact-section {
     text-align: center;
