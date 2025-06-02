@@ -1,54 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Space, Table, Button, message, Tooltip, Image, Modal } from "antd";
-import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined, PlusOutlined, EyeOutlined } from "@ant-design/icons";
 import UpdateProjectModal from "./UpdateProjectModal";
 import DeleteProjectModal from "./DeleteProjectModal";
+import ViewProjectModal from "./ViewProjectModal";
 import { apiUrl } from "../../../../utils";
 import LoadingSpinner from "../../../../components/client/LoadingSpinner";
 import { useParams } from "react-router-dom";
 import CreateProjectModal from "./CreateProjectModal";
-
-interface MediaType {
-  id: number;
-  project_id: number;
-  image_type: string;
-  fileurl: string;
-  filename: string;
-}
-
-interface ClientType {
-  id: number;
-  project_id: number;
-  fullName: string;
-  email: string;
-  mobile: string;
-  address: string;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: string | null;
-}
-
-interface DataType {
-  key: string;
-  id: number;
-  name: string;
-  project_type_id: number;
-  location: string;
-  site_area: string;
-  description: string;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: string | null;
-  client: ClientType;
-  media: MediaType[];
-}
-
-interface ProjectType {
-  id: number;
-  title: string;
-  status: boolean;
-}
+import { DataType, MediaType, ProjectType } from "./types"; //ClientType
 
 const ProjectSetting = () => {
   const { project_id } = useParams<{ project_id: string }>();
@@ -56,12 +17,14 @@ const ProjectSetting = () => {
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
   const [mediaModalVisible, setMediaModalVisible] = useState<boolean>(false);
-  const [selectedMedia, setSelectedMedia] = useState<MediaType[]>([]);
+  const [selectedMedia, /*setSelectedMedia*/] = useState<MediaType[]>([]);
   const [editingRecord, setEditingRecord] = useState<DataType | null>(null);
   const [, setRecordName] = useState<string>("");
   const [pageLoading, setPageLoading] = useState<boolean>(false);
   const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
   const [projectTypes, setProjectTypes] = useState<ProjectType[]>([]);
+  const [viewModalVisible, setViewModalVisible] = useState<boolean>(false);
+  const [viewingRecord, setViewingRecord] = useState<DataType | null>(null);
 
   // Fetch project types
   const fetchProjectTypes = async () => {
@@ -80,23 +43,24 @@ const ProjectSetting = () => {
   };
 
   const fetchData = async () => {
+    let url;
     if (!project_id) {
-      message.error("No project ID provided");
-      return;
+      url = `${apiUrl}/architecture-web-app/projects/get-projects`;
+    } else {
+      url = `${apiUrl}/architecture-web-app/projects/get-project/${project_id}`;
     }
 
     setPageLoading(true);
     try {
-      const response = await axios.get(
-        `${apiUrl}/architecture-web-app/projects/get-project/${project_id}`,
-        { withCredentials: true }
-      );
+      const response = await axios.get(url, { withCredentials: true });
 
-      const client = response.data.data.client;
-      const project = client.project;
+      let fetchedData: DataType[] = [];
 
-      const fetchedData: DataType[] = [
-        {
+      if (project_id) {
+        // Handle single project response
+        const client = response.data.data.client;
+        const project = client.project;
+        fetchedData = [{
           key: project.id.toString(),
           id: project.id,
           name: project.name,
@@ -119,8 +83,34 @@ const ProjectSetting = () => {
             deletedAt: client.deletedAt,
           },
           media: project.media,
-        },
-      ];
+        }];
+      } else {
+        // Handle multiple projects response
+        fetchedData = response.data.data.map((project: any) => ({
+          key: project.id.toString(),
+          id: project.id,
+          name: project.name,
+          project_type_id: project.project_type_id,
+          location: project.location,
+          site_area: project.site_area,
+          description: project.description,
+          createdAt: project.createdAt,
+          updatedAt: project.updatedAt,
+          deletedAt: project.deletedAt,
+          client: {
+            id: project.client.id,
+            project_id: project.client.project_id,
+            fullName: project.client.fullName,
+            email: project.client.email,
+            mobile: project.client.mobile,
+            address: project.client.address,
+            createdAt: project.client.createdAt,
+            updatedAt: project.client.updatedAt,
+            deletedAt: project.client.deletedAt,
+          },
+          media: project.media || [],
+        }));
+      }
 
       componentSetData(fetchedData);
     } catch (error: unknown) {
@@ -242,10 +232,10 @@ const ProjectSetting = () => {
     setEditModalVisible(true);
   };
 
-  const handleMediaClick = (media: MediaType[]) => {
-    setSelectedMedia(media);
-    setMediaModalVisible(true);
-  };
+  // const handleMediaClick = (media: MediaType[]) => {
+  //   setSelectedMedia(media);
+  //   setMediaModalVisible(true);
+  // };
 
   const handleCreate = async (values: any) => {
     setPageLoading(true);
@@ -321,6 +311,11 @@ const ProjectSetting = () => {
     }
   };
 
+  const handleViewClick = (record: DataType) => {
+    setViewingRecord(record);
+    setViewModalVisible(true);
+  };
+
   const columns = [
     {
       title: "SN",
@@ -343,11 +338,6 @@ const ProjectSetting = () => {
       key: "site_area",
     },
     {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
-    },
-    {
       title: "Client Name",
       dataIndex: ["client", "fullName"],
       key: "clientName",
@@ -368,22 +358,17 @@ const ProjectSetting = () => {
       key: "clientAddress",
     },
     {
-      title: "Media",
-      key: "media",
-      render: (_: any, record: DataType) => (
-        <div
-          style={{ display: "flex", gap: "5px", cursor: "pointer" }}
-          onClick={() => handleMediaClick(record.media)}
-        >
-          <Button type="primary">View Images</Button>
-        </div>
-      ),
-    },
-    {
       title: "Action",
       key: "action",
       render: (_: any, record: DataType) => (
         <Space size="middle">
+          <Tooltip title="View">
+            <Button
+              icon={<EyeOutlined />}
+              onClick={() => handleViewClick(record)}
+              style={{ color: "#1890ff", borderColor: "white" }}
+            />
+          </Tooltip>
           <Tooltip title="Update">
             <Button
               icon={<EditOutlined />}
@@ -453,8 +438,8 @@ const ProjectSetting = () => {
                 client_email: editingRecord.client.email,
                 client_mobile: editingRecord.client.mobile,
                 client_address: editingRecord.client.address,
-                image: editingRecord.media.find((m) => m.image_type === "feature") || null,
-                gallery: editingRecord.media.filter((m) => m.image_type === "gallery"),
+                image: editingRecord.media.find((m: MediaType) => m.image_type === "feature") || null,
+                gallery: editingRecord.media.filter((m: MediaType) => m.image_type === "gallery"),
               }}
             />
           )}
@@ -488,11 +473,17 @@ const ProjectSetting = () => {
             </div>
           </Modal>
 
+          <ViewProjectModal
+            visible={viewModalVisible}
+            onCancel={() => setViewModalVisible(false)}
+            record={viewingRecord}
+          />
+
           <CreateProjectModal
             visible={createModalVisible}
             onCancel={() => setCreateModalVisible(false)}
             onCreate={handleCreate}
-            projectTypeId={currentProjectTypeId} // Pass the project_type_id from fetched data
+            projectTypeId={currentProjectTypeId}
           />
         </div>
       )}

@@ -430,3 +430,19 @@
   color: $secondary;
   margin-bottom: 38px;
 }
+
+.client-link {
+  color: #002E63 !important;
+  &:hover {
+    color: #D90429 !important;
+  }
+}
+.ant-table-tbody .client-link {
+  color: #002E63 !important;
+  &:hover {
+    color: #D90429 !important;
+  }
+}
+.ant-upload-list-item-name{
+  color: black;
+}

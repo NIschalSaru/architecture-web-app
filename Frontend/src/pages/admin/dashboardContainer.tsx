@@ -50,9 +50,19 @@ const items = [
     ],
   },
   {
+    key: "trusted-clients",
+    icon: <UserOutlined />,
+    label: "Clients Settings",
+  },
+  {
     key: "Client-Requirement-Form",
     icon: <UserOutlined />,
     label: "Client Requirement Form",
+  },
+  {
+    key: "blogs",
+    icon: <UserOutlined />,
+    label: "Blogs Settings",
   },
 ];
 
@@ -67,11 +77,21 @@ const DashboardContainer = () => {
     const pathSegments = location.pathname.split("/").filter(Boolean);
     const lastSegment = pathSegments[pathSegments.length - 1];
     const parentSegment = pathSegments[pathSegments.length - 2];
-    if (parentSegment === "projects") {
+
+    // Check for projects-clients first
+    if (pathSegments.includes("projects-clients")) {
+      setSelectedMenu("projects-clients");
+    }
+    // Then check for projects-settings
+    else if (pathSegments.includes("projects-settings")) {
+      setSelectedMenu("projects-settings");
+    }
+    // Then check for other project-related paths
+    else if (parentSegment === "projects") {
       setSelectedMenu(lastSegment);
-    } else if (pathSegments.includes("projects-clients") || pathSegments.includes("projects-settings")) {
-      setSelectedMenu(pathSegments[pathSegments.length - 2] === "projects-clients" ? "projects-clients" : "projects-settings");
-    } else {
+    }
+    // Default case
+    else {
       setSelectedMenu(lastSegment || "banner");
     }
   }, [location]);
@@ -80,9 +100,12 @@ const DashboardContainer = () => {
     const selectedKey = e.key;
     setSelectedMenu(selectedKey);
     if (e.keyPath.includes("Projects")) {
-      if (selectedKey === "projects-clients" || selectedKey === "projects-settings") {
-        navigate(`/admin/${selectedKey}/0`);
-      } else {
+      if (selectedKey === "projects-clients") {
+        navigate(`/admin/${selectedKey}`);
+      } else if(selectedKey === "projects-settings"){
+        navigate(`/admin/${selectedKey}`);
+      }
+      else{
         navigate(`/admin/${selectedKey}`);
       }
     } else {

@@ -171,6 +171,7 @@ const BannerSettings = () => {
                   listType="picture"
                   accept=".jpg,.jpeg,.png,.webp"
                   disabled={loading}
+                  // className="banner-upload"
                 >
                   <Button 
                     icon={<UploadOutlined />} 
