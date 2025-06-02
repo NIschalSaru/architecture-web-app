@@ -79,6 +79,14 @@ $default-bg: #333;
       }
     }
   }
+  .project-description {
+    height: 100px; /* or jati height chaahiye */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* maximum lines to show */
+    -webkit-box-orient: vertical;
+  }
 
   .slick-dots {
     text-align: center;
