@@ -457,7 +457,10 @@ const getAllProjects = asyncHandler(async (req, res) => {
         as: "media",
       },
     ],
+    order: [["createdAt", "DESC"]],
+    limit: 10,
   });
+
   if (!projects || projects.length === 0) {
     return res.status(404).json({
       success: false,
