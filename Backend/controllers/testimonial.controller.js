@@ -3,10 +3,7 @@ const path = require("path");
 const dayjs = require("dayjs");
 const Testimonial = require("../model/testimonial.js");
 const { asyncHandler } = require("../services/async.handler.js");
-const {
-  uploadSingleImage,
-  deleteImage,
-} = require("../middleware/cloudinary.js");
+const { uploadSingleImage, deleteImage } = require("../services/cloudinary.js");
 
 const createTestimonial = asyncHandler(async (req, res) => {
   const { fullname, designation, message, rating } = req.body;

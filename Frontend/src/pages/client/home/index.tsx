@@ -10,6 +10,8 @@ import Services from "./services.tsx";
 import WhyUs from "../../../components/client/WhyUs.tsx";
 import LoadingSpinner from '../../../components/client/LoadingSpinner';
 import useGetAPI from "../../../hooks/useGetAPI";
+import TrustedClientsSection from "../../../components/client/TrustedClients.tsx";
+
 
 interface BannerData {
   id: number;
@@ -47,6 +49,9 @@ const Home = () => {
       </Layout>
       <Layout>
         <TestimonialSlider />
+      </Layout>
+      <Layout>
+        <TrustedClientsSection />
       </Layout>
       <Layout>
         <ContactUsSection />

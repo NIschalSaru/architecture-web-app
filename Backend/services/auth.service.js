@@ -24,9 +24,9 @@ const generateAccessToken = async (userData, res) => {
 
   res.cookie("authToken", token, {
     maxAge: 4 * 24 * 60 * 60 * 1000,
-    httpOnly: true, // prevent XSS attacks, prevent access to this cookie via JavaScript
-    sameSite: "strict", // CSRF protection
-    secure: process.env.NODE_ENV !== "development",
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
   });
 
   return token;

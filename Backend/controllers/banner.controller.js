@@ -3,10 +3,7 @@ const path = require("path");
 const dayjs = require("dayjs");
 const Banner = require("../model/banner.js");
 const { asyncHandler } = require("../services/async.handler.js");
-const {
-  uploadSingleImage,
-  deleteImage,
-} = require("../middleware/cloudinary.js");
+const { uploadSingleImage, deleteImage } = require("../services/cloudinary.js");
 
 const createOrUpdateBanner = asyncHandler(async (req, res) => {
   const { heading, subHeading, description } = req.body;

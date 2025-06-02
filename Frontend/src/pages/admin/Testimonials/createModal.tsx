@@ -34,7 +34,7 @@ const CreateModal: React.FC<CreateModalProps> = ({
       formData.append("message", values.message);
 
       if (fileList.length > 0) {
-        formData.append("imageUrl", fileList[0].originFileObj as Blob);
+        formData.append("image", fileList[0].originFileObj as Blob);
       }
 
       await onCreate(formData);

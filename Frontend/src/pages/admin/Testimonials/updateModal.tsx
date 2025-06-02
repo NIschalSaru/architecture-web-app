@@ -64,9 +64,9 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
       formData.append("message", values.message);
 
       if (fileList.length > 0 && fileList[0].originFileObj) {
-        formData.append("imageUrl", fileList[0].originFileObj as Blob);
+        formData.append("image", fileList[0].originFileObj as Blob);
       } else if (initialValues.imageUrl) {
-        formData.append("imageUrl", initialValues.imageUrl);
+        formData.append("image", initialValues.imageUrl);
       }
 
       await onUpdate(formData);

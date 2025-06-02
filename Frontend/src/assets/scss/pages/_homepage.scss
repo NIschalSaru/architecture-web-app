@@ -1,3 +1,5 @@
+@use "../base/variable" as *;
+
 .custom-backtop {
   background-color: $primary;
   color: white;

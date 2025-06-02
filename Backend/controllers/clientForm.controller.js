@@ -30,7 +30,6 @@ const getAllClientForms = asyncHandler(async (req, res) => {
 const updateClientForm = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const form = await ClientForm.findByPk(id);
-
   if (!form) {
     return res.status(404).json({
       message: "Client form not found",
@@ -66,7 +65,6 @@ const deleteClientForm = asyncHandler(async (req, res) => {
 const getStatusOptions = (req, res) => {
   const statuses = ["checked", "unchecked", "declined"];
   const status = statuses.map((status) => ({ key: status, value: status }));
-
   return res.status(200).json({
     message: "Status options fetched successfully",
     data: status,

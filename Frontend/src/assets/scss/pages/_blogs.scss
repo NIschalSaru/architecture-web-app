@@ -1,0 +1,226 @@
+@use "../base/variable" as *;
+@use "sass:color";
+
+// Mixins
+@mixin section-padding {
+  padding: 3.5rem 0;
+  
+  @media (max-width: 768px) {
+    padding: 4rem 0;
+  }
+}
+
+@mixin fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+
+// Animations
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { width: 0; }
+  to { width: 100px; }
+}
+
+@keyframes scaleUp {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
+// Global Styles
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+// Blogs Section
+.blogs-section {
+  @include section-padding;
+  // background-color: white;
+
+  .section-title-wrapper {
+    margin-bottom: 5.125rem;
+    text-align: center;
+
+    .section-title {
+      color: $secondary;
+      font-size: 2.125rem;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      position: relative;
+      margin-bottom: 0;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 110px;
+        height: 3px;
+        background-color: $primary;
+      }
+    }
+
+    .title-decorator {
+      display: none;
+    }
+
+    &:hover .section-title {
+      color: $primary;
+    }
+  }
+
+  .blog-card {
+    background-color: #fff;
+    border-radius: 0.9rem;
+    box-shadow: 0 4px 12px rgba($dark, 0.2);
+    transition: transform 0.3s Met, box-shadow 0.3s ease;
+    overflow: hidden;
+    max-width: 320px;
+    // margin : 0 auto;
+    margin-right:15px;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba($dark, 0.15);
+    }
+
+    .blog-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .ant-card-body {
+      padding: 1.5rem;
+
+      .ant-card-meta-title {
+        color: $dark;
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .ant-card-meta-description {
+        color: #475569;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  .blog-link {
+    text-decoration: none;
+    display: block;
+  }
+
+  .no-blogs {
+    text-align: center;
+    color: #475569;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+  }
+}
+
+// Responsive Styles
+@media (max-width: 1024px) {
+  .blogs-section {
+    .blog-card {
+      max-width: 300px;
+      .blog-image {
+        height: 160px;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .blogs-section {
+    text-align: center;
+
+    .section-title-wrapper {
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .title-decorator {
+        width: 80px;
+      }
+    }
+
+    .blog-card {
+      max-width: 280px;
+      .blog-image {
+        height: 140px;
+      }
+
+      .ant-card-body {
+        padding: 1rem;
+
+        .ant-card-meta-title {
+          font-size: 1.1rem;
+        }
+
+        .ant-card-meta-description {
+          font-size: 0.85rem;
+        }
+      }
+    }
+  }
+}
+
+// Utility Classes
+.fade-in {
+  @include fade-in;
+}
+
+// Scroll to Top Button Styles (reused from _about.scss)
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: $primary;
+  color: $white;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 100;
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &:hover {
+    color: color.adjust($secondary, $lightness: -10%);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba($primary, 0.2);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Print Styles
+@media print {
+  .blogs-section {
+    padding: 2rem 0;
+  }
+
+  .scroll-to-top {
+    display: none;
+  }
+}

@@ -1,10 +1,10 @@
 import InnerHeader from "../../../components/client/InnerHeader";
 import { useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 const ProjectDetails = () => {
   const location = useLocation();
   const project = location.state; // Retrieve the project data passed via navigate
-  const { title } = useParams<{ title: string }>();
+  // const { title } = useParams<{ title: string }>();
 
   if (!project) {
     return <div>Project not found!</div>;
