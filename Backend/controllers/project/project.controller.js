@@ -457,10 +457,7 @@ const getAllProjects = asyncHandler(async (req, res) => {
         as: "media",
       },
     ],
-    order: [["createdAt", "DESC"]],
-    limit: 10,
   });
-
   if (!projects || projects.length === 0) {
     return res.status(404).json({
       success: false,
@@ -489,6 +486,36 @@ const getAllClients = asyncHandler(async (req, res) => {
   });
 });
 
+const getLatestProjects = asyncHandler(async (req, res) => {
+  const projects = await Project.findAll({
+    limit: 10,
+    order: [["createdAt", "DESC"]],
+    include: [
+      {
+        model: Client,
+        as: "client",
+      },
+      {
+        model: Media,
+        as: "media",
+      },
+    ],
+  });
+
+  if (!projects || projects.length === 0) {
+    return res.status(404).json({
+      success: false,
+      message: "No projects found.",
+    });
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Projects fetched successfully.",
+    data: projects,
+  });
+});
+
 module.exports = {
   createProject,
   updateProject,
@@ -499,4 +526,5 @@ module.exports = {
   getProjectById,
   getAllProjects,
   getAllClients,
+  getLatestProjects,
 };

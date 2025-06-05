@@ -5,24 +5,48 @@ const dayjs = require("dayjs");
 const ByLawsInfo = require("../model/byLawsInfo.js");
 
 const createByLawsInfo = asyncHandler(async (req, res) => {
-  const { title, feature } = req.body;
+  const { title, feature, description } = req.body;
+
   if (!title) {
     return res.status(400).json({ message: "Title is required." });
   }
+
+  if (description && description.length > 255) {
+    return res
+      .status(400)
+      .json({ message: "Description must be under 255 characters." });
+  }
+
   let filename = null;
   let filepath = null;
+  let image = null;
+  let imagepath = null;
+
   const uploadedFile = req.files?.file?.[0];
+  const uploadedImage = req.files?.image?.[0];
+
   if (uploadedFile) {
     const folderName = dayjs().format("YYYYMMDD");
     filename = uploadedFile.filename;
     filepath = `/uploads/${folderName}/${filename}`;
   }
+
+  if (uploadedImage) {
+    const folderName = dayjs().format("YYYYMMDD");
+    image = uploadedImage.filename;
+    imagepath = `/uploads/${folderName}/${image}`;
+  }
+
   const newByLaws = await ByLawsInfo.create({
     title,
+    description,
     feature,
     filename,
     filepath,
+    image,
+    imagepath,
   });
+
   res.status(201).json({
     message: "Record created successfully.",
     data: newByLaws,
