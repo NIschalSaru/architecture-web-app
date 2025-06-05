@@ -7,6 +7,17 @@ const ByLawsInfo = sequelizeInstance.define(
     title: {
       type: DataTypes.STRING,
     },
+    description: {
+      type: DataTypes.STRING,
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    imagepath: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     filename: {
       type: DataTypes.STRING,
       allowNull: true,

@@ -16,6 +16,7 @@ const {
   getProjectById,
   getAllProjects,
   getAllClients,
+  getLatestProjects,
 } = require("../controllers/project/project.controller.js");
 const ProtectRoute = require("../middleware/protect.route.js");
 const { uploadImages } = require("../middleware/multer.middleware.js");
@@ -36,5 +37,6 @@ router.get("/get-project/:client_id", getProjectByClientId);
 router.get("/get-project-by-id/:id", getProjectById);
 router.get("/get-projects", getAllProjects);
 router.get("/get-clients", getAllClients);
+router.get("/get-latest-projects", getLatestProjects);
 
 module.exports = router;
