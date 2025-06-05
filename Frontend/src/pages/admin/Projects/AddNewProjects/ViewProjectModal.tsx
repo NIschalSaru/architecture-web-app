@@ -18,7 +18,7 @@ const ViewProjectModal = ({
       open={visible}
       onCancel={onCancel}
       footer={null}
-      width={800}
+      width={1000}
       className="testimonial-modal"
     >
       {record && (
