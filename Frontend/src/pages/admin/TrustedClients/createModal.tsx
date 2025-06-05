@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Modal, Form, Input, Upload, Button, Row, Col } from "antd";
+import React, { useState, useEffect } from "react";
+import { Modal, Form, Input, Upload, Button, Row, Col, Select } from "antd";
 import { UploadOutlined, UserOutlined, LinkOutlined } from "@ant-design/icons";
 import { UploadFile } from "antd/es/upload/interface";
 import LoadingSpinner from "../../../components/client/LoadingSpinner";
@@ -19,6 +19,14 @@ const CreateClientModal: React.FC<CreateClientModalProps> = ({
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (visible) {
+      form.setFieldsValue({
+        status: "1" // Set default value when modal opens
+      });
+    }
+  }, [visible, form]);
+
   const handleFileChange = ({ fileList }: { fileList: UploadFile[] }) => {
     setFileList(fileList.slice(-1));
   };
@@ -30,6 +38,7 @@ const CreateClientModal: React.FC<CreateClientModalProps> = ({
       const formData = new FormData();
       formData.append("name", values.name);
       formData.append("link", values.link);
+      formData.append("feature", values.status === "1" ? "true" : "false");
 
       if (fileList.length > 0) {
         formData.append("image", fileList[0].originFileObj as Blob);
@@ -71,7 +80,7 @@ const CreateClientModal: React.FC<CreateClientModalProps> = ({
       className="testimonial-modal"
       destroyOnClose
     >
-      <Form form={form} layout="vertical" className="compact-form">
+      <Form form={form} layout="vertical" className="compact-form" initialValues={{ status: "1" }}>
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item
@@ -89,11 +98,25 @@ const CreateClientModal: React.FC<CreateClientModalProps> = ({
           </Col>
           <Col span={12}>
             <Form.Item
+              label="Status"
+              name="status"
+              rules={[{ required: true, message: "Please select status" }]}
+            >
+              <Select disabled={loading} defaultValue="1">
+                <Select.Option value="1">True</Select.Option>
+                <Select.Option value="0">False</Select.Option>
+              </Select>
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item
               label="Link"
               name="link"
               rules={[
                 { required: true, message: "Required" },
-                { type: "url", message: "Please enter a valid URL" }, // Keep this for stricter validation
+                { type: "url", message: "Please enter a valid URL" },
               ]}
               normalize={(value) => {
                 if (
@@ -101,7 +124,7 @@ const CreateClientModal: React.FC<CreateClientModalProps> = ({
                   !value.startsWith("http://") &&
                   !value.startsWith("https://")
                 ) {
-                  return `https://${value}`; // Prepend https:// if no protocol is present
+                  return `https://${value}`;
                 }
                 return value;
               }}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Form, Input, Upload, Button, Row, Col } from "antd";
+import { Modal, Form, Input, Upload, Button, Row, Col, Select } from "antd";
 import { UploadOutlined, UserOutlined, LinkOutlined } from "@ant-design/icons";
 import { UploadFile } from "antd/es/upload/interface";
 import LoadingSpinner from "../../../components/client/LoadingSpinner";
@@ -13,6 +13,7 @@ interface UpdateClientModalProps {
     link: string;
     fileurl: string | null;
     filename: string | null;
+    feature: boolean;
   };
 }
 
@@ -31,6 +32,7 @@ const UpdateClientModal: React.FC<UpdateClientModalProps> = ({
       form.setFieldsValue({
         name: initialValues.name,
         link: initialValues.link,
+        status: initialValues.feature ? "1" : "0",
       });
 
       if (initialValues.fileurl) {
@@ -59,6 +61,7 @@ const UpdateClientModal: React.FC<UpdateClientModalProps> = ({
       const formData = new FormData();
       formData.append("name", values.name);
       formData.append("link", values.link);
+      formData.append("feature", values.status === "1" ? "true" : "false");
 
       if (fileList.length > 0 && fileList[0].originFileObj) {
         formData.append("image", fileList[0].originFileObj as Blob);
@@ -120,6 +123,20 @@ const UpdateClientModal: React.FC<UpdateClientModalProps> = ({
           </Col>
           <Col span={12}>
             <Form.Item
+              label="Status"
+              name="status"
+              rules={[{ required: true, message: "Please select status" }]}
+            >
+              <Select disabled={loading}>
+                <Select.Option value="1">True</Select.Option>
+                <Select.Option value="0">False</Select.Option>
+              </Select>
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item
               label="Link"
               name="link"
               rules={[
@@ -135,7 +152,7 @@ const UpdateClientModal: React.FC<UpdateClientModalProps> = ({
               />
             </Form.Item>
           </Col>
-          <Col span={24}>
+          <Col span={12}>
             <Form.Item
               label="Logo Image"
               name="fileurl"

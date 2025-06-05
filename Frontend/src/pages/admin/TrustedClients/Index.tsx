@@ -14,6 +14,7 @@ interface DataType {
   link: string;
   fileurl: string | null;
   filename: string | null;
+  feature: boolean;
 }
 
 const ClientSetting = () => {
@@ -38,6 +39,7 @@ const ClientSetting = () => {
         link: client.link,
         fileurl: client.fileurl || null,
         filename: client.filename || null,
+        feature: client.feature,
       }));
       setData(fetchedData);
     } catch (error: unknown) {
@@ -143,6 +145,11 @@ const ClientSetting = () => {
 
   const columns = [
     {
+      title: "SN",
+      dataIndex: "sn",
+      render: (_: any, __: DataType, index: number) => index + 1,
+    },
+    {
       title: "Name",
       dataIndex: "name",
       key: "name",
@@ -178,6 +185,12 @@ const ClientSetting = () => {
     //   key: "filename",
     //   render: (filename: string | null) => filename || "N/A",
     // },
+    {
+      title: "Status",
+      dataIndex: "feature",
+      key: "feature",
+      render: (feature: boolean) => feature ? "True" : "False",
+    },
     {
       title: "Action",
       key: "action",

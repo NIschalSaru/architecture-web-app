@@ -1,11 +1,10 @@
 import { useEffect } from "react";
-import { Col, Row,Typography, Card } from "antd";
+import { Col, Row, Typography, Card, message } from "antd";
 import useGetAPI from "../../../hooks/useGetAPI";
 import ScrollToTop from "../../../components/client/ScrollToTop";
 import LoadingSpinner from "../../../components/client/LoadingSpinner";
-import PlaceholderImage from "../../../assets/images/pdf-1.png"; // Placeholder image for PDFs
-import { apiUrl } from "../../../utils/index";
-
+import PlaceholderImage from "../../../assets/images/pdf-1.png"; // Fallback placeholder image
+import { apiUrl } from "../../../utils";
 
 const { Title } = Typography;
 
@@ -18,6 +17,8 @@ interface BlogData {
   createdAt: string;
   updatedAt: string;
   deletedAt: string | null;
+  imagepath: string; // Optional image URL from API
+  description?: string; // Optional description from API
 }
 
 const BlogsPage = () => {
@@ -30,8 +31,21 @@ const BlogsPage = () => {
   useEffect(() => {
     if (error) {
       console.error("Error fetching blogs:", error);
+      message.error("Failed to load blogs. Please try again later.");
     }
   }, [error]);
+
+  // Function to construct full URL for the PDF
+  const getPdfUrl = (filepath: string) => {
+    // const cleanFilepath = filepath.startsWith("/") ? filepath.slice(1) : filepath;
+    return `${apiUrl}/architecture-web-app${filepath}`;
+  };
+
+  // Function to get image URL or fallback to placeholder
+  const getImageUrl = (imagepath?: string) => {
+    // console.log(`${apiUrl}/architecture-web-app${imagepath}`);
+    return `${apiUrl}/architecture-web-app${imagepath}` || PlaceholderImage;
+  };
 
   return (
     <>
@@ -49,7 +63,7 @@ const BlogsPage = () => {
       <section className="blogs-section">
         <div className="container">
           <div className="section-title-wrapper">
-             <Title level={1} className="section-title">
+            <Title level={1} className="section-title">
               OUR BLOGS
             </Title>
             <div className="title-decorator"></div>
@@ -57,15 +71,22 @@ const BlogsPage = () => {
           {loading ? (
             <LoadingSpinner />
           ) : (
-            <Row gutter={[24, 24]}>
+            <Row gutter={[26, 26]}>
               {data && data.length > 0 ? (
                 data.map((blog) => (
-                  <Col xs={24} sm={12} md={8} lg={6} key={blog.id}>
+                  <Col xs={26} sm={18} md={10} lg={8} key={blog.id}>
                     <a
-                      href={`${apiUrl}/architecture-web-app${blog.filepath}`}
+                      href={getPdfUrl(blog.filepath)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="blog-link"
+                      onClick={(e) => {
+                        fetch(getPdfUrl(blog.filepath))
+                          .catch(() => {
+                            e.preventDefault();
+                            message.error("Unable to open PDF. File may not be available.");
+                          });
+                      }}
                     >
                       <Card
                         hoverable
@@ -73,16 +94,23 @@ const BlogsPage = () => {
                         cover={
                           <img
                             alt={blog.title}
-                            src={PlaceholderImage}
+                            src={getImageUrl(blog.imagepath)}
                             className="blog-image"
                           />
                         }
                       >
                         <Card.Meta
                           title={blog.title}
-                          description={`Published: ${new Date(
-                            blog.createdAt
-                          ).toLocaleDateString()}`}
+                          description={
+                            <>
+                              <p className="blog-description">
+                                {blog.description || "No description available for this blog."}
+                              </p>
+                              <p className="blog-published">
+                                Published: {new Date(blog.createdAt).toLocaleDateString()}
+                              </p>
+                            </>
+                          }
                         />
                       </Card>
                     </a>
