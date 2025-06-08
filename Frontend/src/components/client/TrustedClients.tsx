@@ -50,7 +50,7 @@ const OurTrustedClients: React.FC = () => {
                 x: {
                   repeat: Infinity,
                   repeatType: "loop",
-                  duration: validClients.length * 8, // Adjust speed based on number of logos
+                  duration: validClients.length * 2, // Adjust speed based on number of logos
                   ease: "linear",
                 },
               }}

@@ -12,8 +12,10 @@ interface DataType {
   key: string;
   id: number;
   title: string;
-  filename: string;
+  imagepath: string;
   filepath: string;
+  feature: boolean;
+  description: string;
 }
 
 const BlogsSetting = () => {
@@ -35,8 +37,10 @@ const BlogsSetting = () => {
         key: blog.id.toString(),
         id: blog.id,
         title: blog.title,
-        filename: blog.filename,
+        description: blog.description,
+        imagepath: blog.imagepath,
         filepath: blog.filepath,
+        feature: blog.feature,
       }));
       setData(fetchedData);
     } catch (error: unknown) {
@@ -143,7 +147,7 @@ const BlogsSetting = () => {
     {
       title: "SN",
       dataIndex: "sn",
-      render: (_: any, __: DataType, index: number) => index + 1, // Auto-increment starting from 1
+      render: (_: any, __: DataType, index: number) => index + 1,
     },
     {
       title: "Title",
@@ -151,19 +155,47 @@ const BlogsSetting = () => {
       key: "title",
     },
     {
-      title: "Filename",
-      dataIndex: "filename",
-      key: "filename",
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
     },
     {
-      title: "Filepath",
+      title: "Image",
+      dataIndex: "imagepath",
+      key: "imagepath",
+      render: (imagepath: string) => (
+        imagepath ? (
+          <img
+            src={`${apiUrl}/architecture-web-app${imagepath}`}
+            alt="Blog Image"
+            style={{ width: 50, height: 50, objectFit: "cover" }}
+          />
+        ) : (
+          <span>No Image</span>
+        )
+      ),
+    },
+    {
+      title: "File",
       dataIndex: "filepath",
       key: "filepath",
       render: (filepath: string) => (
-        <a href={`${apiUrl}/architecture-web-app${filepath}`}
-        target="_blank" rel="noopener noreferrer" className="client-link">
-          {filepath}
+        <a
+          href={`${apiUrl}/architecture-web-app${filepath}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="client-link"
+        >
+          View PDF
         </a>
+      ),
+    },
+    {
+      title: "Status",
+      dataIndex: "feature",
+      key: "feature",
+      render: (feature: boolean) => (
+        <span>{feature ? "True" : "False"}</span>
       ),
     },
     {
