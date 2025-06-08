@@ -44,11 +44,18 @@ const createTrustedClient = asyncHandler(async (req, res) => {
   });
 });
 
-const getAllTrustedClients = asyncHandler(async (req, res) => {
+const getAllTrustedClientsByFeature = asyncHandler(async (req, res) => {
   const clients = await TrustedClient.findAll({
     where: {
       feature: true,
     },
+    order: [["createdAt", "DESC"]],
+  });
+  return res.status(200).json({ success: true, data: clients });
+});
+
+const getAllTrustedClients = asyncHandler(async (req, res) => {
+  const clients = await TrustedClient.findAll({
     order: [["createdAt", "DESC"]],
   });
   return res.status(200).json({ success: true, data: clients });
@@ -158,4 +165,5 @@ module.exports = {
   getAllTrustedClients,
   updateTrustedClient,
   deleteTrustedClient,
+  getAllTrustedClientsByFeature,
 };
