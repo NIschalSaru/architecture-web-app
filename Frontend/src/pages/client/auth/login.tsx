@@ -245,14 +245,14 @@ const onFinish = async (values: LoginFormValues) => {
         <div className="form-container">
           <h2>LOGIN</h2>
           
-          <div className="social-buttons">
-            <Button shape="circle" icon={<GoogleOutlined />} />
+          {/* <div className="social-buttons"> */}
+            {/* <Button shape="circle" icon={<GoogleOutlined />} />
             <Button shape="circle" icon={<FacebookFilled />} />
             <Button shape="circle" icon={<GithubOutlined />} />
             <Button shape="circle" icon={<LinkedinFilled />} />
-          </div>
+          </div> */}
           
-          <p className="divider">or use your email account</p>
+          {/* <p className="divider">or use your email account</p> */}
 
           <Form
             form={form}

@@ -56,7 +56,6 @@ const Home = () => {
       <Layout>
         <ContactUsSection />
       </Layout>
-
       <ScrollToTop />
     </>
   );

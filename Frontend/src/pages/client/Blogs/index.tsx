@@ -23,7 +23,7 @@ interface BlogData {
 
 const BlogsPage = () => {
   const { loading, error, data } = useGetAPI<BlogData[]>(
-    "architecture-web-app/by-laws",
+    "architecture-web-app/by-laws/feature",
     true,
     true
   );
