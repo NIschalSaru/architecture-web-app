@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { User, MapPin, Ruler, Home, Clock, Mountain, Compass, Layers, ParkingCircle, FileText, ArrowRight, Mail, Phone } from "lucide-react";
 import usePostAPI from "../../../hooks/usePostAPI";
+import { apiUrl } from "../../../utils";
 
 interface BannerData {
   id: number;
   imageUrl: string;
+  filepath: string;
   heading: string;
   subHeading: string;
   description: string;
@@ -22,6 +24,11 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [form] = Form.useForm();
   const { postData, loading, error } = usePostAPI("architecture-web-app/forms");
+
+  // Function to construct full URL for the video
+  const getVideoUrl = (filepath: string) => {
+    return `${apiUrl}/architecture-web-app${filepath}`;
+  };
 
   const handleSubmit = async (values: any) => {
     try {
@@ -60,7 +67,17 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
   return (
     <div className="banner">
       <div>
-        <img src={bannerData.imageUrl} alt="Banner Image" />
+        <video 
+          autoPlay 
+          muted 
+          loop 
+          playsInline
+          className="banner-video"
+          // poster={bannerData.imageUrl}
+        >
+          <source src={getVideoUrl(bannerData.filepath)} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
         <div className="container">
           <div className="banner-info">
             <Title style={{ margin: "0" }} level={3}>
@@ -86,7 +103,14 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
 
         <div className="banner-ribbon">
           <Text className="ribbon-text">
-            We design and construct all types of buildings across Nepal with a skilled team of architects, engineers and construction technicians of respective fields.
+            <span className="service-item">.ARCHITECTURE</span>
+            <span className="service-item">.INTERIOR DESIGN</span>
+            <span className="service-item">.CONSTRUCTION</span>
+            <span className="service-item">.RENOVATION</span>
+            <span className="service-item">.SITE SUPERVISION</span>
+            <span className="service-item">.ESTIMATION</span>
+            <span className="service-item">.VAASTU CONSULTANTS</span>
+            <span className="service-item">.NAKSA PASS</span>
           </Text>
         </div>
 
@@ -98,7 +122,11 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
           width={600}
           className="booking-drawer"
         >
-          <h3><span style={{ color: '#ff4d4f' }}>*</span> (Required)</h3>
+          <div>
+          Note:
+            <span style={{ color: '#ff4d4f', fontSize: '1.125rem' }}> *</span>
+            <span style={{ color: '#ff4d4f', fontSize: '0.925rem' }}> चिन्हित स्थानहरू अनिवार्य रूपमा भरिनु पर्दछ।</span>
+          </div>
           <Form
             form={form}
             layout="vertical"
@@ -120,24 +148,6 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
               </Col>
               <Col span={12}>
                 <Form.Item
-                  name="email"
-                  label="Email"
-                  rules={[
-                    { required: true, message: "Please enter your email" },
-                    { type: "email", message: "Please enter a valid email" },
-                  ]}
-                >
-                  <Input
-                    prefix={<Mail className="form-icon" />}
-                    placeholder="Enter your email"
-                  />
-                </Form.Item>
-              </Col>
-            </Row>
-
-            <Row gutter={16}>
-              <Col span={12}>
-                <Form.Item
                   name="mobile"
                   label="Mobile"
                   rules={[{ required: true, message: "Please enter your mobile number" }]}
@@ -145,6 +155,25 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
                   <Input
                     prefix={<Phone className="form-icon" />}
                     placeholder="Enter your mobile number"
+                  />
+                </Form.Item>
+              </Col>
+              
+            </Row>
+
+            <Row gutter={16}>
+            <Col span={12}>
+                <Form.Item
+                  name="email"
+                  label="Email"
+                  rules={[
+                    // { required: true, message: "Please enter your email" },
+                    { type: "email", message: "Please enter a valid email" },
+                  ]}
+                >
+                  <Input
+                    prefix={<Mail className="form-icon" />}
+                    placeholder="Enter your email"
                   />
                 </Form.Item>
               </Col>

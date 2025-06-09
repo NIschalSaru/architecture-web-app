@@ -5,7 +5,7 @@ const Services: React.FC = () => {
   const navigate = useNavigate();
   const services = [
     {
-      icon: <ToolOutlined />,
+      icon: <BulbOutlined />,
       title: {
         nepali: 'डिजाइन र नगरपालिकाको प्रक्रिया',
         english: '(Design & Municipal Process)'
@@ -18,7 +18,7 @@ const Services: React.FC = () => {
       targetSection: 'design-process'
     },
     {
-      icon: <BulbOutlined />,
+      icon: <ToolOutlined />,
       title: {
         nepali: 'निर्माण प्रक्रिया',
         english: '(Construction Process)'
