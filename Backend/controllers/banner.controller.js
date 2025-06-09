@@ -3,77 +3,59 @@ const path = require("path");
 const dayjs = require("dayjs");
 const Banner = require("../model/banner.js");
 const { asyncHandler } = require("../services/async.handler.js");
-const { uploadSingleImage, deleteImage } = require("../services/cloudinary.js");
 
 const createOrUpdateBanner = asyncHandler(async (req, res) => {
   const { heading, subHeading, description } = req.body;
-  let imagePath = null;
-  let imageUrl = null;
+  const uploadedVideo = req.files?.video?.[0];
+  let videoPath = null;
   const banner = await Banner.findOne();
-  const uploadedImage = req.files?.image?.[0];
-  if (uploadedImage) {
-    if (banner) {
-      if (banner.filepath) {
-        const sanitizedPath = banner.filepath.replace(/^\/+/, "");
-        const oldLocalPath = path.join(
-          __dirname,
-          "..",
-          "storage",
-          sanitizedPath
-        );
-        if (fs.existsSync(oldLocalPath)) {
-          fs.unlinkSync(oldLocalPath);
-        }
-      }
-      if (banner.imageUrl) {
-        try {
-          await deleteImage(banner.imageUrl);
-        } catch (err) {
-          console.error("Cloudinary deletion failed:", err.message);
-        }
+  if (uploadedVideo) {
+    if (banner?.filepath) {
+      const sanitizedPath = banner.filepath.replace(/^\/+/, "");
+      const oldLocalPath = path.join(__dirname, "..", "storage", sanitizedPath);
+      if (fs.existsSync(oldLocalPath)) {
+        fs.unlinkSync(oldLocalPath);
       }
     }
     const folderName = dayjs().format("YYYYMMDD");
-    imagePath = `/uploads/${folderName}/${uploadedImage.filename}`;
-    const fullLocalPath = path.join(__dirname, "..", "storage", imagePath);
-    try {
-      const fileBuffer = fs.readFileSync(fullLocalPath);
-      imageUrl = await uploadSingleImage(fileBuffer, uploadedImage.filename);
-    } catch (err) {
-      return res.status(500).json({
-        message: "Cloudinary upload failed",
-        error: err.message,
-      });
-    }
+    videoPath = `/uploads/${folderName}/${uploadedVideo.filename}`;
   }
   if (banner) {
     banner.heading = heading;
     banner.subHeading = subHeading;
     banner.description = description;
-    if (imagePath) {
-      banner.filepath = imagePath;
-      banner.filename = uploadedImage.filename;
-    }
-    if (imageUrl) {
-      banner.imageUrl = imageUrl;
+    if (uploadedVideo) {
+      banner.filename = uploadedVideo.filename;
+      banner.filepath = videoPath;
     }
     await banner.save();
     return res.status(200).json({
       message: "Banner updated successfully",
-      data: banner,
+      data: {
+        heading: banner.heading,
+        subHeading: banner.subHeading,
+        description: banner.description,
+        filename: banner.filename,
+        filepath: banner.filepath,
+      },
     });
   }
   const newBanner = await Banner.create({
     heading,
     subHeading,
     description,
-    filename: uploadedImage?.filename || null,
-    filepath: imagePath || null,
-    imageUrl: imageUrl || null,
+    filename: uploadedVideo?.filename || null,
+    filepath: videoPath || null,
   });
   return res.status(201).json({
     message: "Banner created successfully",
-    data: newBanner,
+    data: {
+      heading: newBanner.heading,
+      subHeading: newBanner.subHeading,
+      description: newBanner.description,
+      filename: newBanner.filename,
+      filepath: newBanner.filepath,
+    },
   });
 });
 
