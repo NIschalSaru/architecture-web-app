@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import usePostAPI from "../../../hooks/usePostAPI";
 import ScrollToTop from "../../../components/client/ScrollToTop";
 import { Card } from "antd";
-
+import { motion } from "framer-motion";
 import Picture2 from "../../../assets/images/teamMember/Picture2.png";
 import Picture3 from "../../../assets/images/teamMember/Picture3.png";
 import Picture4 from "../../../assets/images/teamMember/Picture4.png";
@@ -272,39 +272,50 @@ const AboutUsPage = () => {
             {teamMembers.map((member) => (
               <Col xs={24} sm={12} lg={8} xl={6} key={member.id}>
                 <Card className="team-card" hoverable>
-                  <div className="team-image-container">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="team-image"
-                      onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src =
-                          "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial, sans-serif' font-size='16' fill='%23999' text-anchor='middle' dy='.3em'%3ETeam Member%3C/text%3E%3C/svg%3E";
-                      }}
-                    />
-                  </div>
+                  <motion.div
+                    initial={{ opacity: 0, translateY: 50 }}
+                    whileInView={{ opacity: 1, translateY: 0 }}
+                    transition={{
+                      duration: 0.6,
+                      delay: 0.2,
+                    }}
+                    viewport={{ once: true }}
+                  >
+                    <div className="team-image-container">
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        className="team-image"
+                        onError={(
+                          e: React.SyntheticEvent<HTMLImageElement>
+                        ) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src =
+                            "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial, sans-serif' font-size='16' fill='%23999' text-anchor='middle' dy='.3em'%3ETeam Member%3C/text%3E%3C/svg%3E";
+                        }}
+                      />
+                    </div>
 
-                  <div className="team-content">
-                    <Title level={4} className="team-name">
-                      {member.name}
-                    </Title>
-                    <div className="team-position">{member.position}</div>
-                    <div className="team-education">
+                    <div className="team-content">
+                      <Title level={4} className="team-name">
+                        {member.name}
+                      </Title>
+                      <div className="team-position">{member.position}</div>
                       <div className="team-education">
-                        {member.additionalInfo && (
-                          <p className="education-secondary">
-                            {member.additionalInfo}
-                          </p>
-                        )}
+                        <div className="team-education">
+                          {member.additionalInfo && (
+                            <p className="education-secondary">
+                              {member.additionalInfo}
+                            </p>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 </Card>
               </Col>
             ))}
           </Row>
-
           <Paragraph className="about-team">
             {" "}
             We specialize in the <b>design and construction</b> of diverse

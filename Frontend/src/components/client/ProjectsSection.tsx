@@ -116,15 +116,16 @@ const ProjectsSection = () => {
             ></div>
             <div className="project-content">
               <h2>
-                {project.title.split(" ").map((line: string, index: number) => (
+                {/* {project.title.split(" ").map((line: string, index: number) => (
                   <React.Fragment key={index}>
                     {line}
                     <br />
                   </React.Fragment>
-                ))}
+                ))} */}
+                {project.title}
               </h2>
               <p>{project.date}</p>
-              <p className="project-description">{project.description}</p>
+              {/* <p className="project-description">{project.description}</p> */}
               <a href={`/projects/${project.id}`} className="seemore">
                 See Project
               </a>

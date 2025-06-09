@@ -103,7 +103,7 @@ const Projects = () => {
         style={{
           backgroundImage: `url(${bgImage})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "top center",
           backgroundRepeat: "no-repeat",
           padding: "60px 0",
           minHeight: "100vh",
