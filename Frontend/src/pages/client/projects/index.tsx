@@ -5,6 +5,7 @@ import InnerHeader from "../../../components/client/InnerHeader";
 import axios from "axios";
 import { apiUrl } from "../../../utils";
 import bgImage from "../../../assets/images/blue.png"; // adjust path as needed
+import ScrollToTop from "../../../components/client/ScrollToTop";
 
 interface ProjectTypes {
   key: string;
@@ -209,6 +210,7 @@ const Projects = () => {
             </div>
           </div>
         </div>
+        <ScrollToTop />
       </section>
     </>
   );
