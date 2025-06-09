@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import InnerHeader from "../../../components/client/InnerHeader";
 import axios from "axios";
 import { apiUrl } from "../../../utils";
+import bgImage from "../../../assets/images/blue.png"; // adjust path as needed
 
 interface ProjectTypes {
   key: string;
@@ -96,10 +97,21 @@ const Projects = () => {
   return (
     <>
       <InnerHeader title="PROJECTS" currentPage="PROJECTS" />
-      <section className="project-area" id="project">
+      <section
+        className="project-area"
+        id="project"
+        style={{
+          backgroundImage: `url(${bgImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          padding: "60px 0",
+          minHeight: "100vh",
+        }}
+      >
         <div className="container">
           <motion.div
-            className="section-title text-center mb-5"
+            className="section-title"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -108,8 +120,9 @@ const Projects = () => {
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              Take a closer look at the ideas we've brought to life — each
-              project is a story of innovation, design, and impact
+              Take a closer look at the ideas we've brought{" "}
+              <p> to life — each project is a story of</p>
+              Innovation, Design, & Impact
             </motion.h2>
           </motion.div>
 
