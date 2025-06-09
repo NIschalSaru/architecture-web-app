@@ -7,10 +7,11 @@ import flowchartMunicipal from "../../../assets/images/Municipal-FlowChart.png";
 import step1DesignApproach from "../../../assets/images/DesignProcess-Step1.png";
 import step2DesignApproach from "../../../assets/images/DesignProcess-Step2.png";
 import step3DesignApproach from "../../../assets/images/DesignProcess-Step3.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useLocation } from "react-router-dom";
 
 const { Title, Paragraph } = Typography;
 
@@ -23,6 +24,7 @@ interface Service {
   stepTitles: string[];
   stepDescriptions: string[];
   features: string[];
+  id: string;
 }
 
 interface ModalSlide {
@@ -67,6 +69,18 @@ const CustomNextArrow: React.FC<ArrowProps> = (props) => {
 };
 
 const Services: React.FC = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Check if there's a hash in the URL
+    if (location.hash) {
+      const element = document.getElementById(location.hash.slice(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location]);
+
   const services: Service[] = [
     {
       title: "डिजाइन प्रक्रिया (Design Process)",
@@ -96,6 +110,7 @@ const Services: React.FC = () => {
         "Sustainable Architecture",
         "Interior Planning",
       ],
+      id: 'design-process'
     },
     {
       title: "नगरपालिकाको प्रक्रिया (Municipal Process)",
@@ -122,6 +137,7 @@ const Services: React.FC = () => {
         "Sustainable Architecture",
         "Interior Planning",
       ],
+      id: 'municipal-process'
     },
     {
       title: "निर्माण प्रक्रिया (Construction Process)",
@@ -148,6 +164,7 @@ const Services: React.FC = () => {
         "Energy Efficiency",
         "Modern Materials",
       ],
+      id: 'construction-process'
     },
     {
       title: "वास्तु शास्त्र (Vaastu Shastra)",
@@ -170,6 +187,7 @@ const Services: React.FC = () => {
         // "Final verification and certification of Vaastu compliance"
       ],
       features: ["Timeline Management", "Budget Control", "Quality Assurance"],
+      id: 'vaastu-shastra'
     },
   ];
 
@@ -235,6 +253,7 @@ const Services: React.FC = () => {
 
               return (
                 <div
+                  id={service.id}
                   className={`service-card-page ${index % 2 !== 0 ? "reverse" : ""} fade-in`}
                 >
                   <div className="image-side-page">
