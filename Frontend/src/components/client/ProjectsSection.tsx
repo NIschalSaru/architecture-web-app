@@ -17,7 +17,15 @@ const ProjectsSection = () => {
           `${apiUrl}/architecture-web-app/projects/get-projects`,
           { withCredentials: true }
         );
-        const projectData = response.data.data.map((project: any) => ({
+
+        const sortedProjects = response.data.data
+          .sort(
+            (a: any, b: any) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          )
+          .slice(0, 9); // Keep only the latest 10
+
+        const projectData = sortedProjects.map((project: any) => ({
           id: project.id,
           title: project.name || "Untitled Project",
           date: new Date(project.createdAt).toLocaleDateString(),
@@ -108,15 +116,16 @@ const ProjectsSection = () => {
             ></div>
             <div className="project-content">
               <h2>
-                {project.title.split(" ").map((line: string, index: number) => (
+                {/* {project.title.split(" ").map((line: string, index: number) => (
                   <React.Fragment key={index}>
                     {line}
                     <br />
                   </React.Fragment>
-                ))}
+                ))} */}
+                {project.title}
               </h2>
               <p>{project.date}</p>
-              <p className="project-description">{project.description}</p>
+              {/* <p className="project-description">{project.description}</p> */}
               <a href={`/projects/${project.id}`} className="seemore">
                 See Project
               </a>

@@ -98,6 +98,7 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
           width={600}
           className="booking-drawer"
         >
+          <h3><span style={{ color: '#ff4d4f' }}>*</span> (Required)</h3>
           <Form
             form={form}
             layout="vertical"

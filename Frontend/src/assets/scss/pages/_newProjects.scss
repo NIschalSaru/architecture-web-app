@@ -8,37 +8,6 @@
   --card-shadow: rgba(0, 0, 0, 0.06);
 }
 
-/* === PROJECT AREA === */
-.project-area {
-  // padding: 80px 0;
-  background: var(--light-bg);
-}
-
-/* === SECTION TITLE === */
-.section-title {
-  margin-bottom: 50px;
-}
-
-.section-title h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--primary-color);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  position: relative;
-  display: inline-block;
-}
-
-.section-title h2::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 4px;
-  background-color: var(--secondary-color);
-  margin: 12px auto 0;
-  border-radius: 3px;
-}
-
 /* === GRID LAYOUT === */
 .row {
   display: flex;

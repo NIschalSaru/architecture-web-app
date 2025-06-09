@@ -1,6 +1,8 @@
 import { ToolOutlined, BulbOutlined, ProjectOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
 const Services: React.FC = () => {
+  const navigate = useNavigate();
   const services = [
     {
       icon: <ToolOutlined />,
@@ -12,7 +14,8 @@ const Services: React.FC = () => {
         "Understanding of Client's Needs, Budget, and Vision",
         "Understanding Architectural, Structural Drawings, and 3D Photos & Videos",
         "Understanding the required documents for municipal drawings and the approval process"
-      ]
+      ],
+      targetSection: 'design-process'
     },
     {
       icon: <BulbOutlined />,
@@ -24,7 +27,8 @@ const Services: React.FC = () => {
         "Full-Time Contract: We manage materials, labor, and full supervision with 24/7 CCTV monitoring",
         "Half-Time Contract: Client provides materials, and we oversee labor and supervision",
         "Supervision Only Contract: Our engineers ensure quality and safety throughout the construction"
-      ]
+      ],
+      targetSection: 'construction-process'
     },
     {
       icon: <ProjectOutlined />,
@@ -36,9 +40,14 @@ const Services: React.FC = () => {
         "Brings Positive Energy",
         "Makes your space more comfortable",
         "Prevent future issues"
-      ]
+      ],
+      targetSection: 'vaastu-shastra'
     }
   ];
+
+  const handleServiceClick = (targetSection: string) => {
+    navigate(`/services#${targetSection}`);
+  };
 
   return (
     <section className="home-services-section">
@@ -54,7 +63,12 @@ const Services: React.FC = () => {
 
         <div className="home-services-grid">
           {services.map((service, index) => (
-            <div className="home-services-card" key={index}>
+            <div 
+              className="home-services-card" 
+              key={index}
+              onClick={() => handleServiceClick(service.targetSection)}
+              style={{ cursor: 'pointer' }}
+            >
               <div className="home-services-icon-wrapper">
                 <div className="home-services-icon-background"></div>
                 <div className="home-services-icon-outer">

@@ -9,12 +9,14 @@
   
   .left-section {
     width: 45%;
-    background: $secondary;
-    background-image: url("../images/login-pattern.jpg");
+    background: linear-gradient(135deg, #0066ff 0%, #4b0606 100%);
+    // background: black;
+    background-image: url("../svg/login4.svg");
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: cover;
-    // border-radius: 0 120px 120px 0;
+    background-size: contain;
+    border: 10px;
+    // border-right: 5px solid black;
     display: flex;
     align-items: center;
     justify-content: center;
