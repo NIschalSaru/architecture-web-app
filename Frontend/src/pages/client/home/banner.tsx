@@ -8,6 +8,7 @@ import {
   Row,
   Col,
   message,
+  Select,
 } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -15,7 +16,6 @@ import {
   User,
   MapPin,
   Ruler,
-  Home,
   Clock,
   Mountain,
   Compass,
@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import usePostAPI from "../../../hooks/usePostAPI";
 import { apiUrl } from "../../../utils";
+import useGetAPI from "../../../hooks/useGetAPI";
 
 interface BannerData {
   id: number;
@@ -42,12 +43,25 @@ interface BannerComponentProps {
   bannerData: BannerData;
 }
 
+interface ProjectType {
+  id: number;
+  title: string;
+  status: boolean;
+}
+
 const BannerComponent = ({ bannerData }: BannerComponentProps) => {
   const { Title, Text } = Typography;
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [form] = Form.useForm();
   const { postData, loading, error } = usePostAPI("architecture-web-app/forms");
+
+  // Fetch project types for the dropdown
+  const { data: projectTypes, loading: projectTypesLoading } = useGetAPI<ProjectType[]>(
+    "architecture-web-app/projects/project-types",
+    true,
+    true
+  );
 
   // Function to construct full URL for the video
   const getVideoUrl = (filepath: string) => {
@@ -199,6 +213,40 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
             <Row gutter={16}>
               <Col span={12}>
                 <Form.Item
+                  name="typeOfBuilding"
+                  label="Type of Building"
+                  rules={[{ required: true, message: "Please select Type of Building" }]}
+                >
+                  <Select
+                    // prefix={<HomeIcon/>}
+                    placeholder="Select building type"
+                    loading={projectTypesLoading}
+                    options={projectTypes?.map((type: ProjectType) => ({
+                      value: type.id,
+                      label: type.title,
+                    }))}
+                  />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="locationOfSite"
+                  label="Location of Site"
+                  rules={[
+                    { required: true, message: "Please enter Location of Site" },
+                  ]}
+                >
+                  <Input
+                    prefix={<MapPin className="form-icon" />}
+                    placeholder="Enter site location"
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Row gutter={16}>
+              <Col span={12}>
+                <Form.Item
                   name="email"
                   label="Email"
                   rules={[
@@ -213,29 +261,10 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item name="locationOfSite" label="Location of Site">
-                  <Input
-                    prefix={<MapPin className="form-icon" />}
-                    placeholder="Enter site location"
-                  />
-                </Form.Item>
-              </Col>
-            </Row>
-
-            <Row gutter={16}>
-              <Col span={12}>
                 <Form.Item name="siteArea" label="Site Area">
                   <Input
                     prefix={<Ruler className="form-icon" />}
                     placeholder="Enter site area (e.g., sq ft)"
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item name="typeOfBuilding" label="Type of Building">
-                  <Input
-                    prefix={<Home className="form-icon" />}
-                    placeholder="Enter building type (e.g., residential)"
                   />
                 </Form.Item>
               </Col>
@@ -354,7 +383,6 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
 };
 
 export default BannerComponent;
-
 // import { Button, Typography, Form, Input, Drawer, Checkbox, Row, Col } from "antd";
 // import { useNavigate } from "react-router-dom";
 // import { useState } from "react";
@@ -906,3 +934,4 @@ export default BannerComponent;
 // };
 
 // export default BannerComponent;
+

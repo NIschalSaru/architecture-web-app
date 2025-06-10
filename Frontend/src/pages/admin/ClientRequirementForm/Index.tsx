@@ -130,72 +130,72 @@ const ClientFormSetting = () => {
       dataIndex: "site_location",
       key: "site_location",
     },
-    {
-      title: "Site Area",
-      dataIndex: "site_area",
-      key: "site_area",
-    },
+    // {
+    //   title: "Site Area",
+    //   dataIndex: "site_area",
+    //   key: "site_area",
+    // },
     {
       title: "Building Type",
       dataIndex: "type_of_building",
       key: "type_of_building",
     },
-    {
-      title: "Project Duration",
-      dataIndex: "project_duration",
-      key: "project_duration",
-    },
-    {
-      title: "Access Road Width",
-      dataIndex: "access_road_width",
-      key: "access_road_width",
-    },
-    {
-      title: "Topography",
-      dataIndex: "topography",
-      key: "topography",
-    },
-    {
-      title: "Site Orientation",
-      dataIndex: "site_orientation",
-      key: "site_orientation",
-      render: (site_orientation: string[]) => site_orientation.join(", ") || "None",
-    },
-    {
-      title: "Orientation Details",
-      dataIndex: "site_orientation_details",
-      key: "site_orientation_details",
-    },
-    {
-      title: "FAR",
-      dataIndex: "FAR",
-      key: "FAR",
-    },
-    {
-      title: "GCR",
-      dataIndex: "GCR",
-      key: "GCR",
-    },
-    {
-      title: "Setback",
-      dataIndex: "setback",
-      key: "setback",
-    },
-    {
-      title: "No. of Floors",
-      dataIndex: "no_of_floor",
-      key: "no_of_floor",
-    },
-    {
-      title: "Parking Area",
-      dataIndex: "parking_area",
-      key: "parking_area",
-    },
-    {
-      title: "Room Requirements",
-      dataIndex: "room_requirements",
-      key: "room_requirements",
-    },
+    // {
+    //   title: "Project Duration",
+    //   dataIndex: "project_duration",
+    //   key: "project_duration",
+    // },
+    // {
+    //   title: "Access Road Width",
+    //   dataIndex: "access_road_width",
+    //   key: "access_road_width",
+    // },
+    // {
+    //   title: "Topography",
+    //   dataIndex: "topography",
+    //   key: "topography",
+    // },
+    // {
+    //   title: "Site Orientation",
+    //   dataIndex: "site_orientation",
+    //   key: "site_orientation",
+    //   render: (site_orientation: string[]) => site_orientation.join(", ") || "None",
+    // },
+    // {
+    //   title: "Orientation Details",
+    //   dataIndex: "site_orientation_details",
+    //   key: "site_orientation_details",
+    // },
+    // {
+    //   title: "FAR",
+    //   dataIndex: "FAR",
+    //   key: "FAR",
+    // },
+    // {
+    //   title: "GCR",
+    //   dataIndex: "GCR",
+    //   key: "GCR",
+    // },
+    // {
+    //   title: "Setback",
+    //   dataIndex: "setback",
+    //   key: "setback",
+    // },
+    // {
+    //   title: "No. of Floors",
+    //   dataIndex: "no_of_floor",
+    //   key: "no_of_floor",
+    // },
+    // {
+    //   title: "Parking Area",
+    //   dataIndex: "parking_area",
+    //   key: "parking_area",
+    // },
+    // {
+    //   title: "Room Requirements",
+    //   dataIndex: "room_requirements",
+    //   key: "room_requirements",
+    // },
     {
       title: "Action",
       key: "action",

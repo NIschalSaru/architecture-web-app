@@ -6,7 +6,6 @@ import { RouteList } from "../../../routes/routeList";
 import Logo from "../../../assets/images/LogoNew.png";
 import {
   MenuOutlined,
-  PhoneOutlined,
   WhatsAppOutlined,
   MailOutlined,
   EnvironmentOutlined,

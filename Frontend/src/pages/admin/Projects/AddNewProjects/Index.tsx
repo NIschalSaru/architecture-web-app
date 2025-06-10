@@ -342,21 +342,21 @@ const ProjectSetting = () => {
       dataIndex: ["client", "fullName"],
       key: "clientName",
     },
-    {
-      title: "Client Email",
-      dataIndex: ["client", "email"],
-      key: "clientEmail",
-    },
+    // {
+    //   title: "Client Email",
+    //   dataIndex: ["client", "email"],
+    //   key: "clientEmail",
+    // },
     {
       title: "Client Mobile",
       dataIndex: ["client", "mobile"],
       key: "clientMobile",
     },
-    {
-      title: "Client Address",
-      dataIndex: ["client", "address"],
-      key: "clientAddress",
-    },
+    // {
+    //   title: "Client Address",
+    //   dataIndex: ["client", "address"],
+    //   key: "clientAddress",
+    // },
     {
       title: "Action",
       key: "action",
