@@ -1,16 +1,19 @@
 import React, { useState, useCallback } from "react";
-import { Form, Input, Button, Row, Col } from "antd";
+import { Form, Input, Button, Row, Col, message } from "antd";
 import "../../assets/scss/components/_contactUsSection.scss";
 import bgImage from "../../assets/images/outlined3.png";
 import "linearicons/dist/web-font/style.css";
 import ApartmentIcon from "../../assets/svg/apt.svg";
 import PenIcon from "../../assets/svg/pen.svg";
 import BulbIcon from "../../assets/svg/bulb.svg";
+import usePostAPI from "../../hooks/usePostAPI";
 
 const ContactUsSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { TextArea } = Input;
-    // const contactRef = useRef(null);
+  const [form] = Form.useForm();
+  const { postData, loading, error } = usePostAPI("architecture-web-app/send-mail");
+
   // Updated mouse move handler to match YouTube section
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
@@ -26,8 +29,21 @@ const ContactUsSection: React.FC = () => {
     []
   );
 
-  const onFinish = (values: any) => {
-    console.log("Form values: ", values);
+  const onFinish = async (values: any) => {
+    try {
+      const requestData = {
+        fullname: values.name,
+        email: values.email,
+        description: values.message
+      };
+
+      await postData(requestData);
+      message.success("Message sent successfully!");
+      form.resetFields();
+    } catch (err) {
+      message.error("Failed to send message. Please try again.");
+      console.error("Form submission error:", err);
+    }
   };
 
   return (
@@ -87,7 +103,11 @@ const ContactUsSection: React.FC = () => {
             <h1 className="fade-in-right">FIND OUT THE PRICE OF YOUR HOME</h1>
             <h4 className="fade-in-right">We will contact you within 24 hours</h4>
             <div className="form-container">
-              <Form layout="vertical" onFinish={onFinish}>
+              <Form 
+                form={form}
+                layout="vertical" 
+                onFinish={onFinish}
+              >
                 <Form.Item
                   label="Full Name"
                   name="name"
@@ -105,38 +125,33 @@ const ContactUsSection: React.FC = () => {
                 >
                   <Input placeholder="Enter your email" />
                 </Form.Item>
-                {/* <Form.Item
-                  label="Message"
-                  name="message"
-                  rules={[{ required: true, message: "Please enter your message!" }]}
-                >
-                  <Input placeholder="Enter your message" />
-                </Form.Item> */}
                 <Form.Item
-                    name="message"
-                    label="Message"
-                    rules={[
-                      { required: true, message: "Please enter your message" },
-                    ]}
-                  >
-                    <TextArea
-                      rows={4}
-                      placeholder="Your Message"
-                      className="message-input"
-                    />
-                  </Form.Item>
+                  name="message"
+                  label="Message"
+                  rules={[
+                    { required: true, message: "Please enter your message" },
+                  ]}
+                >
+                  <TextArea
+                    rows={4}
+                    placeholder="Your Message"
+                    className="message-input"
+                  />
+                </Form.Item>
                 <Button 
                   type="primary" 
                   htmlType="submit"
-                  className="youtube-section__contact-button">
+                  className="youtube-section__contact-button"
+                  loading={loading}
+                >
                   Submit
                 </Button>
+                {error && <div className="error-message">{error}</div>}
               </Form>
             </div>
           </Col>
         </Row>
       </div>
-
 
       <div
         className="architecture-section__background"
