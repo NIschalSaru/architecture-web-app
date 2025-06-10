@@ -10,7 +10,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+
     @media (max-width: 767px) {
       flex-direction: column;
       gap: 10px;
@@ -20,14 +20,13 @@
   .contact-info {
     display: flex;
     gap: 20px;
-    
-    @media (max-width: 767px) {
-      flex-direction: column;
-      align-items: center;
-      gap: 5px;
+
+    @media (max-width: 1070px) and (min-width: 980px) {
+      gap: 10px;
     }
 
-    a, span {
+    a,
+    span {
       color: $white;
       font-size: 14px;
       display: flex;
@@ -48,7 +47,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-  
+
     a {
       width: 32px;
       height: 32px;
@@ -59,19 +58,34 @@
       border-radius: 50%;
       background-color: white;
       transition: all 0.3s ease;
-  
+
       img {
         width: 100%;
         height: 100%;
         object-fit: contain;
       }
-  
+
       &:hover {
         // background-color: rgba(255, 255, 255, 0.2);
         background-color: $secondary;
         transform: translateY(-1px);
       }
     }
+    @media (max-width: 1070px) and (min-width: 980px) {
+      color: red;
+      gap: 5px;
+    }
+    @media (max-width: 980px) and (min-width: 949px) {
+      // gap: 4px;
+      color: green;
+    }
+    // @media (max-width: 950px) and (min-width: 760px) {
+    //   gap: 4px;
+    //   color: orange;
+    //   span {
+    //     font-size: 12px;
+    //   }
+    // }
   }
 }
 
@@ -124,7 +138,7 @@
         transition: color 0.3s ease;
 
         &:hover {
-          color: rgba($secondary,0.50);
+          color: rgba($secondary, 0.5);
         }
       }
 
@@ -145,13 +159,24 @@
 
         .menuButton {
           padding: 0;
-          
+
           span svg {
             color: $white;
             font-size: 20px;
           }
         }
       }
+      @media (max-width: 1070px) and (min-width: 970px) {
+        padding: 0 10px;
+      }
+      @media (max-width: 970px) and (min-width: 880px) {
+        padding: 0 5px;
+      }
+    }
+  }
+  @media (max-width: 970px) and (min-width: 880px) {
+    .header-list {
+      margin: 0 0px;
     }
   }
 
@@ -162,7 +187,7 @@
       border: 2px solid $white;
       color: white;
       // border-color: $primary;
-      
+
       &:hover {
         border-color: $white;
         color: $white;

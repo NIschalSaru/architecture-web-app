@@ -1,7 +1,31 @@
-import { Button, Typography, Form, Input, Drawer, Checkbox, Row, Col, message } from "antd";
+import {
+  Button,
+  Typography,
+  Form,
+  Input,
+  Drawer,
+  Checkbox,
+  Row,
+  Col,
+  message,
+} from "antd";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { User, MapPin, Ruler, Home, Clock, Mountain, Compass, Layers, ParkingCircle, FileText, ArrowRight, Mail, Phone } from "lucide-react";
+import {
+  User,
+  MapPin,
+  Ruler,
+  Home,
+  Clock,
+  Mountain,
+  Compass,
+  Layers,
+  ParkingCircle,
+  FileText,
+  ArrowRight,
+  Mail,
+  Phone,
+} from "lucide-react";
 import usePostAPI from "../../../hooks/usePostAPI";
 import { apiUrl } from "../../../utils";
 
@@ -48,7 +72,9 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
         FAR: values.far,
         GCR: values.gcr,
         setback: values.setback,
-        no_of_floor: values.noOfFloorRequired ? parseInt(values.noOfFloorRequired, 10) : undefined,
+        no_of_floor: values.noOfFloorRequired
+          ? parseInt(values.noOfFloorRequired, 10)
+          : undefined,
         parking_area: values.basementOrParkingArea,
         room_requirements: values.roomRequirements,
       };
@@ -66,18 +92,18 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
 
   return (
     <div className="banner">
-      <div>
-        <video 
-          autoPlay 
-          muted 
-          loop 
+      <div className="video-wrapper">
+        <video
+          autoPlay
+          muted
+          loop
           playsInline
-          className="banner-video"
-          // poster={bannerData.imageUrl}
+          className="banner-video blur-video"
         >
           <source src={getVideoUrl(bannerData.filepath)} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
+
         <div className="container">
           <div className="banner-info">
             <Title style={{ margin: "0" }} level={3}>
@@ -123,9 +149,12 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
           className="booking-drawer"
         >
           <div>
-          Note:
-            <span style={{ color: '#ff4d4f', fontSize: '1.125rem' }}> *</span>
-            <span style={{ color: '#ff4d4f', fontSize: '0.925rem' }}> चिन्हित स्थानहरू अनिवार्य रूपमा भरिनु पर्दछ।</span>
+            Note:
+            <span style={{ color: "#ff4d4f", fontSize: "1.125rem" }}> *</span>
+            <span style={{ color: "#ff4d4f", fontSize: "0.925rem" }}>
+              {" "}
+              चिन्हित स्थानहरू अनिवार्य रूपमा भरिनु पर्दछ।
+            </span>
           </div>
           <Form
             form={form}
@@ -138,7 +167,9 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
                 <Form.Item
                   name="fullName"
                   label="Full Name"
-                  rules={[{ required: true, message: "Please enter your full name" }]}
+                  rules={[
+                    { required: true, message: "Please enter your full name" },
+                  ]}
                 >
                   <Input
                     prefix={<User className="form-icon" />}
@@ -150,7 +181,12 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
                 <Form.Item
                   name="mobile"
                   label="Mobile"
-                  rules={[{ required: true, message: "Please enter your mobile number" }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter your mobile number",
+                    },
+                  ]}
                 >
                   <Input
                     prefix={<Phone className="form-icon" />}
@@ -158,11 +194,10 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
                   />
                 </Form.Item>
               </Col>
-              
             </Row>
 
             <Row gutter={16}>
-            <Col span={12}>
+              <Col span={12}>
                 <Form.Item
                   name="email"
                   label="Email"
@@ -178,10 +213,7 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item
-                  name="locationOfSite"
-                  label="Location of Site"
-                >
+                <Form.Item name="locationOfSite" label="Location of Site">
                   <Input
                     prefix={<MapPin className="form-icon" />}
                     placeholder="Enter site location"
@@ -192,10 +224,7 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
 
             <Row gutter={16}>
               <Col span={12}>
-                <Form.Item
-                  name="siteArea"
-                  label="Site Area"
-                >
+                <Form.Item name="siteArea" label="Site Area">
                   <Input
                     prefix={<Ruler className="form-icon" />}
                     placeholder="Enter site area (e.g., sq ft)"
@@ -203,10 +232,7 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item
-                  name="typeOfBuilding"
-                  label="Type of Building"
-                >
+                <Form.Item name="typeOfBuilding" label="Type of Building">
                   <Input
                     prefix={<Home className="form-icon" />}
                     placeholder="Enter building type (e.g., residential)"
@@ -217,10 +243,7 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
 
             <Row gutter={16}>
               <Col span={12}>
-                <Form.Item
-                  name="projectDuration"
-                  label="Project Duration"
-                >
+                <Form.Item name="projectDuration" label="Project Duration">
                   <Input
                     prefix={<Clock className="form-icon" />}
                     placeholder="Enter project duration (e.g., months)"
@@ -228,10 +251,7 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item
-                  name="accessRoadWidth"
-                  label="Access Road Width"
-                >
+                <Form.Item name="accessRoadWidth" label="Access Road Width">
                   <Input
                     prefix={<Ruler className="form-icon" />}
                     placeholder="Enter road width (e.g., ft)"
@@ -242,10 +262,7 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
 
             <Row gutter={16}>
               <Col span={12}>
-                <Form.Item
-                  name="topography"
-                  label="Topography"
-                >
+                <Form.Item name="topography" label="Topography">
                   <Input
                     prefix={<Mountain className="form-icon" />}
                     placeholder="Enter topography (e.g., flat, sloped)"
@@ -279,28 +296,19 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
 
             <div className="form-fieldset">
               <div className="fieldset-legend">By Laws</div>
-              <Form.Item
-                name="far"
-                label="FAR"
-              >
+              <Form.Item name="far" label="FAR">
                 <Input
                   prefix={<FileText className="form-icon" />}
                   placeholder="Enter FAR"
                 />
               </Form.Item>
-              <Form.Item
-                name="gcr"
-                label="GCR"
-              >
+              <Form.Item name="gcr" label="GCR">
                 <Input
                   prefix={<FileText className="form-icon" />}
                   placeholder="Enter GCR"
                 />
               </Form.Item>
-              <Form.Item
-                name="setback"
-                label="Setback"
-              >
+              <Form.Item name="setback" label="Setback">
                 <Input
                   prefix={<FileText className="form-icon" />}
                   placeholder="Enter setback"
@@ -310,10 +318,7 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
 
             <div className="form-fieldset">
               <div className="fieldset-legend">Requirements</div>
-              <Form.Item
-                name="noOfFloorRequired"
-                label="No. of Floor Required"
-              >
+              <Form.Item name="noOfFloorRequired" label="No. of Floor Required">
                 <Input
                   type="number"
                   prefix={<Layers className="form-icon" />}
@@ -331,14 +336,8 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
               </Form.Item>
             </div>
 
-            <Form.Item
-              name="roomRequirements"
-              label="Room Requirements"
-            >
-              <Input.TextArea
-                placeholder="Enter room requirements"
-                rows={5}
-              />
+            <Form.Item name="roomRequirements" label="Room Requirements">
+              <Input.TextArea placeholder="Enter room requirements" rows={5} />
             </Form.Item>
 
             <Form.Item className="submit-button">
@@ -355,21 +354,6 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
 };
 
 export default BannerComponent;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import { Button, Typography, Form, Input, Drawer, Checkbox, Row, Col } from "antd";
 // import { useNavigate } from "react-router-dom";
@@ -636,18 +620,6 @@ export default BannerComponent;
 
 // export default BannerComponent;
 
-
-
-
-
-
-
-
-
-
-
-
-
 // import { Button, Typography, Form, Input, Drawer } from "antd";
 // import { useNavigate } from "react-router-dom";
 // import { useState } from "react";
@@ -787,13 +759,6 @@ export default BannerComponent;
 // };
 
 // export default BannerComponent;
-
-
-
-
-
-
-
 
 // import { Button, Typography, Form, Input, Drawer } from "antd";
 // import { useNavigate } from "react-router-dom";
