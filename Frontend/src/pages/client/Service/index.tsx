@@ -48,7 +48,7 @@ const Services: React.FC = () => {
     },
     {
       title: "नक्सा पास",
-      description: "Comprehensive design and construction for hospitality and entertainment venues.",
+      description: "Comprehensive design and construction for hospitality and entertainment venues.Comprehensive design and construction for hospitality and entertainment venues.Comprehensive design and construction for hospitality and entertainment venues.",
       image: NaksaPass,
       features: ["Luxury Designs", "Functional Layouts", "Outdoor Spaces"],
       id: "map-pass",
@@ -173,9 +173,9 @@ const Services: React.FC = () => {
               </li>
             ))}
           </ul>
-          <Button type="primary" className="learn-more-btn-page">
+          {/* <Button type="primary" className="learn-more-btn-page">
             Learn More
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>

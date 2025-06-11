@@ -330,15 +330,15 @@
 }
 
 .blur-video {
-  filter: blur(10px);
+  filter: blur(2px);
   /*Adjustthebluramountasneeded*/
   width: 100%;
   height: auto;
   object-fit: cover;
   /*Optional:;
   forfull-coverlayout*/
-  -webkit-filter: blur(1px);
-  -webkit-filter: blur(10px);
+  // -webkit-filter: blur(1px);
+  // -webkit-filter: blur(10px);
 }
 
 .video-wrapper {

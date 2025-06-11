@@ -9,31 +9,16 @@ import LoadingSpinner from "../../../../components/client/LoadingSpinner";
 import DeleteModal from "./DeleteModal";
 
 interface ClientFormData {
-  id: string;
-  key: string;
-  fullName: string;
-  email: string;
-  mobile: string;
-  site_location: string;
-  site_area: string;
-  type_of_building: string;
-  project_duration: string;
-  access_road_width: string;
-  topography: string;
-  site_orientation_details: string;
-  site_orientation: string[];
-  FAR: string;
-  GCR: string;
-  setback: string;
-  no_of_floor: number;
-  parking_area: string;
-  room_requirements: string;
-  status: string;
+  id: number;
+  name: string;
+  phone: string;
+  requirements: string;
+  services: string;
   createdAt: string;
 }
 
 const ClientFormSetting = () => {
-  const { data, loading, error } = useGetAPI<ClientFormData[]>("architecture-web-app/forms");
+  const { data, loading, error } = useGetAPI<ClientFormData[]>("architecture-web-app/contact-us");
   // const { postData } = usePostAPI("/architecture-web-app/forms");
   // const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
@@ -50,17 +35,17 @@ const ClientFormSetting = () => {
 
   const handleDeleteClick = (record: ClientFormData) => {
     setEditingRecord(record);
-    setRecordName(record.fullName);
+    setRecordName(record.name);
     setDeleteModalVisible(true);
   };
 
   const handleDeleteConfirm = async () => {
     setPageLoading(true);
     try {
-      await axios.delete(`${apiUrl}/architecture-web-app/forms/${editingRecord?.id}`, {
+      await axios.delete(`${apiUrl}/architecture-web-app/contact-us/${editingRecord?.id}`, {
         withCredentials: true,
       });
-      message.success(`${editingRecord?.fullName} has been deleted`);
+      message.success(`${editingRecord?.name} has been deleted`);
       setDeleteModalVisible(false);
     } catch (err) {
       message.error("Error deleting client form");
@@ -77,23 +62,23 @@ const ClientFormSetting = () => {
     },
     {
       title: "Full Name/Location",
-      dataIndex: "fullName",
-      key: "fullName",
+      dataIndex: "name",
+      key: "name",
     },
     {
       title: "Contact Number",
-      dataIndex: "email",
-      key: "email",
+      dataIndex: "phone",
+      key: "phone",
     },
     {
       title: "Project Requirements",
-      dataIndex: "mobile",
-      key: "mobile",
+      dataIndex: "requirements",
+      key: "requirements",
     },
     {
       title: "Services From Design to Constructions",
-      dataIndex: "site_location",
-      key: "site_location",
+      dataIndex: "services",
+      key: "services",
     },
     {
       title: "Action",
@@ -119,7 +104,7 @@ const ClientFormSetting = () => {
         <LoadingSpinner />
       ) : (
         <div>
-          <div className="dashboard-Headings">Client Requirement Form</div>
+          <div className="dashboard-Headings">Client Contact Us Form</div>
           <Table<ClientFormData>
             columns={columns}
             dataSource={data?.map((item) => ({ ...item, key: item.id.toString() })) || []}

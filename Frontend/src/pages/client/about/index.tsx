@@ -27,7 +27,7 @@ interface TeamMember {
 const AboutUsPage = () => {
   const { TextArea } = Input;
   const { Title, Paragraph } = Typography;
-  const { loading, postData } = usePostAPI("/architecture-web-app/contact-us");
+  const { loading, postData } = usePostAPI("architecture-web-app/contact-us");
   const [form] = Form.useForm();
   const contactRef = useRef(null);
   const location = useLocation();
@@ -118,7 +118,7 @@ const AboutUsPage = () => {
     try {
       const response = await postData(values);
       if (response) {
-        message.success("Your message has been sent successfully!");
+        message.success("Form Submitted Successfully.");
         form.resetFields();
       }
     } catch (error) {
