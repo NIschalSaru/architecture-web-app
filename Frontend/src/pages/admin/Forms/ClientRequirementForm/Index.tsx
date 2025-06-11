@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Table, message, Button, Space, Tooltip } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons"; //PlusOutlined
-import useGetAPI from "../../../hooks/useGetAPI";
+import useGetAPI from "../../../../hooks/useGetAPI";
 // import usePostAPI from "../../../hooks/usePostAPI"; // Assuming you have this from previous interactions
 import axios from "axios";
-import { apiUrl } from "../../../utils";
-import LoadingSpinner from "../../../components/client/LoadingSpinner";
+import { apiUrl } from "../../../../utils";
+import LoadingSpinner from "../../../../components/client/LoadingSpinner";
 import UpdateModal from "./UpdateModal";
 import DeleteModal from "./DeleteModal";
 

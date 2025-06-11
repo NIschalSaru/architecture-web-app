@@ -7,42 +7,81 @@ const Services: React.FC = () => {
     {
       icon: <BulbOutlined />,
       title: {
-        nepali: 'डिजाइन र नगरपालिकाको प्रक्रिया',
-        english: '(Design & Municipal Process)'
+        nepali: 'नयाँ नक्सा डिजाइन',
+        english: '(New Map Design)'
       },
       description: [
         "Understanding of Client's Needs, Budget, and Vision",
         "Understanding Architectural, Structural Drawings, and 3D Photos & Videos",
         "Understanding the required documents for municipal drawings and the approval process"
       ],
-      targetSection: 'design-process'
+      targetSection: 'map-design'
     },
     {
       icon: <ToolOutlined />,
       title: {
-        nepali: 'निर्माण प्रक्रिया',
-        english: '(Construction Process)'
+        nepali: 'नक्सा पास',
+        english: '(Map Pass)'
       },
       description: [
         "Full-Time Contract: We manage materials, labor, and full supervision with 24/7 CCTV monitoring",
         "Half-Time Contract: Client provides materials, and we oversee labor and supervision",
         "Supervision Only Contract: Our engineers ensure quality and safety throughout the construction"
       ],
-      targetSection: 'construction-process'
+      targetSection: 'map-pass'
     },
     {
       icon: <ProjectOutlined />,
       title: {
-        nepali: 'वास्तु शास्त्र',
-        english: '(Vaastu Shastra)'
+        nepali: 'पुरानो घरलाई  नयाँ लूक्स',
+        english: '(Old house new looks)'
       },
       description: [
         "Brings Positive Energy",
         "Makes your space more comfortable",
         "Prevent future issues"
       ],
-      targetSection: 'vaastu-shastra'
+      targetSection: 'old-new'
     }
+    // {
+    //   icon: <BulbOutlined />,
+    //   title: {
+    //     nepali: 'डिजाइन र नगरपालिकाको प्रक्रिया',
+    //     english: '(Design & Municipal Process)'
+    //   },
+    //   description: [
+    //     "Understanding of Client's Needs, Budget, and Vision",
+    //     "Understanding Architectural, Structural Drawings, and 3D Photos & Videos",
+    //     "Understanding the required documents for municipal drawings and the approval process"
+    //   ],
+    //   targetSection: 'design-process'
+    // },
+    // {
+    //   icon: <ToolOutlined />,
+    //   title: {
+    //     nepali: 'निर्माण प्रक्रिया',
+    //     english: '(Construction Process)'
+    //   },
+    //   description: [
+    //     "Full-Time Contract: We manage materials, labor, and full supervision with 24/7 CCTV monitoring",
+    //     "Half-Time Contract: Client provides materials, and we oversee labor and supervision",
+    //     "Supervision Only Contract: Our engineers ensure quality and safety throughout the construction"
+    //   ],
+    //   targetSection: 'construction-process'
+    // },
+    // {
+    //   icon: <ProjectOutlined />,
+    //   title: {
+    //     nepali: 'वास्तु शास्त्र',
+    //     english: '(Vaastu Shastra)'
+    //   },
+    //   description: [
+    //     "Brings Positive Energy",
+    //     "Makes your space more comfortable",
+    //     "Prevent future issues"
+    //   ],
+    //   targetSection: 'vaastu-shastra'
+    // }
   ];
 
   const handleServiceClick = (targetSection: string) => {

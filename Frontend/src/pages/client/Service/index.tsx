@@ -1,7 +1,13 @@
 import { Button, Typography } from "antd";
 import ScrollToTop from "../../../components/client/ScrollToTop";
 import { InnerHeader } from "../../../components/client/InnerHeader";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
+import NayaNaksa from '../../../assets/images/Services/service-nayanaksa.png';
+import NaksaPass from '../../../assets/images/Services/services-NaksaPass.jpg';
+import OldHouseNewLooks1 from '../../../assets/images/Services/services-oldhousenewlooks1.jpg';
+import OldHouseNewLooks2 from '../../../assets/images/Services/services-oldhousenewlooks2.jpg';
 import InteriorDesign from '../../../assets/images/Services/service-InteriorDesign.jpg';
 import HotelResort from '../../../assets/images/Services/service-HotelResort.png';
 import gharCollection1 from '../../../assets/images/Services/service-gharCollection1.jpg';
@@ -31,20 +37,43 @@ interface CardProps {
 }
 
 const Services: React.FC = () => {
+  const location = useLocation();
   const services: Service[] = [
+    {
+      title: "नयाँ नक्सा डिजाइन",
+      description: "Expert interior finishing services to enhance your living spaces with modern designs and high-quality materials.",
+      image: NayaNaksa,
+      features: ["Custom Designs", "High-Quality Materials", "Modern Aesthetics"],
+      id: "map-design",
+    },
+    {
+      title: "नक्सा पास",
+      description: "Comprehensive design and construction for hospitality and entertainment venues.",
+      image: NaksaPass,
+      features: ["Luxury Designs", "Functional Layouts", "Outdoor Spaces"],
+      id: "map-pass",
+    },
+    {
+      title: "पुरानो घरलाई  नयाँ लूक्स ",
+      description: "End-to-end solutions for constructing complex residential and commercial buildings.",
+      image: OldHouseNewLooks1,
+      image2: OldHouseNewLooks2,
+      features: ["Structural Integrity", "Modern Techniques", "Timely Completion"],
+      id: "old-new",
+    },
     {
       title: "Interior Finishing",
       description: "Expert interior finishing services to enhance your living spaces with modern designs and high-quality materials.",
       image: InteriorDesign,
       features: ["Custom Designs", "High-Quality Materials", "Modern Aesthetics"],
-      id: "interior-finishing",
+      id: "",
     },
     {
       title: "Hotel, Resort, Party Palace, Restaurant & Cafe",
       description: "Comprehensive design and construction for hospitality and entertainment venues.",
       image: HotelResort,
       features: ["Luxury Designs", "Functional Layouts", "Outdoor Spaces"],
-      id: "hotel-resort",
+      id: "",
     },
     {
       title: "Complex Building Construction",
@@ -52,39 +81,65 @@ const Services: React.FC = () => {
       image: gharCollection1,
       image2: gharCollection2,
       features: ["Structural Integrity", "Modern Techniques", "Timely Completion"],
-      id: "complex-construction",
+      id: "",
     },
     {
       title: "Site Measurement, Supervision & Land Survey",
       description: "Accurate site measurements and land surveys to ensure precise construction planning.",
       image: siteMeasurement,
       features: ["Detailed Surveys", "Expert Supervision", "Precision Planning"],
-      id: "site-survey",
+      id: "",
     },
     {
       title: "Estimating & Costing",
       description: "Detailed cost estimation and budgeting for your construction projects.",
       image: estimation,
       features: ["Accurate Estimates", "Cost Management", "Budget Planning"],
-      id: "estimating-costing",
+      id: "",
     },
     {
       title: "Property Valuation",
       description: "Professional property valuation services to determine accurate market value.",
       image: evaluation,
       features: ["Market Analysis", "Expert Valuation", "Detailed Reports"],
-      id: "property-valuation",
+      id: "",
     },
   ];
 
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const serviceDetailRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    // Check if there's a hash in the URL
+    if (location.hash) {
+      const serviceId = location.hash.slice(1); // Remove the # from the hash
+      const service = services.find(s => s.id === serviceId);
+      if (service) {
+        setSelectedService(service);
+        // Add a small delay to ensure the component has rendered
+        setTimeout(() => {
+          if (serviceDetailRef.current) {
+            serviceDetailRef.current.scrollIntoView({ 
+              behavior: "smooth",
+              block: "start"
+            });
+          }
+        }, 100);
+      }
+    }
+  }, [location.hash]);
+
   const handleServiceClick = (service: Service) => {
     setSelectedService(service);
-    if (serviceDetailRef.current) {
-      serviceDetailRef.current.scrollIntoView({ behavior: "smooth" });
-    }
+    // Add a small delay to ensure the component has rendered
+    setTimeout(() => {
+      if (serviceDetailRef.current) {
+        serviceDetailRef.current.scrollIntoView({ 
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    }, 100);
   };
 
   const Card: React.FC<CardProps> = ({ title, description, image, image2, features }) => (

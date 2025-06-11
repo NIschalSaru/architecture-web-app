@@ -8,7 +8,7 @@ import {
   Row,
   Col,
   message,
-  Select,
+  Select
 } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -24,7 +24,7 @@ import {
   FileText,
   ArrowRight,
   Mail,
-  Phone,
+  Phone
 } from "lucide-react";
 import usePostAPI from "../../../hooks/usePostAPI";
 import { apiUrl } from "../../../utils";
@@ -216,15 +216,17 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
                   name="typeOfBuilding"
                   label="Type of Building"
                   rules={[{ required: true, message: "Please select Type of Building" }]}
+                  // style={{ height: '500%' }}
                 >
                   <Select
-                    // prefix={<HomeIcon/>}
+                    // prefix={<HomeOutlined/>}
                     placeholder="Select building type"
                     loading={projectTypesLoading}
                     options={projectTypes?.map((type: ProjectType) => ({
                       value: type.id,
                       label: type.title,
                     }))}
+                    
                   />
                 </Form.Item>
               </Col>
@@ -383,6 +385,16 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
 };
 
 export default BannerComponent;
+
+
+
+
+
+
+
+
+
+
 // import { Button, Typography, Form, Input, Drawer, Checkbox, Row, Col } from "antd";
 // import { useNavigate } from "react-router-dom";
 // import { useState } from "react";
