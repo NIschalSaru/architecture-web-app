@@ -16,6 +16,7 @@ import TrustedClientsSection from "../../../components/client/TrustedClients.tsx
 interface BannerData {
   id: number;
   imageUrl: string;
+  filepath: string;
   heading: string;
   subHeading: string;
   description: string;

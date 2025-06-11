@@ -27,19 +27,19 @@ const YouTubeVideoSection: React.FC = () => {
       icon: Building2,
       number: 7,
       title: "Years",
-      description: "We have been working in the industry since 2011.",
+      description: "We have been working in the industry since 2018.",
     },
     {
       icon: Trophy,
-      number: 54,
+      number: 500,
       title: "Projects",
-      description: "To this day, we have designed 54 residential projects.",
+      description: "To this day, we have designed more than 500 projects.",
     },
     {
       icon: Award,
-      number: 11,
+      number: 65,
       title: "Awards",
-      description: "Spectrum has been awarded for creativity many times.",
+      description: "NDNB has been awarded for its work and ethics many times.",
     },
   ];
 
@@ -55,9 +55,9 @@ const YouTubeVideoSection: React.FC = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              AWARD-WINNING
+              EXPERTISE IN ARCHITECTURE
               <br />
-              ARCHITECTURE COMPANY
+              AND CONSTRUCTION
             </motion.h3>
 
             <motion.h6
@@ -67,7 +67,7 @@ const YouTubeVideoSection: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
             >
-              WE DELIVER THE BEST SOLUTIONS
+              सम्पूर्ण भवनहरुको  भित्रि तथा बाहिरी भागको नक्सा देखि निर्माण सम्म
             </motion.h6>
 
             <motion.div
@@ -123,8 +123,9 @@ const YouTubeVideoSection: React.FC = () => {
                   <div className="youtube-section__stat-content">
                     <div className="youtube-section__stat-header">
                       <span className="youtube-section__stat-number">
-                        {stat.number}
+                        {stat.number}<span className="plus-icon">+</span>
                       </span>
+
                       <span className="youtube-section__stat-title">
                         {stat.title}
                       </span>

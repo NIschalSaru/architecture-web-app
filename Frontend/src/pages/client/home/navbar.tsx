@@ -1,13 +1,15 @@
-import {
-  Button,
-  Drawer,
-  Layout,
-} from "antd";
+import { Button, Drawer, Layout } from "antd";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { RouteList } from "../../../routes/routeList";
-import Logo from "../../../assets/images/Nepal-Designers-Builders-Logo.png";
-import { MenuOutlined, PhoneOutlined, MailOutlined, EnvironmentOutlined } from "@ant-design/icons";
+// import Logo from "../../../assets/images/Nepal-Designers-Builders-Logo.png";
+import Logo from "../../../assets/images/LogoNew.png";
+import {
+  MenuOutlined,
+  WhatsAppOutlined,
+  MailOutlined,
+  EnvironmentOutlined,
+} from "@ant-design/icons";
 // import { isAuthenticated } from "../../../API/auth";
 import fb from "../../../assets/svg/facebook.svg";
 import yt from "../../../assets/svg/youtube.svg";
@@ -16,6 +18,8 @@ import ig from "../../../assets/svg/instagram.svg";
 import tk from "../../../assets/svg/tiktok.svg";
 import up from "../../../assets/svg/upwork.svg";
 import x from "../../../assets/svg/x.svg";
+import bm from "../../../assets/svg/Buildmost.png";
+import { FaPhoneAlt } from "react-icons/fa";
 
 const { Header } = Layout;
 
@@ -68,23 +72,77 @@ const NavbarComponent: React.FC = () => {
           <div className="top-bar-content">
             <div className="contact-info">
               <a href="tel:+01 12345567890">
-                <PhoneOutlined />  +977-9851340040
+                <FaPhoneAlt /> +977-9851340040
+              </a>
+              <a href="tel:+01 12345567890">
+                <WhatsAppOutlined />
+                9851356590
               </a>
               <a href="mailto:demo@gmail.com">
-                <MailOutlined />  contact@ndnb.com.np
+                <MailOutlined /> contact@ndnb.com.np
               </a>
               <span>
                 <EnvironmentOutlined /> Kalanki, Kathmandu
               </span>
             </div>
             <div className="social-links">
-              <a href="#" className="facebook"><img src={fb} alt="facebook"></img></a>
-              <a href="#" className="Instagram"><img src={ig} alt="Instagram"></img></a>
-              <a href="#" className="Youtube"><img src={yt} alt="Youtube"></img></a>
-              <a href="#" className="Tiktok"><img src={tk} alt="Tiktok"></img></a>
-              <a href="#" className="linkedin"><img src={ld} alt="Linkedin"></img></a>
-              <a href="#" className="Upwork"><img src={up} alt="Upwork"></img></a>
-              <a href="#" className="X"><img src={x} alt="X"></img></a>
+              <span>Find us In : </span>
+              <a
+                href="https://www.facebook.com/profile.php?id=100084983644282"
+                className="facebook"
+                target="_blank"
+              >
+                <img src={fb} alt="facebook"></img>
+              </a>
+              <a
+                href="https://www.instagram.com/nepaldesignerss/"
+                className="Instagram"
+                target="_blank"
+              >
+                <img src={ig} alt="Instagram"></img>
+              </a>
+              <a
+                href="https://www.linkedin.com/company/89506724/admin/dashboard/"
+                className="linkedin"
+                target="_blank"
+              >
+                <img src={ld} alt="Linkedin"></img>
+              </a>
+              <a
+                href="https://www.youtube.com/@nepaldesignersandbuilders"
+                className="Youtube"
+                target="_blank"
+              >
+                <img src={yt} alt="Youtube"></img>
+              </a>
+              <a
+                href="https://www.tiktok.com/@nepal_designers_builders"
+                className="Tiktok"
+                target="_blank"
+              >
+                <img src={tk} alt="Tiktok"></img>
+              </a>
+              <a
+                href="https://www.upwork.com/freelancers/~01d3a235158e98bbbe"
+                className="Upwork"
+                target="_blank"
+              >
+                <img src={up} alt="Upwork"></img>
+              </a>
+              <a
+                href="https://x.com/nepaldesigners"
+                className="X"
+                target="_blank"
+              >
+                <img src={x} alt="X"></img>
+              </a>
+              <a
+                href="https://www.buildmost.com/design_provider/design_provider_interior_109900_109078.html?designType=DESIGNTYPE_HARD"
+                className="X"
+                target="_blank"
+              >
+                <img src={bm} alt="X"></img>
+              </a>
             </div>
           </div>
         </div>
@@ -98,7 +156,7 @@ const NavbarComponent: React.FC = () => {
                 <img src={Logo} alt="Nepal Designers and Builders Logo" />
               </Link>
             </div>
-            
+
             <ul className="header-list">
               {RouteList.map((route) => (
                 <li key={route.label} className="menuButtonListDesk">
@@ -115,19 +173,19 @@ const NavbarComponent: React.FC = () => {
             </ul>
 
             <div className="auth-section">
-                {/* <Link to="/admin">
+              {/* <Link to="/admin">
                   <Button size="large" ghost>
                     Admin
                   </Button>
                 </Link> */}
-                <Link to="/admin">
+              <Link to="/admin">
                 {/* <Link to="/about#contact-us"> */}
-                  <Button size="large" ghost>
-                    {/* Contact Us */}
-                    Login
-                  </Button>
-                </Link>
-                {/* <Link to="/login">
+                <Button size="large" ghost>
+                  {/* Contact Us */}
+                  Login
+                </Button>
+              </Link>
+              {/* <Link to="/login">
                   <Button size="large" ghost>
                     Login
                   </Button>
