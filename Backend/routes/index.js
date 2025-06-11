@@ -18,6 +18,6 @@ router.use("/projects", projectRoute);
 router.use("/forms", clientFormRoutes);
 router.use("/our-clients", trustedClient);
 router.use("/by-laws", byLaws);
-router.use("/contact-form", clientContactForm);
+router.use("/contact-us", clientContactForm);
 
 module.exports = router;
