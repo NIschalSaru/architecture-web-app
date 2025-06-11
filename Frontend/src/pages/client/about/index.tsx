@@ -269,53 +269,59 @@ const AboutUsPage = () => {
           </div>
 
           <Row gutter={[24, 32]} className="team-grid">
-            {teamMembers.map((member) => (
-              <Col xs={24} sm={12} lg={8} xl={6} key={member.id}>
-                <Card className="team-card" hoverable>
-                  <motion.div
-                    initial={{ opacity: 0, translateY: 50 }}
-                    whileInView={{ opacity: 1, translateY: 0 }}
-                    transition={{
-                      duration: 0.6,
-                      delay: 0.2,
-                    }}
-                    viewport={{ once: true }}
-                  >
-                    <div className="team-image-container">
-                      <img
-                        src={member.image}
-                        alt={member.name}
-                        className="team-image"
-                        onError={(
-                          e: React.SyntheticEvent<HTMLImageElement>
-                        ) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src =
-                            "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial, sans-serif' font-size='16' fill='%23999' text-anchor='middle' dy='.3em'%3ETeam Member%3C/text%3E%3C/svg%3E";
-                        }}
-                      />
-                    </div>
+            {teamMembers.map((member, index) => {
+              const isLastRow =
+                teamMembers.length % 4 !== 0 &&
+                index >= teamMembers.length - (teamMembers.length % 4);
 
-                    <div className="team-content">
-                      <Title level={4} className="team-name">
-                        {member.name}
-                      </Title>
-                      <div className="team-position">{member.position}</div>
-                      <div className="team-education">
-                        <div className="team-education">
-                          {member.additionalInfo && (
-                            <p className="education-secondary">
-                              {member.additionalInfo}
-                            </p>
-                          )}
-                        </div>
+              return (
+                <Col
+                  xs={24}
+                  sm={12}
+                  lg={8}
+                  xl={6}
+                  key={member.id}
+                  className={isLastRow ? "last-row-item" : ""}
+                >
+                  <Card className="team-card" hoverable>
+                    <motion.div
+                      initial={{ opacity: 0, translateY: 50 }}
+                      whileInView={{ opacity: 1, translateY: 0 }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                      viewport={{ once: true }}
+                    >
+                      <div className="team-image-container">
+                        <img
+                          src={member.image}
+                          alt={member.name}
+                          className="team-image"
+                          onError={(
+                            e: React.SyntheticEvent<HTMLImageElement>
+                          ) => {
+                            const target = e.target as HTMLImageElement;
+                            target.src =
+                              "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial, sans-serif' font-size='16' fill='%23999' text-anchor='middle' dy='.3em'%3ETeam Member%3C/text%3E%3C/svg%3E";
+                          }}
+                        />
                       </div>
-                    </div>
-                  </motion.div>
-                </Card>
-              </Col>
-            ))}
+                      <div className="team-content">
+                        <Title level={4} className="team-name">
+                          {member.name}
+                        </Title>
+                        <div className="team-position">{member.position}</div>
+                        {member.additionalInfo && (
+                          <p className="education-secondary">
+                            {member.additionalInfo}
+                          </p>
+                        )}
+                      </div>
+                    </motion.div>
+                  </Card>
+                </Col>
+              );
+            })}
           </Row>
+
           <Paragraph className="about-team">
             {" "}
             We specialize in the <b>design and construction</b> of diverse

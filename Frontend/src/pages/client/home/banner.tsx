@@ -29,7 +29,7 @@ import {
 import usePostAPI from "../../../hooks/usePostAPI";
 import { apiUrl } from "../../../utils";
 import useGetAPI from "../../../hooks/useGetAPI";
-
+import bgVideo from "../../../assets/videos/BannerVideo.mp4"; // Adjust path as needed
 interface BannerData {
   id: number;
   imageUrl: string;
@@ -57,11 +57,9 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
   const { postData, loading, error } = usePostAPI("architecture-web-app/forms");
 
   // Fetch project types for the dropdown
-  const { data: projectTypes, loading: projectTypesLoading } = useGetAPI<ProjectType[]>(
-    "architecture-web-app/projects/project-types",
-    true,
-    true
-  );
+  const { data: projectTypes, loading: projectTypesLoading } = useGetAPI<
+    ProjectType[]
+  >("architecture-web-app/projects/project-types", true, true);
 
   // Function to construct full URL for the video
   const getVideoUrl = (filepath: string) => {
@@ -114,7 +112,8 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
           playsInline
           className="banner-video blur-video"
         >
-          <source src={getVideoUrl(bannerData.filepath)} type="video/mp4" />
+          {/* <source src={getVideoUrl(bannerData.filepath)} type="video/mp4" /> */}
+          <source src={bgVideo} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 
@@ -215,7 +214,12 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
                 <Form.Item
                   name="typeOfBuilding"
                   label="Type of Building"
-                  rules={[{ required: true, message: "Please select Type of Building" }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please select Type of Building",
+                    },
+                  ]}
                 >
                   <Select
                     // prefix={<HomeIcon/>}
@@ -233,7 +237,10 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
                   name="locationOfSite"
                   label="Location of Site"
                   rules={[
-                    { required: true, message: "Please enter Location of Site" },
+                    {
+                      required: true,
+                      message: "Please enter Location of Site",
+                    },
                   ]}
                 >
                   <Input
@@ -934,4 +941,3 @@ export default BannerComponent;
 // };
 
 // export default BannerComponent;
-

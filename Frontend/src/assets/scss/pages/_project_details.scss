@@ -455,6 +455,20 @@
   padding-left: 0.6rem;
 }
 
+.sections-heading {
+  font-size: 2rem;
+  font-weight: 200;
+  height: 35vh;
+  margin-bottom: 1.2rem;
+  color: #be1e2d;
+  // border-left: 3px solid #222;
+  padding-left: 0.6rem;
+}
+
+.sections-heading p {
+  line-height: 0;
+}
+
 .detail-card-row-4 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
