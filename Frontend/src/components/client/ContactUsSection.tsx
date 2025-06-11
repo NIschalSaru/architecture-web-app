@@ -12,7 +12,7 @@ const ContactUsSection: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { TextArea } = Input;
   const [form] = Form.useForm();
-  const { postData, loading, error } = usePostAPI("architecture-web-app/send-mail");
+  const { postData, loading/*, error*/ } = usePostAPI("architecture-web-app/send-mail");
 
   // Updated mouse move handler to match YouTube section
   const handleMouseMove = useCallback(
@@ -38,7 +38,7 @@ const ContactUsSection: React.FC = () => {
       };
 
       await postData(requestData);
-      message.success("Message sent successfully!");
+      // message.success("Message sent successfully!");
       form.resetFields();
     } catch (err) {
       message.error("Failed to send message. Please try again.");
@@ -146,7 +146,7 @@ const ContactUsSection: React.FC = () => {
                 >
                   Submit
                 </Button>
-                {error && <div className="error-message">{error}</div>}
+                {/* {error && <div className="error-message">{error}</div>} */}
               </Form>
             </div>
           </Col>

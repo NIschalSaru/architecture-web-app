@@ -18,7 +18,8 @@ import ProjectDetails from "../pages/client/projects/projectDetails";
 import CategorizeProjects from "../pages/client/projects/catagorizeProjects";
 // import AddProject from "../pages/admin/Projects/AddNewProjects/AddProject";
 import ProjectSettings from "../pages/admin/Projects/AddNewProjects/Index";
-import ClientReqForm from "../pages/admin/ClientRequirementForm/Index";
+import ClientReqForm from "../pages/admin/Forms/ClientRequirementForm/Index";
+import ClientContactForm from "../pages/admin/Forms/ClientContactUsForm/Index";
 import TrustedClient from "../pages/admin/TrustedClients/Index";
 import BlogsAdmin from "../pages/admin/Blogs/Index";
 import Blogs from "../pages/client/Blogs/index";
@@ -73,6 +74,7 @@ const RouteConfig = () => {
             {/* <Route path="add-project/:project_id" element={<AddProject />} /> */}
             <Route path="projects-settings" element={<ProjectSettings />} />
             <Route path="Client-Requirement-Form" element={<ClientReqForm />} />
+            <Route path="Client-Contact-Form" element={<ClientContactForm />} />
             <Route path="trusted-clients" element={<TrustedClient />} />
             <Route path="blogs" element={<BlogsAdmin />} />
           </Route>

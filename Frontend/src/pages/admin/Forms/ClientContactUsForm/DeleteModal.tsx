@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button } from "antd";
-import LoadingSpinner from "../../../components/client/LoadingSpinner";
+import LoadingSpinner from "../../../../components/client/LoadingSpinner";
 
 interface DeleteModalProps {
   visible: boolean;

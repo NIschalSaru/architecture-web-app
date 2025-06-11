@@ -52,12 +52,24 @@ const items = [
   {
     key: "trusted-clients",
     icon: <UserOutlined />,
-    label: "Clients Settings",
+    label: "Trusted Clients Settings",
   },
   {
-    key: "Client-Requirement-Form",
+    key: "Forms",
     icon: <UserOutlined />,
-    label: "Client Requirement Form",
+    label: "Form Settings",
+    children: [
+      {
+        key: "Client-Requirement-Form",
+        icon: <FolderAddOutlined />,
+        label: "Client Requirement Form",
+      },
+      {
+        key: "Client-Contact-Form",
+        icon: <TeamOutlined />,
+        label: "Contact Us Form",
+      }
+    ],
   },
   {
     key: "blogs",

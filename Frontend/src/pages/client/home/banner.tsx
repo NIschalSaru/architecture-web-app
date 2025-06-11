@@ -220,9 +220,10 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
                       message: "Please select Type of Building",
                     },
                   ]}
+                  // style={{ height: '500%' }}
                 >
                   <Select
-                    // prefix={<HomeIcon/>}
+                    // prefix={<HomeOutlined/>}
                     placeholder="Select building type"
                     loading={projectTypesLoading}
                     options={projectTypes?.map((type: ProjectType) => ({
@@ -390,6 +391,7 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
 };
 
 export default BannerComponent;
+
 // import { Button, Typography, Form, Input, Drawer, Checkbox, Row, Col } from "antd";
 // import { useNavigate } from "react-router-dom";
 // import { useState } from "react";

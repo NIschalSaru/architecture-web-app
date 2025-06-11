@@ -3,7 +3,7 @@ import { Modal, Form, Input, Checkbox, Button, Row, Col } from "antd";
 import {
   Mail
 } from "lucide-react";
-import LoadingSpinner from "../../../components/client/LoadingSpinner";
+import LoadingSpinner from "../../../../components/client/LoadingSpinner";
 
 interface UpdateModalProps {
   visible: boolean;

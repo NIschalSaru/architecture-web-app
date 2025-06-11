@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Button, Col, Form, Input, Row, Typography } from "antd";
+import { Button, Col, Form, Input, Row, Typography, message } from "antd";
 import { useLocation } from "react-router-dom";
 import usePostAPI from "../../../hooks/usePostAPI";
 import ScrollToTop from "../../../components/client/ScrollToTop";
@@ -27,7 +27,7 @@ interface TeamMember {
 const AboutUsPage = () => {
   const { TextArea } = Input;
   const { Title, Paragraph } = Typography;
-  const { loading, postData } = usePostAPI("consultancy/email/send-email");
+  const { loading, postData } = usePostAPI("architecture-web-app/contact-us");
   const [form] = Form.useForm();
   const contactRef = useRef(null);
   const location = useLocation();
@@ -116,10 +116,14 @@ const AboutUsPage = () => {
 
   const onFinish = async (values: any) => {
     try {
-      await postData(values);
-      form.resetFields();
+      const response = await postData(values);
+      if (response) {
+        message.success("Form Submitted Successfully.");
+        form.resetFields();
+      }
     } catch (error) {
       console.error("Error submitting Contact Us:", error);
+      message.error("Failed to send message. Please try again later.");
     }
   };
 
@@ -434,7 +438,7 @@ const AboutUsPage = () => {
                     <Input size="large" placeholder="Your Name / Location" />
                   </Form.Item>
                   <Form.Item
-                    name="email"
+                    name="phone"
                     label="Contact Number"
                     rules={[
                       {
@@ -446,7 +450,7 @@ const AboutUsPage = () => {
                     <Input size="large" placeholder="Your Contact Number" />
                   </Form.Item>
                   <Form.Item
-                    name="message"
+                    name="requirements"
                     label="Tell us about your project requirements:"
                     rules={[
                       {
@@ -462,7 +466,7 @@ const AboutUsPage = () => {
                     />
                   </Form.Item>
                   <Form.Item
-                    name="message1"
+                    name="services"
                     label="What Kind of services do you want from design to construction?"
                     rules={[
                       {
