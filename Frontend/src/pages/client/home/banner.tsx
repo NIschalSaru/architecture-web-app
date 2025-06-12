@@ -29,7 +29,7 @@ import {
 import usePostAPI from "../../../hooks/usePostAPI";
 // import { apiUrl } from "../../../utils";
 import useGetAPI from "../../../hooks/useGetAPI";
-import bgVideo from "../../../assets/videos/BannerVideo.mp4";
+import bgVideo from "../../../assets/Videos/BannerVideo.mp4"; // Adjust path as needed
 
 interface BannerData {
   id: number;
