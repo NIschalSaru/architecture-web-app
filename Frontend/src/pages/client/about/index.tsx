@@ -118,7 +118,7 @@ const AboutUsPage = () => {
     try {
       const response = await postData(values);
       if (response) {
-        message.success("Form Submitted Successfully.");
+        // message.success("Form Submitted Successfully.");
         form.resetFields();
       }
     } catch (error) {

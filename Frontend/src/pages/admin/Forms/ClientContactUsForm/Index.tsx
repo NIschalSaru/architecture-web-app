@@ -18,7 +18,8 @@ interface ClientFormData {
 }
 
 const ClientFormSetting = () => {
-  const { data, loading, error } = useGetAPI<ClientFormData[]>("architecture-web-app/contact-us");
+  const [refreshKey, setRefreshKey] = useState(0);
+  const { data, loading, error } = useGetAPI<ClientFormData[]>(`architecture-web-app/contact-us?refresh=${refreshKey}`);
   // const { postData } = usePostAPI("/architecture-web-app/forms");
   // const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
@@ -37,6 +38,7 @@ const ClientFormSetting = () => {
     setEditingRecord(record);
     setRecordName(record.name);
     setDeleteModalVisible(true);
+    
   };
 
   const handleDeleteConfirm = async () => {
@@ -47,6 +49,7 @@ const ClientFormSetting = () => {
       });
       message.success(`${editingRecord?.name} has been deleted`);
       setDeleteModalVisible(false);
+      setRefreshKey(prev => prev + 1);
     } catch (err) {
       message.error("Error deleting client form");
     } finally {

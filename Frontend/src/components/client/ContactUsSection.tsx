@@ -1,11 +1,16 @@
 import React, { useState, useCallback } from "react";
 import { Form, Input, Button, Row, Col, message } from "antd";
+// import { Building2, Home, Building } from "lucide-react";
+// import { motion } from "framer-motion";
 import "../../assets/scss/components/_contactUsSection.scss";
 import bgImage from "../../assets/images/outlined3.png";
 import "linearicons/dist/web-font/style.css";
-import ApartmentIcon from "../../assets/svg/apt.svg";
-import PenIcon from "../../assets/svg/pen.svg";
-import BulbIcon from "../../assets/svg/bulb.svg";
+// import ApartmentIcon from "../../assets/svg/apt.svg";
+// import PenIcon from "../../assets/svg/pen.svg";
+// import BulbIcon from "../../assets/svg/bulb.svg";
+import InteriorDesign from '../../assets/images/Services/service-InteriorDesign.jpg';
+import HotelResort from '../../assets/images/Services/service-HotelResort.png';
+import gharCollection1 from '../../assets/images/Services/service-gharCollection1.jpg';
 import usePostAPI from "../../hooks/usePostAPI";
 
 const ContactUsSection: React.FC = () => {
@@ -14,16 +19,12 @@ const ContactUsSection: React.FC = () => {
   const [form] = Form.useForm();
   const { postData, loading/*, error*/ } = usePostAPI("architecture-web-app/send-mail");
 
-  // Updated mouse move handler to match YouTube section
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
       const container = e.currentTarget;
       const { left, top, width, height } = container.getBoundingClientRect();
-
-      // Calculate mouse position relative to container center
       const x = (e.clientX - left) / width - 0.5;
       const y = (e.clientY - top) / height - 0.5;
-
       setMousePosition({ x, y });
     },
     []
@@ -46,55 +47,43 @@ const ContactUsSection: React.FC = () => {
     }
   };
 
+  const servicesData = [
+    {
+      title: "Interior Finishing",
+      description: "Expert interior finishing services to enhance your living spaces with modern designs and high-quality materials.",
+      icon: InteriorDesign
+    },
+    {
+      title: "Hotel, Resort, Party Palace, Restaurant & Cafe",
+      description: "Comprehensive design and construction for hospitality and entertainment venues.",
+      icon: HotelResort
+    },
+    {
+      title: "Complex Building Construction",
+      description: "End-to-end solutions for constructing complex residential and commercial buildings.",
+      icon: gharCollection1
+    }
+  ];
+
   return (
     <section className="architecture-section" onMouseMove={handleMouseMove} id='home-contact'>
       <div className="container">
-        <Row
-          gutter={[50, 50]}
-          align="middle"
-          justify="space-between"
-          className="content-row"
-        >
-          {/* Left Section */}
-          <Col xs={28} md={12} lg={6} className="info-box">
-            <div className="info-item fade-in-left">
-              <div className="icon-container">
-                <div className="icon">
-                  <img src={ApartmentIcon} alt="Apartment Icon" />
+        <Row className="content-row">
+          <Col xs={28} md={12} lg={8} className="info-box">
+            <div className="youtube-section__stats">
+              {servicesData.map((service, index) => (
+                <div key={index} className="youtube-section__stat-card">
+                  <div className="youtube-section__stat-icon">
+                    <img src={service.icon} alt={service.title} />
+                  </div>
+                  <div className="youtube-section__stat-content">
+                    <div className="youtube-section__stat-header">
+                      <h3 className="youtube-section__stat-title">{service.title}</h3>
+                    </div>
+                    <p className="youtube-section__stat-description">{service.description}</p>
+                  </div>
                 </div>
-                <h5 className="icon-text">Architecture</h5>
-              </div>
-              <div className="info-content">
-                <p>We provide high-quality architecture services.</p>
-              </div>
-            </div>
-            <div
-              className="info-item fade-in-left"
-              style={{ animationDelay: "0.05s" }}
-            >
-              <div className="icon-container">
-                <div className="icon">
-                  <img src={PenIcon} alt="Pen Icon" />
-                </div>
-                <h5 className="icon-text">Interior Design</h5>
-              </div>
-              <div className="info-content">
-                <p>Our team offers unique and stylish architecture solutions.</p>
-              </div>
-            </div>
-            <div
-              className="info-item fade-in-left"
-              style={{ animationDelay: "0.1s" }}
-            >
-              <div className="icon-container">
-                <div className="icon">
-                  <img src={BulbIcon} alt="Bulb Icon" />
-                </div>
-                <h5 className="icon-text">Lighting Design</h5>
-              </div>
-              <div className="info-content">
-                <p>Let our team design unique lighting for your home.</p>
-              </div>
+              ))}
             </div>
           </Col>
 
