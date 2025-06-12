@@ -35,7 +35,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
 
   return (
     <Modal
-      title="Confirm Deletion"
+      title="Delete Blogs"
       open={visible}
       onCancel={onCancel}
       footer={[

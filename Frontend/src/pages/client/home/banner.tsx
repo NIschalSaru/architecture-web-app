@@ -8,7 +8,7 @@ import {
   Row,
   Col,
   message,
-  Select
+  Select,
 } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -24,11 +24,12 @@ import {
   FileText,
   ArrowRight,
   Mail,
-  Phone
+  Phone,
 } from "lucide-react";
 import usePostAPI from "../../../hooks/usePostAPI";
-import { apiUrl } from "../../../utils";
+// import { apiUrl } from "../../../utils";
 import useGetAPI from "../../../hooks/useGetAPI";
+import bgVideo from "../../../assets/videos/BannerVideo.mp4"; // Adjust path as needed
 
 interface BannerData {
   id: number;
@@ -57,16 +58,14 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
   const { postData, loading, error } = usePostAPI("architecture-web-app/forms");
 
   // Fetch project types for the dropdown
-  const { data: projectTypes, loading: projectTypesLoading } = useGetAPI<ProjectType[]>(
-    "architecture-web-app/projects/project-types",
-    true,
-    true
-  );
+  const { data: projectTypes, loading: projectTypesLoading } = useGetAPI<
+    ProjectType[]
+  >("architecture-web-app/projects/project-types", true, true);
 
   // Function to construct full URL for the video
-  const getVideoUrl = (filepath: string) => {
-    return `${apiUrl}/architecture-web-app${filepath}`;
-  };
+  // const getVideoUrl = (filepath: string) => {
+  //   return `${apiUrl}/architecture-web-app${filepath}`;
+  // };
 
   const handleSubmit = async (values: any) => {
     try {
@@ -114,7 +113,8 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
           playsInline
           className="banner-video blur-video"
         >
-          <source src={getVideoUrl(bannerData.filepath)} type="video/mp4" />
+          {/* <source src={getVideoUrl(bannerData.filepath)} type="video/mp4" /> */}
+          <source src={bgVideo} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 
@@ -143,14 +143,14 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
 
         <div className="banner-ribbon">
           <Text className="ribbon-text">
-            <span className="service-item">.ARCHITECTURE</span>
-            <span className="service-item">.INTERIOR DESIGN</span>
-            <span className="service-item">.CONSTRUCTION</span>
-            <span className="service-item">.RENOVATION</span>
-            <span className="service-item">.SITE SUPERVISION</span>
-            <span className="service-item">.ESTIMATION</span>
-            <span className="service-item">.VAASTU CONSULTANTS</span>
-            <span className="service-item">.NAKSA PASS</span>
+            <span className="service-item">ARCHITECTURE</span>
+            <span className="service-item">INTERIOR DESIGN</span>
+            <span className="service-item">CONSTRUCTION</span>
+            <span className="service-item">RENOVATION</span>
+            <span className="service-item">SITE SUPERVISION</span>
+            <span className="service-item">ESTIMATION</span>
+            <span className="service-item">VAASTU CONSULTANTS</span>
+            <span className="service-item">NAKSA PASS</span>
           </Text>
         </div>
 
@@ -215,7 +215,12 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
                 <Form.Item
                   name="typeOfBuilding"
                   label="Type of Building"
-                  rules={[{ required: true, message: "Please select Type of Building" }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please select Type of Building",
+                    },
+                  ]}
                   // style={{ height: '500%' }}
                 >
                   <Select
@@ -226,7 +231,6 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
                       value: type.id,
                       label: type.title,
                     }))}
-                    
                   />
                 </Form.Item>
               </Col>
@@ -235,7 +239,10 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
                   name="locationOfSite"
                   label="Location of Site"
                   rules={[
-                    { required: true, message: "Please enter Location of Site" },
+                    {
+                      required: true,
+                      message: "Please enter Location of Site",
+                    },
                   ]}
                 >
                   <Input
@@ -385,15 +392,6 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
 };
 
 export default BannerComponent;
-
-
-
-
-
-
-
-
-
 
 // import { Button, Typography, Form, Input, Drawer, Checkbox, Row, Col } from "antd";
 // import { useNavigate } from "react-router-dom";
@@ -946,4 +944,3 @@ export default BannerComponent;
 // };
 
 // export default BannerComponent;
-

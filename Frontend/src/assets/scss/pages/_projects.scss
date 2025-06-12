@@ -10,10 +10,12 @@
   --overlay-bg: rgba(0, 0, 0, 0.6);
   --transition: all 0.3s ease;
 }
+$hover-color-slider: #be1e2d;
 
 .project-area {
-  padding: 60px 0;
+  padding: 0px 0;
   min-height: 100vh;
+  background-color: #fdf9f8;
 }
 
 .section-title {
@@ -21,11 +23,35 @@
 }
 
 .section-title h2 {
-  font-size: 2.7rem;
-  font-weight: 700;
-  color: var(--secondary-color);
+  font-size: 5rem;
+  padding-top: 20px;
+  font-weight: 400;
+  color: var(--primary-color);
+
   margin-bottom: 10px;
   position: relative;
+}
+
+.heading-with-line {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  white-space: nowrap;
+}
+
+.heading-with-line span {
+  display: inline-block;
+}
+
+.heading-with-line::before {
+  content: none; /* Ensure no left line appears */
+}
+
+.heading-with-line::after {
+  content: "";
+  flex-grow: 1;
+  height: 1px;
+  background-color: #ccc; /* Or your desired line color */
 }
 
 /* Project Layout */
@@ -169,7 +195,7 @@
 
 @media (max-width: 480px) {
   .section-title h2 {
-    font-size: 2rem;
+    font-size: 2.1rem;
   }
 
   .client-item img {

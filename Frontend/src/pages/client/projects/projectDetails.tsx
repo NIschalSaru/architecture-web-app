@@ -160,35 +160,28 @@ const ProjectDetails = () => {
                   </div>
                 </div>
               </div>
-              <div className="project-details-overview">
-                <div className="project-details__content-right">
-                  <div className="project-details__details-box pb-30">
-                    <h3 className="section-heading">Project Overview</h3>
-                    <div className="detail-card-row-4">
-                      <div className="details-card">
-                        <p className="details-label">Project</p>
-                        <h4 className="details-value">{client.fullName}</h4>
-                      </div>
-                      <div className="details-card">
-                        <p className="details-label">Location</p>
-                        <h4 className="details-value">
-                          {client.project.location}
-                        </h4>
-                      </div>
-                      <div className="details-card">
-                        <p className="details-label">Built-Up Area</p>
-                        <h4 className="details-value">
-                          {client.project.site_area}
-                        </h4>
-                      </div>
-                      <div className="details-card">
-                        <p className="details-label">Completed</p>
-                        <h4 className="details-value">2021</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <table className="project-details-table">
+                <tbody>
+                  <tr>
+                    <td className="details-label">Project</td>
+                    <td className="details-value">{client.fullName}</td>
+                  </tr>
+                  <tr>
+                    <td className="details-label">Location</td>
+                    <td className="details-value">{client.project.location}</td>
+                  </tr>
+                  <tr>
+                    <td className="details-label">Built-Up Area</td>
+                    <td className="details-value">
+                      {client.project.site_area}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="details-label">Completed</td>
+                    <td className="details-value">2021</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             {/* Right Column - Image Gallery */}
 

@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import InnerHeader from "../../../components/client/InnerHeader";
 import axios from "axios";
 import { apiUrl } from "../../../utils";
-import bgImage from "../../../assets/images/blue.png"; // adjust path as needed
 import ScrollToTop from "../../../components/client/ScrollToTop";
 
 interface ProjectTypes {
@@ -101,14 +100,14 @@ const Projects = () => {
       <section
         className="project-area"
         id="project"
-        style={{
-          backgroundImage: `url(${bgImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "top center",
-          backgroundRepeat: "no-repeat",
-          padding: "60px 0",
-          minHeight: "100vh",
-        }}
+        // style={{
+        //   backgroundImage: `url(${bgImage})`,
+        //   backgroundSize: "cover",
+        //   backgroundPosition: "top center",
+        //   backgroundRepeat: "no-repeat",
+        //   padding: "60px 0",
+        //   minHeight: "100vh",
+        // }}
       >
         <div className="container">
           <motion.div
@@ -117,14 +116,12 @@ const Projects = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <motion.h2
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              Take a closer look at the ideas we've brought{" "}
-              <p> to life — each project is a story of</p>
-              Innovation, Design, & Impact
-            </motion.h2>
+            <div className="sections-heading">
+              <h2 className="heading-with-line">
+                <span>Discover our craft.</span>
+              </h2>
+              <p>— Explore everything that makes us NDNB.</p>
+            </div>
           </motion.div>
 
           <div className="project-layout">

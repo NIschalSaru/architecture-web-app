@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button } from "antd";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 import LoadingSpinner from "../../../../components/client/LoadingSpinner";
 
 interface DeleteModalProps {
@@ -9,13 +10,20 @@ interface DeleteModalProps {
   recordName: string;
 }
 
-const DeleteModal: React.FC<DeleteModalProps> = ({ visible, onCancel, onConfirm, recordName }) => {
-  const [loading, setLoading] = useState<boolean>(false);
+const DeleteModal: React.FC<DeleteModalProps> = ({
+  visible,
+  onCancel,
+  onConfirm,
+  recordName,
+}) => {
+  const [loading, setLoading] = useState(false);
 
   const handleConfirm = async () => {
     try {
       setLoading(true);
       await onConfirm();
+    } catch (error) {
+      console.error("Error during deletion:", error);
     } finally {
       setLoading(false);
     }
@@ -31,17 +39,38 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ visible, onCancel, onConfirm,
       open={visible}
       onCancel={onCancel}
       footer={[
-        <Button key="back" onClick={onCancel} disabled={loading}>
+        <Button
+          key="cancel"
+          onClick={onCancel}
+          disabled={loading}
+          className="cancel-btn"
+        >
           Cancel
         </Button>,
-        <Button className="delete-btn" key="submit" type="primary" danger onClick={handleConfirm} disabled={loading}>
+        <Button
+          key="confirm"
+          type="primary"
+          danger
+          onClick={handleConfirm}
+          disabled={loading}
+          className="delete-btn"
+        >
           Delete
         </Button>,
       ]}
-      className="testimonial-modal"
+      width={500}
+      className="testimonial-modal delete-modal"
       destroyOnClose
     >
-      <p>Are you sure you want to delete the client form for "<strong>{recordName}</strong>"?</p>
+      <div className="delete-content">
+        <ExclamationCircleOutlined className="warning-icon" />
+        <p className="delete-message">
+          Are you sure you want to delete <strong>{recordName}</strong>?
+        </p>
+        <p className="delete-warning">
+          This action cannot be undone.
+        </p>
+      </div>
     </Modal>
   );
 };
