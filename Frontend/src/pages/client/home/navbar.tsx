@@ -209,6 +209,72 @@ const NavbarComponent: React.FC = () => {
               </li>
             ))}
           </ul>
+          <hr className="mobile-divider" />
+          <div className="top-barr mobile-top-bar">
+            <h1>Contact Us</h1>
+            <div className="contact-information">
+              <a className="con" href="tel:+9779851340040">
+                <FaPhoneAlt /> +977-9851340040
+              </a>
+              <a className="con" href="tel:+9779851356590">
+                <WhatsAppOutlined />
+                9851356590
+              </a>
+              <a className="con" href="mailto:contact@ndnb.com.np">
+                <MailOutlined /> contact@ndnb.com.np
+              </a>
+              <span className="con">
+                <EnvironmentOutlined /> Kalanki, Kathmandu
+              </span>
+            </div>
+            <div className="social-links">
+              <a
+                href="https://www.facebook.com/profile.php?id=100084983644282"
+                target="_blank"
+              >
+                <img src={fb} alt="facebook" />
+              </a>
+              <a
+                href="https://www.instagram.com/nepaldesignerss/"
+                target="_blank"
+              >
+                <img src={ig} alt="Instagram" />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/89506724/admin/dashboard/"
+                target="_blank"
+              >
+                <img src={ld} alt="Linkedin" />
+              </a>
+              <a
+                href="https://www.youtube.com/@nepaldesignersandbuilders"
+                target="_blank"
+              >
+                <img src={yt} alt="Youtube" />
+              </a>
+              <a
+                href="https://www.tiktok.com/@nepal_designers_builders"
+                target="_blank"
+              >
+                <img src={tk} alt="Tiktok" />
+              </a>
+              <a
+                href="https://www.upwork.com/freelancers/~01d3a235158e98bbbe"
+                target="_blank"
+              >
+                <img src={up} alt="Upwork" />
+              </a>
+              <a href="https://x.com/nepaldesigners" target="_blank">
+                <img src={x} alt="X" />
+              </a>
+              <a
+                href="https://www.buildmost.com/design_provider/design_provider_interior_109900_109078.html?designType=DESIGNTYPE_HARD"
+                target="_blank"
+              >
+                <img src={bm} alt="Buildmost" />
+              </a>
+            </div>
+          </div>
         </Drawer>
       </Header>
     </>

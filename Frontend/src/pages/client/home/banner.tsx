@@ -27,9 +27,10 @@ import {
   Phone,
 } from "lucide-react";
 import usePostAPI from "../../../hooks/usePostAPI";
-import { apiUrl } from "../../../utils";
+// import { apiUrl } from "../../../utils";
 import useGetAPI from "../../../hooks/useGetAPI";
 import bgVideo from "../../../assets/videos/BannerVideo.mp4"; // Adjust path as needed
+
 interface BannerData {
   id: number;
   imageUrl: string;
@@ -62,9 +63,9 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
   >("architecture-web-app/projects/project-types", true, true);
 
   // Function to construct full URL for the video
-  const getVideoUrl = (filepath: string) => {
-    return `${apiUrl}/architecture-web-app${filepath}`;
-  };
+  // const getVideoUrl = (filepath: string) => {
+  //   return `${apiUrl}/architecture-web-app${filepath}`;
+  // };
 
   const handleSubmit = async (values: any) => {
     try {
@@ -142,14 +143,14 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
 
         <div className="banner-ribbon">
           <Text className="ribbon-text">
-            <span className="service-item">.ARCHITECTURE</span>
-            <span className="service-item">.INTERIOR DESIGN</span>
-            <span className="service-item">.CONSTRUCTION</span>
-            <span className="service-item">.RENOVATION</span>
-            <span className="service-item">.SITE SUPERVISION</span>
-            <span className="service-item">.ESTIMATION</span>
-            <span className="service-item">.VAASTU CONSULTANTS</span>
-            <span className="service-item">.NAKSA PASS</span>
+            <span className="service-item">ARCHITECTURE</span>
+            <span className="service-item">INTERIOR DESIGN</span>
+            <span className="service-item">CONSTRUCTION</span>
+            <span className="service-item">RENOVATION</span>
+            <span className="service-item">SITE SUPERVISION</span>
+            <span className="service-item">ESTIMATION</span>
+            <span className="service-item">VAASTU CONSULTANTS</span>
+            <span className="service-item">NAKSA PASS</span>
           </Text>
         </div>
 

@@ -125,7 +125,7 @@ const ProjectsSection = () => {
                 {project.title}
               </h2>
               <p>{project.date}</p>
-              {/* <p className="project-description">{project.description}</p> */}
+              {project.description.split(" ").slice(0, 5).join(" ")}...
               <a href={`/projects/${project.id}`} className="seemore">
                 See Project
               </a>
