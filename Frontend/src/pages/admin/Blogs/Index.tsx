@@ -195,7 +195,7 @@ const BlogsSetting = () => {
       dataIndex: "feature",
       key: "feature",
       render: (feature: boolean) => (
-        <span>{feature ? "True" : "False"}</span>
+        <span>{feature ? "Active" : "Inactive"}</span>
       ),
     },
     {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Form, Input, Upload, Button, Row, Col, Select } from "antd";
+import { Modal, Form, Input, Upload, Button, Row, Col,  Radio } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { UploadFile } from "antd/es/upload/interface";
 import LoadingSpinner from "../../../components/client/LoadingSpinner";
@@ -132,7 +132,11 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
       className="testimonial-modal"
       destroyOnClose
     >
-      <Form form={form} layout="vertical" className="compact-form">
+      <Form
+        form={form}
+        layout="vertical"
+        onFinish={handleUpdate}
+      >
         <Row gutter={16}>
           <Col span={24}>
             <Form.Item
@@ -208,16 +212,16 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
               </Upload>
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col span={12}>
             <Form.Item
-              label="Featured"
+              label="Status"
               name="feature"
               rules={[{ required: true, message: "Please select featured status" }]}
             >
-              <Select disabled={loading}>
-                <Select.Option value="1">True</Select.Option>
-                <Select.Option value="0">False</Select.Option>
-              </Select>
+              <Radio.Group disabled={loading}>
+                <Radio value="1">Active</Radio>
+                <Radio value="0">Inactive</Radio>
+              </Radio.Group>
             </Form.Item>
           </Col>
         </Row>
