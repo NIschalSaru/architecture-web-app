@@ -6,7 +6,7 @@
   position: relative;
 
   @media (max-width: 767px) {
-    height: calc(60vh - 60px);
+    height: calc(109vh - 60px);
   }
 
   &::after {
@@ -35,6 +35,9 @@
     z-index: 2;
     position: relative;
     padding-top: 22%;
+    @media (max-width: 767px) {
+      padding-top: 40%;
+    }
 
     h3 {
       font-size: 58px;
@@ -45,6 +48,7 @@
 
       @media (max-width: 767px) {
         font-size: 30px;
+        margin-bottom: 30px;
       }
     }
 
@@ -97,6 +101,10 @@
     display: flex;
     align-items: center;
 
+    @media (max-width: 767px) {
+      display: none;
+    }
+
     .ribbon-text {
       display: block;
       color: $white;
@@ -109,14 +117,23 @@
       padding: 0 20px;
       width: 100%;
 
-      @media (max-width: 767px) {
-        font-size: 0.9rem;
-        padding: 0 15px;
-      }
       .service-item {
         display: inline-block;
-        margin-right: 15px; // Adjust this value to control the exact spacing
+        position: relative;
+        margin-right: 15px;
+        padding-left: 14px;
         white-space: nowrap;
+
+        &::before {
+          content: "•";
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          color: $white;
+          font-size: 1.2rem;
+          line-height: 1;
+        }
 
         &:last-child {
           margin-right: 0;
@@ -330,15 +347,13 @@
 }
 
 .blur-video {
-  filter: blur(2px);
-  /*Adjustthebluramountasneeded*/
+  filter: blur(1px);
   width: 100%;
-  height: auto;
+  //height: auto;
   object-fit: cover;
-  /*Optional:;
-  forfull-coverlayout*/
-  // -webkit-filter: blur(1px);
-  // -webkit-filter: blur(10px);
+  @media (max-width: 767px) {
+    height: 100%;
+  }
 }
 
 .video-wrapper {
