@@ -673,8 +673,8 @@
 
         &:hover,
         &:focus {
-          border-color: $primary-light;
-          box-shadow: 0 0 0 3px rgba($primary-light, 0.1);
+          border-color: $secondary;
+          box-shadow: 0 0 0 3px rgba($secondary, 0.1);
         }
       }
 
