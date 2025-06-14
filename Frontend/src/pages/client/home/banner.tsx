@@ -27,9 +27,9 @@ import {
   Phone,
 } from "lucide-react";
 import usePostAPI from "../../../hooks/usePostAPI";
-// import { apiUrl } from "../../../utils";
+import { apiUrl } from "../../../utils";
 import useGetAPI from "../../../hooks/useGetAPI";
-import bgVideo from "../../../assets/Videos/BannerVideo.mp4"; // Adjust path as needed
+// import bgVideo from "../../../assets/Videos/BannerVideo.mp4"; // Adjust path as needed
 
 interface BannerData {
   id: number;
@@ -63,9 +63,9 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
   >("architecture-web-app/projects/project-types", true, true);
 
   // Function to construct full URL for the video
-  // const getVideoUrl = (filepath: string) => {
-  //   return `${apiUrl}/architecture-web-app${filepath}`;
-  // };
+  const getVideoUrl = (filepath: string) => {
+    return `${apiUrl}/architecture-web-app${filepath}`;
+  };
 
   const handleSubmit = async (values: any) => {
     try {
@@ -113,8 +113,8 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
           playsInline
           className="banner-video blur-video"
         >
-          {/* <source src={getVideoUrl(bannerData.filepath)} type="video/mp4" /> */}
-          <source src={bgVideo} type="video/mp4" />
+          { <source src={getVideoUrl(bannerData.filepath)} type="video/mp4" />}
+          {/* <source src={bgVideo} type="video/mp4" /> */}
           Your browser does not support the video tag.
         </video>
 
