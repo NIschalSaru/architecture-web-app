@@ -23,17 +23,24 @@ const ProjectsSection = () => {
             (a: any, b: any) =>
               new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           )
-          .slice(0, 9); // Keep only the latest 10
+          .slice(0, 9); // Keep only the latest 9
 
-        const projectData = sortedProjects.map((project: any) => ({
-          id: project.id,
-          title: project.name || "Untitled Project",
-          date: new Date(project.createdAt).toLocaleDateString(),
-          description: project.description || "No description available.",
-          bgImage:
-            project.media?.[0]?.fileurl ||
-            "https://via.placeholder.com/400x300?text=No+Image",
-        }));
+        const projectData = sortedProjects.map((project: any) => {
+          const formattedDate = new Date(project.createdAt)
+            .toISOString()
+            .slice(0, 10)
+            .replace(/-/g, "/"); // Format: YYYY/MM/DD
+
+          return {
+            id: project.id,
+            title: project.name || "Untitled Project",
+            date: formattedDate,
+            description: project.description || "No description available.",
+            bgImage:
+              project.media?.[0]?.fileurl ||
+              "https://via.placeholder.com/400x300?text=No+Image",
+          };
+        });
 
         setProjects(projectData);
       } catch (error) {
@@ -125,7 +132,7 @@ const ProjectsSection = () => {
                 {project.title}
               </h2>
               <p>{project.date}</p>
-              {project.description.split(" ").slice(0, 5).join(" ")}...
+              {project.description.split(" ").slice(0, 4).join(" ")}...
               <a href={`/projects/${project.id}`} className="seemore">
                 See Project
               </a>

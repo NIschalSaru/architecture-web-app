@@ -39,9 +39,10 @@ $default-bg: #333;
       text-align: left;
       // height: 450px;
       opacity: 1;
-
       transform: translateY(-180px);
-      // transition: opacity 0.4s ease, transform 0.4s ease;
+      @media screen and (max-width: 768px) {
+        top: 377px;
+      }
 
       h2 {
         font-size: 1.2rem;
