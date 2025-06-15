@@ -21,7 +21,7 @@ const Services: React.FC = () => {
       icon: <ToolOutlined />,
       title: {
         nepali: 'नक्सा पास',
-        english: '(Map Pass)'
+        english: '(Map Approval)'
       },
       description: [
         "Full-Time Contract: We manage materials, labor, and full supervision with 24/7 CCTV monitoring",
@@ -34,7 +34,7 @@ const Services: React.FC = () => {
       icon: <ProjectOutlined />,
       title: {
         nepali: 'पुरानो घरलाई  नयाँ लूक्स',
-        english: '(Old house new looks)'
+        english: '(New Look for Old House)'
       },
       description: [
         "Brings Positive Energy",
