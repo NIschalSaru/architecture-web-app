@@ -165,6 +165,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
               label="PDF File"
               name="file"
               className="upload-wrapper"
+              rules={[{ required: true, message: "Please upload a PDF file" }]}
             >
               <Upload
                 beforeUpload={() => false}
@@ -191,6 +192,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
               label="Image"
               name="image"
               className="upload-wrapper"
+              rules={[{ required: true, message: "Please upload an image" }]}
             >
               <Upload
                 beforeUpload={() => false}

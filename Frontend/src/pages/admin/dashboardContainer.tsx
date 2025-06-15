@@ -9,12 +9,14 @@ import {
   FolderAddOutlined,
   TeamOutlined,
   PlusCircleOutlined,
+  KeyOutlined,
 } from "@ant-design/icons";
 import { Avatar, Dropdown, Layout, Menu } from "antd";
 import { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import Logo from "../../assets/images/ndbn-logo-white.png";
 import { handleSignOut } from "../../utils";
+import EditProfile from "../admin/Auth/ChangePassword";
 
 const items = [
   {
@@ -68,7 +70,7 @@ const items = [
         key: "Client-Contact-Form",
         icon: <TeamOutlined />,
         label: "Contact Us Form",
-      }
+      },
     ],
   },
   {
@@ -84,26 +86,20 @@ const DashboardContainer = () => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState("banner");
+  const [changePasswordVisible, setChangePasswordVisible] = useState(false);
 
   useEffect(() => {
     const pathSegments = location.pathname.split("/").filter(Boolean);
     const lastSegment = pathSegments[pathSegments.length - 1];
     const parentSegment = pathSegments[pathSegments.length - 2];
 
-    // Check for projects-clients first
     if (pathSegments.includes("projects-clients")) {
       setSelectedMenu("projects-clients");
-    }
-    // Then check for projects-settings
-    else if (pathSegments.includes("projects-settings")) {
+    } else if (pathSegments.includes("projects-settings")) {
       setSelectedMenu("projects-settings");
-    }
-    // Then check for other project-related paths
-    else if (parentSegment === "projects") {
+    } else if (parentSegment === "projects") {
       setSelectedMenu(lastSegment);
-    }
-    // Default case
-    else {
+    } else {
       setSelectedMenu(lastSegment || "banner");
     }
   }, [location]);
@@ -114,10 +110,9 @@ const DashboardContainer = () => {
     if (e.keyPath.includes("Projects")) {
       if (selectedKey === "projects-clients") {
         navigate(`/admin/${selectedKey}`);
-      } else if(selectedKey === "projects-settings"){
+      } else if (selectedKey === "projects-settings") {
         navigate(`/admin/${selectedKey}`);
-      }
-      else{
+      } else {
         navigate(`/admin/${selectedKey}`);
       }
     } else {
@@ -131,10 +126,10 @@ const DashboardContainer = () => {
 
   const menu = (
     <Menu>
-      <Menu.Item>
+      <Menu.Item onClick={() => setChangePasswordVisible(true)}>
         <div style={{ display: "flex", alignItems: "center" }}>
-          <UserOutlined style={{ marginRight: "8px" }} />
-          <span>Account Setting</span>
+          <KeyOutlined style={{ marginRight: "8px" }} />
+          <span>Change Password</span>
         </div>
       </Menu.Item>
       <Menu.Item onClick={() => handleSignOut(navigate)}>
@@ -214,12 +209,15 @@ const DashboardContainer = () => {
           <Outlet />
         </Content>
       </Layout>
+      <EditProfile
+        visible={changePasswordVisible}
+        onCancel={() => setChangePasswordVisible(false)}
+      />
     </Layout>
   );
 };
 
 export default DashboardContainer;
-
 
 
 

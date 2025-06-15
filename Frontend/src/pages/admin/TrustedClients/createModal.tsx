@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Form, Input, Upload, Button, Row, Col, Select } from "antd";
+import { Modal, Form, Input, Upload, Button, Row, Col, Radio } from "antd";
 import { UploadOutlined, UserOutlined, LinkOutlined } from "@ant-design/icons";
 import { UploadFile } from "antd/es/upload/interface";
 import LoadingSpinner from "../../../components/client/LoadingSpinner";
@@ -98,20 +98,6 @@ const CreateClientModal: React.FC<CreateClientModalProps> = ({
           </Col>
           <Col span={12}>
             <Form.Item
-              label="Status"
-              name="status"
-              rules={[{ required: true, message: "Please select status" }]}
-            >
-              <Select disabled={loading} defaultValue="1">
-                <Select.Option value="1">True</Select.Option>
-                <Select.Option value="0">False</Select.Option>
-              </Select>
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item
               label="Link"
               name="link"
               rules={[
@@ -137,6 +123,10 @@ const CreateClientModal: React.FC<CreateClientModalProps> = ({
               />
             </Form.Item>
           </Col>
+          
+        </Row>
+        <Row gutter={16}>
+          
           <Col span={24}>
             <Form.Item
               label="Logo Image"
@@ -164,6 +154,18 @@ const CreateClientModal: React.FC<CreateClientModalProps> = ({
                   </div>
                 )}
               </Upload>
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              label="Status"
+              name="status"
+              rules={[{ required: true, message: "Please select status" }]}
+            >
+              <Radio.Group disabled={loading}>
+                <Radio value="1">Active</Radio>
+                <Radio value="0">Inactive</Radio>
+              </Radio.Group>
             </Form.Item>
           </Col>
         </Row>

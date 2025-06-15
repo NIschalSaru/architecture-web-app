@@ -189,7 +189,7 @@ const ClientSetting = () => {
       title: "Status",
       dataIndex: "feature",
       key: "feature",
-      render: (feature: boolean) => feature ? "True" : "False",
+      render: (feature: boolean) => feature ? "Active" : "Inactive",
     },
     {
       title: "Action",
