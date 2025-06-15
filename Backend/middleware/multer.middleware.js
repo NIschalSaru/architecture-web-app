@@ -4,77 +4,14 @@ const fs = require("fs");
 const dayjs = require("dayjs");
 const crypto = require("crypto");
 
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     const folderName = dayjs().format("YYYYMMDD");
-//     const folderPath = path.join(__dirname, `../storage/uploads/${folderName}`);
-
-//     try {
-//       fs.mkdirSync(folderPath, { recursive: true });
-//       cb(null, folderPath);
-//     } catch (err) {
-//       cb(err);
-//     }
-//   },
-
-//   filename: function (req, file, cb) {
-//     const timestamp = dayjs().format("YYYYMMDDHHmmss");
-//     const ext = path.extname(file.originalname);
-//     const randomStr = crypto.randomBytes(6).toString("hex");
-//     const filename = `${timestamp}_${randomStr}${ext}`;
-//     cb(null, filename);
-//   },
-// });
-
-// const fileFilter = (req, file, cb) => {
-//   const allowedTypes = [
-//     "image/jpeg",
-//     "image/png",
-//     "image/gif",
-//     "image/webp",
-//     "application/pdf",
-//     "application/msword",
-//     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-//   ];
-
-//   if (!allowedTypes.includes(file.mimetype)) {
-//     return cb(new Error("Only image and document files are allowed"), false);
-//   }
-
-//   cb(null, true);
-// };
-
-// const limits = {
-//   fileSize: 5 * 1024 * 1024,
-// };
-
-// const upload = multer({
-//   storage,
-//   fileFilter,
-//   limits,
-// });
-
-// const uploadImages = upload.fields([
-//   { name: "image", maxCount: 1 },
-//   { name: "gallery", maxCount: 10 },
-//   { name: "file", maxCount: 1 },
-//   { name: "documents", maxCount: 5 },
-// ]);
-
-// module.exports = { uploadImages };
-
-
-
-// 1. Define max sizes per field (in bytes)
 const MAX_SIZES = {
-  image: 2 * 1024 * 1024, // 2MB
-  gallery: 2 * 1024 * 1024, // 2MB per image
-  file: 5 * 1024 * 1024, // 5MB
-  documents: 5 * 1024 * 1024, // 5MB per document
-  video: 50 * 1024 * 1024, // 50MB
+  image: 2 * 1024 * 1024,
+  gallery: 2 * 1024 * 1024,
+  file: 5 * 1024 * 1024,
+  documents: 5 * 1024 * 1024,
+  video: 50 * 1024 * 1024,
 };
 
-// 2. Define allowed MIME types per field
 const allowedTypes = {
   image: ["image/jpeg", "image/png", "image/gif", "image/webp"],
   gallery: ["image/jpeg", "image/png", "image/gif", "image/webp"],
@@ -91,7 +28,6 @@ const allowedTypes = {
   video: ["video/mp4"],
 };
 
-// 3. Setup multer disk storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const folderName = dayjs().format("YYYYMMDD");
@@ -110,7 +46,6 @@ const storage = multer.diskStorage({
   },
 });
 
-// 4. File filter (type checking only — size validated later)
 const fileFilter = (req, file, cb) => {
   const field = file.fieldname;
   const mimetype = file.mimetype;
@@ -123,19 +58,16 @@ const fileFilter = (req, file, cb) => {
   cb(null, true);
 };
 
-// 5. Global limit to avoid abuse (optional — large enough to fit the biggest file)
 const limits = {
-  fileSize: 100 * 1024 * 1024, // 100MB
+  fileSize: 100 * 1024 * 1024,
 };
 
-// 6. Multer setup
 const upload = multer({
   storage,
   fileFilter,
   limits,
 });
 
-// 7. Upload fields config
 const uploadImages = upload.fields([
   { name: "image", maxCount: 1 },
   { name: "gallery", maxCount: 10 },
@@ -144,7 +76,6 @@ const uploadImages = upload.fields([
   { name: "video", maxCount: 1 },
 ]);
 
-// 8. Post-upload size validation middleware
 const validateFileSizes = (req, res, next) => {
   const checkSize = (fieldName, maxSize) => {
     const files = req.files[fieldName] || [];
