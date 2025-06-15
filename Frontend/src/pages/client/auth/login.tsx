@@ -52,6 +52,7 @@ const onFinish = async (values: LoginFormValues) => {
 
     if (response && response.token) {
       localStorage.setItem('authToken', response.token);
+      localStorage.setItem('Id', response.id.toString());
       Cookies.set('authToken', response.token, {
         expires: values.remember ? 4 : undefined,
         secure: true,

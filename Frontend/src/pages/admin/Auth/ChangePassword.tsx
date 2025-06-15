@@ -1,8 +1,7 @@
 import { Modal, Form, Input, message } from "antd";
 import { useState } from "react";
 import axios from "axios";
-import {apiUrl} from "../../../utils/index";
-
+import { apiUrl } from "../../../utils/index";
 
 interface EditProfileProps {
   visible: boolean;
@@ -21,8 +20,14 @@ const ChangePassword = ({ visible, onCancel }: EditProfileProps) => {
   }) => {
     setLoading(true);
     try {
-      const response = await axios.post(
-        `${apiUrl}/architecture-web-app/auth/edit/`,
+      // Retrieve userId from localStorage
+      const userId = localStorage.getItem('Id');
+      if (!userId) {
+        throw new Error("User ID not found. Please log in again.");
+      }
+
+      const response = await axios.put(
+        `${apiUrl}/architecture-web-app/auth/edit/${userId}`,
         {
           currentPassword: values.currentPassword,
           newPassword: values.newPassword || "",
@@ -45,7 +50,7 @@ const ChangePassword = ({ visible, onCancel }: EditProfileProps) => {
       if (axios.isAxiosError(error)) {
         message.error(error.response?.data?.message || "Failed to update profile");
       } else {
-        message.error("An unexpected error occurred");
+        message.error(error instanceof Error ? error.message : "An unexpected error occurred");
       }
     } finally {
       setLoading(false);
@@ -89,7 +94,7 @@ const ChangePassword = ({ visible, onCancel }: EditProfileProps) => {
             { required: true, message: "Please enter your new Email" },
           ]}
         >
-          <Input className="fullName" placeholder="Enter new email (optional)" />
+          <Input className="fullName" placeholder="Enter new email" />
         </Form.Item>
         <Form.Item
           name="currentPassword"
@@ -102,11 +107,11 @@ const ChangePassword = ({ visible, onCancel }: EditProfileProps) => {
           name="newPassword"
           label="New Password"
           rules={[
-            { min: 8, message: "Password must be at least 8 characters long", /*when: (values) => !!values.newPassword */},
+            { min: 8, message: "Password must be at least 8 characters long" },
             { required: true, message: "Please enter new password" }  
-        ]}
+          ]}
         >
-          <Input.Password className="fullName" placeholder="Enter new password (optional)" />
+          <Input.Password className="fullName" placeholder="Enter new password" />
         </Form.Item>
         <Form.Item
           name="confirmNewPassword"
