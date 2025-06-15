@@ -126,6 +126,7 @@ const updateEmailAndPassword = asyncHandler(async (req, res) => {
     message: "Email/Password updated successfully",
   });
 });
+
 // const forgotPassword = asyncHandler(async (req, res) => {
 //   const { email } = req.body;
 //   const user = await User.findOne({ where: { email } });
@@ -271,11 +272,11 @@ const updateEmailAndPassword = asyncHandler(async (req, res) => {
 // });
 
 module.exports = {
-  signup,
+  // signup,
   login,
   logout,
-  forgotPassword,
-  resetPassword,
-  editProfile,
+  // forgotPassword,
+  // resetPassword,
+  // editProfile,
   updateEmailAndPassword,
 };
