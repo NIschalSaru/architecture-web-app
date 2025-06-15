@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Form, Input, Checkbox, Button, Row, Col } from "antd";
-import {
-  Mail
-} from "lucide-react";
+import { Modal, Form, Input, Checkbox, Button, Row, Col, Select } from "antd";
 import LoadingSpinner from "../../../../components/client/LoadingSpinner";
+import useGetAPI from "../../../../hooks/useGetAPI";
 
 interface UpdateModalProps {
   visible: boolean;
@@ -12,9 +10,18 @@ interface UpdateModalProps {
   initialValues: any;
 }
 
+interface ProjectType {
+  id: number;
+  title: string;
+  status: boolean;
+}
+
 const UpdateModal: React.FC<UpdateModalProps> = ({ visible, onCancel, onUpdate, initialValues }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState<boolean>(false);
+  const { data: projectTypes, loading: projectTypesLoading } = useGetAPI<
+  ProjectType[]
+>("architecture-web-app/projects/project-types", true, true);
 
   useEffect(() => {
     if (visible && initialValues) {
@@ -106,26 +113,45 @@ const UpdateModal: React.FC<UpdateModalProps> = ({ visible, onCancel, onUpdate, 
           </Col>
           <Col span={12}>
             <Form.Item
-              name="email"
-              label="Email"
-              rules={[
-                { required: true, message: "Please enter your email" },
-                { type: "email", message: "Please enter a valid email" },
-              ]}
-            >
-              <Input prefix={<Mail className="form-icon" />} placeholder="Enter your email" disabled={loading} />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item
               name="mobile"
               label="Mobile"
               rules={[{ required: true, message: "Please enter your mobile number" }]}
             >
-              <Input placeholder="Enter your mobile number" disabled={loading} />
+              <Input className="fullName" placeholder="Enter your mobile number" disabled={loading} />
             </Form.Item>
+          </Col>
+        </Row>
+        <Row gutter={16}>
+        <Col span={12}>
+            {/* <Form.Item name="typeOfBuilding" label="Type of Building">
+              <Input className="fullName" placeholder="Enter building type (e.g., residential)" disabled={loading} />
+            </Form.Item> */}
+
+            <Col span={12}>
+                <Form.Item
+                  name="typeOfBuilding"
+                  label="Type of Building"
+                  
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please select Type of Building",
+                    },
+                  ]}
+                  // style={{ height: '500%' }}
+                >
+                  <Select
+                    placeholder="Enter building type (e.g., residential)"
+                    className="fullName"
+                    style={{ width: '210%' }}
+                    loading={projectTypesLoading}
+                    options={projectTypes?.map((type: ProjectType) => ({
+                      value: type.title,
+                      label: type.title,
+                    }))}
+                  />
+                </Form.Item>
+              </Col>
           </Col>
           <Col span={12}>
             <Form.Item name="locationOfSite" label="Location of Site">
@@ -134,14 +160,21 @@ const UpdateModal: React.FC<UpdateModalProps> = ({ visible, onCancel, onUpdate, 
           </Col>
         </Row>
         <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item name="siteArea" label="Site Area">
-              <Input className="fullName" placeholder="Enter site area (e.g., sq ft)" disabled={loading} />
+        <Col span={12}>
+            <Form.Item
+              name="email"
+              label="Email"
+              rules={[
+                // { required: true, message: "Please enter your email" },
+                { type: "email", message: "Please enter a valid email" },
+              ]}
+            >
+              <Input className="fullName" placeholder="Enter your email" disabled={loading} />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item name="typeOfBuilding" label="Type of Building">
-              <Input className="fullName" placeholder="Enter building type (e.g., residential)" disabled={loading} />
+            <Form.Item name="siteArea" label="Site Area">
+              <Input className="fullName" placeholder="Enter site area (e.g., sq ft)" disabled={loading} />
             </Form.Item>
           </Col>
         </Row>

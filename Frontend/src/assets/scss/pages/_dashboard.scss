@@ -243,6 +243,13 @@
   height: 2.6rem;
   width: 7.5rem;
 }
+.ant-input-search .ant-input-affix-wrapper{
+  height:45px;
+}
+:where(.css-dev-only-do-not-override-1lmeb6g).ant-input-search .ant-input-search-button {
+  height: 45px;
+  width:50px;
+}
 
 .testimonial-modal {
   .ant-modal-content {
