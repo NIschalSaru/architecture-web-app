@@ -203,12 +203,19 @@ const NavbarComponent: React.FC = () => {
           <ul className="header-list-mobile">
             {RouteList.map((route) => (
               <li key={route.label}>
-                <Link to={route.path} onClick={scrollToTop}>
+                <Link
+                  to={route.path}
+                  onClick={() => {
+                    scrollToTop();
+                    setVisible(false); // This closes the Drawer
+                  }}
+                >
                   {route.label}
                 </Link>
               </li>
             ))}
           </ul>
+
           <hr className="mobile-divider" />
           <div className="top-barr mobile-top-bar">
             <h1>Contact Us</h1>

@@ -23,33 +23,51 @@ const usePostAPI = <T>(
   const postData = async (requestData: any): Promise<T | null> => {
     setLoading(true);
     try {
+      console.log('POST Request:', {
+        url: `${apiUrl}/${url}`,
+        data: requestData,
+        config: { withCredentials: true, headers: { 'Content-Type': 'application/json' } }
+      });
 
       const response: AxiosResponse = await axios.post(
         `${apiUrl}/${url}`,
-        requestData
-        ,
+        requestData,
         { 
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json'
-          }
+          },
+          timeout: 10000 // Added timeout to prevent hanging
         }
       );
-      if (response && response.data) {
+
+      console.log('POST Response:', {
+        status: response.status,
+        data: response.data
+      });
+
+      if (response.status >= 200 && response.status < 300) {
         setData(response.data);
         setError(null);
-        showMessage && message.success(response.data.message || 'Operation successful');
+        if (showMessage) {
+          message.success(response.data.message || 'Operation successful');
+        }
         return response.data;
-      }
-      
-      else {
-        message.error('Invalid response format: Missing data property');
+      } else {
+        const errorMessage = `Unexpected response status: ${response.status}`;
+        setError(errorMessage);
+        if (showMessage) {
+          message.error(errorMessage);
+        }
         return null;
       }
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || error.message;
-      message.error(`Error:${errorMessage}`);
+      console.error('POST Error:', error);
+      const errorMessage = error.response?.data?.message || error.message || 'Unknown error occurred';
       setError(errorMessage);
+      if (showMessage) {
+        message.error(`Error: ${errorMessage}`);
+      }
       return null;
     } finally {
       setLoading(false);

@@ -59,7 +59,7 @@ const ChangePassword = ({ visible, onCancel }: EditProfileProps) => {
 
   return (
     <Modal
-      title="Change Password"
+      title="Change Credentials"
       open={visible}
       onOk={() => {
         form
@@ -88,7 +88,7 @@ const ChangePassword = ({ visible, onCancel }: EditProfileProps) => {
       >
         <Form.Item
           name="newEmail"
-          label="New Email"
+          label="Email"
           rules={[
             { type: "email", message: "Please enter a valid email" },
             { required: true, message: "Please enter your new Email" },

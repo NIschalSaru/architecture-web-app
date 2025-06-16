@@ -66,14 +66,14 @@ const Services: React.FC = () => {
       description: "Expert interior finishing services to enhance your living spaces with modern designs and high-quality materials.",
       image: InteriorDesign,
       features: ["Custom Designs", "High-Quality Materials", "Modern Aesthetics"],
-      id: "",
+      id: "interior-finishing",
     },
     {
       title: "Hotel, Resort, Party Palace, Restaurant & Cafe",
       description: "Comprehensive design and construction for hospitality and entertainment venues.",
       image: HotelResort,
       features: ["Luxury Designs", "Functional Layouts", "Outdoor Spaces"],
-      id: "",
+      id: "hospitality-design",
     },
     {
       title: "Complex Building Construction",
@@ -81,7 +81,7 @@ const Services: React.FC = () => {
       image: gharCollection1,
       image2: gharCollection2,
       features: ["Structural Integrity", "Modern Techniques", "Timely Completion"],
-      id: "",
+      id: "complex-construction",
     },
     {
       title: "Site Measurement, Supervision & Land Survey",
@@ -110,13 +110,11 @@ const Services: React.FC = () => {
   const serviceDetailRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Check if there's a hash in the URL
     if (location.hash) {
-      const serviceId = location.hash.slice(1); // Remove the # from the hash
+      const serviceId = location.hash.slice(1);
       const service = services.find(s => s.id === serviceId);
       if (service) {
         setSelectedService(service);
-        // Add a small delay to ensure the component has rendered
         setTimeout(() => {
           if (serviceDetailRef.current) {
             serviceDetailRef.current.scrollIntoView({ 
@@ -131,7 +129,6 @@ const Services: React.FC = () => {
 
   const handleServiceClick = (service: Service) => {
     setSelectedService(service);
-    // Add a small delay to ensure the component has rendered
     setTimeout(() => {
       if (serviceDetailRef.current) {
         serviceDetailRef.current.scrollIntoView({ 
@@ -173,9 +170,6 @@ const Services: React.FC = () => {
               </li>
             ))}
           </ul>
-          {/* <Button type="primary" className="learn-more-btn-page">
-            Learn More
-          </Button> */}
         </div>
       </div>
     </div>
