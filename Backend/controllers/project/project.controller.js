@@ -20,6 +20,7 @@ const createProject = asyncHandler(async (req, res) => {
     client_email,
     client_mobile,
     client_address,
+    status,
   } = req.body;
 
   if (!name || !project_type_id) {
@@ -41,6 +42,7 @@ const createProject = asyncHandler(async (req, res) => {
         location,
         site_area,
         description,
+        status: status ?? true,
       },
       { transaction: t }
     );
@@ -133,6 +135,7 @@ const updateProject = asyncHandler(async (req, res) => {
     client_email,
     client_mobile,
     client_address,
+    status,
   } = req.body;
   const t = await sequelize.transaction();
   try {
@@ -151,6 +154,7 @@ const updateProject = asyncHandler(async (req, res) => {
         location,
         site_area,
         description,
+        status: status ?? true,
       },
       { transaction: t }
     );
@@ -314,6 +318,7 @@ const getClientByProjectTypeId = asyncHandler(async (req, res) => {
         attributes: ["id"],
         where: {
           project_type_id,
+          status: true,
         },
         include: [
           {
@@ -347,6 +352,10 @@ const getProjectByClientId = asyncHandler(async (req, res) => {
       {
         model: Project,
         as: "project",
+        // where: {
+        //   status: true,
+        // },
+        // required: true,
         include: [
           {
             model: Media,
@@ -488,6 +497,9 @@ const getAllClients = asyncHandler(async (req, res) => {
 
 const getLatestProjects = asyncHandler(async (req, res) => {
   const projects = await Project.findAll({
+    where: {
+      status: true,
+    },
     limit: 10,
     order: [["createdAt", "DESC"]],
     include: [
@@ -501,14 +513,12 @@ const getLatestProjects = asyncHandler(async (req, res) => {
       },
     ],
   });
-
   if (!projects || projects.length === 0) {
     return res.status(404).json({
       success: false,
       message: "No projects found.",
     });
   }
-
   res.status(200).json({
     success: true,
     message: "Projects fetched successfully.",
