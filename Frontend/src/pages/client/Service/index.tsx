@@ -4,17 +4,17 @@ import { InnerHeader } from "../../../components/client/InnerHeader";
 import { useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-import NayaNaksa from '../../../assets/images/Services/service-nayanaksa.png';
-import NaksaPass from '../../../assets/images/Services/services-NaksaPass.jpg';
-import OldHouseNewLooks1 from '../../../assets/images/Services/services-oldhousenewlooks1.jpg';
-import OldHouseNewLooks2 from '../../../assets/images/Services/services-oldhousenewlooks2.jpg';
-import InteriorDesign from '../../../assets/images/Services/service-InteriorDesign.jpg';
-import HotelResort from '../../../assets/images/Services/service-HotelResort.png';
-import gharCollection1 from '../../../assets/images/Services/service-gharCollection1.jpg';
-import gharCollection2 from '../../../assets/images/Services/service-gharCollection.jpg';
-import siteMeasurement from '../../../assets/images/Services/siteMeasurement.jpg';
-import estimation from '../../../assets/images/Services/service-estimation.jpg';
-import evaluation from '../../../assets/images/Services/service-evaluation.jpg';
+import NayaNaksa from "../../../assets/images/Services/service-nayanaksa.png";
+import NaksaPass from "../../../assets/images/Services/services-NaksaPass.jpg";
+import OldHouseNewLooks1 from "../../../assets/images/Services/services-oldhousenewlooks1.jpg";
+import OldHouseNewLooks2 from "../../../assets/images/Services/services-oldhousenewlooks2.jpg";
+import InteriorDesign from "../../../assets/images/Services/service-InteriorDesign.jpg";
+import HotelResort from "../../../assets/images/Services/service-HotelResort.png";
+import gharCollection1 from "../../../assets/images/Services/service-gharCollection1.jpg";
+import gharCollection2 from "../../../assets/images/Services/service-gharCollection.jpg";
+import siteMeasurement from "../../../assets/images/Services/siteMeasurement.jpg";
+import estimation from "../../../assets/images/Services/service-estimation.jpg";
+import evaluation from "../../../assets/images/Services/service-evaluation.jpg";
 import { ArrowBigLeft } from "lucide-react";
 
 const { Title, Paragraph } = Typography;
@@ -41,65 +41,113 @@ const Services: React.FC = () => {
   const services: Service[] = [
     {
       title: "नयाँ नक्सा डिजाइन",
-      description: "Expert interior finishing services to enhance your living spaces with modern designs and high-quality materials.",
+      description:
+        "We design new building plans tailored to your needs, fully compliant with Nepal's building codes and municipal regulations. Our focus is on creating safe, sustainable, and aesthetically pleasing architectural designs.",
       image: NayaNaksa,
-      features: ["Custom Designs", "High-Quality Materials", "Modern Aesthetics"],
+      features: [
+        "1. Understanding the client's requirements, budget, and perspective",
+        "2. Document collection",
+        "3. Analysis according to the structure, beam, area, and location of the building",
+        "4. Discuss with the consumer and make improvements",
+        "5. Preparation of 3D drawing",
+        "6. Proposal of structural parts such as civil, beam, foundation, etc. of the building",
+        "7. Final drawing handover",
+      ],
       id: "map-design",
     },
     {
       title: "नक्सा पास",
-      description: "Comprehensive design and construction for hospitality and entertainment venues.Comprehensive design and construction for hospitality and entertainment venues.Comprehensive design and construction for hospitality and entertainment venues.",
+      description:
+        "We provide end-to-end support for obtaining official map approval from local municipalities or ward offices in Nepal. Our service ensures that your building design complies with the Nepal National Building Code, Building Act 2055, and local bylaws. From preparing legal documents to coordinating with authorities, we make the approval process smooth, accurate, and fully lawful.",
       image: NaksaPass,
-      features: ["Luxury Designs", "Functional Layouts", "Outdoor Spaces"],
+      features: [
+        "1. Documents required for verification by the head of the mapping section",
+        "2. Registration in Municipality – ebps Online Application",
+        "3. GLD, Overlapping Check",
+        "4. Structural Drawing",
+        "5. Pay Taxes",
+        "6. Architectual Drawing",
+        "7. Verification by Mapping Section Head",
+        "8. Ward Desk (Issue 15-Day Notice)",
+        "9. Ward Engineer (Plinth Level Verification)",
+        "10.Apply for super structure",
+        "11. Municipal (Plinth Level Drawing – Start of Construction Work)",
+        "12. Super structure (Permission for Super Structure)",
+        "13. SUPER structure verify (Super Structure Inspection)",
+        "14. Completion Certificate",
+      ],
       id: "map-pass",
     },
     {
       title: "पुरानो घरलाई  नयाँ लूक्स ",
-      description: "End-to-end solutions for constructing complex residential and commercial buildings.",
+      description:
+        "We specialize in transforming old or outdated buildings into modern, functional, and visually appealing spaces. Our renovation services focus on structural safety, aesthetic upgrades, and space optimization — all while preserving the building’s core integrity. Whether it’s a traditional home or a commercial structure, we bring new life to your old property.",
       image: OldHouseNewLooks1,
       image2: OldHouseNewLooks2,
-      features: ["Structural Integrity", "Modern Techniques", "Timely Completion"],
+      features: [
+        "Structural Integrity",
+        "Modern Techniques",
+        "Timely Completion",
+      ],
       id: "old-new",
     },
     {
       title: "Interior Finishing",
-      description: "Expert interior finishing services to enhance your living spaces with modern designs and high-quality materials.",
+      description:
+        "We deliver creative and functional interior finishing solutions tailored to your space, style, and purpose. From material selection to final detailing, our team ensures a high-quality, elegant finish that reflects your vision and meets architectural standards.",
       image: InteriorDesign,
-      features: ["Custom Designs", "High-Quality Materials", "Modern Aesthetics"],
+      features: [
+        "Custom Designs",
+        "High-Quality Materials",
+        "Modern Aesthetics",
+      ],
       id: "interior-finishing",
     },
     {
       title: "Hotel, Resort, Party Palace, Restaurant & Cafe",
-      description: "Comprehensive design and construction for hospitality and entertainment venues.",
+      description:
+        "We design hospitality and event spaces with a strong focus on comfort, functionality, and brand identity. Our designs are compliant with Nepali building standards and optimized for guest experience, aesthetics, and operational efficiency.",
       image: HotelResort,
       features: ["Luxury Designs", "Functional Layouts", "Outdoor Spaces"],
       id: "hospitality-design",
     },
     {
       title: "Complex Building Construction",
-      description: "End-to-end solutions for constructing complex residential and commercial buildings.",
+      description:
+        "We handle the construction of large-scale and multi-story structures, including apartments, commercial complexes, and institutions. Our process ensures technical precision, structural safety, and timely project execution under Nepali laws and standards.",
       image: gharCollection1,
       image2: gharCollection2,
-      features: ["Structural Integrity", "Modern Techniques", "Timely Completion"],
+      features: [
+        "Structural Integrity",
+        "Modern Techniques",
+        "Timely Completion",
+      ],
       id: "complex-construction",
     },
     {
       title: "Site Measurement, Supervision & Land Survey",
-      description: "Accurate site measurements and land surveys to ensure precise construction planning.",
+      description:
+        "Accurate site measurement and supervision are key to any successful project. We provide detailed land surveys and continuous site supervision to ensure construction aligns with approved plans, minimizing errors and delays.",
       image: siteMeasurement,
-      features: ["Detailed Surveys", "Expert Supervision", "Precision Planning"],
+      features: [
+        "Detailed Surveys",
+        "Expert Supervision",
+        "Precision Planning",
+      ],
       id: "",
     },
     {
       title: "Estimating & Costing",
-      description: "Detailed cost estimation and budgeting for your construction projects.",
+      description:
+        "We offer detailed cost estimation services based on current market rates, material selection, and project scale. Our estimates help clients plan financially and avoid unexpected expenses throughout the construction process.",
       image: estimation,
       features: ["Accurate Estimates", "Cost Management", "Budget Planning"],
       id: "",
     },
     {
       title: "Property Valuation",
-      description: "Professional property valuation services to determine accurate market value.",
+      description:
+        "Our licensed professionals provide certified property valuation services for land, houses, and buildings. Whether for loan, insurance, or sale purposes, we offer reliable and legally valid property value reports.",
       image: evaluation,
       features: ["Market Analysis", "Expert Valuation", "Detailed Reports"],
       id: "",
@@ -112,14 +160,14 @@ const Services: React.FC = () => {
   useEffect(() => {
     if (location.hash) {
       const serviceId = location.hash.slice(1);
-      const service = services.find(s => s.id === serviceId);
+      const service = services.find((s) => s.id === serviceId);
       if (service) {
         setSelectedService(service);
         setTimeout(() => {
           if (serviceDetailRef.current) {
-            serviceDetailRef.current.scrollIntoView({ 
+            serviceDetailRef.current.scrollIntoView({
               behavior: "smooth",
-              block: "start"
+              block: "start",
             });
           }
         }, 100);
@@ -131,15 +179,21 @@ const Services: React.FC = () => {
     setSelectedService(service);
     setTimeout(() => {
       if (serviceDetailRef.current) {
-        serviceDetailRef.current.scrollIntoView({ 
+        serviceDetailRef.current.scrollIntoView({
           behavior: "smooth",
-          block: "start"
+          block: "start",
         });
       }
     }, 100);
   };
 
-  const Card: React.FC<CardProps> = ({ title, description, image, image2, features }) => (
+  const Card: React.FC<CardProps> = ({
+    title,
+    description,
+    image,
+    image2,
+    features,
+  }) => (
     <div className="service-card-page">
       <div className="image-side-page">
         <div className="image-wrapper-page">
@@ -161,7 +215,9 @@ const Services: React.FC = () => {
             </Title>
             <div className="title-decorator-page"></div>
           </div>
-          <Paragraph className="service-description-page">{description}</Paragraph>
+          <Paragraph className="service-description-page">
+            {description}
+          </Paragraph>
           <div className="divider-page"></div>
           <ul className="features-list-page">
             {features.map((feature, idx) => (
@@ -191,8 +247,14 @@ const Services: React.FC = () => {
                 <div className="image-container">
                   {service.id === "complex-construction" && service.image2 ? (
                     <div className="dual-image-container">
-                      <img src={service.image} alt={`${service.title} - Image 1`} />
-                      <img src={service.image2} alt={`${service.title} - Image 2`} />
+                      <img
+                        src={service.image}
+                        alt={`${service.title} - Image 1`}
+                      />
+                      <img
+                        src={service.image2}
+                        alt={`${service.title} - Image 2`}
+                      />
                     </div>
                   ) : (
                     <img src={service.image} alt={service.title} />
@@ -203,8 +265,11 @@ const Services: React.FC = () => {
           </div>
           {selectedService && (
             <div className="service-detail" ref={serviceDetailRef}>
-              <Button className="back-btn-page" onClick={() => setSelectedService(null)}>
-                <ArrowBigLeft/> Back
+              <Button
+                className="back-btn-page"
+                onClick={() => setSelectedService(null)}
+              >
+                <ArrowBigLeft /> Back
               </Button>
               <Card
                 title={selectedService.title}
@@ -223,28 +288,6 @@ const Services: React.FC = () => {
 };
 
 export default Services;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import { CheckCircleOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
 // import { Button, Typography, Modal } from "antd";
@@ -521,7 +564,7 @@ export default Services;
 //                         </div>
 //                       )}
 //                     </div>
-                    
+
 //                     <div className="step-images-gallery">
 //                       {service.stepImages.map((stepImage: string, idx: number) => (
 //                         <div
@@ -545,7 +588,7 @@ export default Services;
 //                       ))}
 //                     </div>
 //                   </div>
-                  
+
 //                   <div className="content-side-page">
 //                     <div className="content-wrapper-page">
 //                       <div className="section-title-wrapper-page">
@@ -571,7 +614,7 @@ export default Services;
 //                       </Button>
 //                     </div>
 //                   </div>
-                  
+
 //                   <Modal
 //                     visible={isModalVisible}
 //                     onCancel={handleModalCancel}
