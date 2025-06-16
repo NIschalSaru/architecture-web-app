@@ -1,4 +1,4 @@
-import { Modal, Form, Input, Button, Upload, message, Row, Col, Select } from "antd";
+import { Modal, Form, Input, Button, Upload, message, Row, Col, Select, Radio } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -111,7 +111,7 @@ const CreateProjectModal = ({
         form={form}
         layout="vertical"
         className="compact-form"
-        initialValues={{ project_type_id: projectTypeId }}
+        initialValues={{ project_type_id: projectTypeId, status: true }}
       >
         <Row gutter={16}>
           <Col span={8}>
@@ -139,6 +139,7 @@ const CreateProjectModal = ({
               />
             </Form.Item>
           </Col>
+          
           <Col span={8}>
             <Form.Item
               name="location"
@@ -203,6 +204,18 @@ const CreateProjectModal = ({
               rules={[{ required: true, message: "Please enter the description" }]}
             >
               <Input.TextArea placeholder="Enter description" rows={3} />
+            </Form.Item>
+          </Col>
+          <Col span={24}>
+            <Form.Item
+              name="status"
+              label="Status"
+              rules={[{ required: true, message: "Please select a status" }]}
+            >
+              <Radio.Group>
+                <Radio value={true}>Active</Radio>
+                <Radio value={false}>Inactive</Radio>
+              </Radio.Group>
             </Form.Item>
           </Col>
           <Col span={12}>

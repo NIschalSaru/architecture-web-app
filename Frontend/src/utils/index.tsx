@@ -2,8 +2,8 @@ import { NavigateFunction } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 
-// export const apiUrl = "http://localhost:5000/api";
-export const apiUrl = "https://ndnb.onrender.com/api";
+export const apiUrl = "http://localhost:5000/api";
+// export const apiUrl = "https://ndnb.onrender.com/api";
 
 // Authentication check function
 export const isAuthenticated = (): boolean => {

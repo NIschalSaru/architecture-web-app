@@ -70,6 +70,7 @@ const ProjectSetting = () => {
           location: project.location,
           site_area: project.site_area,
           description: project.description,
+          status: project.status,
           createdAt: project.createdAt,
           updatedAt: project.updatedAt,
           deletedAt: project.deletedAt,
@@ -96,6 +97,7 @@ const ProjectSetting = () => {
           location: project.location,
           site_area: project.site_area,
           description: project.description,
+          status: project.status,
           createdAt: project.createdAt,
           updatedAt: project.updatedAt,
           deletedAt: project.deletedAt,
@@ -166,6 +168,7 @@ const ProjectSetting = () => {
     client_email: string;
     client_mobile: string;
     client_address: string;
+    status: boolean;
     image: any;
     gallery: any[];
     deletedMediaIds: number[];
@@ -182,6 +185,7 @@ const ProjectSetting = () => {
       formData.append("client_email", values.client_email);
       formData.append("client_mobile", values.client_mobile);
       formData.append("client_address", values.client_address);
+      formData.append("status", values.status.toString());
 
       if (values.image && values.image.originFileObj) {
         formData.append("image", values.image.originFileObj);
@@ -275,6 +279,7 @@ const ProjectSetting = () => {
       formData.append("client_email", values.client_email);
       formData.append("client_mobile", values.client_mobile);
       formData.append("client_address", values.client_address);
+      formData.append("status", values.status.toString());
 
       if (values.image && values.image.originFileObj) {
         formData.append("image", values.image.originFileObj);
@@ -373,6 +378,16 @@ const ProjectSetting = () => {
       key: "clientMobile",
     },
     {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (status: boolean) => (
+        <span>
+          {status ? "Active" : "Inactive"}
+        </span>
+      ),
+    },
+    {
       title: "Action",
       key: "action",
       render: (_: any, record: DataType) => (
@@ -462,6 +477,7 @@ const ProjectSetting = () => {
                 client_email: editingRecord.client.email,
                 client_mobile: editingRecord.client.mobile,
                 client_address: editingRecord.client.address,
+                status: editingRecord.status,
                 image: editingRecord.media.find((m: MediaType) => m.image_type === "feature") || null,
                 gallery: editingRecord.media.filter((m: MediaType) => m.image_type === "gallery"),
               }}
@@ -501,6 +517,7 @@ const ProjectSetting = () => {
             visible={viewModalVisible}
             onCancel={() => setViewModalVisible(false)}
             record={viewingRecord}
+            projectTypes={projectTypes}
           />
 
           <CreateProjectModal
@@ -516,9 +533,6 @@ const ProjectSetting = () => {
 };
 
 export default ProjectSetting;
-
-
-
 
 
 
@@ -1027,3 +1041,7 @@ export default ProjectSetting;
 // };
 
 // export default ProjectSetting;
+
+
+
+
