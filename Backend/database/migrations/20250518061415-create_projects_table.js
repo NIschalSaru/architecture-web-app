@@ -17,7 +17,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "project_types", 
+          model: "project_types",
           key: "id",
         },
         onUpdate: "CASCADE",
@@ -34,6 +34,11 @@ module.exports = {
       description: {
         type: Sequelize.TEXT,
         allowNull: true,
+      },
+      status: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
       },
       createdAt: {
         type: Sequelize.DATE,
