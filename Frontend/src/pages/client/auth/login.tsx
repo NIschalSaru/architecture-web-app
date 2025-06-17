@@ -3,7 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import Cookies from 'js-cookie';
 import usePostAPI from '../../../hooks/usePostAPI';
-import logo from '../../../assets/images/Nepal-Designers-Builders-Logo.png';
+import logo from '../../../assets/images/LogoNew.png';
+import bgSvg from '../../../assets/svg/bg.svg';
+import wavePng from '../../../assets/images/wave.png';
 
 interface LoginResponse {
   id: number;
@@ -25,14 +27,6 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const { loading, postData } = usePostAPI<LoginResponse>('architecture-web-app/auth/login');
 
-  // useEffect(() => {
-  //   // Check if user is already logged in
-  //   const token = localStorage.getItem('authToken');
-  //   if (token) {
-  //     navigate('/admin/banner');
-  //   }
-  // }, [navigate]);
-
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     if (token) {
@@ -42,57 +36,62 @@ const LoginPage = () => {
     }
   }, [navigate]);
 
-// In the onFinish function
-const onFinish = async (values: LoginFormValues) => {
-  try {
-    const response = await postData({
-      email: values.email,
-      password: values.password,
-    });
-
-    if (response && response.token) {
-      localStorage.setItem('authToken', response.token);
-      localStorage.setItem('Id', response.id.toString());
-      Cookies.set('authToken', response.token, {
-        expires: values.remember ? 4 : undefined,
-        secure: true,
-        sameSite: 'None',
-        path: '/',
+  const onFinish = async (values: LoginFormValues) => {
+    try {
+      const response = await postData({
+        email: values.email,
+        password: values.password,
       });
-      const redirectPath = localStorage.getItem('redirectPath') || '/admin/banner';
-      localStorage.removeItem('redirectPath');
-      navigate(redirectPath);
+
+      if (response && response.token) {
+        localStorage.setItem('authToken', response.token);
+        localStorage.setItem('Id', response.id.toString());
+        Cookies.set('authToken', response.token, {
+          expires: values.remember ? 4 : undefined,
+          secure: true,
+          sameSite: 'None',
+          path: '/',
+        });
+        const redirectPath = localStorage.getItem('redirectPath') || '/admin/banner';
+        localStorage.removeItem('redirectPath');
+        navigate(redirectPath);
+      }
+    } catch (error) {
+      console.error('Login error:', error);
     }
-  } catch (error) {
-    console.error('Login error:', error);
-    // message.error('Login failed. Please check your credentials.');
-  }
-};
+  };
 
   return (
     <div className="login-container">
       <div className="left-section">
-        <div className="content">
-          <div className="logo">
-            <Link to="/" className="logo-link">
-              <img src={logo} alt="Logo" className="logo" />
-            </Link>
-          </div>
+        {/* Background SVG */}
+        <div className="bg-illustration">
+          <img src={bgSvg} alt="Background Illustration" className="bg-svg" />
+        </div>
+        
+        {/* Wave overlay */}
+        <div className="wave-overlay">
+          <img src={wavePng} alt="Wave" className="wave-image" />
+        </div>
+        
+        {/* Logo */}
+        <div className="logo">
+          <Link to="/" className="logo-link">
+            <img src={logo} alt="Logo" className="logo-img" />
+          </Link>
         </div>
       </div>
 
       <div className="right-section">
         <div className="form-container">
-          <h2>LOGIN</h2>
-          
-          {/* <div className="social-buttons"> */}
-            {/* <Button shape="circle" icon={<GoogleOutlined />} />
-            <Button shape="circle" icon={<FacebookFilled />} />
-            <Button shape="circle" icon={<GithubOutlined />} />
-            <Button shape="circle" icon={<LinkedinFilled />} />
-          </div> */}
-          
-          {/* <p className="divider">or use your email account</p> */}
+          <div className="welcome-header">
+            <div className="user-avatar">
+              <div className="avatar-circle">
+                <div className="avatar-icon"></div>
+              </div>
+            </div>
+            <h2>WELCOME</h2>
+          </div>
 
           <Form
             form={form}
@@ -103,17 +102,20 @@ const onFinish = async (values: LoginFormValues) => {
           >
             <Form.Item
               name="email"
-              label="Email"
+              label="Username"
               rules={[
                 { required: true, message: 'Please input your email!' },
                 { type: 'email', message: 'Please enter a valid email!' }
               ]}
             >
-              <Input 
-                placeholder="Email" 
-                className="form-input"
-                disabled={loading}
-              />
+              <div className="input-wrapper">
+                <div className="input-icon user-icon"></div>
+                <Input 
+                  placeholder="Username" 
+                  className="form-input"
+                  disabled={loading}
+                />
+              </div>
             </Form.Item>
 
             <Form.Item
@@ -121,11 +123,14 @@ const onFinish = async (values: LoginFormValues) => {
               label="Password"
               rules={[{ required: true, message: 'Please input your password!' }]}
             >
-              <Input.Password 
-                placeholder="Password" 
-                className="form-input"
-                disabled={loading}
-              />
+              <div className="input-wrapper">
+                <div className="input-icon lock-icon"></div>
+                <Input.Password 
+                  placeholder="Password" 
+                  className="form-input"
+                  disabled={loading}
+                />
+              </div>
             </Form.Item>
 
             <div className="form-options">
@@ -156,154 +161,3 @@ const onFinish = async (values: LoginFormValues) => {
 };
 
 export default LoginPage;
-
-
-
-
-
-
-
-
-
-// import { Form, Input, Button, Checkbox } from 'antd';
-// import { GoogleOutlined, FacebookFilled, GithubOutlined, LinkedinFilled } from '@ant-design/icons';
-// import { Link, useNavigate } from 'react-router-dom';
-// import { useEffect } from 'react';
-// import usePostAPI from '../../../hooks/usePostAPI';
-// import logo from '../../../assets/images/Nepal-Designers-Builders-Logo.png';
-
-// interface LoginResponse {
-//   id: number;
-//   fullName: string;
-//   email: string;
-//   message: string;
-// }
-
-// interface LoginFormValues {
-//   email: string;
-//   password: string;
-//   remember?: boolean;
-// }
-
-// const LoginPage = () => {
-//   const [form] = Form.useForm();
-//   const navigate = useNavigate();
-//   const { loading, postData } = usePostAPI<LoginResponse>('architecture-web-app/auth/login');
-
-//   useEffect(() => {
-//     // Check if user is already logged in
-//     const userData = localStorage.getItem('userData');
-//     if (userData) {
-//       navigate('/admin/banner');
-//     }
-//   }, [navigate]);
-
-//   const onFinish = async (values: LoginFormValues) => {
-//     try {
-//       const response = await postData({
-//         email: values.email,
-//         password: values.password,
-//       });
-
-//       if (response) {
-//         localStorage.setItem('userId', response.id.toString());
-//         localStorage.setItem('fullName', response.fullName);
-//         localStorage.setItem('userEmail', response.email);
-        
-//         localStorage.setItem('userData', JSON.stringify(response));
-//         navigate('/admin/banner');
-
-//       }
-//     } catch (error) {
-//       console.error('Login error:', error);
-//       // You might want to show an error message to the user here
-//     }
-//   };
-
-//   return (
-//     <div className="login-container">
-//       <div className="left-section">
-//         <div className="content">
-//           <div className="logo">
-//             <Link to="/" className="logo-link">
-//               <img src={logo} alt="Logo" className="logo" />
-//             </Link>
-//           </div>
-//         </div>
-//       </div>
-
-//       <div className="right-section">
-//         <div className="form-container">
-//           <h2>LOGIN</h2>
-          
-//           <div className="social-buttons">
-//             <Button shape="circle" icon={<GoogleOutlined />} />
-//             <Button shape="circle" icon={<FacebookFilled />} />
-//             <Button shape="circle" icon={<GithubOutlined />} />
-//             <Button shape="circle" icon={<LinkedinFilled />} />
-//           </div>
-          
-//           <p className="divider">or use your email account</p>
-
-//           <Form
-//             form={form}
-//             name="login"
-//             onFinish={onFinish}
-//             layout="vertical"
-//             className="login-form"
-//           >
-//             <Form.Item
-//               name="email"
-//               label="Email"
-//               rules={[
-//                 { required: true, message: 'Please input your email!' },
-//                 { type: 'email', message: 'Please enter a valid email!' }
-//               ]}
-//             >
-//               <Input 
-//                 placeholder="Email" 
-//                 className="form-input"
-//                 disabled={loading}
-//               />
-//             </Form.Item>
-
-//             <Form.Item
-//               name="password"
-//               label="Password"
-//               rules={[{ required: true, message: 'Please input your password!' }]}
-//             >
-//               <Input.Password 
-//                 placeholder="Password" 
-//                 className="form-input"
-//                 disabled={loading}
-//               />
-//             </Form.Item>
-
-//             <div className="form-options">
-//               <Form.Item name="remember" valuePropName="checked" noStyle>
-//                 <Checkbox>Remember me</Checkbox>
-//               </Form.Item>
-//               <Button type="link" className="forgot-password">
-//                 Forgot Password?
-//               </Button>
-//             </div>
-
-//             <Form.Item>
-//               <Button 
-//                 type="primary" 
-//                 htmlType="submit" 
-//                 className="login-btn"
-//                 loading={loading}
-//                 block
-//               >
-//                 LOGIN
-//               </Button>
-//             </Form.Item>
-//           </Form>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default LoginPage;
