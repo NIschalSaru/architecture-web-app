@@ -1,11 +1,11 @@
-import { Form, Input, Button, Checkbox } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-import Cookies from 'js-cookie';
-import usePostAPI from '../../../hooks/usePostAPI';
-import logo from '../../../assets/images/LogoNew.png';
-import bgSvg from '../../../assets/svg/bg.svg';
-import wavePng from '../../../assets/images/wave.png';
+import { Form, Input, Button, Checkbox } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import Cookies from "js-cookie";
+import usePostAPI from "../../../hooks/usePostAPI";
+import logo from "../../../assets/images/LogoNew.png";
+import bgSvg from "../../../assets/svg/bg.svg";
+import wavePng from "../../../assets/images/wave.png";
 
 interface LoginResponse {
   id: number;
@@ -25,13 +25,16 @@ interface LoginFormValues {
 const LoginPage = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const { loading, postData } = usePostAPI<LoginResponse>('architecture-web-app/auth/login');
+  const { loading, postData } = usePostAPI<LoginResponse>(
+    "architecture-web-app/auth/login"
+  );
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem("authToken");
     if (token) {
-      const redirectPath = localStorage.getItem('redirectPath') || '/admin/banner';
-      localStorage.removeItem('redirectPath');
+      const redirectPath =
+        localStorage.getItem("redirectPath") || "/admin/banner";
+      localStorage.removeItem("redirectPath");
       navigate(redirectPath);
     }
   }, [navigate]);
@@ -44,41 +47,41 @@ const LoginPage = () => {
       });
 
       if (response && response.token) {
-        localStorage.setItem('authToken', response.token);
-        localStorage.setItem('Id', response.id.toString());
-        Cookies.set('authToken', response.token, {
+        localStorage.setItem("authToken", response.token);
+        localStorage.setItem("Id", response.id.toString());
+        Cookies.set("authToken", response.token, {
           expires: values.remember ? 4 : undefined,
           secure: true,
-          sameSite: 'None',
-          path: '/',
+          sameSite: "None",
+          path: "/",
         });
-        const redirectPath = localStorage.getItem('redirectPath') || '/admin/banner';
-        localStorage.removeItem('redirectPath');
+        const redirectPath =
+          localStorage.getItem("redirectPath") || "/admin/banner";
+        localStorage.removeItem("redirectPath");
         navigate(redirectPath);
       }
     } catch (error) {
-      console.error('Login error:', error);
+      console.error("Login error:", error);
     }
   };
 
   return (
     <div className="login-container">
       <div className="left-section">
-        {/* Background SVG */}
-        <div className="bg-illustration">
-          <img src={bgSvg} alt="Background Illustration" className="bg-svg" />
-        </div>
-        
-        {/* Wave overlay */}
-        <div className="wave-overlay">
-          <img src={wavePng} alt="Wave" className="wave-image" />
-        </div>
-        
         {/* Logo */}
         <div className="logo">
           <Link to="/" className="logo-link">
             <img src={logo} alt="Logo" className="logo-img" />
           </Link>
+        </div>
+        {/* Background SVG */}
+        <div className="bg-illustration">
+          <img src={bgSvg} alt="Background Illustration" className="bg-svg" />
+        </div>
+
+        {/* Wave overlay */}
+        <div className="wave-overlay">
+          <img src={wavePng} alt="Wave" className="wave-image" />
         </div>
       </div>
 
@@ -104,14 +107,14 @@ const LoginPage = () => {
               name="email"
               label="Username"
               rules={[
-                { required: true, message: 'Please input your email!' },
-                { type: 'email', message: 'Please enter a valid email!' }
+                { required: true, message: "Please input your email!" },
+                { type: "email", message: "Please enter a valid email!" },
               ]}
             >
               <div className="input-wrapper">
                 <div className="input-icon user-icon"></div>
-                <Input 
-                  placeholder="Username" 
+                <Input
+                  placeholder="Username"
                   className="form-input"
                   disabled={loading}
                 />
@@ -121,12 +124,14 @@ const LoginPage = () => {
             <Form.Item
               name="password"
               label="Password"
-              rules={[{ required: true, message: 'Please input your password!' }]}
+              rules={[
+                { required: true, message: "Please input your password!" },
+              ]}
             >
               <div className="input-wrapper">
                 <div className="input-icon lock-icon"></div>
-                <Input.Password 
-                  placeholder="Password" 
+                <Input.Password
+                  placeholder="Password"
                   className="form-input"
                   disabled={loading}
                 />
@@ -143,9 +148,9 @@ const LoginPage = () => {
             </div>
 
             <Form.Item>
-              <Button 
-                type="primary" 
-                htmlType="submit" 
+              <Button
+                type="primary"
+                htmlType="submit"
                 className="login-btn"
                 loading={loading}
                 block
