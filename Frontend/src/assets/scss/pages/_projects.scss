@@ -15,7 +15,7 @@ $hover-color-slider: #be1e2d;
 .project-area {
   padding: 0px 0;
   min-height: 100vh;
-  background-color: #fdf9f8;
+  background-color: #fdf9f846;
 }
 
 .section-title {
@@ -54,6 +54,12 @@ $hover-color-slider: #be1e2d;
   background-color: #ccc; /* Or your desired line color */
 }
 
+.sections-heading p {
+  font-size: 2rem;
+  color: var(--secondary-color);
+  margin-top: 10px;
+  margin-bottom: 0;
+}
 /* Project Layout */
 .project-layout {
   display: flex;
