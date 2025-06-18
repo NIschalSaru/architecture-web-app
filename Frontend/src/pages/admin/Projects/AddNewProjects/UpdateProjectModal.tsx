@@ -1,4 +1,4 @@
-import { Modal, Form, Input, Button, Upload, message, Row, Col, Select } from "antd";
+import { Modal, Form, Input, Button, Upload, message, Row, Col, Select, Radio } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -32,6 +32,7 @@ interface UpdateProjectModalProps {
     client_email: string;
     client_mobile: string;
     client_address: string;
+    status: boolean;
     image?: MediaType | null;
     gallery?: MediaType[];
   };
@@ -85,6 +86,7 @@ const UpdateProjectModal = ({
         client_email: initialValues.client_email,
         client_mobile: initialValues.client_mobile,
         client_address: initialValues.client_address,
+        status: initialValues.status,
         image: initialValues.image
           ? {
               uid: initialValues.image.id,
@@ -274,6 +276,7 @@ const UpdateProjectModal = ({
               <Input placeholder="Enter client address" />
             </Form.Item>
           </Col>
+          
           <Col span={24}>
             <Form.Item
               name="description"
@@ -281,6 +284,18 @@ const UpdateProjectModal = ({
               rules={[{ required: true, message: "Please enter the description" }]}
             >
               <Input.TextArea placeholder="Enter description" rows={3} />
+            </Form.Item>
+          </Col>
+          <Col span={24}>
+            <Form.Item
+              name="status"
+              label="Status"
+              rules={[{ required: true, message: "Please select a status" }]}
+            >
+              <Radio.Group>
+                <Radio value={true}>Active</Radio>
+                <Radio value={false}>Inactive</Radio>
+              </Radio.Group>
             </Form.Item>
           </Col>
           <Col span={12}>

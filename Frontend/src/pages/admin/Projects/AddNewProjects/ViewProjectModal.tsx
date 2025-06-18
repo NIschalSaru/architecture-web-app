@@ -1,24 +1,31 @@
 import { Modal, Typography, Image } from "antd"; //, Form, Input
-import { DataType } from "./types";
+import { DataType, ProjectType } from "./types";
 
 interface ViewProjectModalProps {
   visible: boolean;
   onCancel: () => void;
   record: DataType | null;
+  projectTypes: ProjectType[];
 }
 
 const ViewProjectModal = ({
   visible,
   onCancel,
   record,
+  projectTypes,
 }: ViewProjectModalProps) => {
+  const getProjectTypeName = (projectTypeId: number) => {
+    const projectType = projectTypes.find(type => type.id === projectTypeId);
+    return projectType ? projectType.title : 'Unknown';
+  };
+
   return (
     <Modal
       title="Project Details"
       open={visible}
       onCancel={onCancel}
       footer={null}
-      width={1000}
+      width={900}
       className="testimonial-modal"
     >
       {record && (
@@ -33,12 +40,24 @@ const ViewProjectModal = ({
               }}
             >
               <div>
+                <Typography.Text strong>Project Type:</Typography.Text>
+                <Typography.Paragraph>{getProjectTypeName(record.project_type_id)}</Typography.Paragraph>
+              </div>
+              <div>
                 <Typography.Text strong>Location:</Typography.Text>
                 <Typography.Paragraph>{record.location}</Typography.Paragraph>
               </div>
               <div>
                 <Typography.Text strong>Site Area:</Typography.Text>
                 <Typography.Paragraph>{record.site_area}</Typography.Paragraph>
+              </div>
+              <div>
+                <Typography.Text strong>Status:</Typography.Text>
+                <Typography.Paragraph>
+                  <span>
+                    {record.status ? "Active" : "Inactive"}
+                  </span>
+                </Typography.Paragraph>
               </div>
             </div>
           </div>
