@@ -84,7 +84,7 @@
       color: $white;
       border: none;
       border-radius: 8px;
-      padding:1.325rem;
+      padding: 1.325rem;
       font-size: 1.125rem;
       font-weight: 500;
       margin-bottom: 2rem;
@@ -98,7 +98,7 @@
 
     .service-card-page {
       display: flex;
-      align-items: center;
+      align-items: flex-start; // ✅ Align both sides to the top instead of center
       background: #fff;
       border-radius: 12px;
       box-shadow: 0 6px 18px rgba($dark, 0.25);
@@ -111,6 +111,7 @@
         .image-wrapper-page {
           border-radius: 8px;
           overflow: hidden;
+
           width: 100%;
           height: 450px;
 
@@ -155,7 +156,11 @@
             .title-decorator-page {
               width: 80px;
               height: 3px;
-              background: linear-gradient(90deg, $primary, color.adjust($primary, $lightness: 20%));
+              background: linear-gradient(
+                90deg,
+                $primary,
+                color.adjust($primary, $lightness: 20%)
+              );
               margin-top: 0.5rem;
               border-radius: 2px;
             }
@@ -180,8 +185,11 @@
             padding: 0;
             margin-bottom: 2.5rem;
 
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); // 2 columns
+            gap: 1rem 2rem; // row and column gaps
+
             li {
-              margin-bottom: 1rem;
               font-size: 1rem;
               color: #475569;
 
@@ -332,14 +340,13 @@
   }
 }
 
-
 // @use "../base/variable" as *;
 // @use "sass:color";
 
 // // Mixins
 // @mixin section-padding {
 //   padding: 2rem 0;
-  
+
 //   @media (max-width: 768px) {
 //     padding: 3rem 0;
 //   }
@@ -389,7 +396,7 @@
 //   border-radius: 50% !important;
 //   z-index: 2 !important;
 //   // transition: all 0.3s ease !important;
-  
+
 //   &:hover {
 //     background: rgba($primary, 1) !important;
 //     // transform: scale(1.1);
@@ -412,7 +419,7 @@
 // // Services Section (Services Page) - Restored original structure
 // .services-section-page {
 //   @include section-padding;
-  
+
 //   .service-card-page {
 //     display: flex;
 //     align-items: center;
@@ -421,20 +428,20 @@
 //     box-shadow: 0 6px 18px rgba($dark, 0.1);
 //     margin-bottom: 5rem;
 //     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    
+
 //     &:hover {
 //       transform: translateY(-8px);
 //       box-shadow: 0 10px 24px rgba($dark, 0.15);
 //     }
-    
+
 //     &.reverse {
 //       flex-direction: row-reverse;
 //     }
-    
+
 //     .image-side-page {
 //       flex: 1;
 //       padding: 2rem;
-      
+
 //       .image-wrapper-page {
 //         position: relative;
 //         overflow: hidden;
@@ -444,7 +451,7 @@
 //         align-items: center;
 //         justify-content: center;
 //         margin-bottom: 1.5rem;
-        
+
 //         &::before {
 //           content: "";
 //           position: absolute;
@@ -456,7 +463,7 @@
 //           border-radius: 8px;
 //           z-index: 1;
 //         }
-        
+
 //         img {
 //           width: auto;
 //           height: auto;
@@ -467,7 +474,7 @@
 //           z-index: 2;
 //           transition: transform 0.6s ease;
 //           cursor: pointer;
-          
+
 //           &:hover {
 //             transform: scale(1.03);
 //           }
@@ -486,7 +493,7 @@
 //           z-index: 3;
 //           cursor: pointer;
 //           transition: background 0.3s ease;
-          
+
 //           &:hover {
 //             background: rgba($primary, 0.8);
 //           }
@@ -520,7 +527,7 @@
 //             border-color: $primary;
 //             background: rgba($primary, 0.05);
 //             transform: translateY(-3px);
-            
+
 //             .step-number {
 //               background: $primary;
 //               color: white;
@@ -571,17 +578,17 @@
 //         }
 //       }
 //     }
-    
+
 //     .content-side-page {
 //       flex: 1;
 //       padding: 2rem;
-      
+
 //       .content-wrapper-page {
 //         max-width: 500px;
-        
+
 //         .section-title-wrapper-page {
 //           margin-bottom: 1.5rem;
-          
+
 //           .service-title-page {
 //             color: $dark;
 //             font-size: 2.5rem;
@@ -589,7 +596,7 @@
 //             margin: 0;
 //             transition: color 0.3s ease;
 //           }
-          
+
 //           .title-decorator-page {
 //             width: 80px;
 //             height: 3px;
@@ -598,31 +605,31 @@
 //             border-radius: 2px;
 //             animation: slideIn 0.5s ease-out;
 //           }
-          
+
 //           &:hover .service-title-page {
 //             color: $primary;
 //           }
 //         }
-        
+
 //         .service-description-page {
 //           color: #475569;
 //           font-size: 1.1rem;
 //           line-height: 1.8;
 //           margin-bottom: 1.5rem;
 //         }
-        
+
 //         .divider-page {
 //           width: 100%;
 //           height: 1px;
 //           background-color: #e2e8f0;
 //           margin: 1.5rem 0;
 //         }
-        
+
 //         .features-list-page {
 //           list-style: none;
 //           padding: 0;
 //           margin-bottom: 2.5rem;
-          
+
 //           li {
 //             display: flex;
 //             align-items: center;
@@ -630,23 +637,23 @@
 //             font-size: 1rem;
 //             color: #475569;
 //             transition: transform 0.2s ease;
-            
+
 //             &:hover {
 //               transform: translateX(5px);
 //             }
-            
+
 //             .feature-icon-page {
 //               color: $primary;
 //               font-size: 1.25rem;
 //               margin-right: 0.75rem;
 //             }
-            
+
 //             span {
 //               font-weight: 500;
 //             }
 //           }
 //         }
-        
+
 //         .learn-more-btn-page {
 //           background-color: $primary;
 //           border: none;
@@ -655,13 +662,13 @@
 //           font-size: 1.1rem;
 //           font-weight: 600;
 //           transition: all 0.3s ease;
-          
+
 //           &:hover {
 //             color: color.adjust($secondary, $lightness: -10%);
 //             transform: translateY(-2px);
 //             box-shadow: 0 4px 12px rgba($primary, 0.2);
 //           }
-          
+
 //           &:active {
 //             transform: translateY(0);
 //           }
@@ -830,11 +837,11 @@
 //           }
 //         }
 //       }
-      
+
 //       .image-side-page {
 //         .image-wrapper-page {
 //           height: 450px;
-          
+
 //           img {
 //             max-height: 100%;
 //           }
@@ -842,11 +849,11 @@
 
 //         .step-images-gallery {
 //           gap: 0.6rem;
-          
+
 //           .step-image-wrapper {
 //             width: 80px;
 //             height: 110px;
-            
+
 //             img {
 //               height: 50px;
 //             }
@@ -870,19 +877,19 @@
 // @media (max-width: 1024px) {
 //   .services-section-page {
 //     padding: 4rem 0;
-    
+
 //     .service-card-page {
 //       flex-direction: column !important;
 //       margin-bottom: 6rem;
-      
+
 //       .image-side-page {
 //         padding: 2rem 1.5rem 1.5rem;
 //         width: 100%;
-        
+
 //         .image-wrapper-page {
 //           height: 400px;
 //           margin-bottom: 1.5rem;
-          
+
 //           img {
 //             max-height: 100%;
 //           }
@@ -891,11 +898,11 @@
 //         .step-images-gallery {
 //           justify-content: center;
 //           gap: 0.8rem;
-          
+
 //           .step-image-wrapper {
 //             width: 85px;
 //             height: 115px;
-            
+
 //             img {
 //               height: 55px;
 //             }
@@ -906,11 +913,11 @@
 //           }
 //         }
 //       }
-      
+
 //       .content-side-page {
 //         padding: 1.5rem;
 //         width: 100%;
-        
+
 //         .content-wrapper-page {
 //           .service-title-page {
 //             font-size: 2rem;
@@ -926,51 +933,51 @@
 //     .container {
 //       padding: 0 1rem;
 //     }
-    
+
 //     .service-card-page {
 //       margin-bottom: 4rem;
-      
+
 //       .content-side-page {
 //         padding: 1rem;
-        
+
 //         .content-wrapper-page {
 //           text-align: center;
-          
+
 //           .section-title-wrapper-page {
 //             .service-title-page {
 //               font-size: 1.75rem;
 //             }
-            
+
 //             .title-decorator-page {
 //               width: 60px;
 //               margin-left: auto;
 //               margin-right: auto;
 //             }
 //           }
-          
+
 //           .service-description-page {
 //             font-size: 1rem;
 //           }
-          
+
 //           .features-list-page {
 //             li {
 //               justify-content: center;
 //             }
 //           }
-          
+
 //           .learn-more-btn-page {
 //             width: 100%;
 //             padding: 0.75rem;
 //           }
 //         }
 //       }
-      
+
 //       .image-side-page {
 //         padding: 1.5rem 1rem 1rem;
 
 //         .image-wrapper-page {
 //           height: 300px;
-          
+
 //           img {
 //             max-height: 100%;
 //           }
@@ -978,12 +985,12 @@
 
 //         .step-images-gallery {
 //           gap: 0.5rem;
-          
+
 //           .step-image-wrapper {
 //             width: 70px;
 //             height: 95px;
 //             padding: 0.4rem;
-            
+
 //             img {
 //               height: 45px;
 //             }
@@ -1007,63 +1014,63 @@
 // @media (max-width: 480px) {
 //   .services-section-page {
 //     padding: 2rem 0;
-    
+
 //     .container {
 //       padding: 0 0.5rem;
 //     }
-    
+
 //     .service-card-page {
 //       margin-bottom: 3rem;
 //       box-shadow: 0 4px 12px rgba($dark, 0.08);
-      
+
 //       .content-side-page {
 //         padding: 0.75rem;
-        
+
 //         .content-wrapper-page {
 //           .section-title-wrapper-page {
 //             margin-bottom: 1rem;
-            
+
 //             .service-title-page {
 //               font-size: 1.5rem;
 //               line-height: 1.3;
 //             }
-            
+
 //             .title-decorator-page {
 //               width: 50px;
 //             }
 //           }
-          
+
 //           .service-description-page {
 //             font-size: 0.9rem;
 //             line-height: 1.6;
 //             margin-bottom: 1rem;
 //           }
-          
+
 //           .divider-page {
 //             margin: 1rem 0;
 //           }
-          
+
 //           .features-list-page {
 //             margin-bottom: 1.5rem;
-            
+
 //             li {
 //               margin-bottom: 0.75rem;
 //               font-size: 0.9rem;
-              
+
 //               .feature-icon-page {
 //                 font-size: 1rem;
 //                 margin-right: 0.5rem;
 //               }
 //             }
 //           }
-          
+
 //           .learn-more-btn-page {
 //             padding: 0.65rem;
 //             font-size: 1rem;
 //           }
 //         }
 //       }
-      
+
 //       .image-side-page {
 //         padding: 1rem 0.75rem 0.75rem;
 
@@ -1074,12 +1081,12 @@
 
 //         .step-images-gallery {
 //           gap: 0.4rem;
-          
+
 //           .step-image-wrapper {
 //             width: 60px;
 //             height: 80px;
 //             padding: 0.3rem;
-            
+
 //             img {
 //               height: 35px;
 //             }
@@ -1187,18 +1194,18 @@
 //       box-shadow: none;
 //       border: 1px solid #e2e8f0;
 //       page-break-inside: avoid;
-      
+
 //       &:hover {
 //         transform: none;
 //         box-shadow: none;
 //       }
-      
+
 //       .learn-more-btn-page {
 //         display: none;
 //       }
 //     }
 //   }
-  
+
 //   .enhanced-image-modal {
 //     display: none;
 //   }

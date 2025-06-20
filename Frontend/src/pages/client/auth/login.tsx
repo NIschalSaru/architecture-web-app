@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import Cookies from "js-cookie";
 import usePostAPI from "../../../hooks/usePostAPI";
 import logo from "../../../assets/images/LogoNew.png";
-import bgSvg from "../../../assets/svg/bg.svg";
-import wavePng from "../../../assets/images/wave.png";
+import bgSvg from "../../../assets/svg/bg.png";
+import wavePng from "../../../assets/images/wave1.png";
 
 interface LoginResponse {
   id: number;
