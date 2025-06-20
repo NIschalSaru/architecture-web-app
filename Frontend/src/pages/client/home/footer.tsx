@@ -104,35 +104,36 @@ const Footer = () => {
                 <li className="menu-item menu-item-type-post_type menu-item-object-page">
                   <a href="/blogs">By Laws & Info</a>
                 </li>
+                <div className="app-store-buttons">
+                  <a
+                    href="https://apps.apple.com/np/app/nepal-designers-builders-ndb/id6743044434"
+                    className="app-store-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={AppStore}
+                      alt="Download on App Store"
+                      className="app-store-image"
+                    />
+                  </a>
+                  <a
+                    href="https://play.google.com/store/apps/details?id=com.theyetilabs.enirman.ndb&pli=1"
+                    className="app-store-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={PlayStore}
+                      alt="Get it on Google Play"
+                      className="app-store-image"
+                    />
+                  </a>
+                </div>
               </ul>
             </div>
-            <div className="app-store-buttons">
-              <a
-                href="https://apps.apple.com/np/app/nepal-designers-builders-ndb/id6743044434"
-                className="app-store-link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src={AppStore}
-                  alt="Download on App Store"
-                  className="app-store-image"
-                />
-              </a>
-              <a
-                href="https://play.google.com/store/apps/details?id=com.theyetilabs.enirman.ndb&pli=1"
-                className="app-store-link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src={PlayStore}
-                  alt="Get it on Google Play"
-                  className="app-store-image"
-                />
-              </a>
-            </div>
           </div>
+
           <div className="footer-content-column">
             <div className="footer-call-to-action">
               <h2 className="footer-call-to-action-title"> Let's Chat</h2>
