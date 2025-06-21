@@ -3,23 +3,18 @@ import Cookies from 'js-cookie';
 
 
 // export const apiUrl = "http://localhost:5000/api";
-export const apiUrl = "https://ndnb.onrender.com/api";
+// export const apiUrl = "https://ndnb.onrender.com/api";
+export const apiUrl = "http://backend.ndnb.com.np/api";
 
-// Authentication check function
 export const isAuthenticated = (): boolean => {
-  const authToken = localStorage.getItem('authToken');
-  const getToken=  Cookies.get('authToken');
+  const authToken = localStorage.getItem("authToken");
+  const getToken = Cookies.get("authToken");
   return authToken !== null && getToken !== null;
 };
 
 export const handleSignOut = (navigate: NavigateFunction): void => {
-  // Clear localStorage
   localStorage.removeItem('authToken');
-  localStorage.removeItem('userData');
-  
-  // Clear cookies
+  localStorage.removeItem('Id');  
   Cookies.remove('authToken', { path: '/' });
-  
-  // Redirect to login
   navigate('/login');
 };
