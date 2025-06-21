@@ -39,16 +39,18 @@
     .wave-overlay {
       position: absolute;
       top: 0;
-      right: 30px;
-      width: 750px;
+      right: 0;
+      width: 100vw;
       height: 100%;
       z-index: 2;
 
       .wave-image {
         width: 100%;
         height: 100%;
+        max-width: 100vw;
         object-fit: cover;
-        object-position: left center;
+        object-position: right center;
+        display: block;
       }
     }
 

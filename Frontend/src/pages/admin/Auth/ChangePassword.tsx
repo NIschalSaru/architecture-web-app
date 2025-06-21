@@ -21,7 +21,7 @@ const ChangePassword = ({ visible, onCancel }: EditProfileProps) => {
     setLoading(true);
     try {
       // Retrieve userId from localStorage
-      const userId = localStorage.getItem('Id');
+      const userId = sessionStorage.getItem('Id');
       if (!userId) {
         throw new Error("User ID not found. Please log in again.");
       }
