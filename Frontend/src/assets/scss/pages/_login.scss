@@ -169,13 +169,13 @@
             z-index: 2;
 
             &.user-icon {
-              background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTIgMTJaTTEyIDEyQzE2LjQxODMgMTIgMjAgMTUuNTgxNyAyMCAyMEg0QzQgMTUuNTgxNyA3LjU4MTcgMTIgMTIgMTJaIiBzdHJva2U9IiMwMGQ0YWEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=")
+              background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDEyQzE0LjIwOTEgMTIgMTYgMTAuMjA5MSAxNiA4QzE2IDUuNzkwODYgMTQuMjA5MSA0IDEyIDRDOS43OTA4NiA0IDggNS43OTA4NiA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTIgMTJaTTEyIDEyQzE2LjQxODMgMTIgMjAgMTUuNTgxNyAyMCAyMEg0QzQgMTUuNTgxNyA3LjU4MTcgMTIgMTIgMTJaIiBzdHJva2U9IiMyNzJhYjkiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPg==")
                 no-repeat center;
               background-size: contain;
             }
 
             &.lock-icon {
-              background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTYgMTBWOEM2IDUuNzkwODYgNy43OTA4NiA0IDEwIDRIMTRDMTYuMjA5MSA0IDE4IDUuNzkwODYgMTggOFYxME0xMiAxNFYxNk01IDEwSDEySDEzSDE5QzE5LjU1MjMgMTAgMjAgMTAuNDQ3NyAyMCAxMVYxOUMyMCAxOS41NTIzIDE5LjU1MjMgMjAgMTkgMjBINUMzLjg5NTQzIDIwIDMgMTkuMTA0NiAzIDE4VjEyQzMgMTAuODk1NCAzLjg5NTQzIDEwIDUgMTBaIiBzdHJva2U9IiMwMGQ0YWEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=")
+              background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTYgMTBWOEM2IDUuNzkwODYgNy43OTA4NiA0IDEwIDRIMTRDMTYuMjA5MSA0IDE4IDUuNzkwODYgMTggOFYxME0xMiAxNFYxNk01IDEwSDEySDEzSDE5QzE5LjU1MjMgMTAgMjAgMTAuNDQ3NyAyMCAxMVYxOUMyMCAxOS41NTIzIDE5LjU1MjMgMjAgMTkgMjBINUMzLjg5NTQzIDIwIDMgMTkuMTA0NiAzIDE4VjEyQzMgMTAuODk1NCAzLjg5NTQzIDEwIDUgMTBaIiBzdHJva2U9IiMyNzJhYjkiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPg==")
                 no-repeat center;
               background-size: contain;
             }
@@ -185,15 +185,15 @@
         .form-input {
           height: 50px;
           background: #f8f9fa;
-          border: 2px solid #e9ecef;
+          border: 2px solid #062646;
           border-radius: 15px;
           padding-left: 50px;
           font-size: 1rem;
           transition: all 0.3s ease;
 
           &:focus {
-            box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.1);
-            border-color: #00d4aa;
+            box-shadow: 0 0 0 3px rgba(14, 0, 212, 0.1);
+            border-color: #0400d4;
             background: white;
           }
 
@@ -224,8 +224,8 @@
           }
 
           &:focus-within {
-            box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.1);
-            border-color: #00d4aa;
+            box-shadow: 0 0 0 3px rgba(0, 39, 212, 0.1);
+            border-color: #2000d4;
             background: white;
           }
         }
@@ -241,8 +241,8 @@
             font-size: 0.9rem;
 
             .ant-checkbox-checked .ant-checkbox-inner {
-              background-color: #00d4aa;
-              border-color: #00d4aa;
+              background-color: #2700d4;
+              border-color: #2e00d4;
             }
           }
 
@@ -253,7 +253,7 @@
             text-decoration: none;
 
             &:hover {
-              color: #00d4aa;
+              color: #2000d4;
               text-decoration: underline;
             }
           }
@@ -268,13 +268,11 @@
           font-weight: 600;
           font-size: 1.1rem;
           letter-spacing: 1px;
-          box-shadow: 0 8px 25px rgba(0, 212, 170, 0.3);
           transition: all 0.3s ease;
 
           &:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(0, 212, 170, 0.4);
-            background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+            box-shadow: 0 8px 25px rgb(55 54 148);
           }
 
           &:active {

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Cookies from "js-cookie";
 import usePostAPI from "../../../hooks/usePostAPI";
 import logo from "../../../assets/images/LogoNew.png";
-import bgSvg from "../../../assets/svg/bg.png";
+import bgSvg from "../../../assets/svg/bg2.png";
 import wavePng from "../../../assets/images/wave1.png";
 
 interface LoginResponse {
@@ -166,21 +166,6 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import { Form, Input, Button, Checkbox, message } from "antd";
 // import { Link, useNavigate } from "react-router-dom";
@@ -387,18 +372,3 @@ export default LoginPage;
 // };
 
 // export default LoginPage;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
