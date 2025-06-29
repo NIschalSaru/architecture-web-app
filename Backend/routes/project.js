@@ -2,6 +2,7 @@ const router = require("express").Router();
 const {
   createProjectType,
   getAllProjectTypes,
+  getProjectTypesByStatus,
   updateProjectType,
   deleteProjectType,
 } = require("../controllers/project/projectType.controller.js");
@@ -24,6 +25,7 @@ const { uploadImages } = require("../middleware/multer.middleware.js");
 // Project Type Routes
 router.post("/project-types/", ProtectRoute, createProjectType);
 router.get("/project-types/", getAllProjectTypes);
+router.get("/active-project-types/", getProjectTypesByStatus);
 router.put("/project-types/:id", ProtectRoute, updateProjectType);
 router.delete("/project-types/:id", ProtectRoute, deleteProjectType);
 

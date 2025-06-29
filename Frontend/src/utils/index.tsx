@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 
 // export const apiUrl = "http://localhost:5000/api";
 // export const apiUrl = "https://ndnb.onrender.com/api";
-export const apiUrl = "http://backend.ndnb.com.np/api";
+export const apiUrl = "https://backend.ndnb.com.np/api";
 
 export const isAuthenticated = (): boolean => {
   const authToken = localStorage.getItem("authToken");
