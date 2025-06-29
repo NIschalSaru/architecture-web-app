@@ -518,6 +518,7 @@ const ProjectSetting = () => {
             onCancel={() => setViewModalVisible(false)}
             record={viewingRecord}
             projectTypes={projectTypes}
+            apiUrl={apiUrl}
           />
 
           <CreateProjectModal
