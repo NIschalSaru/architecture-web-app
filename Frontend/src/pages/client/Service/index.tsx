@@ -4,17 +4,17 @@ import { InnerHeader } from "../../../components/client/InnerHeader";
 import { useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-import NayaNaksa from "../../../assets/images/Services/service-nayanaksa.png";
-import NaksaPass from "../../../assets/images/Services/services-NaksaPass.jpg";
-import OldHouseNewLooks1 from "../../../assets/images/Services/services-oldhousenewlooks1.jpg";
-import OldHouseNewLooks2 from "../../../assets/images/Services/services-oldhousenewlooks2.jpg";
-import InteriorDesign from "../../../assets/images/Services/service-InteriorDesign.jpg";
-import HotelResort from "../../../assets/images/Services/service-HotelResort.png";
-import gharCollection1 from "../../../assets/images/Services/service-gharCollection1.jpg";
-import gharCollection2 from "../../../assets/images/Services/service-gharCollection.jpg";
-import siteMeasurement from "../../../assets/images/Services/siteMeasurement.jpg";
-import estimation from "../../../assets/images/Services/service-estimation.jpg";
-import evaluation from "../../../assets/images/Services/service-evaluation.jpg";
+import NayaNaksa from "../../../assets/images/Services/service-nayanaksa.webp";
+import NaksaPass from "../../../assets/images/Services/services-NaksaPass.webp";
+import OldHouseNewLooks1 from "../../../assets/images/Services/services-oldhousenewlooks1.webp";
+import OldHouseNewLooks2 from "../../../assets/images/Services/services-oldhousenewlooks2.webp";
+import InteriorDesign from "../../../assets/images/Services/service-InteriorDesign.webp";
+import HotelResort from "../../../assets/images/Services/service-HotelResort.webp";
+import gharCollection1 from "../../../assets/images/Services/service-gharCollection1.webp";
+import gharCollection2 from "../../../assets/images/Services/service-gharCollection.webp";
+import siteMeasurement from "../../../assets/images/Services/siteMeasurement.webp";
+import estimation from "../../../assets/images/Services/service-estimation.webp";
+import evaluation from "../../../assets/images/Services/service-evaluation.webp";
 import { ArrowBigLeft } from "lucide-react";
 
 const { Title, Paragraph } = Typography;

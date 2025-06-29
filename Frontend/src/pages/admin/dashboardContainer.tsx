@@ -1,5 +1,4 @@
 import {
-  FileImageOutlined,
   HomeOutlined,
   MessageOutlined,
   UserOutlined,
@@ -10,6 +9,10 @@ import {
   TeamOutlined,
   PlusCircleOutlined,
   KeyOutlined,
+  ProjectOutlined,
+  FormOutlined,
+  CreditCardOutlined,
+  AuditOutlined,
 } from "@ant-design/icons";
 import { Avatar, Dropdown, Layout, Menu } from "antd";
 import { useEffect, useState } from "react";
@@ -31,7 +34,7 @@ const items = [
   },
   {
     key: "Projects",
-    icon: <FileImageOutlined />,
+    icon: <ProjectOutlined />,
     label: "Project Settings",
     children: [
       {
@@ -58,12 +61,12 @@ const items = [
   },
   {
     key: "Forms",
-    icon: <UserOutlined />,
+    icon: <FormOutlined />,
     label: "Form Settings",
     children: [
       {
         key: "Client-Requirement-Form",
-        icon: <FolderAddOutlined />,
+        icon: <AuditOutlined />,
         label: "Client Requirement Form",
       },
       {
@@ -75,7 +78,7 @@ const items = [
   },
   {
     key: "blogs",
-    icon: <UserOutlined />,
+    icon: <CreditCardOutlined />,
     label: "Blogs Settings",
   },
 ];

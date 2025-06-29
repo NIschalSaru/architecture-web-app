@@ -21,7 +21,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({ visible, onCancel, onUpdate, 
   const [loading, setLoading] = useState<boolean>(false);
   const { data: projectTypes, loading: projectTypesLoading } = useGetAPI<
   ProjectType[]
->("architecture-web-app/projects/project-types", true, true);
+>("architecture-web-app/projects/active-project-types", true, true);
 
   useEffect(() => {
     if (visible && initialValues) {
