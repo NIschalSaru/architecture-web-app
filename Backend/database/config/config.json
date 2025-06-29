@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "architecturedwebapp_user",
-    "password": "1OvRKTkMhf33qGw8hiZrIsukma8LZeKT",
-    "database": "architecturedwebapp",
-    "host": "dpg-d0muhqruibrs73f25mkg-a.oregon-postgres.render.com",
+    "username": "architecture_db_vf5e_user",
+    "password": "MEHqGoPZJBqGTdKErFjgcOsOCth4JnMo",
+    "database": "architecture_db_vf5e",
+    "host": "dpg-d1be1oodl3ps73ejobe0-a.oregon-postgres.render.com",
     "dialect": "postgres",
     "dialectOptions": {
       "ssl": {
@@ -13,17 +13,23 @@
     }
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
+    "username": "demo_ndnbcomn_testdbuser",
+    "password": "g3.)r90{*l0K",
+    "database": "demo_ndnbcomn_testdb",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "port": 5432,
+    "dialect": "postgres",
+    "dialectOptions": {},
+    "logging": false
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
+    "username": "ndnbcomn_testdbuser",
+    "password": "g3.)r90{*l0K",
+    "database": "ndnbcomn_testdb",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "port": 5432,
+    "dialect": "postgres",
+    "dialectOptions": {},
+    "logging": false
   }
 }

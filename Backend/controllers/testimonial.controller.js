@@ -3,32 +3,26 @@ const path = require("path");
 const dayjs = require("dayjs");
 const Testimonial = require("../model/testimonial.js");
 const { asyncHandler } = require("../services/async.handler.js");
-const { uploadSingleImage, deleteImage } = require("../services/cloudinary.js");
 
 const createTestimonial = asyncHandler(async (req, res) => {
   const { fullname, designation, message, rating } = req.body;
+
   if (!fullname || !designation || !message || !rating) {
     return res.status(400).json({ message: "All fields are required" });
   }
+
   const uploadedImage = req.files?.image?.[0];
   let filename = null;
   let imagePath = null;
   let imageUrl = null;
+
   if (uploadedImage) {
     const folderName = dayjs().format("YYYYMMDD");
     filename = uploadedImage.filename;
     imagePath = `/uploads/${folderName}/${filename}`;
-    const fullPath = path.join(__dirname, "..", "storage", imagePath);
-    try {
-      const fileBuffer = fs.readFileSync(fullPath);
-      imageUrl = await uploadSingleImage(fileBuffer, filename);
-    } catch (err) {
-      return res.status(500).json({
-        message: "Cloudinary upload failed",
-        error: err.message,
-      });
-    }
+    imageUrl = null; // set to null instead of using path
   }
+
   const title = `testimonial_${Date.now()}`;
   const data = await Testimonial.create({
     fullname,
@@ -40,6 +34,7 @@ const createTestimonial = asyncHandler(async (req, res) => {
     imageUrl,
     title,
   });
+
   res.status(201).json({
     message: "Testimonial created successfully",
     data: {
@@ -56,21 +51,17 @@ const updateTestimonial = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { rating, message, fullname, designation, title } = req.body;
   const testimonial = await Testimonial.findByPk(id);
+
   if (!testimonial) {
     return res.status(404).json({ success: false, message: "Not found" });
   }
+
   const uploadedImage = req.files?.image?.[0];
   let filename = testimonial.filename;
   let filepath = testimonial.filepath;
   let imageUrl = testimonial.imageUrl;
+
   if (uploadedImage) {
-    if (testimonial.imageUrl) {
-      try {
-        await deleteImage(testimonial.imageUrl);
-      } catch (err) {
-        console.warn("Failed to delete Cloudinary image:", err.message);
-      }
-    }
     if (testimonial.filepath) {
       const sanitizedPath = testimonial.filepath.replace(/^\/+/, "");
       const localPath = path.resolve(__dirname, "..", "storage", sanitizedPath);
@@ -82,20 +73,13 @@ const updateTestimonial = asyncHandler(async (req, res) => {
         }
       }
     }
+
     const folderName = dayjs().format("YYYYMMDD");
-    filepath = `/uploads/${folderName}/${uploadedImage.filename}`;
-    const fullPath = path.join(__dirname, "..", "storage", filepath);
     filename = uploadedImage.filename;
-    try {
-      const fileBuffer = fs.readFileSync(fullPath);
-      imageUrl = await uploadSingleImage(fileBuffer, filename);
-    } catch (err) {
-      return res.status(500).json({
-        message: "Image update failed",
-        error: err.message,
-      });
-    }
+    filepath = `/uploads/${folderName}/${filename}`;
+    imageUrl = null; // set to null instead of using path
   }
+
   await testimonial.update({
     fullname,
     designation,
@@ -106,6 +90,7 @@ const updateTestimonial = asyncHandler(async (req, res) => {
     filepath,
     imageUrl,
   });
+
   return res.status(200).json({
     message: "Testimonial updated successfully",
     data: {
@@ -122,16 +107,11 @@ const updateTestimonial = asyncHandler(async (req, res) => {
 const deleteTestimonial = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const testimonial = await Testimonial.findByPk(id);
+
   if (!testimonial) {
     return res.status(404).json({ message: "Data not found" });
   }
-  if (testimonial.imageUrl) {
-    try {
-      await deleteImage(testimonial.imageUrl);
-    } catch (err) {
-      console.warn("Failed to delete Cloudinary image:", err.message);
-    }
-  }
+
   if (testimonial.filepath) {
     const sanitizedPath = testimonial.filepath.replace(/^\/+/, "");
     const localPath = path.resolve(__dirname, "..", "storage", sanitizedPath);
@@ -143,6 +123,7 @@ const deleteTestimonial = asyncHandler(async (req, res) => {
       }
     }
   }
+
   await testimonial.destroy();
   return res.status(200).json({
     success: true,

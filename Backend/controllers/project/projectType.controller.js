@@ -31,6 +31,21 @@ const getAllProjectTypes = asyncHandler(async (req, res) => {
   }
 });
 
+const getProjectTypesByStatus = asyncHandler(async (req, res) => {
+  try {
+    const projectTypes = await ProjectType.findAll({
+      attributes: ["id", "title", "status"],
+      where: { status: true },
+      order: [["createdAt", "DESC"]],
+    });
+
+    res.status(200).json({ success: true, data: projectTypes });
+  } catch (error) {
+    console.error("Error fetching Data:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+});
+
 const updateProjectType = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { title, status } = req.body;
@@ -71,6 +86,7 @@ const deleteProjectType = asyncHandler(async (req, res) => {
 module.exports = {
   createProjectType,
   getAllProjectTypes,
+  getProjectTypesByStatus,
   updateProjectType,
   deleteProjectType,
 };
