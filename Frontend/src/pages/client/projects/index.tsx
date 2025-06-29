@@ -9,6 +9,7 @@ import ScrollToTop from "../../../components/client/ScrollToTop";
 interface ProjectTypes {
   key: string;
   title: string;
+  status?: string;
 }
 
 interface Media {
@@ -51,11 +52,16 @@ const Projects = () => {
       const response = await axios.get(
         `${apiUrl}/architecture-web-app/projects/project-types/`
       );
-      const fetchedData = response.data.data.map((item: any) => ({
-        key: item.id.toString(),
-        title: item.title,
-      }));
+
+      const fetchedData = response.data.data
+        .filter((item: any) => item.status === true) // ✅ Filter only `status: true`
+        .map((item: any) => ({
+          key: item.id.toString(),
+          title: item.title,
+        }));
+
       setProjectTypes(fetchedData);
+
       if (fetchedData.length > 0) {
         setSelectedCategory(fetchedData[0].key);
       }
@@ -97,18 +103,7 @@ const Projects = () => {
   return (
     <>
       <InnerHeader title="PROJECTS" currentPage="PROJECTS" />
-      <section
-        className="project-area"
-        id="project"
-        // style={{
-        //   backgroundImage: `url(${bgImage})`,
-        //   backgroundSize: "cover",
-        //   backgroundPosition: "top center",
-        //   backgroundRepeat: "no-repeat",
-        //   padding: "60px 0",
-        //   minHeight: "100vh",
-        // }}
-      >
+      <section className="project-area" id="project">
         <div className="container">
           <motion.div
             className="section-title"
