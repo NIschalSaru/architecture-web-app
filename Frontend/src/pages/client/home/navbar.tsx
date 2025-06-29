@@ -165,31 +165,18 @@ const NavbarComponent: React.FC = () => {
                   </Link>
                 </li>
               ))}
-              <li className="menuButtonList">
-                <Button className="menuButton" type="text" onClick={showDrawer}>
-                  <MenuOutlined />
-                </Button>
-              </li>
             </ul>
 
             <div className="auth-section">
-              {/* <Link to="/admin">
-                  <Button size="large" ghost>
-                    Admin
-                  </Button>
-                </Link> */}
+
               <Link to="/admin">
-                {/* <Link to="/about#contact-us"> */}
                 <Button size="large" ghost>
-                  {/* Contact Us */}
                   Login
                 </Button>
               </Link>
-              {/* <Link to="/login">
-                  <Button size="large" ghost>
-                    Login
-                  </Button>
-                </Link> */}
+              <Button className="menuButton" type="text" onClick={showDrawer}>
+                <MenuOutlined />
+              </Button>
             </div>
           </div>
         </div>
