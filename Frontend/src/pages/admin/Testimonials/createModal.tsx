@@ -132,7 +132,7 @@ const CreateModal: React.FC<CreateModalProps> = ({
           <Col span={24}>
             <Form.Item 
               label="Profile Image"
-              name="imageUrl"
+              name="filepath"
               className="upload-wrapper"
             >
               <Upload

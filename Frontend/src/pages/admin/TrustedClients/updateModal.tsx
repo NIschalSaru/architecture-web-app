@@ -3,6 +3,7 @@ import { Modal, Form, Input, Upload, Button, Row, Col, Radio } from "antd";
 import { UploadOutlined, UserOutlined, LinkOutlined } from "@ant-design/icons";
 import { UploadFile } from "antd/es/upload/interface";
 import LoadingSpinner from "../../../components/client/LoadingSpinner";
+import { apiUrl } from "../../../utils";
 
 interface UpdateClientModalProps {
   visible: boolean;
@@ -11,7 +12,7 @@ interface UpdateClientModalProps {
   initialValues: {
     name: string;
     link: string;
-    fileurl: string | null;
+    filepath: string | null;
     filename: string | null;
     feature: boolean;
   };
@@ -35,13 +36,13 @@ const UpdateClientModal: React.FC<UpdateClientModalProps> = ({
         status: initialValues.feature ? "1" : "0",
       });
 
-      if (initialValues.fileurl) {
+      if (initialValues.filepath) {
         setFileList([
           {
             uid: "-1",
             name: initialValues.filename || "current-logo",
             status: "done",
-            url: initialValues.fileurl,
+            url: `${apiUrl}/architecture-web-app${initialValues.filepath}`,
           },
         ]);
       } else {
@@ -65,8 +66,8 @@ const UpdateClientModal: React.FC<UpdateClientModalProps> = ({
 
       if (fileList.length > 0 && fileList[0].originFileObj) {
         formData.append("image", fileList[0].originFileObj as Blob);
-      } else if (initialValues.fileurl) {
-        formData.append("image", initialValues.fileurl);
+      } else if (initialValues.filepath) {
+        formData.append("image", initialValues.filepath);
       }
 
       await onUpdate(formData);
@@ -143,7 +144,7 @@ const UpdateClientModal: React.FC<UpdateClientModalProps> = ({
           <Col span={24}>
             <Form.Item
               label="Logo Image"
-              name="fileurl"
+              name="filepath"
               className="upload-wrapper"
             >
               <Upload

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Space, Table, Button, message, Tooltip, Rate, UploadFile } from "antd";
+import { Space, Table, Button, message, Tooltip, Rate } from "antd";
 import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import CreateModal from "./createModal";
 import UpdateModal from "./updateModal";
@@ -13,7 +13,8 @@ interface DataType {
   designation: string;
   rating: number;
   message: string;
-  imagefile: UploadFile | null;
+  filepath: string | null;
+  filename: string | null;
 }
 
 const TestimonialSetting = () => {
@@ -24,7 +25,7 @@ const TestimonialSetting = () => {
   const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
   const [, setRecordName] = useState<string>("");
   const [pageLoading, setPageLoading] = useState<boolean>(false); // New global loading state
-
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
 
   // Fetch data from API
   const fetchData = async () => {
@@ -39,7 +40,8 @@ const TestimonialSetting = () => {
         designation: testimonial.designation,
         rating: testimonial.rating,
         message: testimonial.message,
-        imageUrl: testimonial.imageUrl || "",
+        filepath: testimonial.filepath || null,
+        filename: testimonial.filename || null,
       }));
       setData(fetchedData);
     } catch (error: unknown) {
@@ -153,6 +155,12 @@ const TestimonialSetting = () => {
 
   const columns = [
     {
+      title: "SN",
+      dataIndex: "sn",
+      render: (_: any, __: DataType, index: number) =>
+        (pagination.current - 1) * pagination.pageSize + index + 1,
+    },
+    {
       title: "Name",
       dataIndex: "fullname",
       key: "fullname",
@@ -177,12 +185,12 @@ const TestimonialSetting = () => {
     },
     {
       title: "Image",
-      dataIndex: "imageUrl",
-      key: "imageUrl",
-      render: (imageUrl: string) =>
-        imageUrl ? (
+      dataIndex: "filepath",
+      key: "filepath",
+      render: (filepath: string | null) =>
+        filepath ? (
           <img
-            src={imageUrl}
+            src={`${apiUrl}/architecture-web-app${filepath}`}
             alt="Testimonial"
             style={{ width: 30, height: 30, borderRadius: "50%" }}
           />
@@ -243,8 +251,20 @@ const TestimonialSetting = () => {
           <Table<DataType>
             columns={columns}
             dataSource={data}
-            pagination={{ pageSize: 10 }}
+            pagination={{
+              current: pagination.current,
+              pageSize: pagination.pageSize,
+              pageSizeOptions: ['10', '20', '50', '100'],
+              showSizeChanger: false,
+            }}
+            onChange={(pagination) => {
+              setPagination({
+                current: pagination.current || 1,
+                pageSize: pagination.pageSize || 10,
+              });
+            }}
             scroll={{ x: "max-content" }}
+            rowKey="key"
           />
 
           <CreateModal
