@@ -1,4 +1,4 @@
-import { Modal, Form, Input, Select } from "antd";
+import { Modal, Form, Input, Radio } from "antd";
 
 interface CreateModalProps {
   visible: boolean;
@@ -42,10 +42,10 @@ const CreateModal = ({ visible, onCancel, onCreate }: CreateModalProps) => {
           label="Status"
           rules={[{ required: true, message: "Please select a status" }]}
         >
-          <Select placeholder="Select status" className="fullName">
-            <Select.Option value="1">Active</Select.Option>
-            <Select.Option value="0">Inactive</Select.Option>
-          </Select>
+          <Radio.Group>
+            <Radio value="1">Active</Radio>
+            <Radio value="0">Inactive</Radio>
+          </Radio.Group>
         </Form.Item>
       </Form>
     </Modal>

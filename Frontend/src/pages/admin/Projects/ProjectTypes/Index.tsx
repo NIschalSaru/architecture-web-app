@@ -24,6 +24,7 @@ const ProjectCategorySetting = () => {
   const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
   const [, setRecordName] = useState<string>("");
   const [pageLoading, setPageLoading] = useState<boolean>(false);
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
 
   // Fetch data from API
   const fetchData = async () => {
@@ -56,7 +57,7 @@ const ProjectCategorySetting = () => {
     try {
       const response = await axios.post(
         `${apiUrl}/architecture-web-app/projects/project-types/`,
-        { ...values, status: values.status === "Active" }, // Convert status to boolean for API
+        values, // Send as is, do not convert status
         {
           withCredentials: true,
         }
@@ -85,7 +86,7 @@ const ProjectCategorySetting = () => {
     try {
       const response = await axios.put(
         `${apiUrl}/architecture-web-app/projects/project-types/${editingRecord?.key}`,
-        { ...values, status: values.status === "Active" }, // Convert status to boolean for API
+        values, // Send as is, do not convert status
         {
           withCredentials: true,
         }
@@ -134,7 +135,10 @@ const ProjectCategorySetting = () => {
   };
 
   const handleUpdateClick = (record: DataType) => {
-    setEditingRecord(record);
+    setEditingRecord({
+      ...record,
+      status: record.status === "Active" ? "1" : "0",
+    });
     setEditModalVisible(true);
   };
 
@@ -142,7 +146,8 @@ const ProjectCategorySetting = () => {
     {
       title: "SN",
       key: "sn",
-      render: (_: any, __: DataType, index: number) => index + 1, // Auto-increment starting from 1
+      render: (_: any, __: DataType, index: number) =>
+        (pagination.current - 1) * pagination.pageSize + index + 1,
     },
     {
       title: "Category",
@@ -214,7 +219,19 @@ const ProjectCategorySetting = () => {
           <Table<DataType>
             columns={columns}
             dataSource={[...data].sort((a, b) => a.id - b.id)}
-            pagination={{ pageSize: 10 }}
+            pagination={{
+              current: pagination.current,
+              pageSize: pagination.pageSize,
+              pageSizeOptions: ['10', '20', '50', '100'],
+              showSizeChanger: false,
+              // position: ['bottomLeft'],
+            }}
+            onChange={(pagination) => {
+              setPagination({
+                current: pagination.current || 1,
+                pageSize: pagination.pageSize || 10,
+              });
+            }}
             scroll={{ x: "max-content" }}
             rowKey="id"
           />
@@ -230,7 +247,10 @@ const ProjectCategorySetting = () => {
               visible={editModalVisible}
               onCancel={() => setEditModalVisible(false)}
               onUpdate={handleUpdate}
-              initialValues={editingRecord}
+              initialValues={{
+                category: editingRecord.category,
+                status: editingRecord.status,
+              }}
             />
           )}
 
@@ -247,7 +267,6 @@ const ProjectCategorySetting = () => {
 };
 
 export default ProjectCategorySetting;
-
 
 
 

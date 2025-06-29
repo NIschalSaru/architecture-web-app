@@ -1,4 +1,4 @@
-import { Modal, Typography, Image } from "antd"; //, Form, Input
+import { Modal, Typography, Image} from "antd"; //, Form, Input
 import { DataType, ProjectType } from "./types";
 
 interface ViewProjectModalProps {
@@ -6,6 +6,7 @@ interface ViewProjectModalProps {
   onCancel: () => void;
   record: DataType | null;
   projectTypes: ProjectType[];
+  apiUrl: string;
 }
 
 const ViewProjectModal = ({
@@ -13,6 +14,7 @@ const ViewProjectModal = ({
   onCancel,
   record,
   projectTypes,
+  apiUrl,
 }: ViewProjectModalProps) => {
   const getProjectTypeName = (projectTypeId: number) => {
     const projectType = projectTypes.find(type => type.id === projectTypeId);
@@ -99,32 +101,32 @@ const ViewProjectModal = ({
           </div>
 
           <div style={{ marginBottom: "20px" }}>
-          <Typography.Title level={5}>Description</Typography.Title>
-          <Typography.Paragraph>{record.description}</Typography.Paragraph>
-            {/* <Form 
-              layout="vertical" 
-              className="compact-form"
-              initialValues={{ description: record.description }}
+            <Typography.Title level={5}>Description:</Typography.Title>
+            <div
+              style={{
+                maxHeight: "220px",
+                overflowY: "auto",
+                background: "#fafafa",
+                border: "1px solid #e5e5e5",
+                borderRadius: "6px",
+                padding: "12px 16px",
+                color: "#222",
+                fontSize: "15px",
+                lineHeight: 1.7,
+                whiteSpace: "pre-line"
+              }}
             >
-              <Form.Item
-                name="description"              >
-                <Input.TextArea 
-                  disabled
-                  rows={5}
-
-                />
-              </Form.Item>
-            </Form> */}
-            
+              {record.description || <span style={{ color: '#aaa' }}>No description provided.</span>}
+            </div>
           </div>
 
           <div>
-            <Typography.Title level={5}>Project Images</Typography.Title>
+            <Typography.Title level={5}>Project Images:</Typography.Title>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
               {record.media.map((media: any) => (
                 <Image
                   key={media.id}
-                  src={media.fileurl}
+                  src={media.filepath ? `${apiUrl}/architecture-web-app${media.filepath}` : undefined}
                   alt={media.image_type}
                   width={200}
                   height={200}

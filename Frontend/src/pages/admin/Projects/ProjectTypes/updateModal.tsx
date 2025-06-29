@@ -1,10 +1,11 @@
-import { Modal, Form, Input, Select } from "antd";
+import { Modal, Form, Input, Radio } from "antd";
+import { useEffect } from "react";
 
 interface UpdateModalProps {
   visible: boolean;
   onCancel: () => void;
   onUpdate: (values: { title: string; status: string }) => void;
-  initialValues: { category: string };
+  initialValues: { category: string; status: string };
 }
 
 const UpdateModal = ({
@@ -14,6 +15,18 @@ const UpdateModal = ({
   initialValues,
 }: UpdateModalProps) => {
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (visible) {
+      form.setFieldsValue({
+        title: initialValues.category,
+        status:
+          initialValues.status === "Active" || initialValues.status === "1"
+            ? "1"
+            : "0",
+      });
+    }
+  }, [visible, initialValues, form]);
 
   return (
     <Modal
@@ -36,7 +49,6 @@ const UpdateModal = ({
       <Form
         form={form}
         layout="vertical"
-        initialValues={{ title: initialValues.category, status: "1" }}
         className="compact-form"
       >
         <Form.Item
@@ -51,10 +63,10 @@ const UpdateModal = ({
           label="Status"
           rules={[{ required: true, message: "Please select a status" }]}
         >
-          <Select placeholder="Select status" className="categoryTitle">
-            <Select.Option value="1">Active</Select.Option>
-            <Select.Option value="0">Inactive</Select.Option>
-          </Select>
+          <Radio.Group>
+            <Radio value="1">Active</Radio>
+            <Radio value="0">Inactive</Radio>
+          </Radio.Group>
         </Form.Item>
       </Form>
     </Modal>

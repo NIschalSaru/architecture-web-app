@@ -16,6 +16,7 @@ interface MediaType {
   image_type: string;
   fileurl: string;
   filename: string;
+  filepath?: string;
 }
 
 interface UpdateProjectModalProps {
@@ -89,18 +90,18 @@ const UpdateProjectModal = ({
         status: initialValues.status,
         image: initialValues.image
           ? {
-              uid: initialValues.image.id,
+              uid: initialValues.image.id || initialValues.image.filename || initialValues.image.filepath || Math.random().toString(),
               name: initialValues.image.filename,
-              url: initialValues.image.fileurl,
+              url: initialValues.image.filepath ? `${apiUrl}/architecture-web-app${initialValues.image.filepath}` : undefined,
               status: "done",
               originFileObj: null,
             }
           : null,
         gallery: initialValues.gallery
           ? initialValues.gallery.map((media) => ({
-              uid: media.id,
+              uid: media.id || media.filename || media.filepath || Math.random().toString(),
               name: media.filename,
-              url: media.fileurl,
+              url: media.filepath ? `${apiUrl}/architecture-web-app${media.filepath}` : undefined,
               status: "done",
             }))
           : [],
@@ -109,9 +110,9 @@ const UpdateProjectModal = ({
       setImageFileList(
         initialValues.image
           ? [{
-              uid: initialValues.image.id,
+              uid: initialValues.image.id || initialValues.image.filename || initialValues.image.filepath || Math.random().toString(),
               name: initialValues.image.filename,
-              url: initialValues.image.fileurl,
+              url: initialValues.image.filepath ? `${apiUrl}/architecture-web-app${initialValues.image.filepath}` : undefined,
               status: "done",
               originFileObj: null,
             }]
@@ -120,9 +121,9 @@ const UpdateProjectModal = ({
       setGalleryFileList(
         initialValues.gallery
           ? initialValues.gallery.map((media) => ({
-              uid: media.id,
+              uid: media.id || media.filename || media.filepath || Math.random().toString(),
               name: media.filename,
-              url: media.fileurl,
+              url: media.filepath ? `${apiUrl}/architecture-web-app${media.filepath}` : undefined,
               status: "done",
             }))
           : []
@@ -283,7 +284,7 @@ const UpdateProjectModal = ({
               label="Description"
               rules={[{ required: true, message: "Please enter the description" }]}
             >
-              <Input.TextArea placeholder="Enter description" rows={3} />
+              <Input.TextArea placeholder="Enter description" rows={5} />
             </Form.Item>
           </Col>
           <Col span={24}>
