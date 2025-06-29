@@ -2,11 +2,9 @@ import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { apiUrl } from "../../../utils";
-// import InnerHeader from "../../../components/client/InnerHeader";
 import ProjectInnerHeader from "../../../components/client/ProjectInnerHeader";
 import ImageViewer from "react-simple-image-viewer";
 import { motion } from "framer-motion";
-
 import { ArrowLeft, User } from "lucide-react";
 
 interface Media {
@@ -58,7 +56,9 @@ const ProjectDetails = () => {
 
         // Set first image as default selected image
         if (clientData?.project?.media?.length > 0) {
-          setSelectedImage(clientData.project.media[0].fileurl);
+          setSelectedImage(
+            `${apiUrl}/architecture-web-app${clientData.project.media[0].filepath}`
+          );
         }
       } catch (error) {
         console.error("Error fetching client details:", error);
@@ -70,10 +70,13 @@ const ProjectDetails = () => {
     fetchClientDetails();
   }, [id]);
 
-  // Get the feature image from the project media
   const featureImage = client?.project?.media.find(
     (img) => img.image_type === "feature"
-  )?.fileurl;
+  )?.filepath;
+
+  const featureImageFull = featureImage
+    ? `${apiUrl}/architecture-web-app${featureImage}`
+    : undefined;
 
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -119,7 +122,7 @@ const ProjectDetails = () => {
       <ProjectInnerHeader
         title="PROJECTS"
         currentPage="PROJECTS"
-        backgroundImage={featureImage}
+        backgroundImage={featureImageFull}
         projectName={client.project.name}
         address={client.project.location}
       />
@@ -134,15 +137,12 @@ const ProjectDetails = () => {
           {/* Main Content Grid */}
           <div className="content-grid">
             {/* Left Column - Project Details */}
-
             <div className="details-section">
-              {/* Client Info Card */}
               <div className="info-card">
                 <div className="client-info">
                   <div className="client-item">
                     <User className="client-icon" />
                     <div>
-                      {/* Description */}
                       <motion.div
                         className="description-section"
                         initial={{ opacity: 0, y: 100 }}
@@ -160,6 +160,7 @@ const ProjectDetails = () => {
                   </div>
                 </div>
               </div>
+
               <table className="project-details-table">
                 <tbody>
                   <tr>
@@ -183,10 +184,9 @@ const ProjectDetails = () => {
                 </tbody>
               </table>
             </div>
-            {/* Right Column - Image Gallery */}
 
+            {/* Right Column - Image Gallery */}
             <div className="image-section">
-              {/* Main Image */}
               <motion.div
                 className="main-image-container"
                 initial={{ opacity: 0, y: -100 }}
@@ -204,32 +204,40 @@ const ProjectDetails = () => {
                 )}
               </motion.div>
 
-              {/* Thumbnail Gallery */}
               {client.project.media.length > 1 && (
                 <div className="gallery-container">
                   <h3 className="gallery-title">Project Gallery</h3>
                   <div className="thumbnail-grid">
-                    {client.project.media.map((media, index) => (
-                      <button
-                        key={media.id}
-                        onClick={() => openImageViewer(index)}
-                        className={`thumbnail-button ${
-                          selectedImage === media.fileurl ? "active" : ""
-                        }`}
-                      >
-                        <img
-                          src={media.fileurl}
-                          alt={`Project view ${media.id}`}
-                          className="thumbnail-image"
-                        />
-                      </button>
-                    ))}
+                    {client.project.media.map((media, index) => {
+                      const fullPath = `${apiUrl}/architecture-web-app${media.filepath}`;
+                      return (
+                        <button
+                          key={media.id}
+                          onClick={() => {
+                            setSelectedImage(fullPath);
+                            openImageViewer(index);
+                          }}
+                          className={`thumbnail-button ${
+                            selectedImage === fullPath ? "active" : ""
+                          }`}
+                        >
+                          <img
+                            src={fullPath}
+                            alt={`Project view ${media.id}`}
+                            className="thumbnail-image"
+                          />
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               )}
+
               {isViewerOpen && (
                 <ImageViewer
-                  src={client.project.media.map((m) => m.fileurl)}
+                  src={client.project.media.map(
+                    (m) => `${apiUrl}/architecture-web-app${m.filepath}`
+                  )}
                   currentIndex={currentImageIndex}
                   disableScroll={false}
                   closeOnClickOutside={true}
@@ -241,16 +249,6 @@ const ProjectDetails = () => {
               )}
             </div>
           </div>
-          {/* Contact Action */}
-          {/* <div className="cta-card">
-            <div className="cta-section">
-              <h3 className="cta-title">Interested in Similar Work?</h3>
-              <p className="cta-description">
-                Get in touch to discuss your architectural project.
-              </p>
-              <button className="cta-button">Contact Us</button>
-            </div>
-          </div> */}
         </div>
       </div>
     </>

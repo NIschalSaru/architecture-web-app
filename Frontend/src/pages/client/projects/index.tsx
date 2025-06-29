@@ -54,7 +54,7 @@ const Projects = () => {
       );
 
       const fetchedData = response.data.data
-        .filter((item: any) => item.status === true) // ✅ Filter only `status: true`
+        .filter((item: any) => item.status === true)
         .map((item: any) => ({
           key: item.id.toString(),
           title: item.title,
@@ -148,11 +148,13 @@ const Projects = () => {
               <AnimatePresence>
                 {clients.length > 0 ? (
                   clients.map((client) => {
-                    console.log("Client project:", client.project);
-
                     const featureImage = client.project?.media?.find(
                       (media) => media.image_type === "feature"
                     );
+
+                    const fullImagePath = featureImage
+                      ? `${apiUrl}/architecture-web-app${featureImage.filepath}`
+                      : "";
 
                     return (
                       <motion.div
@@ -166,7 +168,7 @@ const Projects = () => {
                         {featureImage && (
                           <div className="image-wrapper">
                             <motion.img
-                              src={featureImage.fileurl}
+                              src={fullImagePath}
                               alt={client.fullName}
                               sizes="(max-width: 479px) 100vw, (max-width: 767px) 96vw, (max-width: 991px) 45vw, 37vw"
                               whileHover={{ scale: 1.03 }}

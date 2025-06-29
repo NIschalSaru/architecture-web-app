@@ -14,7 +14,7 @@ const ProjectsSection = () => {
     const fetchProjects = async () => {
       try {
         const response = await axios.get(
-          `${apiUrl}/architecture-web-app/projects/get-projects`,
+          `${apiUrl}/architecture-web-app/projects/get-latest-projects`,
           { withCredentials: true }
         );
 
@@ -37,7 +37,7 @@ const ProjectsSection = () => {
             date: formattedDate,
             description: project.description || "No description available.",
             bgImage:
-              project.media?.[0]?.fileurl ||
+              `${apiUrl}/architecture-web-app${project.media?.[0]?.filepath}` ||
               "https://via.placeholder.com/400x300?text=No+Image",
           };
         });
