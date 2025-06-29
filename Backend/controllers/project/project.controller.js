@@ -3,10 +3,6 @@ const { asyncHandler } = require("../../services/async.handler.js");
 const path = require("path");
 const dayjs = require("dayjs");
 const fs = require("fs");
-const {
-  uploadSingleImage,
-  deleteImage,
-} = require("../../middleware/cloudinary.js");
 const { sequelize } = require("../../database/models/index.js");
 
 const createProject = asyncHandler(async (req, res) => {
@@ -20,6 +16,7 @@ const createProject = asyncHandler(async (req, res) => {
     client_email,
     client_mobile,
     client_address,
+    status,
   } = req.body;
 
   if (!name || !project_type_id) {
@@ -33,6 +30,7 @@ const createProject = asyncHandler(async (req, res) => {
   let project,
     client = null;
   let mediaData = [];
+
   try {
     project = await Project.create(
       {
@@ -41,9 +39,11 @@ const createProject = asyncHandler(async (req, res) => {
         location,
         site_area,
         description,
+        status: status ?? true,
       },
       { transaction: t }
     );
+
     if (client_name && (client_email || client_mobile)) {
       client = await Client.create(
         {
@@ -56,44 +56,30 @@ const createProject = asyncHandler(async (req, res) => {
         { transaction: t }
       );
     }
+
     const files = req.files;
     const folderName = dayjs().format("YYYYMMDD");
     const uploadFolder = `/uploads/${folderName}`;
-    const fullLocalFolder = path.join(__dirname, "../../storage", uploadFolder);
 
     if (files.image && files.image.length > 0) {
       const feature = files.image[0];
-      const localPath = path.join(fullLocalFolder, feature.filename);
-      const fileBuffer = fs.readFileSync(localPath);
-      const cloudinaryUrl = await uploadSingleImage(
-        fileBuffer,
-        feature.filename
-      );
-
       mediaData.push({
         project_id: project.id,
         image_type: "feature",
         filename: feature.filename,
         filepath: `${uploadFolder}/${feature.filename}`,
-        fileurl: cloudinaryUrl,
+        fileurl: null,
       });
     }
 
     if (files.gallery && files.gallery.length > 0) {
       for (const file of files.gallery) {
-        const localPath = path.join(fullLocalFolder, file.filename);
-        const fileBuffer = fs.readFileSync(localPath);
-        const cloudinaryUrl = await uploadSingleImage(
-          fileBuffer,
-          file.filename
-        );
-
         mediaData.push({
           project_id: project.id,
           image_type: "gallery",
           filename: file.filename,
           filepath: `${uploadFolder}/${file.filename}`,
-          fileurl: cloudinaryUrl,
+          fileurl: null,
         });
       }
     }
@@ -101,21 +87,18 @@ const createProject = asyncHandler(async (req, res) => {
     if (mediaData.length > 0) {
       await Media.bulkCreate(mediaData, { transaction: t });
     }
+
     await t.commit();
     return res.status(201).json({
       success: true,
       message: "Project created successfully.",
-      data: {
-        project,
-        client,
-        media: mediaData,
-      },
+      data: { project, client, media: mediaData },
     });
   } catch (error) {
     await t.rollback();
     return res.status(500).json({
       success: false,
-      message: "Project creation failed during media or client processing.",
+      message: "Project creation failed.",
       error: error.message,
     });
   }
@@ -133,17 +116,20 @@ const updateProject = asyncHandler(async (req, res) => {
     client_email,
     client_mobile,
     client_address,
+    status,
   } = req.body;
+
   const t = await sequelize.transaction();
+
   try {
     const project = await Project.findByPk(id, { transaction: t });
     if (!project) {
       await t.rollback();
-      return res.status(404).json({
-        success: false,
-        message: "Data not found.",
-      });
+      return res
+        .status(404)
+        .json({ success: false, message: "Data not found." });
     }
+
     await project.update(
       {
         name,
@@ -151,13 +137,16 @@ const updateProject = asyncHandler(async (req, res) => {
         location,
         site_area,
         description,
+        status: status ?? true,
       },
       { transaction: t }
     );
+
     let client = await Client.findOne({
       where: { project_id: id },
       transaction: t,
     });
+
     if (client_name || client_email || client_mobile) {
       if (client) {
         await client.update(
@@ -182,74 +171,57 @@ const updateProject = asyncHandler(async (req, res) => {
         );
       }
     }
+
     const files = req.files;
     const folderName = dayjs().format("YYYYMMDD");
     const uploadFolder = `/uploads/${folderName}`;
-    const fullLocalFolder = path.join(__dirname, "../../storage", uploadFolder);
     const mediaData = [];
+
     if (files.image && files.image.length > 0) {
       const oldFeatureImage = await Media.findOne({
         where: { project_id: id, image_type: "feature" },
         transaction: t,
       });
+
       if (oldFeatureImage) {
         const sanitizedPath = oldFeatureImage.filepath.replace(/^\/+/, "");
         const fullPath = path.join(__dirname, "../../storage", sanitizedPath);
-        if (fs.existsSync(fullPath)) {
-          fs.unlinkSync(fullPath);
-        }
+        if (fs.existsSync(fullPath)) fs.unlinkSync(fullPath);
         await oldFeatureImage.destroy({ transaction: t });
-        try {
-          await deleteImage(oldFeatureImage.fileurl);
-        } catch (err) {
-          console.error("Cloudinary deletion failed:", err.message);
-        }
       }
+
       const feature = files.image[0];
-      const localPath = path.join(fullLocalFolder, feature.filename);
-      const fileBuffer = fs.readFileSync(localPath);
-      const cloudinaryUrl = await uploadSingleImage(
-        fileBuffer,
-        feature.filename
-      );
       mediaData.push({
         project_id: id,
         image_type: "feature",
         filename: feature.filename,
         filepath: `${uploadFolder}/${feature.filename}`,
-        fileurl: cloudinaryUrl,
+        fileurl: null,
       });
     }
+
     if (files.gallery && files.gallery.length > 0) {
       for (const file of files.gallery) {
-        const localPath = path.join(fullLocalFolder, file.filename);
-        const fileBuffer = fs.readFileSync(localPath);
-        const cloudinaryUrl = await uploadSingleImage(
-          fileBuffer,
-          file.filename
-        );
         mediaData.push({
           project_id: id,
           image_type: "gallery",
           filename: file.filename,
           filepath: `${uploadFolder}/${file.filename}`,
-          fileurl: cloudinaryUrl,
+          fileurl: null,
         });
       }
     }
+
     let mediaRecords = null;
     if (mediaData.length > 0) {
       mediaRecords = await Media.bulkCreate(mediaData, { transaction: t });
     }
+
     await t.commit();
     res.status(200).json({
       success: true,
       message: "Data updated successfully.",
-      data: {
-        project,
-        client,
-        media: mediaRecords,
-      },
+      data: { project, client, media: mediaRecords },
     });
   } catch (error) {
     await t.rollback();
@@ -267,6 +239,7 @@ const deleteProject = asyncHandler(async (req, res) => {
   if (!project) {
     return res.status(404).json({ success: false, message: "Data not found." });
   }
+
   const mediaFiles = await Media.findAll({ where: { project_id: id } });
 
   await Promise.all(
@@ -281,24 +254,18 @@ const deleteProject = asyncHandler(async (req, res) => {
         if (fs.existsSync(fullPath)) {
           try {
             fs.unlinkSync(fullPath);
-            console.log("Deleted local file:", fullPath);
           } catch (err) {
             console.error("Error deleting local file:", err);
           }
         }
       }
-      if (media.fileurl) {
-        try {
-          await deleteImage(media.fileurl);
-        } catch (err) {
-          console.error("Failed to delete from Cloudinary:", err.message);
-        }
-      }
     })
   );
+
   await Media.destroy({ where: { project_id: id } });
   await Client.destroy({ where: { project_id: id } });
   await project.destroy();
+
   res
     .status(200)
     .json({ success: true, message: "Data deleted successfully." });
@@ -311,18 +278,29 @@ const getClientByProjectTypeId = asyncHandler(async (req, res) => {
       {
         model: Project,
         as: "project",
-        where: { project_type_id },
-        attributes: [],
+        attributes: ["id"],
+        where: {
+          project_type_id,
+          status: true,
+        },
+        include: [
+          {
+            model: Media,
+            as: "media",
+            where: { image_type: "feature" },
+          },
+        ],
       },
     ],
-    raw: false,
   });
+
   if (!clients || clients.length === 0) {
     return res.status(404).json({
       success: false,
       message: "No clients found for this project type.",
     });
   }
+
   res.status(200).json({
     success: true,
     message: "Data fetched successfully.",
@@ -337,33 +315,26 @@ const getProjectByClientId = asyncHandler(async (req, res) => {
       {
         model: Project,
         as: "project",
-        include: [
-          {
-            model: Media,
-            as: "media",
-          },
-        ],
+        include: [{ model: Media, as: "media" }],
       },
     ],
   });
+
   if (!client) {
-    return res.status(404).json({
-      success: false,
-      message: "Data not found.",
-    });
+    return res.status(404).json({ success: false, message: "Data not found." });
   }
+
   if (!client.project) {
     return res.status(404).json({
       success: false,
       message: "No project found for this client.",
     });
   }
+
   res.status(200).json({
     success: true,
     message: "Data fetched successfully.",
-    data: {
-      client,
-    },
+    data: { client },
   });
 });
 
@@ -376,6 +347,7 @@ const deleteMediaById = asyncHandler(async (req, res) => {
         message: "Media ID is required.",
       });
     }
+
     const media = await Media.findByPk(id);
     if (!media) {
       return res.status(404).json({
@@ -383,17 +355,15 @@ const deleteMediaById = asyncHandler(async (req, res) => {
         message: "Media not found.",
       });
     }
+
     if (media.filepath) {
       const sanitizedPath = media.filepath.replace(/^\/+/, "");
       const localPath = path.resolve(__dirname, "../../storage", sanitizedPath);
       if (fs.existsSync(localPath)) {
         fs.unlinkSync(localPath);
-        console.log("Local file deleted:", localPath);
       }
     }
-    if (media.fileurl) {
-      await deleteImage(media.fileurl);
-    }
+
     await media.destroy();
     return res.status(200).json({
       success: true,
@@ -408,6 +378,93 @@ const deleteMediaById = asyncHandler(async (req, res) => {
   }
 });
 
+const getProjectById = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const project = await Project.findByPk(id, {
+    include: [
+      { model: Client, as: "client" },
+      { model: Media, as: "media" },
+    ],
+  });
+
+  if (!project) {
+    return res.status(404).json({
+      success: false,
+      message: "Project not found.",
+    });
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Project fetched successfully.",
+    data: project,
+  });
+});
+
+const getAllProjects = asyncHandler(async (req, res) => {
+  const projects = await Project.findAll({
+    include: [
+      { model: Client, as: "client" },
+      { model: Media, as: "media" },
+    ],
+  });
+
+  if (!projects || projects.length === 0) {
+    return res.status(404).json({
+      success: false,
+      message: "No projects found.",
+    });
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Projects fetched successfully.",
+    data: projects,
+  });
+});
+
+const getAllClients = asyncHandler(async (req, res) => {
+  const clients = await Client.findAll();
+
+  if (!clients || clients.length === 0) {
+    return res.status(404).json({
+      success: false,
+      message: "No clients found.",
+    });
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Clients fetched successfully.",
+    data: clients,
+  });
+});
+
+const getLatestProjects = asyncHandler(async (req, res) => {
+  const projects = await Project.findAll({
+    where: { status: true },
+    limit: 10,
+    order: [["createdAt", "DESC"]],
+    include: [
+      { model: Client, as: "client" },
+      { model: Media, as: "media" },
+    ],
+  });
+
+  if (!projects || projects.length === 0) {
+    return res.status(404).json({
+      success: false,
+      message: "No projects found.",
+    });
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Projects fetched successfully.",
+    data: projects,
+  });
+});
+
 module.exports = {
   createProject,
   updateProject,
@@ -415,4 +472,8 @@ module.exports = {
   getClientByProjectTypeId,
   getProjectByClientId,
   deleteMediaById,
+  getProjectById,
+  getAllProjects,
+  getAllClients,
+  getLatestProjects,
 };

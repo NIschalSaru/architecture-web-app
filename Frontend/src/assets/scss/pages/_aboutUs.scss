@@ -1,7 +1,10 @@
+@use "../base/variable" as *;
+@use "sass:color";
+
 // Mixins
 @mixin section-padding {
   padding: 3.5rem 0;
-  
+
   @media (max-width: 768px) {
     padding: 4rem 0;
   }
@@ -13,18 +16,32 @@
 
 // Animations
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideIn {
-  from { width: 0; }
-  to { width: 100px; }
+  from {
+    width: 0;
+  }
+  to {
+    width: 100px;
+  }
 }
 
 @keyframes scaleUp {
-  from { transform: scale(1); }
-  to { transform: scale(1.1); }
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
 }
 
 // Global Styles
@@ -37,7 +54,8 @@
 // Mission Section
 .mission-section {
   background-color: $white;
-  
+  margin-top: 2rem;
+
   .mission-card {
     background-color: #fff;
     border-radius: 0.5rem;
@@ -47,15 +65,15 @@
     min-height: 300px; // Fixed height for uniform size
     display: flex;
     flex-direction: column;
-    
+
     &:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 20px rgba($dark, 0.15);
     }
-    
+
     .section-title-wrapper {
       margin-bottom: 1.5rem;
-      
+
       .section-title {
         color: $dark;
         font-size: 1.8rem;
@@ -64,7 +82,7 @@
         z-index: 1;
         transition: color 0.3s ease;
       }
-      
+
       .title-decorator {
         width: 80px;
         height: 3px;
@@ -73,12 +91,12 @@
         border-radius: 2px;
         animation: slideIn 0.5s ease-out;
       }
-      
+
       &:hover .section-title {
         color: $primary;
       }
     }
-    
+
     .mission-text {
       color: #475569;
       font-size: 1rem;
@@ -88,10 +106,10 @@
       flex-grow: 1; // Ensures text takes up available space
     }
   }
-  
+
   .stats-section {
     margin-top: 2rem;
-    
+
     .stat-card {
       background-color: #fff;
       border-radius: 0.5rem;
@@ -103,12 +121,12 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      
+
       &:hover {
         transform: translateY(-5px);
         box-shadow: 0 8px 20px rgba($dark, 0.15);
       }
-      
+
       .stat-icon {
         width: 4rem;
         height: 4rem;
@@ -122,12 +140,12 @@
         font-weight: 700;
         margin: 0 auto 1rem;
         transition: transform 0.3s ease;
-        
+
         &:hover {
           animation: scaleUp 0.3s ease forwards;
         }
       }
-      
+
       .stat-label {
         color: #475569;
         font-size: 1rem;
@@ -138,163 +156,482 @@
 }
 
 // CEO Section
-.ceo-section {
-  @include section-padding;
-  background: linear-gradient(135deg, #f8fafc 0%, #e6e9f0 100%);
-  overflow: hidden;
-  padding: 3rem;
-  margin-top : 5rem;
-  margin-bottom : 2rem;
-  
+// .ceo-section {
+//   @include section-padding;
+//   background: linear-gradient(135deg, #f8fafc 0%, #e6e9f0 100%);
+//   overflow: hidden;
+//   padding: 3rem;
+//   margin-top : 5rem;
+//   margin-bottom : 2rem;
+
+//   .container {
+//     max-width: 1200px;
+//     margin: 0 auto;
+//   }
+
+//   .ceo-image-container {
+//     position: relative;
+//     padding-right: 2rem;
+
+//     .ceo-image {
+//       width: 100%;
+//       height: auto;
+//       border-radius: 1rem;
+//       box-shadow: 0 25px 50px rgba($dark, 0.2);
+//       position: relative;
+//       z-index: 2;
+//       transition: transform 0.3s ease;
+
+//       &:hover {
+//         transform: scale(1.02);
+//       }
+//     }
+
+//     // .ceo-image-overlay {
+//     //   position: absolute;
+//     //   top: 0;
+//     //   left: 0;
+//     //   width: 100%;
+//     //   height: 100%;
+//     //   background: linear-gradient(180deg, rgba($primary, 0.2) 0%, rgba($dark, 0.1) 100%);
+//     //   // background: linear-gradient(180deg, rgba($primary, 0.2) 0%, rgba($dark, 0.1) 100%);
+//     //   border-radius: 1rem;
+//     //   z-index: 3;
+//     //   opacity: 0.5;
+//     //   transition: opacity 0.3s ease;
+
+//     //   &:hover {
+//     //     opacity: 0.7;
+//     //   }
+//     // }
+
+//     .ceo-background-shape {
+//       position: absolute;
+//       top: 1.5rem;
+//       right: 0;
+//       width: 80%;
+//       height: 80%;
+//       background-color: $primary-light;
+//       border-radius: 1rem;
+//       z-index: 1;
+//       transform: rotate(5deg);
+//     }
+//   }
+
+//   .ceo-content {
+//     padding-left: 7rem;
+
+//     .section-title-wrapper {
+//       margin-bottom: 1.5rem;
+
+//       .section-title {
+//         color: $dark;
+//         font-size: 2rem;
+//         font-weight: 700;
+//         transition: color 0.3s ease;
+//       }
+
+//       .title-decorator {
+//         width: 80px;
+//         height: 3px;
+//         background-color: $primary;
+//         margin-top: 0.5rem;
+//         border-radius: 2px;
+//         animation: slideIn 0.5s ease-out;
+//       }
+
+//       &:hover .section-title {
+//         color: $primary;
+//       }
+//     }
+
+//     .ceo-name {
+//       color: $primary;
+//       font-size: 1.5rem;
+//       margin-bottom: 0.5rem;
+//     }
+
+//     .ceo-title {
+//       display: block;
+//       color: #475569;
+//       font-size: 1.1rem;
+//       margin-bottom: 1.5rem;
+//       font-weight: 500;
+//     }
+
+//     .ceo-bio {
+//       color: #475569;
+//       font-size: 1rem;
+//       line-height: 1.7;
+//       margin-bottom: 2rem;
+//     }
+
+//     .ceo-achievements {
+//       display: grid;
+//       grid-template-columns: repeat(3, 1fr);
+//       gap: 1.5rem;
+
+//       .achievement-card {
+//         background-color: $white;
+//         border-radius: 0.5rem;
+//         padding: 1rem;
+//         text-align: center;
+//         box-shadow: 0 4px 12px rgba($dark, 0.1);
+//         transition: transform 0.3s ease, box-shadow 0.3s ease;
+//         min-height: 120px; // Fixed height for uniform size
+//         display: flex;
+//         flex-direction: column;
+//         justify-content: center;
+
+//         &:hover {
+//           transform: translateY(-5px);
+//           box-shadow: 0 8px 20px rgba($dark, 0.15);
+//         }
+
+//         .achievement-icon {
+//           width: 3.5rem;
+//           height: 3.5rem;
+//           background-color: $primary;
+//           color: $white;
+//           border-radius: 50%;
+//           display: flex;
+//           align-items: center;
+//           justify-content: center;
+//           font-size: 1.2rem;
+//           font-weight: 700;
+//           margin: 0 auto 0.75rem;
+//           transition: transform 0.3s ease;
+
+//           &:hover {
+//             animation: scaleUp 0.3s ease forwards;
+//           }
+//         }
+
+//         .achievement-label {
+//           color: #475569;
+//           font-size: 0.95rem;
+//           font-weight: 500;
+//         }
+//       }
+//     }
+//   }
+// }
+
+// Team Section Styles
+.team-section {
+  margin: 30px 0;
+  padding: 80px 0;
+  background: #f0f0f0;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="0.5" fill="%23000" opacity="0.02"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grain)"/></svg>');
+    pointer-events: none;
+  }
+
   .container {
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
   }
 
-  .ceo-image-container {
-    position: relative;
-    padding-right: 2rem;
-    
-    .ceo-image {
-      width: 100%;
-      height: auto;
-      border-radius: 1rem;
-      box-shadow: 0 25px 50px rgba($dark, 0.2);
-      position: relative;
-      z-index: 2;
-      transition: transform 0.3s ease;
-      
-      &:hover {
-        transform: scale(1.02);
-      }
-    }
-    
-    // .ceo-image-overlay {
-    //   position: absolute;
-    //   top: 0;
-    //   left: 0;
-    //   width: 100%;
-    //   height: 100%;
-    //   background: linear-gradient(180deg, rgba($primary, 0.2) 0%, rgba($dark, 0.1) 100%);
-    //   // background: linear-gradient(180deg, rgba($primary, 0.2) 0%, rgba($dark, 0.1) 100%);
-    //   border-radius: 1rem;
-    //   z-index: 3;
-    //   opacity: 0.5;
-    //   transition: opacity 0.3s ease;
-      
-    //   &:hover {
-    //     opacity: 0.7;
-    //   }
-    // }
-    
-    .ceo-background-shape {
-      position: absolute;
-      top: 1.5rem;
-      right: 0;
-      width: 80%;
-      height: 80%;
-      background-color: $primary-light;
-      border-radius: 1rem;
-      z-index: 1;
-      transform: rotate(5deg);
-    }
-  }
-  
-  .ceo-content {
-    padding-left: 7rem;
-    
+  // Section Header
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+
     .section-title-wrapper {
-      margin-bottom: 1.5rem;
-      
+      margin-bottom: 20px;
+
       .section-title {
-        color: $dark;
-        font-size: 2rem;
+        font-size: 2.5rem;
         font-weight: 700;
-        transition: color 0.3s ease;
+        color: #262262;
+        margin-bottom: 10px;
+        letter-spacing: 2px;
+        position: relative;
+
+        @media (max-width: 768px) {
+          font-size: 2rem;
+        }
       }
-      
+
       .title-decorator {
         width: 80px;
-        height: 3px;
-        background-color: $primary;
-        margin-top: 0.5rem;
+        height: 4px;
+        background: linear-gradient(45deg, #be1e2d, #262262);
+        margin: 0 auto;
         border-radius: 2px;
-        animation: slideIn 0.5s ease-out;
-      }
-      
-      &:hover .section-title {
-        color: $primary;
-      }
-    }
-    
-    .ceo-name {
-      color: $primary;
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-    }
-    
-    .ceo-title {
-      display: block;
-      color: #475569;
-      font-size: 1.1rem;
-      margin-bottom: 1.5rem;
-      font-weight: 500;
-    }
-    
-    .ceo-bio {
-      color: #475569;
-      font-size: 1rem;
-      line-height: 1.7;
-      margin-bottom: 2rem;
-    }
-    
-    .ceo-achievements {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      
-      .achievement-card {
-        background-color: $white;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        text-align: center;
-        box-shadow: 0 4px 12px rgba($dark, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        min-height: 120px; // Fixed height for uniform size
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        
-        &:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 8px 20px rgba($dark, 0.15);
-        }
-        
-        .achievement-icon {
-          width: 3.5rem;
-          height: 3.5rem;
-          background-color: $primary;
-          color: $white;
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          top: -2px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 12px;
+          height: 8px;
+          background: #e74c3c;
           border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.2rem;
-          font-weight: 700;
-          margin: 0 auto 0.75rem;
-          transition: transform 0.3s ease;
-          
-          &:hover {
-            animation: scaleUp 0.3s ease forwards;
-          }
-        }
-        
-        .achievement-label {
-          color: #475569;
-          font-size: 0.95rem;
-          font-weight: 500;
         }
       }
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: #262262;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+  }
+  .about-team {
+    margin: 80px auto;
+    font-size: 1.2rem;
+    text-align: justify;
+    color: #262262;
+  }
+  // Team Grid
+  .team-grid {
+    display: flex;
+    flex-wrap: wrap;
+
+    // Optional: reset margins if needed
+    .ant-col {
+      display: flex;
+      justify-content: center;
+    }
+
+    // Center last row when it has fewer than 4 items
+    .last-row-item {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  // Team Card
+  .team-card {
+    border: none;
+    // border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    background: #ffffff;
+    height: 100%;
+    max-width: 280px;
+    position: relative;
+
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+
+      .team-image {
+        transform: scale(1.05);
+      }
+
+      .team-overlay {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    .ant-card-body {
+      padding: 0;
+    }
+  }
+
+  // Team Image Container
+  .team-image-container {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    background: #f8f9fa;
+
+    .team-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      filter: grayscale(90%);
+      &:hover {
+        filter: grayscale(20%);
+      }
+    }
+
+    .team-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(52, 152, 219, 0.9) 0%,
+        rgba(46, 204, 113, 0.9) 100%
+      );
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+
+      .team-social {
+        text-align: center;
+
+        .team-description {
+          color: #ffffff;
+          font-size: 0.9rem;
+          line-height: 1.5;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  // Team Content
+  .team-content {
+    padding: 24px 20px;
+    text-align: center;
+
+    .team-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #262262;
+      margin-bottom: 8px;
+      transition: color 0.3s ease;
+    }
+
+    .team-position {
+      font-size: 0.8rem;
+      color: #be1e2d;
+      font-weight: 500;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .team-education {
+      .education-primary,
+      .education-secondary {
+        display: block;
+        font-size: 0.85rem;
+        color: #7f8c8d;
+        line-height: 1.4;
+      }
+
+      .education-primary {
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+
+      .education-secondary {
+        font-style: italic;
+      }
+    }
+  }
+
+  // Responsive Design
+  @media (max-width: 1200px) {
+    .team-grid {
+      .ant-col {
+        &:nth-child(5) {
+          // Center the 5th card on larger screens
+          margin: 0 auto;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    padding: 60px 0;
+
+    .section-header {
+      margin-bottom: 40px;
+    }
+
+    .team-card {
+      max-width: 100%;
+    }
+
+    .team-image-container {
+      height: 250px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 40px 0;
+
+    .section-header {
+      .section-title {
+        font-size: 1.8rem;
+      }
+
+      .section-subtitle {
+        font-size: 1rem;
+      }
+    }
+
+    .team-image-container {
+      height: 220px;
+    }
+
+    .team-content {
+      padding: 20px 16px;
+
+      .team-name {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    .container {
+      padding: 0 15px;
+    }
+
+    .team-grid {
+      .ant-row {
+        margin: 0 -8px;
+      }
+
+      .ant-col {
+        padding: 0 8px;
+        margin-bottom: 24px;
+      }
+    }
+  }
+}
+
+// Animation keyframes
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Add animation to cards on scroll (optional)
+.team-card {
+  animation: fadeInUp 0.6s ease forwards;
+
+  @for $i from 1 through 5 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.1}s;
     }
   }
 }
@@ -302,30 +639,31 @@
 // Contact Section
 .contact-section {
   @include section-padding;
-  background-color: $white;
-  
+  // margin-top: 5px;
+  // background-color: $white;
+
   .contact-content {
     h2 {
       color: $dark;
       font-size: 2.5rem;
       margin-bottom: 1.5rem;
     }
-    
+
     .contact-content-1 {
       color: $primary;
     }
-    
+
     .contact-intro {
       color: #475569;
       font-size: 1rem;
       margin-bottom: 2rem;
     }
-    
+
     .contact-form {
       .ant-form-item {
         margin-bottom: 1rem;
       }
-      
+
       .ant-input,
       .ant-input-textarea {
         border: 2px solid #e2e8f0;
@@ -333,19 +671,19 @@
         padding: 0.75rem 1rem;
         font-size: 1rem;
         transition: all 0.3s ease;
-        
+
         &:hover,
         &:focus {
-          border-color: $primary-light;
-          box-shadow: 0 0 0 3px rgba($primary-light, 0.1);
+          border-color: $secondary;
+          box-shadow: 0 0 0 3px rgba($secondary, 0.1);
         }
       }
-      
+
       .message-input {
         resize: vertical;
         min-height: 120px;
       }
-      
+
       .submit-button {
         width: 20%;
         height: 2.5rem;
@@ -355,26 +693,26 @@
         font-size: 1.125rem;
         font-weight: 600;
         transition: all 0.3s ease;
-        
+
         &:hover {
           color: color.adjust($secondary, $lightness: -10%);
           transform: translateY(-2px);
           box-shadow: 0 4px 12px rgba($primary, 0.2);
         }
-        
+
         &:active {
           transform: translateY(0);
         }
       }
     }
   }
-  
+
   .map-container {
-    height: 600px;
+    height: 790px;
     border-radius: 1rem;
     overflow: hidden;
     box-shadow: 0 20px 40px rgba($dark, 0.1);
-    
+
     iframe {
       width: 100%;
       height: 100%;
@@ -395,22 +733,22 @@
       }
     }
   }
-  
-  .ceo-section {
-    .ceo-achievements {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .ceo-content {
-      padding-left: 0;
-      margin-top: 2rem;
-    }
-    
-    .ceo-image-container {
-      padding-right: 0;
-    }
-  }
-  
+
+  // .ceo-section {
+  //   .ceo-achievements {
+  //     grid-template-columns: repeat(2, 1fr);
+  //   }
+
+  //   .ceo-content {
+  //     padding-left: 0;
+  //     margin-top: 2rem;
+  //   }
+
+  //   .ceo-image-container {
+  //     padding-right: 0;
+  //   }
+  // }
+
   .map-container {
     height: 400px;
     margin-top: 2rem;
@@ -420,20 +758,20 @@
 @media (max-width: 768px) {
   .mission-section {
     text-align: center;
-    
+
     .mission-card {
       min-height: 250px; // Slightly smaller for mobile
       .section-title-wrapper {
         .section-title {
           font-size: 1.6rem;
         }
-        
+
         .title-decorator {
           width: 60px;
         }
       }
     }
-    
+
     .stats-section {
       .stat-card {
         min-height: 120px; // Slightly smaller for mobile
@@ -445,44 +783,44 @@
       }
     }
   }
-  
-  .ceo-section {
-    text-align: center;
-    
-    .ceo-content {
-      .section-title-wrapper {
-        .section-title {
-          font-size: 1.8rem;
-        }
-        
-        .title-decorator {
-          width: 60px;
-          margin-left: auto;
-          margin-right: auto;
-        }
-      }
-      
-      .ceo-achievements {
-        grid-template-columns: 1fr;
-        
-        .achievement-card {
-          min-height: 100px; // Slightly smaller for mobile
-        }
-      }
-    }
-    
-    .ceo-image-container {
-      margin-bottom: 2rem;
-      
-      .ceo-background-shape {
-        display: none;
-      }
-    }
-  }
-  
+
+  // .ceo-section {
+  //   text-align: center;
+
+  //   .ceo-content {
+  //     .section-title-wrapper {
+  //       .section-title {
+  //         font-size: 1.8rem;
+  //       }
+
+  //       .title-decorator {
+  //         width: 60px;
+  //         margin-left: auto;
+  //         margin-right: auto;
+  //       }
+  //     }
+
+  //     .ceo-achievements {
+  //       grid-template-columns: 1fr;
+
+  //       .achievement-card {
+  //         min-height: 100px; // Slightly smaller for mobile
+  //       }
+  //     }
+  //   }
+
+  //   .ceo-image-container {
+  //     margin-bottom: 2rem;
+
+  //     .ceo-background-shape {
+  //       display: none;
+  //     }
+  //   }
+  // }
+
   .contact-section {
     text-align: center;
-    
+
     .map-container {
       height: 300px;
     }
@@ -512,18 +850,18 @@
   visibility: hidden;
   transition: all 0.3s ease;
   z-index: 100;
-  
+
   &.visible {
     opacity: 1;
     visibility: visible;
   }
-  
+
   &:hover {
     color: color.adjust($secondary, $lightness: -10%);
     transform: translateY(-3px);
     box-shadow: 0 4px 12px rgba($primary, 0.2);
   }
-  
+
   &:active {
     transform: translateY(0);
   }
@@ -535,12 +873,12 @@
     height: auto;
     padding: 2rem 0;
   }
-  
+
   .map-container,
   .scroll-to-top {
     display: none;
   }
-  
+
   .contact-form {
     page-break-inside: avoid;
   }

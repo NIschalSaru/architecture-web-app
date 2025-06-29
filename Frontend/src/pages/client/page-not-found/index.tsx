@@ -1,6 +1,5 @@
 import {Button, Result} from "antd";
 import {Link} from "react-router-dom";
-
 const PageNotFound = () => {
 
   const containerStyle = {
@@ -8,7 +7,7 @@ const PageNotFound = () => {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#f0f2f5',
+    backgroundColor: '#f0f2f8',
   };
 
     return (

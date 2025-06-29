@@ -23,33 +23,51 @@ const usePostAPI = <T>(
   const postData = async (requestData: any): Promise<T | null> => {
     setLoading(true);
     try {
+      console.log('POST Request:', {
+        url: `${apiUrl}/${url}`,
+        data: requestData,
+        config: { withCredentials: true, headers: { 'Content-Type': 'application/json' } }
+      });
 
       const response: AxiosResponse = await axios.post(
         `${apiUrl}/${url}`,
-        requestData
-        ,
+        requestData,
         { 
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json'
-          }
+          },
+          timeout: 10000 // Added timeout to prevent hanging
         }
       );
-      if (response && response.data) {
+
+      console.log('POST Response:', {
+        status: response.status,
+        data: response.data
+      });
+
+      if (response.status >= 200 && response.status < 300) {
         setData(response.data);
         setError(null);
-        showMessage && message.success(response.data.message || 'Operation successful');
+        if (showMessage) {
+          message.success(response.data.message || 'Operation successful');
+        }
         return response.data;
-      }
-      
-      else {
-        message.error('Invalid response format: Missing data property');
+      } else {
+        const errorMessage = `Unexpected response status: ${response.status}`;
+        setError(errorMessage);
+        if (showMessage) {
+          message.error(errorMessage);
+        }
         return null;
       }
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || error.message;
-      message.error(`Error: ${errorMessage}`);
+      console.error('POST Error:', error);
+      const errorMessage = error.response?.data?.message || error.message || 'Unknown error occurred';
       setError(errorMessage);
+      if (showMessage) {
+        message.error(`Error: ${errorMessage}`);
+      }
       return null;
     } finally {
       setLoading(false);
@@ -60,6 +78,172 @@ const usePostAPI = <T>(
 };
 
 export default usePostAPI;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import { App } from 'antd';
+// import axios, { AxiosResponse } from 'axios';
+// import { useState } from 'react';
+// import Cookies from 'js-cookie';
+// import { apiUrl } from '../utils/index';
+// import { handleSignOut } from '../utils/index';
+// import { useNavigate } from 'react-router-dom';
+
+// interface PostRequestState<T> {
+//   loading: boolean;
+//   error: string | null;
+//   data: T | null;
+//   postData: (requestData: any) => Promise<T | null>;
+// }
+
+// const usePostAPI = <T>(
+//   url: string,
+//   showMessage = true
+// ): PostRequestState<T> => {
+//   const { message } = App.useApp();
+//   const navigate = useNavigate();
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState<string | null>(null);
+//   const [data, setData] = useState<T | null>(null);
+
+//   const postData = async (requestData: any): Promise<T | null> => {
+//     setLoading(true);
+//     try {
+//       // Retrieve token from localStorage or cookies
+//       const token = localStorage.getItem('authToken') || Cookies.get('authToken');
+
+//       // Determine content type based on requestData type
+//       const isFormData = requestData instanceof FormData;
+//       const headers: Record<string, string> = {
+        
+//         ...(token && { Authorization: `Bearer ${token}` }), // Add token to headers if available
+//       };
+//       if (!isFormData) {
+        
+//         headers['Content-Type'] = 'application/json';
+//       }
+
+//       const response: AxiosResponse = await axios.post(
+//         `${apiUrl}/${url}`,
+//         requestData,
+//         {
+//           withCredentials: true, // Ensure cookies are sent
+//           headers,
+//         }
+//       );
+
+//       if (response && response.data) {
+//         setData(response.data);
+//         setError(null);
+//         showMessage && message.success(response.data.message || 'Operation successful');
+//         return response.data;
+//       } else {
+//         message.error('Invalid response format: Missing data property');
+//         return null;
+//       }
+//     } catch (error: any) {
+//       const errorMessage = error.response?.data?.message || error.message;
+//       setError(errorMessage);
+
+//       // Handle 401 Unauthorized
+//       if (error.response?.status === 401) {
+//         handleSignOut(navigate);
+//         message.error('Session expired or unauthorized. Please log in again.');
+//         return null;
+//       }
+
+//       message.error(`Error: ${errorMessage}`);
+//       return null;
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   return { loading, error, data, postData };
+// };
+
+// export default usePostAPI;
+
+
+
+
+
+
+// import { App } from 'antd';
+// import axios, { AxiosResponse } from 'axios';
+// import { useState } from 'react';
+// import { apiUrl } from '../utils/index';
+
+// interface PostRequestState<T> {
+//   loading: boolean;
+//   error: string | null;
+//   data: T | null;
+//   postData: (requestData: any) => Promise<T | null>;
+// }
+
+// const usePostAPI = <T>(
+//   url: string,
+//   showMessage = true
+// ): PostRequestState<T> => {
+//   const { message } = App.useApp();
+
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState<string | null>(null);
+//   const [data, setData] = useState<T | null>(null);
+
+//   const postData = async (requestData: any): Promise<T | null> => {
+//     setLoading(true);
+//     try {
+
+//       const response: AxiosResponse = await axios.post(
+//         `${apiUrl}/${url}`,
+//         requestData
+//         ,
+//         { 
+//           withCredentials: true,
+//           headers: {
+//             'Content-Type': 'application/json'
+//           }
+//         }
+//       );
+//       if (response && response.data) {
+//         setData(response.data);
+//         setError(null);
+//         showMessage && message.success(response.data.message || 'Operation successful');
+//         return response.data;
+//       }
+      
+//       else {
+//         message.error('Invalid response format: Missing data property');
+//         return null;
+//       }
+//     } catch (error: any) {
+//       const errorMessage = error.response?.data?.message || error.message;
+//       message.error(`Error: ${errorMessage}`);
+//       setError(errorMessage);
+//       return null;
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   return { loading, error, data, postData };
+// };
+
+// export default usePostAPI;
 
 
 

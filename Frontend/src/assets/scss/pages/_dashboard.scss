@@ -1,3 +1,5 @@
+@use "../base/variable" as *;
+
 .dashboard {
   min-height: 100vh;
 
@@ -7,25 +9,25 @@
 
   /* Dark theme styles */
   .dashboard.dark {
-    background-color: #001529;
+    background-color: #2b2b5a !important;
     color: white;
   }
 
   /* Light theme styles */
   .dashboard.light {
     background-color: #f0f2f5;
-    color: black;
+    color: #2b2b5a !important;
   }
 
   .sider.dark {
-    background-color: #001529;
+    background-color: #2b2b5a !important;
   }
 
   .sider.light {
     background-color: #ffffff;
   }
-
   .dashboard-menu {
+    // Main menu items
     .ant-menu-item {
       &:hover {
         background-color: white !important; // White background on hover
@@ -45,7 +47,90 @@
         color: rgb(25, 10, 10) !important; // Icon color for selected menu item
       }
     }
+
+    // Submenu styles
+    .ant-menu-submenu {
+      // Submenu title (Projects)
+      .ant-menu-submenu-title {
+        &:hover {
+          background-color: white !important;
+          color: rgb(25, 10, 10) !important;
+
+          .anticon {
+            color: rgb(47, 34, 34) !important;
+          }
+        }
+      }
+
+      // Submenu popup/dropdown
+      .ant-menu-submenu-popup {
+        .ant-menu {
+          background-color: #2b2b5a !important;
+        }
+
+        .ant-menu-item {
+          background-color: #2b2b5a !important;
+          color: white !important;
+
+          .anticon {
+            color: white !important;
+          }
+
+          &:hover {
+            background-color: white !important;
+            color: rgb(25, 10, 10) !important;
+
+            .anticon {
+              color: rgb(47, 34, 34) !important;
+            }
+          }
+        }
+
+        .ant-menu-item-selected {
+          background-color: white !important;
+          color: rgb(25, 10, 10) !important;
+
+          .anticon {
+            color: rgb(25, 10, 10) !important;
+          }
+        }
+      }
+    }
+
+    // For inline submenus (when sidebar is expanded)
+    .ant-menu-sub {
+      background-color: #2b2b5a !important;
+
+      .ant-menu-item {
+        background-color: #2b2b5a !important;
+        color: white !important;
+        padding-left: 48px !important; // Indent submenu items
+
+        .anticon {
+          color: white !important;
+        }
+
+        &:hover {
+          background-color: white !important;
+          color: rgb(25, 10, 10) !important;
+
+          .anticon {
+            color: rgb(47, 34, 34) !important;
+          }
+        }
+      }
+
+      .ant-menu-item-selected {
+        background-color: white !important;
+        color: rgb(25, 10, 10) !important;
+
+        .anticon {
+          color: rgb(25, 10, 10) !important;
+        }
+      }
+    }
   }
+
   .dashboard-logout-button {
     width: 100%;
     display: flex;
@@ -152,12 +237,18 @@
   }
 }
 
-
 // styles/_testimonialModal.scss
 
 .create-btn{
   height: 2.6rem;
   width: 7.5rem;
+}
+.ant-input-search .ant-input-affix-wrapper{
+  height:45px;
+}
+:where(.css-dev-only-do-not-override-1lmeb6g).ant-input-search .ant-input-search-button {
+  height: 45px;
+  width:50px;
 }
 
 .testimonial-modal {
@@ -211,6 +302,9 @@
         .fullName{
           height:40px;
         }
+        .categoryTitle{
+          height:40px;
+        }
 
         .ant-rate {
           font-size: 20px;
@@ -224,7 +318,6 @@
               border-radius: 6px;
               background: #fafafa;
               border: 2px dashed #d9d9d9;
-              
               &:hover {
                 border-color: #262626;
               }
@@ -232,12 +325,16 @@
               .upload-icon {
                 font-size: 24px;
                 color: #999;
-                margin-bottom: 8px;
+                margin-top: 7px;
+                margin-bottom: 5px;
+                margin-left: 10px;
+
               }
               
               .upload-text {
                 color: #666;
                 font-size: 14px;
+                margin-left: 10px;
               }
             }
             
@@ -333,4 +430,26 @@
       }
     }
   }
+}
+.dashboard-Headings{
+  font-size: 1.9rem;
+  font-weight: bold;
+  color: $secondary;
+  margin-bottom: 38px;
+}
+
+.client-link {
+  color: #002E63 !important;
+  &:hover {
+    color: #D90429 !important;
+  }
+}
+.ant-table-tbody .client-link {
+  color: #002E63 !important;
+  &:hover {
+    color: #D90429 !important;
+  }
+}
+.ant-upload-list-item-name{
+  color: black;
 }

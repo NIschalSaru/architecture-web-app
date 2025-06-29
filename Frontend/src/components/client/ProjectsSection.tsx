@@ -1,63 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { motion } from "framer-motion";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Icon library
-const projects = [
-  {
-    id: 1,
-    className: "rest",
-    bgImage:
-      "https://images.unsplash.com/photo-1728606987255-920740a48fe5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDMzfE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D", // Use local image or fallback
-    title: "Biggest Restaurations",
-    date: "Jan 19, 2018",
-    description:
-      "This project involved extensive restoration work, making it one of the most significant restorations of the year.",
-  },
-  {
-    id: 2,
-    className: "build",
-    bgImage:
-      "https://plus.unsplash.com/premium_photo-1734549547891-02d562030eb8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDIwfE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D",
-    title: "Office Building",
-    date: "Jan 19, 2018",
-    description:
-      "This project involved extensive restoration work, making it one of the most significant restorations of the year.",
-  },
-  {
-    id: 3,
-    className: "apart",
-    bgImage:
-      "https://images.unsplash.com/photo-1724931420584-d360afc3e1f8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDQ0fE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D",
-    title: "Nice Apartments",
-    date: "Jan 19, 2018",
-    description:
-      "This project involved extensive restoration work, making it one of the most significant restorations of the year.This project involved extensive restoration work, making it one of the most significant restorations of the year.This project involved extensive restoration work, making it one of the most significant restorations of the year.",
-  },
-  {
-    id: 4,
-    className: "rest",
-    bgImage:
-      "https://images.unsplash.com/photo-1734217673457-cab58c9c29a0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDYwfE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D",
-    title: "Biggest Restaurations",
-    date: "Jan 19, 2018",
-    description:
-      "This project involved extensive restoration work, making it one of the most significant restorations of the year.",
-  },
-  {
-    id: 5,
-    className: "apart",
-    bgImage:
-      "https://images.unsplash.com/photo-1719125217488-be5eab036dd6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDY4fE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D",
-    title: "Office Building",
-    date: "Jan 19, 2018",
-    description:
-      "This project involved extensive restoration work, making it one of the most significant restorations of the year.",
-  },
-];
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import axios from "axios";
+import { apiUrl } from "../../utils";
 
 const ProjectsSection = () => {
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await axios.get(
+          `${apiUrl}/architecture-web-app/projects/get-projects`,
+          { withCredentials: true }
+        );
+
+        const sortedProjects = response.data.data
+          .sort(
+            (a: any, b: any) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          )
+          .slice(0, 9); // Keep only the latest 9
+
+        const projectData = sortedProjects.map((project: any) => {
+          const formattedDate = new Date(project.createdAt)
+            .toISOString()
+            .slice(0, 10)
+            .replace(/-/g, "/"); // Format: YYYY/MM/DD
+
+          return {
+            id: project.id,
+            title: project.name || "Untitled Project",
+            date: formattedDate,
+            description: project.description || "No description available.",
+            bgImage:
+              project.media?.[0]?.fileurl ||
+              "https://via.placeholder.com/400x300?text=No+Image",
+          };
+        });
+
+        setProjects(projectData);
+      } catch (error) {
+        console.error("Failed to fetch projects:", error);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -71,7 +64,7 @@ const ProjectsSection = () => {
           className="slick-dots"
           style={{ display: "flex", justifyContent: "center" }}
         >
-          {dots.slice(0, 4)} {/* Show only the first 4 dots */}
+          {dots.slice(0, 4)}
         </ul>
       </div>
     ),
@@ -112,28 +105,35 @@ const ProjectsSection = () => {
         OUR RECENT PROJECTS
       </motion.h2>
       <Slider {...sliderSettings}>
-        {projects.map((project) => (
+        {projects.map((project: any) => (
           <div
             key={project.id}
             className={`single-project ${project.className}`}
           >
-            <img
-              src={project.bgImage}
-              alt={project.title}
-              style={{ width: "100%", height: "100%", borderRadius: "10px" }}
-            />
+            <div
+              className="project-image"
+              style={{
+                backgroundImage: `url(${project.bgImage})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                borderRadius: "10px",
+                width: "100%",
+                height: "400px", // adjust as needed
+              }}
+            ></div>
             <div className="project-content">
               <h2>
-                {project.title.split(" ").map((line, index) => (
+                {/* {project.title.split(" ").map((line: string, index: number) => (
                   <React.Fragment key={index}>
                     {line}
                     <br />
                   </React.Fragment>
-                ))}
+                ))} */}
+                {project.title}
               </h2>
               <p>{project.date}</p>
-              <p className="project-description">{project.description}</p>{" "}
-              <a href="/projects" className="seemore">
+              {project.description.split(" ").slice(0, 4).join(" ")}...
+              <a href={`/projects/${project.id}`} className="seemore">
                 See Project
               </a>
             </div>

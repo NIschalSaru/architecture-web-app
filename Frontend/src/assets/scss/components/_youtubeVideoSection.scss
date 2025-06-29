@@ -1,3 +1,5 @@
+@use "../base/variable" as *;
+
 .youtube-section {
   background: $white;
   // background: url('../../assets/images/yt-sectionBg.jpeg') no-repeat center center/cover;
@@ -266,4 +268,13 @@
       font-size: 24px;
     }
   }
+}
+
+.plus-icon {
+  display: inline-block;
+  font-size: 1.215rem;
+  font-weight: 300;
+  margin-left: 0;
+  line-height: 1;
+  vertical-align: middle;
 }

@@ -8,7 +8,12 @@ import {
 import Logo from "../../../assets/images/ndbn-logo-white.png";
 import AppStore from "../../../assets/svg/app-store.svg";
 import PlayStore from "../../../assets/svg/google-play.svg";
-
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};
 const Footer = () => {
   return (
     <div className="pg-footer">
@@ -27,7 +32,7 @@ const Footer = () => {
         <div className="footer-content">
           <div className="footer-content-column">
             <div className="footer-logo">
-              <a className="footer-logo-link" href="#">
+              <a className="footer-logo-link" href="/" onClick={scrollToTop}>
                 <span className="hidden-link-text">LOGO</span>
                 <img
                   src={Logo}
@@ -60,7 +65,13 @@ const Footer = () => {
                       icon={faLocationDot}
                       style={{ color: "#b64141" }}
                     />
-                    <a href="#">Kalanki, Kathmandu</a>
+                    <a
+                      href="https://maps.app.goo.gl/Qkxq4Mdjqu4XL6mv6"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Kalanki, Kathmandu
+                    </a>
                   </div>
                 </li>
               </ul>
@@ -85,25 +96,44 @@ const Footer = () => {
                   <a href="/about">About Us</a>
                 </li>
                 <li className="menu-item menu-item-type-post_type menu-item-object-page">
-                  <a href="#">Our Projects</a>
+                  <a href="/projects">Our Projects</a>
                 </li>
                 <li className="menu-item menu-item-type-taxonomy menu-item-object-category">
                   <a href="/services">Our Services</a>
                 </li>
                 <li className="menu-item menu-item-type-post_type menu-item-object-page">
-                  <a href="#">Contact Us</a>
+                  <a href="/blogs">By Laws & Info</a>
                 </li>
+                <div className="app-store-buttons">
+                  <a
+                    href="https://apps.apple.com/np/app/nepal-designers-builders-ndb/id6743044434"
+                    className="app-store-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={AppStore}
+                      alt="Download on App Store"
+                      className="app-store-image"
+                    />
+                  </a>
+                  <a
+                    href="https://play.google.com/store/apps/details?id=com.theyetilabs.enirman.ndb&pli=1"
+                    className="app-store-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={PlayStore}
+                      alt="Get it on Google Play"
+                      className="app-store-image"
+                    />
+                  </a>
+                </div>
               </ul>
             </div>
-            <div className="app-store-buttons">
-              <a href="https://apps.apple.com/np/app/nepal-designers-builders-ndb/id6743044434" className="app-store-link">
-                <img src={AppStore} alt="Download on App Store" className="app-store-image" />
-              </a>
-              <a href="https://play.google.com/store/apps/details?id=com.theyetilabs.enirman.ndb&pli=1" className="app-store-link">
-                <img src={PlayStore} alt="Get it on Google Play" className="app-store-image" />
-              </a>
-            </div>
           </div>
+
           <div className="footer-content-column">
             <div className="footer-call-to-action">
               <h2 className="footer-call-to-action-title"> Let's Chat</h2>

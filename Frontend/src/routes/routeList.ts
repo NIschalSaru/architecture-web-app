@@ -15,4 +15,8 @@ export const RouteList = [
     label: "About Us",
     path: "/about",
   },
+  {
+    label: "By Laws & Info",
+    path: "/blogs",
+  },
 ];

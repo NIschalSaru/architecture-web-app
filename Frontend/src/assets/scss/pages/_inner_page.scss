@@ -1,3 +1,5 @@
+@use "../base/variable" as *;
+
 // .inner-header {
 //     position: relative;
 //     width: 100%;
@@ -106,7 +108,7 @@
   height: 450px;
   display: flex;
   align-items: center;
-  margin-bottom: 3rem; /* Default margin */
+  margin-bottom: 0rem; /* Default margin */
 }
 
 .inner-header.no-margin {
@@ -119,7 +121,7 @@
   height: 400px;
   display: flex;
   align-items: center;
-  margin-bottom: 3rem;
+  margin-bottom: 0rem;
   --page-bg-image: url("../images/banner.jpg");
 
   // Background overlay
@@ -178,7 +180,8 @@
         transition: color 0.3s ease;
 
         &:hover {
-          color: var(--primary-color, $primary);
+          // color: var(--primary-color, $primary);
+          color: $primary-light;
         }
       }
 
@@ -188,7 +191,8 @@
       }
 
       .current {
-        color: var(--primary-color, $primary);
+        // color: var(--primary-color, $primary);
+        color: $white;
       }
     }
   }

@@ -1,96 +1,213 @@
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import InnerHeader from "../../../components/client/InnerHeader";
+import axios from "axios";
+import { apiUrl } from "../../../utils";
+import ScrollToTop from "../../../components/client/ScrollToTop";
 
-interface CategoryCard {
+interface ProjectTypes {
   key: string;
   title: string;
-  image: string;
 }
 
-const categories: CategoryCard[] = [
-  {
-    key: "residentialProjects",
-    title: "Residential Projects",
-    image:
-      "https://cdna.artstation.com/p/assets/images/images/036/508/324/large/asim-salman-zicatela-8.jpg?1617858511",
-  },
-  {
-    key: "commercialProjects",
-    title: "Commercial Projects",
-    image:
-      "https://cdna.artstation.com/p/assets/images/images/042/667/458/large/mipe-group-exterior-03.jpg?1635150466",
-  },
-  {
-    key: "restaurantCafeProjects",
-    title: "Restaurant & Cafe Projects",
-    image:
-      "https://cdna.artstation.com/p/assets/images/images/015/811/820/large/fotoref-com-photo-packs-artstation-image-2bc212b3-3908-11e7-a07c-0242ac120003-5c5f4c4082176.jpg?1549749352",
-  },
-  {
-    key: "hotelResortProjects",
-    title: "Hotel & Resort Projects",
-    image:
-      "https://cdnb.artstation.com/p/assets/images/images/083/879/253/large/yavi-yener-44-modern-tiny-house-02.jpg?1736998332",
-  },
-  {
-    key: "entertainmentProjects",
-    title: "Entertainment Projects",
-    image:
-      "https://cdna.artstation.com/p/assets/images/images/078/323/303/large/ben-nicholas-bennicholas-stellastar-architecture-rowhouse-05.jpg?1721788728",
-  },
-  {
-    key: "renovationProjects",
-    title: "Renovation Projects",
-    image:
-      "https://cdnb.artstation.com/p/assets/images/images/047/048/647/smaller_square/yantram-architectural-design-studio-3d-exterior-modeling-of-small-house-with-garden-by-architectural-design-studio.jpg?1646647795",
-  },
-  {
-    key: "constructionProjects",
-    title: "Construction Projects",
-    image:
-      "https://cdna.artstation.com/p/assets/images/images/021/205/002/smaller_square/yantram-architectural-design-studio-first-floor-residential-3d-floor-house-design-by-archtectural-design-studio.jpg?1570772900",
-  },
-];
+interface Media {
+  id: number;
+  project_id: number;
+  image_type: string;
+  filename: string;
+  filepath: string;
+  fileurl: string;
+}
+
+interface Project {
+  id: number;
+  name: string;
+  project_type_id: number;
+  location: string;
+  site_area: string;
+  description: string;
+  media: Media[];
+}
+
+interface Client {
+  id: number;
+  project_id: number;
+  fullName: string;
+  email: string;
+  mobile: string;
+  address: string;
+  project: Project;
+}
 
 const Projects = () => {
+  const [projectTypes, setProjectTypes] = useState<ProjectTypes[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [clients, setClients] = useState<Client[]>([]);
+  const navigate = useNavigate();
+
+  const fetchProjectTypes = async () => {
+    try {
+      const response = await axios.get(
+        `${apiUrl}/architecture-web-app/projects/project-types/`
+      );
+      const fetchedData = response.data.data.map((item: any) => ({
+        key: item.id.toString(),
+        title: item.title,
+      }));
+      setProjectTypes(fetchedData);
+      if (fetchedData.length > 0) {
+        setSelectedCategory(fetchedData[0].key);
+      }
+    } catch (error) {
+      console.error("Error fetching project types:", error);
+    }
+  };
+
+  const fetchClients = async (id: string) => {
+    try {
+      const response = await axios.get(
+        `${apiUrl}/architecture-web-app/projects/get-clients/${id}`
+      );
+      setClients(response.data.data);
+    } catch (error) {
+      console.error("Error fetching clients:", error);
+    }
+  };
+
+  const handleClientClick = (clientId: number) => {
+    navigate(`/projects/${clientId}`);
+  };
+
+  const handleCategoryClick = (key: string) => {
+    setSelectedCategory(key);
+  };
+
+  useEffect(() => {
+    fetchProjectTypes();
+  }, []);
+
+  useEffect(() => {
+    if (selectedCategory) {
+      setClients([]);
+      fetchClients(selectedCategory);
+    }
+  }, [selectedCategory]);
+
   return (
     <>
       <InnerHeader title="PROJECTS" currentPage="PROJECTS" />
-      <section className="project-area section-gap-top" id="project">
+      <section
+        className="project-area"
+        id="project"
+        // style={{
+        //   backgroundImage: `url(${bgImage})`,
+        //   backgroundSize: "cover",
+        //   backgroundPosition: "top center",
+        //   backgroundRepeat: "no-repeat",
+        //   padding: "60px 0",
+        //   minHeight: "100vh",
+        // }}
+      >
         <div className="container">
-          <div className="row d-flex justify-content-center">
-            <div className="col-lg-8">
-              <div className="section-title text-center">
-                <h2>Explore Project Categories</h2>
-              </div>
+          <motion.div
+            className="section-title"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="sections-heading">
+              <h2 className="heading-with-line">
+                <span>Discover our craft.</span>
+              </h2>
+              <p>— Explore everything that makes us NDNB.</p>
+            </div>
+          </motion.div>
+
+          <div className="project-layout">
+            {/* Sidebar */}
+            <motion.div
+              className="sidebar"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {projectTypes.map((projectType) => (
+                <motion.button
+                  key={projectType.key}
+                  onClick={() => handleCategoryClick(projectType.key)}
+                  className={`sidebar-btn ${
+                    selectedCategory === projectType.key ? "active" : ""
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {projectType.title}
+                </motion.button>
+              ))}
+            </motion.div>
+
+            {/* Client List */}
+            <div className="client-list">
+              <AnimatePresence>
+                {clients.length > 0 ? (
+                  clients.map((client) => {
+                    console.log("Client project:", client.project);
+
+                    const featureImage = client.project?.media?.find(
+                      (media) => media.image_type === "feature"
+                    );
+
+                    return (
+                      <motion.div
+                        key={client.id}
+                        className="client-item"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 20 }}
+                        transition={{ duration: 0.4 }}
+                      >
+                        {featureImage && (
+                          <div className="image-wrapper">
+                            <motion.img
+                              src={featureImage.fileurl}
+                              alt={client.fullName}
+                              sizes="(max-width: 479px) 100vw, (max-width: 767px) 96vw, (max-width: 991px) 45vw, 37vw"
+                              whileHover={{ scale: 1.03 }}
+                              transition={{ duration: 0.3 }}
+                              loading="lazy"
+                            />
+                            <motion.div
+                              onClick={() => handleClientClick(client.id)}
+                              className="image-overlay"
+                              initial={{ opacity: 0 }}
+                              whileHover={{ opacity: 1 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <h3>{client.fullName}</h3>
+                              <p>{client.address}</p>
+                            </motion.div>
+                          </div>
+                        )}
+                      </motion.div>
+                    );
+                  })
+                ) : (
+                  <motion.p
+                    className="no-projects-message"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    No projects available in this category.
+                  </motion.p>
+                )}
+              </AnimatePresence>
             </div>
           </div>
-
-          <div className="row">
-            {categories.map((category) => (
-              <div
-                className="col-lg-3 col-md-6 mb-4"
-                key={category.key}
-                style={{ cursor: "default" }}
-              >
-                <Link to={`/projects/category/${category.key}`}>
-                  <div className="card category-card shadow-sm border-0 h-100">
-                    <div className="card-image-wrapper">
-                      <img
-                        src={category.image}
-                        alt={category.title}
-                        className="card-img-top"
-                      />
-                      <div className="card-overlay">
-                        <h5 className="card-title-overlay">{category.title}</h5>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </div>
-            ))}
-          </div>
         </div>
+        <ScrollToTop />
       </section>
     </>
   );

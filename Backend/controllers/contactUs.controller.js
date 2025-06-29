@@ -1,6 +1,7 @@
 const fs = require("fs");
 const handlebars = require("handlebars");
 const EmailService = require("../services/email.service.js");
+const path = require("path");
 
 const readHTMLFile = (path) => {
   return new Promise((resolve, reject) => {
@@ -18,14 +19,34 @@ const sendContactFormEmail = async (req, res) => {
     const html = await readHTMLFile("resource/contactFormSubmission.hbs");
     const template = handlebars.compile(html);
     const htmlToSend = template(req.body);
+    // await EmailService.sendMail(
+    //   req.body.email,
+    //   process.env.EMAIL_FROM,
+    //   "Contact Form Submission",
+    //   "",
+    //   htmlToSend
+    // );
+
     await EmailService.sendMail(
       req.body.email,
       process.env.EMAIL_FROM,
       "Contact Form Submission",
       "",
-      htmlToSend
+      htmlToSend,
+      [
+        {
+          filename: "ndbn-logo-white.png",
+          path: path.join(__dirname, "..", "public", "ndbn-logo-white.png"),
+          cid: "ndbnlogo",
+        },
+      ]
     );
-    return res.status(200).send("Email sent successfully.");
+
+    res.status(200).json({
+      success: true,
+      status: 200,
+      message: "Email send successfully",
+    });
   } catch (error) {
     console.error("Error in sendContactFormEmail:", error.message);
     return res.status(500).send("Failed to send email.");

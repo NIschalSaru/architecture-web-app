@@ -24,6 +24,10 @@ const Project = sequelizeInstance.define(
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    status: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
   },
   {
     tableName: "projects",
