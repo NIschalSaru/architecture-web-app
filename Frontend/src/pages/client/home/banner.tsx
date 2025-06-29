@@ -60,7 +60,7 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
   // Fetch project types for the dropdown
   const { data: projectTypes, loading: projectTypesLoading } = useGetAPI<
     ProjectType[]
-  >("architecture-web-app/projects/project-types", true, true);
+  >("architecture-web-app/projects/active-project-types", true, true);
 
   // Function to construct full URL for the video
   const getVideoUrl = (filepath: string) => {
