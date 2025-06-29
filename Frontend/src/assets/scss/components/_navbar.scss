@@ -194,15 +194,20 @@ $break-sm: 768px;
   }
 
   .auth-section {
-    button {
-      border-radius: 20px;
-      padding: 6px 20px;
-      border: 2px solid $white;
-      color: $white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
-      &:hover {
-        border-color: $white;
-        color: $white;
+    .menuButton {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .menuButton {
+        display: inline-flex;
+        margin-left: 8px;
+        color: white;
+        font-size: 1.225rem;
       }
     }
   }
