@@ -473,7 +473,7 @@
   .project-details-table tbody,
   .project-details-table tr,
   .project-details-table td {
-    display: block;
+    // display: block;
     width: 100%;
   }
 
@@ -486,6 +486,7 @@
     background: transparent;
     font-size: 0.8rem;
     border-right: none;
+    padding: 15px 15px;
   }
 
   .project-details-table .details-value {
