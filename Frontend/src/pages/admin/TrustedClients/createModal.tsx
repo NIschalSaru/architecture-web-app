@@ -130,7 +130,7 @@ const CreateClientModal: React.FC<CreateClientModalProps> = ({
           <Col span={24}>
             <Form.Item
               label="Logo Image"
-              name="fileurl"
+              name="filepath"
               className="upload-wrapper"
               rules={[
                 { required: true, message: "Please upload a logo image" },

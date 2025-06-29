@@ -12,7 +12,7 @@ interface DataType {
   key: string;
   name: string;
   link: string;
-  fileurl: string | null;
+  filepath: string | null;
   filename: string | null;
   feature: boolean;
 }
@@ -25,6 +25,7 @@ const ClientSetting = () => {
   const [editingRecord, setEditingRecord] = useState<DataType | null>(null);
   const [, setRecordName] = useState<string>("");
   const [pageLoading, setPageLoading] = useState<boolean>(false);
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
 
   // Fetch data from API
   const fetchData = async () => {
@@ -37,7 +38,7 @@ const ClientSetting = () => {
         key: client.id.toString(),
         name: client.name,
         link: client.link,
-        fileurl: client.fileurl || null,
+        filepath: client.filepath || null,
         filename: client.filename || null,
         feature: client.feature,
       }));
@@ -147,7 +148,8 @@ const ClientSetting = () => {
     {
       title: "SN",
       dataIndex: "sn",
-      render: (_: any, __: DataType, index: number) => index + 1,
+      render: (_: any, __: DataType, index: number) =>
+        (pagination.current - 1) * pagination.pageSize + index + 1,
     },
     {
       title: "Name",
@@ -166,12 +168,12 @@ const ClientSetting = () => {
     },
     {
       title: "Logo",
-      dataIndex: "fileurl",
-      key: "fileurl",
-      render: (fileurl: string | null) =>
-        fileurl ? (
+      dataIndex: "filepath",
+      key: "filepath",
+      render: (filepath: string | null) =>
+        filepath ? (
           <img
-            src={fileurl}
+            src={`${apiUrl}/architecture-web-app${filepath}`}
             alt="Client Logo"
             style={{ width: 50, height: 50, objectFit: "contain" }}
           />
@@ -243,7 +245,18 @@ const ClientSetting = () => {
           <Table<DataType>
             columns={columns}
             dataSource={data}
-            pagination={{ pageSize: 10 }}
+            pagination={{
+              current: pagination.current,
+              pageSize: pagination.pageSize,
+              pageSizeOptions: ['10', '20', '50', '100'],
+              showSizeChanger: false,
+            }}
+            onChange={(pagination) => {
+              setPagination({
+                current: pagination.current || 1,
+                pageSize: pagination.pageSize || 10,
+              });
+            }}
             scroll={{ x: "max-content" }}
             rowKey="key"
           />
