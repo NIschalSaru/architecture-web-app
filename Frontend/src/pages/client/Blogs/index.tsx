@@ -42,7 +42,9 @@ const BlogsPage = () => {
 
   // Function to get image URL or fallback to placeholder
   const getImageUrl = (imagepath?: string) => {
-    return imagepath ? `${apiUrl}/architecture-web-app${imagepath}` : PlaceholderImage;
+    return imagepath
+      ? `${apiUrl}/architecture-web-app${imagepath}`
+      : PlaceholderImage;
   };
 
   return (
@@ -60,11 +62,11 @@ const BlogsPage = () => {
 
       <section className="blogs-section">
         <div className="container">
-          <div className="section-title-wrapper">
+          {/* <div className="section-title-wrapper">
             <Title level={1} className="section-title">
             BY LAWS & INFO
             </Title>
-          </div>
+          </div> */}
           {loading ? (
             <LoadingSpinner />
           ) : (
@@ -78,11 +80,12 @@ const BlogsPage = () => {
                       rel="noopener noreferrer"
                       className="blog-link"
                       onClick={(e) => {
-                        fetch(getPdfUrl(blog.filepath))
-                          .catch(() => {
-                            e.preventDefault();
-                            message.error("Unable to open PDF. File may not be available.");
-                          });
+                        fetch(getPdfUrl(blog.filepath)).catch(() => {
+                          e.preventDefault();
+                          message.error(
+                            "Unable to open PDF. File may not be available."
+                          );
+                        });
                       }}
                     >
                       <Card
@@ -101,10 +104,14 @@ const BlogsPage = () => {
                           description={
                             <>
                               <p className="blog-description">
-                                {blog.description || "No description available for this blog."}
+                                {blog.description ||
+                                  "No description available for this blog."}
                               </p>
                               <p className="blog-published">
-                                Published: {new Date(blog.createdAt).toLocaleDateString('en-CA')}
+                                Published:{" "}
+                                {new Date(blog.createdAt).toLocaleDateString(
+                                  "en-CA"
+                                )}
                               </p>
                             </>
                           }
@@ -129,22 +136,6 @@ const BlogsPage = () => {
 };
 
 export default BlogsPage;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import { useEffect } from "react";
 // import { Col, Row, Typography, Card, message } from "antd";

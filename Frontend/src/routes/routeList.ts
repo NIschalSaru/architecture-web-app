@@ -4,11 +4,11 @@ export const RouteList = [
     path: "/home",
   },
   {
-    label: "Selected Projects",
+    label: "Projects",
     path: "/projects",
   },
   {
-    label: "Our Services",
+    label: "Services",
     path: "/services",
   },
   {

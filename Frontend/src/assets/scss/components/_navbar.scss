@@ -150,7 +150,7 @@ $break-sm: 768px;
         transition: color 0.3s ease;
 
         &:hover {
-          color: rgba($secondary, 0.5);
+          text-decoration: underline;
         }
       }
 
