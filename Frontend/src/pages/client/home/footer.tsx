@@ -181,7 +181,8 @@ const Footer = () => {
           <div className="footer-copyright-wrapper">
             <p className="footer-copyright-text">
               <a className="footer-copyright-link" href="#" target="_self">
-                ©2024. | Nepal Designers & Builders. | All rights reserved.
+                ©{new Date().getFullYear()}. | Nepal Designers & Builders. | All
+                rights reserved.
               </a>
             </p>
           </div>
