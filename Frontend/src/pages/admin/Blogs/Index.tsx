@@ -25,6 +25,7 @@ const BlogsSetting = () => {
   const [editingRecord, setEditingRecord] = useState<DataType | null>(null);
   const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
   const [pageLoading, setPageLoading] = useState<boolean>(false);
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
 
   // Fetch data from API
   const fetchData = async () => {
@@ -147,7 +148,8 @@ const BlogsSetting = () => {
     {
       title: "SN",
       dataIndex: "sn",
-      render: (_: any, __: DataType, index: number) => index + 1,
+      render: (_: any, __: DataType, index: number) =>
+        (pagination.current - 1) * pagination.pageSize + index + 1,
     },
     {
       title: "Title",
@@ -250,8 +252,20 @@ const BlogsSetting = () => {
           <Table<DataType>
             columns={columns}
             dataSource={data}
-            pagination={{ pageSize: 10 }}
+            pagination={{
+              current: pagination.current,
+              pageSize: pagination.pageSize,
+              pageSizeOptions: ['10', '20', '50', '100'],
+              showSizeChanger: false,
+            }}
+            onChange={(pagination) => {
+              setPagination({
+                current: pagination.current || 1,
+                pageSize: pagination.pageSize || 10,
+              });
+            }}
             scroll={{ x: "max-content" }}
+            rowKey="key"
           />
 
           <CreateModal
