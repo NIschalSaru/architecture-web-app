@@ -12,8 +12,9 @@ $default-bg: #333;
 
 .projects-slider {
   padding: 20px;
-  margin-top: 40px;
+  // margin-top: 10px;
   position: relative;
+  height: 80vh;
 
   .single-project {
     height: 400px;

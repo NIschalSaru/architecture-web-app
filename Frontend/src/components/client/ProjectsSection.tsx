@@ -18,18 +18,25 @@ const ProjectsSection = () => {
           { withCredentials: true }
         );
 
-        const sortedProjects = response.data.data
+        // ✅ Filter by status first
+        const filteredProjects = response.data.data.filter(
+          (project: any) => project.status === true
+        );
+
+        // ✅ Sort by createdAt and take the latest 9
+        const sortedProjects = filteredProjects
           .sort(
             (a: any, b: any) =>
               new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           )
-          .slice(0, 9); // Keep only the latest 9
+          .slice(0, 9);
 
+        // ✅ Format the project data
         const projectData = sortedProjects.map((project: any) => {
           const formattedDate = new Date(project.createdAt)
             .toISOString()
             .slice(0, 10)
-            .replace(/-/g, "/"); // Format: YYYY/MM/DD
+            .replace(/-/g, "/");
 
           return {
             id: project.id,
