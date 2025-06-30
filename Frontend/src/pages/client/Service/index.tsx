@@ -12,7 +12,7 @@ import InteriorDesign from "../../../assets/images/Services/service-InteriorDesi
 import HotelResort from "../../../assets/images/Services/service-HotelResort.webp";
 import gharCollection1 from "../../../assets/images/Services/service-gharCollection1.webp";
 import gharCollection2 from "../../../assets/images/Services/service-gharCollection.webp";
-import siteMeasurement from "../../../assets/images/Services/siteMeasurement.webp";
+import siteMeasurement from "../../../assets/images/Services/SiteMeasurementNew.webp";
 import estimation from "../../../assets/images/Services/service-estimation.webp";
 import evaluation from "../../../assets/images/Services/service-evaluation.webp";
 import { ArrowBigLeft } from "lucide-react";
@@ -81,7 +81,7 @@ const Services: React.FC = () => {
     {
       title: "पुरानो घरलाई  नयाँ लूक्स ",
       description:
-        "We specialize in transforming old or outdated buildings into modern, functional, and visually appealing spaces. Our renovation services focus on structural safety, aesthetic upgrades, and space optimization — all while preserving the building’s core integrity. Whether it’s a traditional home or a commercial structure, we bring new life to your old property.",
+        "We specialize in transforming old or outdated buildings into modern, functional, and visually appealing spaces. Our renovation services focus on structural safety, aesthetic upgrades, and space optimization — all while preserving the building's core integrity. Whether it's a traditional home or a commercial structure, we bring new life to your old property.",
       image: OldHouseNewLooks1,
       image2: OldHouseNewLooks2,
       features: [
@@ -267,7 +267,12 @@ const Services: React.FC = () => {
             <div className="service-detail" ref={serviceDetailRef}>
               <Button
                 className="back-btn-page"
-                onClick={() => setSelectedService(null)}
+                onClick={() => {
+                  setSelectedService(null);
+                  setTimeout(() => {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }, 100);
+                }}
               >
                 <ArrowBigLeft /> Back
               </Button>

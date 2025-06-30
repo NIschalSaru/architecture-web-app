@@ -19,9 +19,9 @@ $color-text-secondary: #4A5F73;
 }
 
 .trusted-clients {
-  background: url('../../assets/images/service-Bg2.jpg') no-repeat center center/cover;
+  background: url('../../assets/images/teamMember/bg-white.jpg') no-repeat center center/cover;
   // background: white;
-  padding: 8rem 1rem;
+  padding: 7rem 1rem;
   overflow: hidden;
 
   &__container {
@@ -34,7 +34,7 @@ $color-text-secondary: #4A5F73;
     text-align: center;
     font-size: 2.125rem;
     color: $color-primary;
-    margin-bottom: 5rem; // Reduced from 6rem
+    margin-bottom: 6rem; // Reduced from 6rem
     font-weight: 600;
     letter-spacing: -0.03em;
     position: relative;
@@ -68,7 +68,7 @@ $color-text-secondary: #4A5F73;
     justify-content: center;
     margin: 0 3rem; // Reduced from 3rem
     text-decoration: none;
-    height: 180px; // Reduced from 200px
+    height: 140px; // Reduced from 200px
     @include transition-smooth;
 
     &:hover {
@@ -80,8 +80,8 @@ $color-text-secondary: #4A5F73;
   }
 
   &__logo {
-    height: 120px; // Reduced from 120px
-    max-width: 200px; // Reduced from 200px
+    height: 90px; // Reduced from 120px
+    max-width: 180px; // Reduced from 200px
     object-fit: contain; // Changed to contain for better scaling
     @include transition-smooth;
   }

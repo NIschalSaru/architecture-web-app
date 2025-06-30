@@ -2,12 +2,14 @@ import { motion } from "framer-motion";
 import useGetAPI from "../../hooks/useGetAPI";
 import LoadingSpinner from "./LoadingSpinner";
 import { useState, useEffect } from "react";
+import { apiUrl } from "../../utils";
+
 
 interface Client {
   id: number;
   name: string;
   link: string;
-  fileurl: string | null;
+  filepath: string | null;
   filename: string | null;
 }
 
@@ -38,7 +40,7 @@ const OurTrustedClients: React.FC = () => {
     );
 
   // Filter out clients with null fileurl
-  const validClients = clients?.filter((client) => client.fileurl) || [];
+  const validClients = clients?.filter((client) => client.filepath) || [];
   // Limit to 3 logos in mobile view, duplicate for marquee in desktop
   const marqueeClients = isMobile
     ? [...validClients.slice(0, 3), ...validClients.slice(0, 3)] // 3 logos, duplicated
@@ -79,7 +81,7 @@ const OurTrustedClients: React.FC = () => {
                   className="trusted-clients__logo-wrapper"
                 >
                   <img
-                    src={client.fileurl || "default-client-logo.png"}
+                    src={`${apiUrl}/architecture-web-app${client.filepath}`}
                     alt={client.name}
                     className="trusted-clients__logo"
                   />

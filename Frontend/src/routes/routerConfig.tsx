@@ -23,11 +23,13 @@ import ClientContactForm from "../pages/admin/Forms/ClientContactUsForm/Index";
 import TrustedClient from "../pages/admin/TrustedClients/Index";
 import BlogsAdmin from "../pages/admin/Blogs/Index";
 import Blogs from "../pages/client/Blogs/index";
+import GoogleAnalyticsTracker from "../components/GoogleAnalyticsTracker";
 
 
 const RouteConfig = () => {
   return (
     <Suspense fallback="Loading...">
+      <GoogleAnalyticsTracker />
       <Routes>
         {/* Login Route */}
         <Route path="/login" element={<LoginPage />} />

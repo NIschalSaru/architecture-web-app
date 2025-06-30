@@ -169,9 +169,9 @@ const NavbarComponent: React.FC = () => {
 
             <div className="auth-section">
 
-              <Link to="/admin">
+              <Link to="/about#contact-us">
                 <Button size="large" ghost>
-                  Login
+                  Contact Us
                 </Button>
               </Link>
               <Button className="menuButton" type="text" onClick={showDrawer}>
