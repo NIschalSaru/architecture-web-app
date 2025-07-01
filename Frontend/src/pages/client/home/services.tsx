@@ -1,13 +1,13 @@
-import { ToolOutlined, BulbOutlined, ProjectOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
-import renovation from "../../../assets/svg/renovation.svg";
-import nakaspass from "../../../assets/svg/naksamap.svg";
-import approve from "../../../assets/svg/approve.svg";
+import { useNavigate } from 'react-router-dom';
+import renovation from '../../../assets/svg/renovation.svg';
+import naksaMap from '../../../assets/svg/naksamap.svg';
+import approve from '../../../assets/svg/approve.svg';
+
 const Services: React.FC = () => {
   const navigate = useNavigate();
   const services = [
     {
-      icon: <BulbOutlined />,
+      icon: approve,
       title: {
         nepali: "नयाँ नक्सा डिजाइन",
         english: "(New Map Design)",
@@ -20,7 +20,7 @@ const Services: React.FC = () => {
       targetSection: "map-design",
     },
     {
-      icon: <ToolOutlined />,
+      icon: naksaMap,
       title: {
         nepali: "नक्सा पास",
         english: "(Map Approval)",
@@ -33,7 +33,7 @@ const Services: React.FC = () => {
       targetSection: "map-pass",
     },
     {
-      icon: <ProjectOutlined />,
+      icon: renovation,
       title: {
         nepali: "पुरानो घरलाई  नयाँ लूक्स",
         english: "(New Look for Old House)",
@@ -112,8 +112,20 @@ const Services: React.FC = () => {
             >
               <div className="home-services-icon-wrapper">
                 <div className="home-services-icon-background"></div>
-                <div className="home-services-icon-outer">{service.icon}</div>
-                <div className="home-services-icon-inner">{service.icon}</div>
+                <div className="home-services-icon-outer">
+                  {typeof service.icon === 'string' ? (
+                    <img src={service.icon} alt="Service Icon" style={{ width: 58, height: 58 }} />
+                  ) : (
+                    service.icon
+                  )}
+                </div>
+                <div className="home-services-icon-inner">
+                  {typeof service.icon === 'string' ? (
+                    <img src={service.icon} alt="Service Icon" style={{ width: 58, height: 58, opacity: 0.2 }} />
+                  ) : (
+                    service.icon
+                  )}
+                </div>
               </div>
               <h3 className="home-services-title-text">
                 <span className="home-services-nepali-title">
