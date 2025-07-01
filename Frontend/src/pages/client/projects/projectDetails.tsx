@@ -6,8 +6,8 @@ import ProjectInnerHeader from "../../../components/client/ProjectInnerHeader";
 import ImageViewer from "react-simple-image-viewer";
 import { motion } from "framer-motion";
 import { ArrowLeft, User } from "lucide-react";
-import { Layout } from "antd";
-import ProjectContactSection from "../../../components/client/ProjectContactSection";
+// import { Layout } from "antd";
+// import ProjectContactSection from "../../../components/client/ProjectContactSection";
 
 interface Media {
   id: number;
@@ -179,10 +179,10 @@ const ProjectDetails = () => {
                       {client.project.site_area}
                     </td>
                   </tr>
-                  <tr>
+                  {/* <tr>
                     <td className="details-label">Completed</td>
                     <td className="details-value">2021</td>
-                  </tr>
+                  </tr> */}
                 </tbody>
               </table>
             </div>
@@ -252,9 +252,9 @@ const ProjectDetails = () => {
             </div>
           </div>
         </div>
-        <Layout>
+        {/* <Layout>
           <ProjectContactSection />
-        </Layout>
+        </Layout> */}
       </div>
     </>
   );

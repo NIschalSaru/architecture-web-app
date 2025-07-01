@@ -24,9 +24,9 @@ const YouTubeVideoSection: React.FC = () => {
 
   // Smooth scroll handler for Contact Us
   const handleContactScroll = () => {
-    const section = document.getElementById('home-contact');
+    const section = document.getElementById("home-contact");
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+      section.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -35,7 +35,7 @@ const YouTubeVideoSection: React.FC = () => {
       icon: Building2,
       number: 7,
       title: "Years",
-      description: "We have been working in the industry since 2018.",
+      description: "We have been working in the industry for almost a decade.",
     },
     {
       icon: Trophy,
@@ -75,7 +75,7 @@ const YouTubeVideoSection: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
             >
-              सम्पूर्ण भवनहरुको  भित्रि तथा बाहिरी भागको नक्सा देखि निर्माण सम्म
+              सम्पूर्ण भवनहरुको भित्रि तथा बाहिरी भागको नक्सा देखि निर्माण सम्म
             </motion.h6>
 
             <motion.div
@@ -131,7 +131,8 @@ const YouTubeVideoSection: React.FC = () => {
                   <div className="youtube-section__stat-content">
                     <div className="youtube-section__stat-header">
                       <span className="youtube-section__stat-number">
-                        {stat.number}<span className="plus-icon">+</span>
+                        {stat.number}
+                        <span className="plus-icon">+</span>
                       </span>
 
                       <span className="youtube-section__stat-title">

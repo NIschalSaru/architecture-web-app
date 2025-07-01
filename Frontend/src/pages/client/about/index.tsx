@@ -155,11 +155,10 @@ const AboutUsPage = () => {
                 <Paragraph className="mission-text">
                   At Nepal Designers and Builders Pvt Ltd, we are more than just
                   a construction and design firm; we are architects of dreams.
-                  Founded in [Year of Establishment], our journey began with a
-                  simple yet profound vision: to blend innovative design with
-                  exceptional construction quality. Based in the heart of Nepal,
-                  our company has grown to become a leading name in the
-                  architectural landscape of the region.
+                  Our journey began with a simple yet profound vision: to blend
+                  innovative design with exceptional construction quality. Based
+                  in the heart of Nepal, our company has grown to become a
+                  leading name in the architectural landscape of the region.
                 </Paragraph>
               </div>
             </Col>

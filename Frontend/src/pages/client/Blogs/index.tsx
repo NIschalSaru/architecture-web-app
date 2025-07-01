@@ -1,12 +1,10 @@
 import { useEffect } from "react";
-import { Col, Row, Typography, Card, message } from "antd";
+import { Col, Row, Card, message } from "antd";
 import useGetAPI from "../../../hooks/useGetAPI";
 import ScrollToTop from "../../../components/client/ScrollToTop";
 import LoadingSpinner from "../../../components/client/LoadingSpinner";
 import PlaceholderImage from "../../../assets/images/pdf-1.png"; // Fallback placeholder image
 import { apiUrl } from "../../../utils";
-
-const { Title } = Typography;
 
 interface BlogData {
   id: number;
@@ -55,7 +53,7 @@ const BlogsPage = () => {
           <div className="breadcrumb">
             <a href="/">HOME</a>
             <span className="separator">/</span>
-            <span className="current">By Laws & Info</span>
+            <span className="current">BY LAWS & INFO</span>
           </div>
         </div>
       </div>
