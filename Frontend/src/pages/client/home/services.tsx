@@ -1,48 +1,50 @@
-import { ToolOutlined, BulbOutlined, ProjectOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
-
+import { ToolOutlined, BulbOutlined, ProjectOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import renovation from "../../../assets/svg/renovation.svg";
+import nakaspass from "../../../assets/svg/naksamap.svg";
+import approve from "../../../assets/svg/approve.svg";
 const Services: React.FC = () => {
   const navigate = useNavigate();
   const services = [
     {
       icon: <BulbOutlined />,
       title: {
-        nepali: 'नयाँ नक्सा डिजाइन',
-        english: '(New Map Design)'
+        nepali: "नयाँ नक्सा डिजाइन",
+        english: "(New Map Design)",
       },
       description: [
         "Understanding of Client's Needs, Budget, and Vision",
         "Understanding Architectural, Structural Drawings, and 3D Photos & Videos",
-        "Understanding the required documents for municipal drawings and the approval process"
+        "Understanding the required documents for municipal drawings and the approval process",
       ],
-      targetSection: 'map-design'
+      targetSection: "map-design",
     },
     {
       icon: <ToolOutlined />,
       title: {
-        nepali: 'नक्सा पास',
-        english: '(Map Approval)'
+        nepali: "नक्सा पास",
+        english: "(Map Approval)",
       },
       description: [
         "Full-Time Contract: We manage materials, labor, and full supervision with 24/7 CCTV monitoring",
         "Half-Time Contract: Client provides materials, and we oversee labor and supervision",
-        "Supervision Only Contract: Our engineers ensure quality and safety throughout the construction"
+        "Supervision Only Contract: Our engineers ensure quality and safety throughout the construction",
       ],
-      targetSection: 'map-pass'
+      targetSection: "map-pass",
     },
     {
       icon: <ProjectOutlined />,
       title: {
-        nepali: 'पुरानो घरलाई  नयाँ लूक्स',
-        english: '(New Look for Old House)'
+        nepali: "पुरानो घरलाई  नयाँ लूक्स",
+        english: "(New Look for Old House)",
       },
       description: [
         "Brings Positive Energy",
         "Makes your space more comfortable",
-        "Prevent future issues"
+        "Prevent future issues",
       ],
-      targetSection: 'old-new'
-    }
+      targetSection: "old-new",
+    },
     // {
     //   icon: <BulbOutlined />,
     //   title: {
@@ -94,7 +96,7 @@ const Services: React.FC = () => {
         <div className="home-services-header">
           <h3 className="home-services-subtitle">OUR SERVICES</h3>
           <h2 className="home-services-title">
-            हजुरको सपना पुरा गर्नको 
+            हजुरको सपना पुरा गर्नको
             <br />
             लागि सही मार्गदर्शन र उपयोगी जानकारी
           </h2>
@@ -102,24 +104,24 @@ const Services: React.FC = () => {
 
         <div className="home-services-grid">
           {services.map((service, index) => (
-            <div 
-              className="home-services-card" 
+            <div
+              className="home-services-card"
               key={index}
               onClick={() => handleServiceClick(service.targetSection)}
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: "pointer" }}
             >
               <div className="home-services-icon-wrapper">
                 <div className="home-services-icon-background"></div>
-                <div className="home-services-icon-outer">
-                  {service.icon}
-                </div>
-                <div className="home-services-icon-inner">
-                  {service.icon}
-                </div>
+                <div className="home-services-icon-outer">{service.icon}</div>
+                <div className="home-services-icon-inner">{service.icon}</div>
               </div>
               <h3 className="home-services-title-text">
-                <span className="home-services-nepali-title">{service.title.nepali}</span>
-                <span className="home-services-english-title">{service.title.english}</span>
+                <span className="home-services-nepali-title">
+                  {service.title.nepali}
+                </span>
+                <span className="home-services-english-title">
+                  {service.title.english}
+                </span>
               </h3>
               <ul className="home-services-description">
                 {service.description.map((item, idx) => (
@@ -135,9 +137,6 @@ const Services: React.FC = () => {
 };
 
 export default Services;
-
-
-
 
 // import { ToolOutlined, BulbOutlined, ProjectOutlined } from '@ant-design/icons';
 
@@ -187,7 +186,7 @@ export default Services;
 //         <div className="services-header">
 //           <h3 className="subtitle">OUR SERVICES</h3>
 //           <h2 className="title">
-//             हजुरको सपना पुरा गर्नको 
+//             हजुरको सपना पुरा गर्नको
 //             <br />
 //             लागि सही मार्गदर्शन र उपयोगी जानकारी
 //           </h2>

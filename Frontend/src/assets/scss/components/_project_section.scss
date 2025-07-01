@@ -11,7 +11,7 @@ $bg-overlay: rgba(0, 0, 0, 0.6);
 $default-bg: #333;
 
 .projects-slider {
-  padding: 60px;
+  padding: 20px;
   // margin-top: 10px;
   position: relative;
   height: 90vh;
@@ -173,5 +173,25 @@ $default-bg: #333;
     &::before {
       display: none; // Hides the default arrows
     }
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .projects-slider {
+    height: 100vh; // Adjusted height for smaller screens
+    .architectural-expertise__title {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .projects-slider {
+    padding: 81px 20px 20px 20px;
+    position: relative;
+    height: 80vh;
+  }
+  .architectural-expertise__title {
+    font-size: 1.5rem;
   }
 }
