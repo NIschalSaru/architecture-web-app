@@ -22,6 +22,14 @@ const YouTubeVideoSection: React.FC = () => {
     []
   );
 
+  // Smooth scroll handler for Contact Us
+  const handleContactScroll = () => {
+    const section = document.getElementById('home-contact');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const statsData = [
     {
       icon: Building2,
@@ -146,10 +154,9 @@ const YouTubeVideoSection: React.FC = () => {
                 <Button
                   type="primary"
                   className="youtube-section__contact-button"
+                  onClick={handleContactScroll}
                 >
-                  <a href="#home-contact" target="_self">
-                    Contact Us
-                  </a>
+                  Contact Us
                 </Button>
               </motion.div>
             </div>
