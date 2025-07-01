@@ -6,6 +6,8 @@ import ProjectInnerHeader from "../../../components/client/ProjectInnerHeader";
 import ImageViewer from "react-simple-image-viewer";
 import { motion } from "framer-motion";
 import { ArrowLeft, User } from "lucide-react";
+import { Layout } from "antd";
+import ProjectContactSection from "../../../components/client/ProjectContactSection";
 
 interface Media {
   id: number;
@@ -250,6 +252,9 @@ const ProjectDetails = () => {
             </div>
           </div>
         </div>
+        <Layout>
+          <ProjectContactSection />
+        </Layout>
       </div>
     </>
   );

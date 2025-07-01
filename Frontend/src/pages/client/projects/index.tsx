@@ -111,12 +111,12 @@ const Projects = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="sections-heading">
+            {/* <div className="sections-heading">
               <h2 className="heading-with-line">
-                <span>Discover our craft.</span>
+                <span>What We Do?.</span>
               </h2>
               <p>— Explore everything that makes us NDNB.</p>
-            </div>
+            </div> */}
           </motion.div>
 
           <div className="project-layout">

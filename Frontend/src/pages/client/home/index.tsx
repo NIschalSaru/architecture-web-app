@@ -8,10 +8,9 @@ import TestimonialSlider from "../../../components/client/Testimonial.tsx";
 import ProjectsSection from "../../../components/client/ProjectsSection.tsx";
 import Services from "./services.tsx";
 import WhyUs from "../../../components/client/WhyUs.tsx";
-import LoadingSpinner from '../../../components/client/LoadingSpinner';
+import LoadingSpinner from "../../../components/client/LoadingSpinner";
 import useGetAPI from "../../../hooks/useGetAPI";
 import TrustedClientsSection from "../../../components/client/TrustedClients.tsx";
-
 
 interface BannerData {
   id: number;
@@ -30,7 +29,8 @@ const Home = () => {
   } = useGetAPI<BannerData>(`architecture-web-app/banner`);
 
   if (loading) return <LoadingSpinner />;
-  if (error) return <div className="error-message">Error loading page: {error}</div>;
+  if (error)
+    return <div className="error-message">Error loading page: {error}</div>;
   if (!bannerData) return null;
 
   return (
@@ -46,13 +46,13 @@ const Home = () => {
         <WhyUs />
       </Layout>
       <Layout>
+        <TrustedClientsSection />
+      </Layout>
+      <Layout>
         <ProjectsSection />
       </Layout>
       <Layout>
         <TestimonialSlider />
-      </Layout>
-      <Layout>
-        <TrustedClientsSection />
       </Layout>
       <Layout>
         <ContactUsSection />

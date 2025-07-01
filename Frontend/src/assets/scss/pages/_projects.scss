@@ -13,9 +13,9 @@
 $hover-color-slider: #be1e2d;
 
 .project-area {
-  padding: 0px 0;
+  padding: 1px 0;
   min-height: 100vh;
-  background-color: #fdf9f846;
+  background-color: #f0f0f0;
 }
 
 .section-title {
@@ -128,10 +128,10 @@ $hover-color-slider: #be1e2d;
 
 .client-item img {
   width: 100%;
-  height: 300px;
+  height: 450px;
   object-fit: cover;
   display: block;
-  border: #be1e2d 1px solid;
+  // border: #be1e2d 1px solid;
 }
 
 .image-overlay {
