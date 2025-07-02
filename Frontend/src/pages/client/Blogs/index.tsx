@@ -68,7 +68,7 @@ const BlogsPage = () => {
           {loading ? (
             <LoadingSpinner />
           ) : (
-            <Row gutter={[16, 16]} justify="center">
+            <Row gutter={[16, 16]} justify="start">
               {data && data.length > 0 ? (
                 data.map((blog) => (
                   <Col xs={24} sm={12} md={8} lg={6} key={blog.id}>

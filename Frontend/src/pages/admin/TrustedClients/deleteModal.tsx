@@ -65,7 +65,7 @@ const DeleteClientModal: React.FC<DeleteClientModalProps> = ({
       <div className="delete-content">
         <ExclamationCircleOutlined className="warning-icon" />
         <p className="delete-message">
-          Are you sure you want to delete <strong>{recordName}</strong>?
+          Are you sure you want to delete "<strong>{recordName}</strong>"?
         </p>
         <p className="delete-warning">
           This action cannot be undone.

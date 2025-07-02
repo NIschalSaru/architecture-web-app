@@ -160,6 +160,9 @@ const BlogsSetting = () => {
       title: "Description",
       dataIndex: "description",
       key: "description",
+      render: (text: string) => (
+        <div className="table-description-cell">{text}</div>
+      ),
     },
     {
       title: "Image",

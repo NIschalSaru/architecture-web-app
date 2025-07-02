@@ -28,6 +28,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [imageError, setImageError] = useState<string | null>(null);
 
   useEffect(() => {
     if (visible) {
@@ -50,10 +51,25 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
       } else {
         setFileList([]);
       }
+      setImageError(null);
+    } else {
+      setImageError(null);
     }
   }, [visible, initialValues, form]);
 
   const handleFileChange = ({ fileList }: { fileList: UploadFile[] }) => {
+    if (fileList.length > 0) {
+      const file = fileList[fileList.length - 1];
+      if (file.size && file.size / 1024 / 1024 > 2) {
+        setImageError('Image must be smaller than 2MB!');
+        setFileList([]);
+        return;
+      } else {
+        setImageError(null);
+      }
+    } else {
+      setImageError(null);
+    }
     setFileList(fileList.slice(-1));
   };
 
@@ -166,17 +182,20 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
             </Form.Item>
           </Col>
           <Col span={24}>
-            <Form.Item 
-              label="Profile Image"
-              name="filepath"
+            <Form.Item
+              label="Image (Max 2MB)"
+              name="image"
+              rules={[{ required: true, message: "Please upload an image" }]}
               className="upload-wrapper"
+              validateStatus={imageError ? 'error' : undefined}
+              help={imageError}
             >
               <Upload
                 beforeUpload={() => false}
                 fileList={fileList}
                 onChange={handleFileChange}
                 multiple={false}
-                listType="picture-card"
+                listType="picture"
                 disabled={loading}
                 accept="image/jpeg,image/png"
                 maxCount={1}
@@ -185,7 +204,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
                 {fileList.length === 0 && (
                   <div>
                     <UploadOutlined className="upload-icon" />
-                    <div className="upload-text">Upload Photo</div>
+                    <div className="upload-text">Upload Image</div>
                   </div>
                 )}
               </Upload>

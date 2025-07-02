@@ -18,16 +18,33 @@ const CreateClientModal: React.FC<CreateClientModalProps> = ({
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [imageError, setImageError] = useState<string | null>(null);
 
   useEffect(() => {
     if (visible) {
       form.setFieldsValue({
         status: "1" // Set default value when modal opens
       });
+      setImageError(null);
+      setFileList([]);
+    } else {
+      setImageError(null);
     }
   }, [visible, form]);
 
   const handleFileChange = ({ fileList }: { fileList: UploadFile[] }) => {
+    if (fileList.length > 0) {
+      const file = fileList[fileList.length - 1];
+      if (file.size && file.size / 1024 / 1024 > 2) {
+        setImageError('Logo must be smaller than 2MB!');
+        setFileList([]);
+        return;
+      } else {
+        setImageError(null);
+      }
+    } else {
+      setImageError(null);
+    }
     setFileList(fileList.slice(-1));
   };
 
@@ -129,12 +146,14 @@ const CreateClientModal: React.FC<CreateClientModalProps> = ({
           
           <Col span={24}>
             <Form.Item
-              label="Logo Image"
+              label="Logo Image (Max 2MB)"
               name="filepath"
               className="upload-wrapper"
               rules={[
                 { required: true, message: "Please upload a logo image" },
               ]}
+              validateStatus={imageError ? 'error' : undefined}
+              help={imageError}
             >
               <Upload
                 beforeUpload={() => false}

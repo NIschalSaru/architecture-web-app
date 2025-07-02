@@ -18,7 +18,7 @@ const OurTrustedClients: React.FC = () => {
     data: clients,
     loading,
     error,
-  } = useGetAPI<Client[]>("architecture-web-app/our-clients");
+  } = useGetAPI<Client[]>("architecture-web-app/our-clients/feature");
   const [isMobile, setIsMobile] = useState(false);
 
   // Detect mobile view

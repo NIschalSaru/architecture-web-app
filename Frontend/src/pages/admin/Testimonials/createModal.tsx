@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Form, Input, Upload, Rate, Button, Row, Col } from "antd";
 import { UploadOutlined, UserOutlined, StarOutlined } from "@ant-design/icons";
 import { UploadFile } from "antd/es/upload/interface";
@@ -16,11 +16,38 @@ const CreateModal: React.FC<CreateModalProps> = ({
   onCreate,
 }) => {
   const [form] = Form.useForm();
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  // const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [imageError, setImageError] = useState<string | null>(null);
+  const [imageList, setImageList] = useState<UploadFile[]>([]);
 
-  const handleFileChange = ({ fileList }: { fileList: UploadFile[] }) => {
-    setFileList(fileList.slice(-1));
+  useEffect(() => {
+    if (visible) {
+      setImageError(null);
+      setImageList([]);
+    } else {
+      setImageError(null);
+    }
+  }, [visible]);
+
+  // const handleFileChange = ({ fileList }: { fileList: UploadFile[] }) => {
+  //   setFileList(fileList.slice(-1));
+  // };
+
+  const handleImageChange = ({ fileList }: { fileList: UploadFile[] }) => {
+    if (fileList.length > 0) {
+      const file = fileList[fileList.length - 1];
+      if (file.size && file.size / 1024 / 1024 > 2) {
+        setImageError('Image must be smaller than 2MB!');
+        setImageList([]);
+        return;
+      } else {
+        setImageError(null);
+      }
+    } else {
+      setImageError(null);
+    }
+    setImageList(fileList.slice(-1));
   };
 
   const handleCreate = async () => {
@@ -33,13 +60,13 @@ const CreateModal: React.FC<CreateModalProps> = ({
       formData.append("rating", values.rating?.toString() || "0");
       formData.append("message", values.message);
 
-      if (fileList.length > 0) {
-        formData.append("image", fileList[0].originFileObj as Blob);
+      if (imageList.length > 0) {
+        formData.append("image", imageList[0].originFileObj as Blob);
       }
 
       await onCreate(formData);
       form.resetFields();
-      setFileList([]);
+      setImageList([]);
     } catch (error) {
       console.error("Validation Failed:", error);
     } finally {
@@ -130,26 +157,29 @@ const CreateModal: React.FC<CreateModalProps> = ({
             </Form.Item>
           </Col>
           <Col span={24}>
-            <Form.Item 
-              label="Profile Image"
-              name="filepath"
+            <Form.Item
+              label="Image (Max 2MB)"
+              name="image"
+              rules={[{ required: true, message: "Please upload an image" }]}
               className="upload-wrapper"
+              validateStatus={imageError ? 'error' : undefined}
+              help={imageError}
             >
               <Upload
                 beforeUpload={() => false}
-                fileList={fileList}
-                onChange={handleFileChange}
+                fileList={imageList}
+                onChange={handleImageChange}
                 multiple={false}
-                listType="picture-card"
+                listType="picture"
                 disabled={loading}
                 accept="image/jpeg,image/png"
                 maxCount={1}
                 className="testimonial-upload"
               >
-                {fileList.length === 0 && (
+                {imageList.length === 0 && (
                   <div>
                     <UploadOutlined className="upload-icon" />
-                    <div className="upload-text">Upload Photo</div>
+                    <div className="upload-text">Upload Image</div>
                   </div>
                 )}
               </Upload>
