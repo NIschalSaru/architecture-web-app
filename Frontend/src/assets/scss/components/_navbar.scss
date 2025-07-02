@@ -147,10 +147,23 @@ $break-sm: 768px;
         color: $white;
         font-weight: 600;
         font-size: 1.1rem;
+        position: relative; // Needed for ::after positioning
         transition: color 0.3s ease;
 
-        &:hover {
-          text-decoration: underline;
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          bottom: -4px;
+          left: 0;
+          width: 0%;
+          height: 2px;
+          background-color: $white;
+          transition: width 0.5s ease;
+        }
+
+        &:hover::after {
+          width: 100%;
         }
       }
 
