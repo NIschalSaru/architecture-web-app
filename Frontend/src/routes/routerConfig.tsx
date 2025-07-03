@@ -15,7 +15,6 @@ import ProjectTypeSetting from "../pages/admin/Projects/ProjectTypes/Index";
 import ProjectClients from "../pages/admin/Projects/Clients/Index";
 import ProtectedRoute from "../components/ProtectedRoute";
 import ProjectDetails from "../pages/client/projects/projectDetails";
-import CategorizeProjects from "../pages/client/projects/catagorizeProjects";
 // import AddProject from "../pages/admin/Projects/AddNewProjects/AddProject";
 import ProjectSettings from "../pages/admin/Projects/AddNewProjects/Index";
 import ClientReqForm from "../pages/admin/Forms/ClientRequirementForm/Index";
@@ -51,10 +50,6 @@ const RouteConfig = () => {
           {/* <Route path="projects/details/:title" element={<ProjectDetails />} /> */}
 
           <Route path="page-not-found" element={<PageNotFound />} />
-          <Route
-            path="projects/category/:categoryKey"
-            element={<CategorizeProjects />}
-          />
         </Route>
 
         {/* Protected Admin Routes */}
