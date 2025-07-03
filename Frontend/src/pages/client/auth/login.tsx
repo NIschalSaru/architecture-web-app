@@ -31,9 +31,10 @@ const LoginPage = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
-    if (token) {
-      const redirectPath =
-        localStorage.getItem("redirectPath") || "/admin/banner";
+    const cookieToken = Cookies.get("authToken");
+  
+    if (token && cookieToken) {
+      const redirectPath = localStorage.getItem("redirectPath") || "/admin/banner";
       localStorage.removeItem("redirectPath");
       navigate(redirectPath);
     }
@@ -51,12 +52,12 @@ const LoginPage = () => {
         localStorage.setItem("Id", response.id.toString());
         Cookies.set("authToken", response.token);
 
-        // Cookies.set("authToken", response.token, {
-        //   expires: values.remember ? 4 : undefined,
-        //   secure: true,
-        //   sameSite: "None",
-        //   path: "/",
-        // });
+        Cookies.set("authToken", response.token, {
+          expires: new Date(Date.now() + 1 * 60 * 1000),
+          secure: true,
+          sameSite: "None",
+          path: "/",
+        });
         const redirectPath =
           localStorage.getItem("redirectPath") || "/admin/banner";
         localStorage.removeItem("redirectPath");

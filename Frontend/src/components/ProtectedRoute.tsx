@@ -1,19 +1,56 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import {isAuthenticated} from '../utils/index';
+import { useEffect, useState } from 'react';
+import { isAuthenticated } from '../utils/index';
 
 const ProtectedRoute = () => {
   const location = useLocation();
+  const [checked, setChecked] = useState(false);
+  const [auth, setAuth] = useState(false);
 
-  if (!isAuthenticated()) {
-    // Store the attempted path before redirecting
-    localStorage.setItem('redirectPath', location.pathname);
-    return <Navigate to="/login" replace state={{ from: location }} />;
+  useEffect(() => {
+    const status = isAuthenticated();
+    setAuth(status);
+    setChecked(true);
+  }, []);
+
+  if (!checked) return null; // or spinner
+
+  if (!auth) {
+    localStorage.setItem("redirectPath", location.pathname);
+    return <Navigate to="/login" replace />;
   }
 
   return <Outlet />;
 };
 
 export default ProtectedRoute;
+
+
+
+
+
+
+
+
+
+
+
+// import { Navigate, Outlet, useLocation } from 'react-router-dom';
+// import {isAuthenticated} from '../utils/index';
+
+// const ProtectedRoute = () => {
+//   const location = useLocation();
+//   console.log(isAuthenticated());
+//   if (!isAuthenticated()) {
+//     // Store the attempted path before redirecting
+//     localStorage.setItem('redirectPath', location.pathname);
+//     return <Navigate to="/login" replace state={{ from: location }} />;
+//   }
+
+//   return <Outlet />;
+// };
+
+// export default ProtectedRoute;
 
 
 
