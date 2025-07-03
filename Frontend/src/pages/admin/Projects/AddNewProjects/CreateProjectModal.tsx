@@ -27,8 +27,6 @@ const CreateProjectModal = ({
   const [projectTypes, setProjectTypes] = useState<ProjectType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [fileList, setFileList] = useState<any[]>([]); // State for gallery file list
-  const [imageError, setImageError] = useState<string | null>(null);
-  const [galleryError, setGalleryError] = useState<string | null>(null);
 
   // Fetch project types from API
   const fetchProjectTypes = async () => {
@@ -54,39 +52,17 @@ const CreateProjectModal = ({
       fetchProjectTypes();
       form.resetFields();
       setFileList([]); // Reset file list when modal opens
-      setImageError(null);
-      setGalleryError(null);
-    } else {
-      setImageError(null);
-      setGalleryError(null);
     }
   }, [visible, form]);
 
   const handleImageUpload = ({ fileList }: any) => {
     // Set the first file as the image (since maxCount=1)
     const file = fileList.length > 0 ? fileList[0] : null;
-    if (file && file.size && file.size / 1024 / 1024 > 2) {
-      setImageError('Image must be smaller than 2MB!');
-      form.setFieldsValue({ image: undefined });
-      return false;
-    } else {
-      setImageError(null);
-    }
     form.setFieldsValue({ image: file });
     return false; // Prevent automatic upload
   };
 
   const handleGalleryUpload = ({ fileList }: any) => {
-    // Check for any file > 2MB
-    const tooLarge = fileList.some((file: any) => file.size && file.size / 1024 / 1024 > 2);
-    if (tooLarge) {
-      setGalleryError('Each gallery image must be smaller than 2MB!');
-      setFileList([]);
-      form.setFieldsValue({ gallery: [] });
-      return false;
-    } else {
-      setGalleryError(null);
-    }
     // Update fileList for preview
     const updatedFileList = fileList.map((file: any) => ({
       uid: file.uid,
@@ -95,6 +71,7 @@ const CreateProjectModal = ({
       url: file.url || (file.originFileObj ? URL.createObjectURL(file.originFileObj) : null),
       originFileObj: file.originFileObj || file,
     }));
+
     setFileList(updatedFileList);
     form.setFieldsValue({ gallery: updatedFileList });
     return false; // Prevent automatic upload
@@ -244,10 +221,8 @@ const CreateProjectModal = ({
           <Col span={12}>
             <Form.Item
               name="image"
-              label="Image (Single, Max 2MB)"
+              label="Image (Single)"
               rules={[{ required: true, message: "Please upload an image" }]}
-              validateStatus={imageError ? 'error' : undefined}
-              help={imageError}
             >
               <Upload
                 beforeUpload={() => false}
@@ -264,10 +239,8 @@ const CreateProjectModal = ({
           <Col span={12}>
             <Form.Item
               name="gallery"
-              label="Gallery (Multiple Images, Max 2MB each)"
+              label="Gallery (Multiple Images)"
               rules={[{ required: true, message: "Please upload at least one gallery image" }]}
-              validateStatus={galleryError ? 'error' : undefined}
-              help={galleryError}
             >
               <Upload
                 beforeUpload={() => false}
