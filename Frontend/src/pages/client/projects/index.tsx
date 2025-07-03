@@ -110,14 +110,7 @@ const Projects = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-          >
-            {/* <div className="sections-heading">
-              <h2 className="heading-with-line">
-                <span>What We Do?.</span>
-              </h2>
-              <p>— Explore everything that makes us NDNB.</p>
-            </div> */}
-          </motion.div>
+          ></motion.div>
 
           <div className="project-layout">
             {/* Sidebar */}

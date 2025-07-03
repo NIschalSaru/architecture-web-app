@@ -346,56 +346,6 @@ const AboutUsPage = () => {
           </Paragraph>
         </div>
       </section>
-      {/* CEO Section */}
-      {/* <section className="ceo-section">
-        <div className="container">
-          <Row gutter={[32, 32]} align="middle">
-            <Col xs={24} lg={12}>
-              <div className="ceo-image-container">
-                <img src={CeoImage} alt="CEO" className="ceo-image" />
-                <div className="ceo-image-overlay"></div>
-                <div className="ceo-background-shape"></div>
-              </div>
-            </Col>
-            <Col xs={24} lg={12}>
-              <div className="ceo-content">
-                <div className="section-title-wrapper">
-                  <Title level={2} className="section-title">Chief Executive Officer</Title>
-                  <div className="title-decorator"></div>
-                </div>
-                <Title level={3} className="ceo-name">
-                  Rajan Karki
-                </Title>
-                <Text className="ceo-title">
-                  Founder & Chief Executive Officer
-                </Text>
-                <Paragraph className="ceo-bio">
-                  With over two decades of experience in technology and
-                  innovation, Rajan has been at the forefront of digital
-                  transformation. His vision has guided our company to become a
-                  leading force in technology consulting, helping businesses
-                  across the globe achieve their digital ambitions.
-                </Paragraph>
-                <div className="ceo-achievements">
-                  <div className="achievement-card">
-                    <div className="achievement-icon">20+</div>
-                    <Text className="achievement-label">Years Industry Experience</Text>
-                  </div>
-                  <div className="achievement-card">
-                    <div className="achievement-icon">100+</div>
-                    <Text className="achievement-label">Speaking Engagements</Text>
-                  </div>
-                  <div className="achievement-card">
-                    <div className="achievement-icon">30+</div>
-                    <Text className="achievement-label">Industry Awards</Text>
-                  </div>
-                </div>
-              </div>
-            </Col>
-          </Row>
-        </div>
-      </section> */}
-
       {/* Our Team Section */}
 
       {/* Contact Section */}

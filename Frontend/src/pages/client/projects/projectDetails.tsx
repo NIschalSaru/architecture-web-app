@@ -5,9 +5,7 @@ import { apiUrl } from "../../../utils";
 import ProjectInnerHeader from "../../../components/client/ProjectInnerHeader";
 import ImageViewer from "react-simple-image-viewer";
 import { motion } from "framer-motion";
-import { ArrowLeft, User } from "lucide-react";
-// import { Layout } from "antd";
-// import ProjectContactSection from "../../../components/client/ProjectContactSection";
+import { ArrowLeft } from "lucide-react";
 
 interface Media {
   id: number;
