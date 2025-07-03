@@ -143,7 +143,6 @@ const ProjectDetails = () => {
               <div className="info-card">
                 <div className="client-info">
                   <div className="client-item">
-                    <User className="client-icon" />
                     <div>
                       <motion.div
                         className="description-section"
