@@ -11,15 +11,6 @@ export const isAuthenticated = (): boolean => {
   return !!(localToken && cookieToken);
 };
 
-
-// export const isAuthenticated = (): boolean => {
-//   const authTokenLocal = localStorage.getItem("authToken");
-//   const authTokenCookie = Cookies.get("authToken");
-
-//   return Boolean(authTokenLocal && authTokenCookie);
-// };
-
-
 export const handleSignOut = (navigate: NavigateFunction): void => {
   localStorage.removeItem("authToken");
   localStorage.removeItem("Id");
