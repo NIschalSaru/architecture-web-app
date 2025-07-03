@@ -6,9 +6,9 @@ import Cookies from "js-cookie";
 export const apiUrl = "https://backend.ndnb.com.np/api";
 
 export const isAuthenticated = (): boolean => {
-  const authToken = localStorage.getItem("authToken");
-  const getToken = Cookies.get("authToken");
-  return authToken !== null && getToken !== null;
+  const localToken = localStorage.getItem("authToken");
+  const cookieToken = Cookies.get("authToken");
+  return !!(localToken && cookieToken);
 };
 
 export const handleSignOut = (navigate: NavigateFunction): void => {
