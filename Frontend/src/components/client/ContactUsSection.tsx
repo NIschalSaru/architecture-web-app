@@ -3,9 +3,9 @@ import { Form, Input, Button, Row, Col, message } from "antd";
 import "../../assets/scss/components/_contactUsSection.scss";
 import bgImage from "../../assets/images/outlined3.png";
 import "linearicons/dist/web-font/style.css";
-import InteriorDesign from '../../assets/images/Services/service-InteriorDesign.jpg';
-import HotelResort from '../../assets/images/Services/service-HotelResort.png';
-import gharCollection1 from '../../assets/images/Services/service-gharCollection1.jpg';
+import InteriorDesign from '../../assets/images/Services/service-InteriorDesign.webp';
+import HotelResort from '../../assets/images/Services/service-HotelResort.webp';
+import gharCollection1 from '../../assets/images/Services/service-gharCollection1.webp';
 import usePostAPI from "../../hooks/usePostAPI";
 import { useNavigate } from "react-router-dom";
 
