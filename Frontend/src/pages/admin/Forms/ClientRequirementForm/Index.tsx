@@ -35,12 +35,16 @@ interface ClientFormData {
 
 const ClientFormSetting = () => {
   const [refreshKey, setRefreshKey] = useState(0);
-  const { data, loading, error } = useGetAPI<ClientFormData[]>(`architecture-web-app/forms?refresh=${refreshKey}`);
+  const { data, loading, error } = useGetAPI<ClientFormData[]>(
+    `architecture-web-app/forms?refresh=${refreshKey}`
+  );
   // const { postData } = usePostAPI("/architecture-web-app/forms");
   // const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState<boolean>(false);
-  const [editingRecord, setEditingRecord] = useState<ClientFormData | null>(null);
+  const [editingRecord, setEditingRecord] = useState<ClientFormData | null>(
+    null
+  );
   const [recordName, setRecordName] = useState<string>("");
   const [pageLoading, setPageLoading] = useState<boolean>(false);
 
@@ -66,10 +70,14 @@ const ClientFormSetting = () => {
   const handleUpdate = async (values: any) => {
     setPageLoading(true);
     try {
-      await axios.put(`${apiUrl}/architecture-web-app/forms/${editingRecord?.id}`, values, {
-        withCredentials: true,
-        headers: { "Content-Type": "application/json" },
-      });
+      await axios.put(
+        `${apiUrl}/architecture-web-app/forms/${editingRecord?.id}`,
+        values,
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
       message.success("Client form updated successfully!");
       setEditModalVisible(false);
     } catch (err) {
@@ -88,12 +96,15 @@ const ClientFormSetting = () => {
   const handleDeleteConfirm = async () => {
     setPageLoading(true);
     try {
-      await axios.delete(`${apiUrl}/architecture-web-app/forms/${editingRecord?.id}`, {
-        withCredentials: true,
-      });
+      await axios.delete(
+        `${apiUrl}/architecture-web-app/forms/${editingRecord?.id}`,
+        {
+          withCredentials: true,
+        }
+      );
       message.success(`${editingRecord?.fullName} has been deleted`);
       setDeleteModalVisible(false);
-      setRefreshKey(prev => prev + 1);
+      setRefreshKey((prev) => prev + 1);
     } catch (err) {
       message.error("Error deleting client form");
     } finally {
@@ -132,72 +143,11 @@ const ClientFormSetting = () => {
       dataIndex: "site_location",
       key: "site_location",
     },
-    // {
-    //   title: "Site Area",
-    //   dataIndex: "site_area",
-    //   key: "site_area",
-    // },
     {
       title: "Building Type",
       dataIndex: "type_of_building",
       key: "type_of_building",
     },
-    // {
-    //   title: "Project Duration",
-    //   dataIndex: "project_duration",
-    //   key: "project_duration",
-    // },
-    // {
-    //   title: "Access Road Width",
-    //   dataIndex: "access_road_width",
-    //   key: "access_road_width",
-    // },
-    // {
-    //   title: "Topography",
-    //   dataIndex: "topography",
-    //   key: "topography",
-    // },
-    // {
-    //   title: "Site Orientation",
-    //   dataIndex: "site_orientation",
-    //   key: "site_orientation",
-    //   render: (site_orientation: string[]) => site_orientation.join(", ") || "None",
-    // },
-    // {
-    //   title: "Orientation Details",
-    //   dataIndex: "site_orientation_details",
-    //   key: "site_orientation_details",
-    // },
-    // {
-    //   title: "FAR",
-    //   dataIndex: "FAR",
-    //   key: "FAR",
-    // },
-    // {
-    //   title: "GCR",
-    //   dataIndex: "GCR",
-    //   key: "GCR",
-    // },
-    // {
-    //   title: "Setback",
-    //   dataIndex: "setback",
-    //   key: "setback",
-    // },
-    // {
-    //   title: "No. of Floors",
-    //   dataIndex: "no_of_floor",
-    //   key: "no_of_floor",
-    // },
-    // {
-    //   title: "Parking Area",
-    //   dataIndex: "parking_area",
-    //   key: "parking_area",
-    // },
-    // {
-    //   title: "Room Requirements",
-    //   dataIndex: "room_requirements",
-    //   key: "room_requirements",
-    // },
     {
       title: "Action",
       key: "action",
@@ -232,7 +182,9 @@ const ClientFormSetting = () => {
           <div className="dashboard-Headings">Client Requirement Form</div>
           <Table<ClientFormData>
             columns={columns}
-            dataSource={data?.map((item) => ({ ...item, key: item.id.toString() })) || []}
+            dataSource={
+              data?.map((item) => ({ ...item, key: item.id.toString() })) || []
+            }
             pagination={{ pageSize: 10 }}
             scroll={{ x: "max-content" }}
             rowKey="id"
@@ -258,160 +210,3 @@ const ClientFormSetting = () => {
 };
 
 export default ClientFormSetting;
-
-
-
-
-
-
-
-// import { useEffect } from "react";
-// import { Table, message } from "antd";
-// import useGetAPI from "../../../hooks/useGetAPI";
-// import LoadingSpinner from "../../../components/client/LoadingSpinner";
-
-// interface ClientFormData {
-//   id: string;
-//   key: string;
-//   fullName: string;
-//   email: string;
-//   mobile: string;
-//   site_location: string;
-//   site_area: string;
-//   type_of_building: string;
-//   project_duration: string;
-//   access_road_width: string;
-//   topography: string;
-//   site_orientation_details: string;
-//   site_orientation: string[];
-//   FAR: string;
-//   GCR: string;
-//   setback: string;
-//   no_of_floor: number;
-//   parking_area: string;
-//   room_requirements: string;
-//   status: string;
-//   createdAt: string;
-// }
-
-// const ClientFormSetting = () => {
-//   const { data, loading, error } = useGetAPI<ClientFormData[]>("architecture-web-app/forms");
-
-//   useEffect(() => {
-//     if (error) {
-//       message.error("Failed to fetch client forms: " + error);
-//     }
-//   }, [error]);
-
-//   const columns = [
-//     {
-//       title: "SN",
-//       key: "sn",
-//       render: (_: any, __: ClientFormData, index: number) => index + 1, // Auto-increment starting from 1
-//     },
-//     {
-//       title: "Full Name",
-//       dataIndex: "fullName",
-//       key: "fullName",
-//     },
-//     {
-//       title: "Email",
-//       dataIndex: "email",
-//       key: "email",
-//     },
-//     {
-//       title: "Mobile",
-//       dataIndex: "mobile",
-//       key: "mobile",
-//     },
-//     {
-//       title: "Site Location",
-//       dataIndex: "site_location",
-//       key: "site_location",
-//     },
-//     {
-//       title: "Site Area",
-//       dataIndex: "site_area",
-//       key: "site_area",
-//     },
-//     {
-//       title: "Building Type",
-//       dataIndex: "type_of_building",
-//       key: "type_of_building",
-//     },
-//     {
-//       title: "Project Duration",
-//       dataIndex: "project_duration",
-//       key: "project_duration",
-//     },
-//     {
-//       title: "Access Road Width",
-//       dataIndex: "access_road_width",
-//       key: "access_road_width",
-//     },
-//     {
-//       title: "Topography",
-//       dataIndex: "topography",
-//       key: "topography",
-//     },
-//     {
-//       title: "Site Orientation",
-//       dataIndex: "site_orientation",
-//       key: "site_orientation",
-//       render: (site_orientation: string[]) => site_orientation.join(", ") || "None",
-//     },
-//     {
-//       title: "Orientation Details",
-//       dataIndex: "site_orientation_details",
-//       key: "site_orientation_details",
-//     },
-//     {
-//       title: "FAR",
-//       dataIndex: "FAR",
-//       key: "FAR",
-//     },
-//     {
-//       title: "GCR",
-//       dataIndex: "GCR",
-//       key: "GCR",
-//     },
-//     {
-//       title: "Setback",
-//       dataIndex: "setback",
-//       key: "setback",
-//     },
-//     {
-//       title: "No. of Floors",
-//       dataIndex: "no_of_floor",
-//       key: "no_of_floor",
-//     },
-//     {
-//       title: "Parking Area",
-//       dataIndex: "parking_area",
-//       key: "parking_area",
-//     },
-//     {
-//       title: "Room Requirements",
-//       dataIndex: "room_requirements",
-//       key: "room_requirements",
-//     }
-//   ];
-
-//   return (
-//     <div>
-//       {loading ? (
-//         <LoadingSpinner />
-//       ) : (
-//         <Table<ClientFormData>
-//           columns={columns}
-//           dataSource={data?.map((item) => ({ ...item, key: item.id.toString() })) || []}
-//           pagination={{ pageSize: 10 }}
-//           scroll={{ x: "max-content" }}
-//           rowKey="id" // Use API-provided id for unique row key
-//         />
-//       )}
-//     </div>
-//   );
-// };
-
-// export default ClientFormSetting;

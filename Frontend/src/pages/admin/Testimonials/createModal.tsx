@@ -30,15 +30,11 @@ const CreateModal: React.FC<CreateModalProps> = ({
     }
   }, [visible]);
 
-  // const handleFileChange = ({ fileList }: { fileList: UploadFile[] }) => {
-  //   setFileList(fileList.slice(-1));
-  // };
-
   const handleImageChange = ({ fileList }: { fileList: UploadFile[] }) => {
     if (fileList.length > 0) {
       const file = fileList[fileList.length - 1];
       if (file.size && file.size / 1024 / 1024 > 2) {
-        setImageError('Image must be smaller than 2MB!');
+        setImageError("Image must be smaller than 2MB!");
         setImageList([]);
         return;
       } else {
@@ -82,7 +78,7 @@ const CreateModal: React.FC<CreateModalProps> = ({
     <Modal
       title="Create New Testimonial"
       open={visible}
-      onCancel={onCancel} 
+      onCancel={onCancel}
       footer={[
         <Button key="back" onClick={onCancel} disabled={loading}>
           Cancel
@@ -108,9 +104,9 @@ const CreateModal: React.FC<CreateModalProps> = ({
               name="fullname"
               rules={[{ required: true, message: "Required" }]}
             >
-              <Input 
+              <Input
                 prefix={<UserOutlined />}
-                placeholder="Enter full name" 
+                placeholder="Enter full name"
                 disabled={loading}
                 className="fullName"
               />
@@ -122,9 +118,9 @@ const CreateModal: React.FC<CreateModalProps> = ({
               name="designation"
               rules={[{ required: true, message: "Required" }]}
             >
-              <Input 
+              <Input
                 prefix={<UserOutlined />}
-                placeholder="Enter designation" 
+                placeholder="Enter designation"
                 disabled={loading}
                 className="fullName"
               />
@@ -136,11 +132,7 @@ const CreateModal: React.FC<CreateModalProps> = ({
               name="rating"
               rules={[{ required: true, message: "Required" }]}
             >
-              <Rate 
-                allowHalf 
-                disabled={loading}
-                character={<StarOutlined />}
-              />
+              <Rate allowHalf disabled={loading} character={<StarOutlined />} />
             </Form.Item>
           </Col>
           <Col span={24}>
@@ -162,7 +154,7 @@ const CreateModal: React.FC<CreateModalProps> = ({
               name="image"
               rules={[{ required: true, message: "Please upload an image" }]}
               className="upload-wrapper"
-              validateStatus={imageError ? 'error' : undefined}
+              validateStatus={imageError ? "error" : undefined}
               help={imageError}
             >
               <Upload

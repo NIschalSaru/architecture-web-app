@@ -4,8 +4,7 @@ import { Button, Space, Table, Tooltip, message } from "antd";
 import { apiUrl } from "../../../../utils";
 import LoadingSpinner from "../../../../components/client/LoadingSpinner";
 import { Link, useParams } from "react-router-dom";
-import {EyeOutlined } from "@ant-design/icons";
-
+import { EyeOutlined } from "@ant-design/icons";
 
 interface DataType {
   key: string;
@@ -20,8 +19,6 @@ interface DataType {
 const Clients = () => {
   const { id } = useParams<{ id: string }>();
   const [data, setData] = useState<DataType[]>([]);
-  // const [editingRecord, setEditingRecord] = useState<DataType | null>(null);
-  // const [recordName, setRecordName] = useState<string>("");
   const [pageLoading, setPageLoading] = useState<boolean>(false);
 
   // Fetch clients from API
@@ -59,11 +56,6 @@ const Clients = () => {
   }, [id]);
 
   const columns = [
-    // {
-    //   title: "ID",
-    //   dataIndex: "id",
-    //   key: "id",
-    // },
     {
       title: "SN",
       key: "sn",
@@ -96,16 +88,16 @@ const Clients = () => {
       render: (_: any, record: DataType) => (
         <Space size="middle">
           <Tooltip title="View Projects">
-          {/* <Link to={`/admin/projects-settings/${record.project_id}`}> */}
-          <Link to={`/admin/projects-settings/${record.id}`}>
-          <Button
+            {/* <Link to={`/admin/projects-settings/${record.project_id}`}> */}
+            <Link to={`/admin/projects-settings/${record.id}`}>
+              <Button
                 icon={<EyeOutlined />}
                 style={{ color: "purple", borderColor: "white" }}
               />
             </Link>
           </Tooltip>
         </Space>
-      ),  
+      ),
     },
   ];
 
@@ -121,8 +113,7 @@ const Clients = () => {
               display: "flex",
               justifyContent: "space-between",
             }}
-          >
-          </div>
+          ></div>
 
           <Table<DataType>
             columns={columns}
@@ -130,7 +121,6 @@ const Clients = () => {
             pagination={{ pageSize: 10 }}
             scroll={{ x: "max-content" }}
             rowKey="id" // Use API-provided id for unique row key
-
           />
         </div>
       )}
