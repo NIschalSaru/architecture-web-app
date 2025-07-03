@@ -111,33 +111,38 @@ const ProjectsSection = () => {
       >
         OUR RECENT PROJECTS
       </motion.h2>
-      <Slider {...sliderSettings}>
-        {projects.map((project: any) => (
-          <a href={`/projects/${project.id}`}>
-            <div
-              key={project.id}
-              className={`single-project ${project.className}`}
-            >
+      {projects.length === 0 ? (
+        <div className="no-projects-message">
+          <p>No projects available.</p>
+        </div>
+      ) : (
+        <Slider {...sliderSettings}>
+          {projects.map((project: any) => (
+            <a href={`/projects/${project.id}`} key={project.id}>
               <div
-                className="project-image"
-                style={{
-                  backgroundImage: `url(${project.bgImage})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  borderRadius: "10px",
-                  width: "100%",
-                  height: "400px", // adjust as needed
-                }}
-              ></div>
-              <div className="project-content">
-                <h2>{project.title}</h2>
-                <p>{project.date}</p>
-                {project.description.split(" ").slice(0, 4).join(" ")}...
+                className={`single-project ${project.className}`}
+              >
+                <div
+                  className="project-image"
+                  style={{
+                    backgroundImage: `url(${project.bgImage})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    borderRadius: "10px",
+                    width: "100%",
+                    height: "400px", // adjust as needed
+                  }}
+                ></div>
+                <div className="project-content">
+                  <h2>{project.title}</h2>
+                  <p>{project.date}</p>
+                  {project.description.split(" ").slice(0, 4).join(" ")}...
+                </div>
               </div>
-            </div>
-          </a>
-        ))}
-      </Slider>
+            </a>
+          ))}
+        </Slider>
+      )}
     </div>
   );
 };
