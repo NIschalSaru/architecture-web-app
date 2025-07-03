@@ -130,15 +130,7 @@ const ProjectsSection = () => {
             ></div>
             <a href={`/projects/${project.id}`}>
               <div className="project-content">
-                <h2>
-                  {/* {project.title.split(" ").map((line: string, index: number) => (
-                  <React.Fragment key={index}>
-                    {line}
-                    <br />
-                  </React.Fragment>
-                ))} */}
-                  {project.title}
-                </h2>
+                <h2>{project.title}</h2>
                 <p>{project.date}</p>
                 {project.description.split(" ").slice(0, 4).join(" ")}...
               </div>
