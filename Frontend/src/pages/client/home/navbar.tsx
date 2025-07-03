@@ -22,48 +22,18 @@ import bm from "../../../assets/svg/Buildmost.png";
 import { FaPhoneAlt } from "react-icons/fa";
 
 const { Header } = Layout;
-
 const NavbarComponent: React.FC = () => {
-  // const location = useLocation();
-  // const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
-  // const validator = localStorage.getItem('validator');
 
   const showDrawer = () => {
     setVisible(!visible);
   };
-
-  // const handleLogout = () => {
-  //   localStorage.clear();
-  //   isAuthenticated()
-  //     ? localStorage.getItem("isAdmin") === "true"
-  //       ? navigate("/admin")
-  //       : navigate("/home")
-  //     : navigate("/home");
-  // };
-
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
   };
-
-  // const menu = (
-  //   <Menu>
-  //     { validator ?
-  //       <Menu.Item>
-  //         <Link to="/admin">Admin Panel</Link>
-  //       </Menu.Item> : <></>
-  //     }
-  //     <Menu.Item>
-  //       <Link to="/changePassword">Change Password</Link>
-  //     </Menu.Item>
-  //     <Menu.Item key="1" onClick={handleLogout}>
-  //       Logout
-  //     </Menu.Item>
-  //   </Menu>
-  // );
 
   return (
     <>
