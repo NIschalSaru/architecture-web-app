@@ -53,7 +53,7 @@ const LoginPage = () => {
         Cookies.set("authToken", response.token);
 
         Cookies.set("authToken", response.token, {
-          expires: new Date(Date.now() + 1 * 60 * 1000),
+          expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
           secure: true,
           sameSite: "None",
           path: "/",
