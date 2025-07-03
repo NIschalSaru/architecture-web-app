@@ -50,9 +50,6 @@ const UpdateProjectModal = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [imageFileList, setImageFileList] = useState<any[]>([]);
   const [galleryFileList, setGalleryFileList] = useState<any[]>([]);
-  const [deletedMediaIds, setDeletedMediaIds] = useState<number[]>([]);
-  const [imageError, setImageError] = useState<string | null>(null);
-  const [galleryError, setGalleryError] = useState<string | null>(null);
 
   // Fetch project types from API
   const fetchProjectTypes = async () => {
@@ -130,43 +127,37 @@ const UpdateProjectModal = ({
             }))
           : []
       );
-      setDeletedMediaIds([]);
-      setImageError(null);
-      setGalleryError(null);
-    } else {
-      setImageError(null);
-      setGalleryError(null);
     }
   }, [visible, initialValues, form]);
 
   // Handle single image upload
   const handleImageUpload = ({ fileList }: any) => {
     const file = fileList.length > 0 ? fileList[0] : null;
-    if (file && file.size && file.size / 1024 / 1024 > 2) {
-      setImageError('Image must be smaller than 2MB!');
-      setImageFileList([]);
-      form.setFieldsValue({ image: undefined });
-      return false;
-    } else {
-      setImageError(null);
-    }
     setImageFileList(file ? [file] : []);
     form.setFieldsValue({ image: file });
     return false; // Prevent automatic upload
   };
 
+  // Handle feature image removal
+  const handleImageRemove = async (file: any) => {
+    if (file.uid && !file.originFileObj) {
+      try {
+        await axios.delete(`${apiUrl}/architecture-web-app/projects/media/${file.uid}`, {
+          withCredentials: true,
+        });
+        message.success("Feature image deleted successfully");
+      } catch (error) {
+        message.error("Failed to delete feature image");
+        return false;
+      }
+    }
+    setImageFileList([]);
+    form.setFieldsValue({ image: null });
+    return true;
+  };
+
   // Handle gallery images upload
   const handleGalleryUpload = ({ fileList }: any) => {
-    // Check for any file > 2MB
-    const tooLarge = fileList.some((file: any) => file.size && file.size / 1024 / 1024 > 2);
-    if (tooLarge) {
-      setGalleryError('Each gallery image must be smaller than 2MB!');
-      setGalleryFileList([]);
-      form.setFieldsValue({ gallery: [] });
-      return false;
-    } else {
-      setGalleryError(null);
-    }
     const updatedFileList = fileList.map((file: any) => ({
       uid: file.uid || `new-${Math.random()}`,
       name: file.name || file.filename,
@@ -179,9 +170,28 @@ const UpdateProjectModal = ({
     return false; // Prevent automatic upload
   };
 
+  // Handle gallery image removal
+  const handleGalleryRemove = async (file: any) => {
+    if (file.uid && !file.originFileObj) {
+      try {
+        await axios.delete(`${apiUrl}/architecture-web-app/projects/media/${file.uid}`, {
+          withCredentials: true,
+        });
+        message.success("Gallery image deleted successfully");
+      } catch (error) {
+        message.error("Failed to delete gallery image");
+        return false; // Prevent removal from UI if API fails
+      }
+    }
+    setGalleryFileList((prev) => prev.filter((item) => item.uid !== file.uid));
+    form.setFieldsValue({
+      gallery: form.getFieldValue("gallery").filter((item: any) => item.uid !== file.uid),
+    });
+    return true;
+  };
+
   const onFinish = async (values: any) => {
-    const updatedValues = { ...values, deletedMediaIds };
-    onUpdate(updatedValues);
+    onUpdate(values);
   };
 
   return (
@@ -196,7 +206,6 @@ const UpdateProjectModal = ({
             form.resetFields();
             setImageFileList([]);
             setGalleryFileList([]);
-            setDeletedMediaIds([]);
           })
           .catch(() => {
             message.error("Please fill all required fields correctly");
@@ -207,7 +216,6 @@ const UpdateProjectModal = ({
         form.resetFields();
         setImageFileList([]);
         setGalleryFileList([]);
-        setDeletedMediaIds([]);
       }}
       okText="Update"
       cancelText="Cancel"
@@ -327,14 +335,13 @@ const UpdateProjectModal = ({
           <Col span={12}>
             <Form.Item
               name="image"
-              label="Image (Single, Max 2MB)"
+              label="Image (Single)"
               rules={[{ required: true, message: "Please upload an image" }]}
-              validateStatus={imageError ? 'error' : undefined}
-              help={imageError}
             >
               <Upload
                 beforeUpload={() => false}
                 onChange={handleImageUpload}
+                onRemove={handleImageRemove}
                 fileList={imageFileList}
                 maxCount={1}
                 accept="image/*"
@@ -348,15 +355,14 @@ const UpdateProjectModal = ({
           <Col span={12}>
             <Form.Item
               name="gallery"
-              label="Gallery (Multiple Images, Max 2MB each)"
+              label="Gallery (Multiple Images)"
               valuePropName="fileList"
               getValueFromEvent={(e) => e.fileList}
-              validateStatus={galleryError ? 'error' : undefined}
-              help={galleryError}
             >
               <Upload
                 beforeUpload={() => false}
                 onChange={handleGalleryUpload}
+                onRemove={handleGalleryRemove}
                 fileList={galleryFileList}
                 multiple
                 accept="image/*"
