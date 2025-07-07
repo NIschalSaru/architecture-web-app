@@ -80,6 +80,7 @@ const ClientFormSetting = () => {
       );
       message.success("Client form updated successfully!");
       setEditModalVisible(false);
+      setRefreshKey((prev) => prev + 1);
     } catch (err) {
       message.error("Failed to update client form");
     } finally {

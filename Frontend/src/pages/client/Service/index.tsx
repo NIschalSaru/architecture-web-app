@@ -15,7 +15,7 @@ import gharCollection2 from "../../../assets/images/Services/service-gharCollect
 import siteMeasurement from "../../../assets/images/Services/SiteMeasurementNew.webp";
 import estimation from "../../../assets/images/Services/service-estimation.webp";
 import evaluation from "../../../assets/images/Services/service-evaluation.webp";
-import { ArrowBigLeft } from "lucide-react";
+import { ArrowBigDown, ArrowBigLeft, ArrowBigUp, ArrowUpWideNarrow } from "lucide-react";
 
 const { Title, Paragraph } = Typography;
 
@@ -187,49 +187,115 @@ const Services: React.FC = () => {
     }, 100);
   };
 
+  // const Card: React.FC<CardProps> = ({
+  //   title,
+  //   description,
+  //   image,
+  //   image2,
+  //   features,
+  // }) => (
+  //   <div className="service-card-page">
+  //     <div className="image-side-page">
+  //       <div className="image-wrapper-page">
+  //         {image2 ? (
+  //           <div className="dual-image-container">
+  //             <img src={image} alt={`${title} - Image 1`} />
+  //             <img src={image2} alt={`${title} - Image 2`} />
+  //           </div>
+  //         ) : (
+  //           <img src={image} alt={title} />
+  //         )}
+  //       </div>
+  //     </div>
+  //     <div className="content-side-page">
+  //       <div className="content-wrapper-page">
+  //         <div className="section-title-wrapper-page">
+  //           <Title level={2} className="service-title-page">
+  //             {title}
+  //           </Title>
+  //           <div className="title-decorator-page"></div>
+  //         </div>
+  //         <Paragraph className="service-description-page">
+  //           {description}
+  //         </Paragraph>
+  //         <div className="divider-page"></div>
+  //         <ul className="features-list-page">
+  //           {features.map((feature, idx) => (
+  //             <li key={idx}>
+  //               <span>{feature}</span>
+  //             </li>
+  //           ))}
+  //         </ul>
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
   const Card: React.FC<CardProps> = ({
     title,
     description,
     image,
     image2,
     features,
-  }) => (
-    <div className="service-card-page">
-      <div className="image-side-page">
-        <div className="image-wrapper-page">
-          {image2 ? (
-            <div className="dual-image-container">
-              <img src={image} alt={`${title} - Image 1`} />
-              <img src={image2} alt={`${title} - Image 2`} />
-            </div>
-          ) : (
-            <img src={image} alt={title} />
-          )}
-        </div>
-      </div>
-      <div className="content-side-page">
-        <div className="content-wrapper-page">
-          <div className="section-title-wrapper-page">
-            <Title level={2} className="service-title-page">
-              {title}
-            </Title>
-            <div className="title-decorator-page"></div>
+  }) => {
+    const [showAllFeatures, setShowAllFeatures] = useState(false);
+    const maxFeatures = 4; // Show up to 6 features by default
+  
+    return (
+      <div className="service-card-page">
+        <div className="image-side-page">
+          <div className="image-wrapper-page">
+            {image2 ? (
+              <div className="dual-image-container">
+                <img src={image} alt={`${title} - Image 1`} />
+                <img src={image2} alt={`${title} - Image 2`} />
+              </div>
+            ) : (
+              <img src={image} alt={title} />
+            )}
           </div>
-          <Paragraph className="service-description-page">
-            {description}
-          </Paragraph>
-          <div className="divider-page"></div>
-          <ul className="features-list-page">
-            {features.map((feature, idx) => (
-              <li key={idx}>
-                <span>{feature}</span>
-              </li>
-            ))}
-          </ul>
+        </div>
+        <div className="content-side-page">
+          <div className="content-wrapper-page">
+            <div className="section-title-wrapper-page">
+              <Title level={2} className="service-title-page">
+                {title}
+              </Title>
+              <div className="title-decorator-page"></div>
+            </div>
+            <Paragraph className="service-description-page">
+              {description}
+            </Paragraph>
+            <div className="divider-page"></div>
+            <ul className="features-list-page">
+              {features
+                .slice(0, showAllFeatures ? features.length : maxFeatures)
+                .map((feature, idx) => (
+                  <li key={idx}>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+            </ul>
+            {features.length > maxFeatures && (
+              <Button
+                type="primary"
+                onClick={() => setShowAllFeatures(!showAllFeatures)}
+              >
+                {showAllFeatures ? (
+                  <>
+                    Show Less <ArrowBigUp />
+                  </>
+                ) : (
+                  <>
+                    Show More <ArrowBigDown />
+                  </>
+                )}
+              </Button>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <>
@@ -293,7 +359,6 @@ const Services: React.FC = () => {
 };
 
 export default Services;
-
 // import { CheckCircleOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
 // import { Button, Typography, Modal } from "antd";
 // import ScrollToTop from "../../../components/client/ScrollToTop";
@@ -667,3 +732,4 @@ export default Services;
 // };
 
 // export default Services;
+
