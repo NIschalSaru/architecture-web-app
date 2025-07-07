@@ -15,7 +15,7 @@ import gharCollection2 from "../../../assets/images/Services/service-gharCollect
 import siteMeasurement from "../../../assets/images/Services/SiteMeasurementNew.webp";
 import estimation from "../../../assets/images/Services/service-estimation.webp";
 import evaluation from "../../../assets/images/Services/service-evaluation.webp";
-import { ArrowBigDown, ArrowBigLeft, ArrowBigUp, ArrowUpWideNarrow } from "lucide-react";
+import { ArrowBigDown, ArrowBigLeft, ArrowBigUp } from "lucide-react";
 
 const { Title, Paragraph } = Typography;
 
