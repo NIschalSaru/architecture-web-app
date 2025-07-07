@@ -110,6 +110,27 @@ const TestimonialSlider: React.FC = () => {
       </div>
     );
 
+  // Show message if no testimonials are available
+  if (!testimonials || testimonials.length === 0) {
+    return (
+      <div className="testimonial-section">
+        <div className="testimonial-container">
+          <div className="testimonial-header">
+            <Typography.Title level={2} className="testimonial-title">
+              <span className="red-text">Testimonials</span>
+            </Typography.Title>
+            <Typography.Title level={3} className="testimonial-subtitle">
+              Our Clients & Professional's Reviews
+            </Typography.Title>
+          </div>
+          <div className="no-clients-message" style={{ textAlign: 'center', margin: '40px 0', fontSize: '1.2rem', color:'#4a5f73' }}>
+            <p>No testimonials available.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="testimonial-section">
       <div className="testimonial-container">
