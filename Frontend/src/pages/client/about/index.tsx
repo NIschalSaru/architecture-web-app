@@ -15,6 +15,7 @@ import Picture8 from "../../../assets/images/teamMember/Picture8.jpg";
 import Picture9 from "../../../assets/images/teamMember/Picture9.png";
 import Picture10 from "../../../assets/images/teamMember/Picture10.png";
 import Picture11 from "../../../assets/images/teamMember/Picture11.png";
+import Picture12 from "../../../assets/images/teamMember/Picture12.png";
 
 // import CeoImage from "../../../assets/images/Founder.jpg";
 interface TeamMember {
@@ -103,6 +104,13 @@ const AboutUsPage = () => {
       position: "Civil Engineer",
       additionalInfo: "",
       image: Picture11, // Replace with actual image path
+    },
+    {
+      id: 10,
+      name: "Er. Duresh Yadav",
+      position: "Civil Engineer | Construction Expert",
+      additionalInfo: "",
+      image: Picture12, // Replace with actual image path
     },
   ];
   useEffect(() => {
