@@ -374,11 +374,6 @@ const ProjectSetting = () => {
       key: "clientName",
     },
     {
-      title: "Client Mobile",
-      dataIndex: ["client", "mobile"],
-      key: "clientMobile",
-    },
-    {
       title: "Status",
       dataIndex: "status",
       key: "status",

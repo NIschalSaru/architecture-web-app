@@ -153,7 +153,6 @@ const CreateProjectModal = ({
             <Form.Item
               name="site_area"
               label="Site Area"
-              rules={[{ required: true, message: "Please enter the site area" }]}
             >
               <Input placeholder="Enter site area" />
             </Form.Item>
@@ -172,7 +171,6 @@ const CreateProjectModal = ({
               name="client_email"
               label="Client Email"
               rules={[
-                { required: true, message: "Please enter the client email" },
                 { type: "email", message: "Please enter a valid email" },
               ]}
             >
@@ -183,7 +181,6 @@ const CreateProjectModal = ({
             <Form.Item
               name="client_mobile"
               label="Client Mobile"
-              rules={[{ required: true, message: "Please enter the client mobile" }]}
             >
               <Input placeholder="Enter client mobile" />
             </Form.Item>
@@ -192,7 +189,6 @@ const CreateProjectModal = ({
             <Form.Item
               name="client_address"
               label="Client Address"
-              rules={[{ required: true, message: "Please enter the client address" }]}
             >
               <Input placeholder="Enter client address" />
             </Form.Item>

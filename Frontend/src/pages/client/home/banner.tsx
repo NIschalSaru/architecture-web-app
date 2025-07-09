@@ -7,7 +7,6 @@ import {
   Checkbox,
   Row,
   Col,
-  message,
   Select,
 } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -94,11 +93,11 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
 
       // Send POST request
       await postData(requestData);
-      message.success("Form submitted successfully!");
+      // message.success("Form submitted successfully!");
       setIsDrawerOpen(false);
       form.resetFields();
     } catch (err) {
-      message.error("Failed to submit form. Please try again.");
+      // message.error("Failed to submit form. Please try again.");
       console.error("Form submission error:", err);
     }
   };
@@ -228,7 +227,7 @@ const BannerComponent = ({ bannerData }: BannerComponentProps) => {
                     placeholder="Select building type"
                     loading={projectTypesLoading}
                     options={projectTypes?.map((type: ProjectType) => ({
-                      value: type.id,
+                      value: type.title,
                       label: type.title,
                     }))}
                   />
