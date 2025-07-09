@@ -25,8 +25,8 @@ const CreateModal: React.FC<CreateModalProps> = ({
   const handleFileChange = ({ fileList }: { fileList: UploadFile[] }) => {
     if (fileList.length > 0) {
       const file = fileList[fileList.length - 1];
-      if (file.size && file.size / 1024 / 1024 > 2) {
-        setFileError('PDF must be smaller than 2MB!');
+      if (file.size && file.size / 1024 / 1024 > 10) {
+        setFileError("PDF must be smaller than 10MB!");
         setFileList([]);
         return;
       } else {
@@ -42,7 +42,7 @@ const CreateModal: React.FC<CreateModalProps> = ({
     if (fileList.length > 0) {
       const file = fileList[fileList.length - 1];
       if (file.size && file.size / 1024 / 1024 > 2) {
-        setImageError('Image must be smaller than 2MB!');
+        setImageError("Image must be smaller than 2MB!");
         setImageList([]);
         return;
       } else {
@@ -114,7 +114,9 @@ const CreateModal: React.FC<CreateModalProps> = ({
             <Form.Item
               label="Title"
               name="title"
-              rules={[{ required: true, message: "Please enter the blog title" }]}
+              rules={[
+                { required: true, message: "Please enter the blog title" },
+              ]}
             >
               <Input placeholder="Enter blog title" disabled={loading} />
             </Form.Item>
@@ -123,7 +125,9 @@ const CreateModal: React.FC<CreateModalProps> = ({
             <Form.Item
               label="Description"
               name="description"
-              rules={[{ required: true, message: "Please enter a description" }]}
+              rules={[
+                { required: true, message: "Please enter a description" },
+              ]}
             >
               <Input.TextArea
                 rows={4}
@@ -134,11 +138,11 @@ const CreateModal: React.FC<CreateModalProps> = ({
           </Col>
           <Col span={12}>
             <Form.Item
-              label="PDF File (Max 2MB)"
+              label="PDF File (Max 10MB)"
               name="file"
               rules={[{ required: true, message: "Please upload a PDF file" }]}
               className="upload-wrapper"
-              validateStatus={fileError ? 'error' : undefined}
+              validateStatus={fileError ? "error" : undefined}
               help={fileError}
             >
               <Upload
@@ -167,7 +171,7 @@ const CreateModal: React.FC<CreateModalProps> = ({
               name="image"
               rules={[{ required: true, message: "Please upload an image" }]}
               className="upload-wrapper"
-              validateStatus={imageError ? 'error' : undefined}
+              validateStatus={imageError ? "error" : undefined}
               help={imageError}
             >
               <Upload
@@ -194,7 +198,9 @@ const CreateModal: React.FC<CreateModalProps> = ({
             <Form.Item
               label="Status"
               name="feature"
-              rules={[{ required: true, message: "Please select featured status" }]}
+              rules={[
+                { required: true, message: "Please select featured status" },
+              ]}
             >
               <Radio.Group disabled={loading}>
                 <Radio value="1">Active</Radio>

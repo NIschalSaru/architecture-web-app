@@ -1,15 +1,15 @@
 @use "../base/variable" as *;
 @use "sass:color";
 
-
 $text-color: #666;
 $gray-background: #f8f9fa;
 $gray-text: #6c757d;
 
-  .testimonial-section {
+.testimonial-section {
   background-color: $gray-background;
   padding: 4rem 0;
-  background: url('../../assets/images/bg2.jpg') no-repeat center center/cover;
+  margin-top: 60px;
+  background: url("../../assets/images/bg2.jpg") no-repeat center center/cover;
   // background: url('../../assets/images/testi-img5.jpg') no-repeat center center/cover;
 
   .testimonial-container {
@@ -21,7 +21,7 @@ $gray-text: #6c757d;
   .testimonial-header {
     text-align: center;
     margin-bottom: 2.5rem;
-    
+
     .testimonial-title {
       text-align: center;
       margin-bottom: 1rem;
@@ -36,7 +36,7 @@ $gray-text: #6c757d;
         font-size: 1.25rem;
         font-weight: 600;
       }
-      
+
       &::before,
       &::after {
         content: "";
@@ -46,7 +46,7 @@ $gray-text: #6c757d;
         background-color: $primary;
       }
     }
-  
+
     .testimonial-subtitle {
       text-align: center;
       color: #0a1435;
@@ -63,7 +63,7 @@ $gray-text: #6c757d;
 
     .swiper-slide {
       height: auto;
-      
+
       > div {
         height: 100%;
       }
@@ -93,7 +93,7 @@ $gray-text: #6c757d;
     .swiper-button-next,
     .swiper-button-prev {
       color: $primary;
-      
+
       &:after {
         font-size: 2rem;
       }
@@ -103,7 +103,7 @@ $gray-text: #6c757d;
   .testimonial-card {
     background-color: $white;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     padding: 2rem;
     position: relative;
     text-align: center;
@@ -164,7 +164,7 @@ $gray-text: #6c757d;
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
     .testimonial-text {
       color: $text-color;
       font-style: italic;
@@ -173,11 +173,11 @@ $gray-text: #6c757d;
       text-align: center;
       word-wrap: break-word;
       hyphens: auto;
-      
+
       &.has-tooltip {
         cursor: pointer;
         transition: color 0.2s ease;
-        
+
         &:hover {
           color: color.adjust($text-color, $lightness: -15%);
         }
@@ -208,7 +208,7 @@ $gray-text: #6c757d;
 
       // Tooltip arrow
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         top: 100%;
         left: 50%;
@@ -259,7 +259,7 @@ $gray-text: #6c757d;
   // Responsive Adjustments
   @media (max-width: 768px) {
     padding: 3rem 0;
-    
+
     .testimonial-card {
       height: 400px;
       padding: 1.5rem;
@@ -277,7 +277,7 @@ $gray-text: #6c757d;
         font-size: 0.8rem;
       }
     }
-    
+
     .testimonial-header {
       .testimonial-subtitle {
         font-size: 2rem;
@@ -367,7 +367,7 @@ $gray-text: #6c757d;
   justify-content: center;
   min-height: 400px;
   width: 100%;
-  
+
   .error-message {
     color: #ff4d4f;
     font-size: 16px;

@@ -81,8 +81,11 @@ const Projects = () => {
     }
   };
 
+  const encodeId = (id: number) => btoa(id.toString()); // Base64 encode
+
   const handleClientClick = (clientId: number) => {
-    navigate(`/projects/${clientId}`);
+    const encodedId = encodeId(clientId);
+    navigate(`/projects/${encodedId}`); // e.g. /projects/MTQ=
   };
 
   const handleCategoryClick = (key: string) => {
@@ -176,6 +179,7 @@ const Projects = () => {
                               transition={{ duration: 0.3 }}
                             >
                               <h3>{client.fullName}</h3>
+                              <h3>{client.project.name}</h3>
                               <p>{client.address}</p>
                             </motion.div>
                           </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Form, Input, Upload, Button, Row, Col,  Radio } from "antd";
+import { Modal, Form, Input, Upload, Button, Row, Col, Radio } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { UploadFile } from "antd/es/upload/interface";
 import LoadingSpinner from "../../../components/client/LoadingSpinner";
@@ -78,8 +78,8 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
   const handleFileChange = ({ fileList }: { fileList: UploadFile[] }) => {
     if (fileList.length > 0) {
       const file = fileList[fileList.length - 1];
-      if (file.size && file.size / 1024 / 1024 > 2) {
-        setFileError('PDF must be smaller than 2MB!');
+      if (file.size && file.size / 1024 / 1024 > 10) {
+        setFileError("PDF must be smaller than 10MB!");
         setFileList([]);
         return;
       } else {
@@ -95,7 +95,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
     if (fileList.length > 0) {
       const file = fileList[fileList.length - 1];
       if (file.size && file.size / 1024 / 1024 > 2) {
-        setImageError('Image must be smaller than 2MB!');
+        setImageError("Image must be smaller than 2MB!");
         setImageList([]);
         return;
       } else {
@@ -166,17 +166,15 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
       className="testimonial-modal"
       destroyOnClose
     >
-      <Form
-        form={form}
-        layout="vertical"
-        onFinish={handleUpdate}
-      >
+      <Form form={form} layout="vertical" onFinish={handleUpdate}>
         <Row gutter={16}>
           <Col span={24}>
             <Form.Item
               label="Title"
               name="title"
-              rules={[{ required: true, message: "Please enter the blog title" }]}
+              rules={[
+                { required: true, message: "Please enter the blog title" },
+              ]}
             >
               <Input placeholder="Enter blog title" disabled={loading} />
             </Form.Item>
@@ -185,7 +183,9 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
             <Form.Item
               label="Description"
               name="description"
-              rules={[{ required: true, message: "Please enter a description" }]}
+              rules={[
+                { required: true, message: "Please enter a description" },
+              ]}
             >
               <Input.TextArea
                 rows={4}
@@ -196,11 +196,11 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
           </Col>
           <Col span={12}>
             <Form.Item
-              label="PDF File (Max 2MB)"
+              label="PDF File (Max 10MB)"
               name="file"
               className="upload-wrapper"
               rules={[{ required: true, message: "Please upload a PDF file" }]}
-              validateStatus={fileError ? 'error' : undefined}
+              validateStatus={fileError ? "error" : undefined}
               help={fileError}
             >
               <Upload
@@ -229,7 +229,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
               name="image"
               className="upload-wrapper"
               rules={[{ required: true, message: "Please upload an image" }]}
-              validateStatus={imageError ? 'error' : undefined}
+              validateStatus={imageError ? "error" : undefined}
               help={imageError}
             >
               <Upload
@@ -256,7 +256,9 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
             <Form.Item
               label="Status"
               name="feature"
-              rules={[{ required: true, message: "Please select featured status" }]}
+              rules={[
+                { required: true, message: "Please select featured status" },
+              ]}
             >
               <Radio.Group disabled={loading}>
                 <Radio value="1">Active</Radio>

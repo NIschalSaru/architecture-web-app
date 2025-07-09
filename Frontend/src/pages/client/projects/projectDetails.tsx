@@ -41,20 +41,33 @@ const ProjectDetails = () => {
   const [client, setClient] = useState<Client | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<string>("");
+  const decodeId = (encodedId: string): number | null => {
+    try {
+      // Add padding back if missing
+      const padded = encodedId.padEnd(
+        encodedId.length + ((4 - (encodedId.length % 4)) % 4),
+        "="
+      );
+      return parseInt(atob(padded));
+    } catch {
+      return null;
+    }
+  };
+
+  const projectId = decodeId(id || "");
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (!id) return;
+    if (!projectId) return;
 
     const fetchClientDetails = async () => {
       try {
         const response = await axios.get(
-          `${apiUrl}/architecture-web-app/projects/get-project/${id}`
+          `${apiUrl}/architecture-web-app/projects/get-project/${projectId}`
         );
         const clientData = response.data.data.client;
         setClient(clientData);
 
-        // Set first image as default selected image
         if (clientData?.project?.media?.length > 0) {
           setSelectedImage(
             `${apiUrl}/architecture-web-app${clientData.project.media[0].filepath}`
@@ -68,7 +81,7 @@ const ProjectDetails = () => {
     };
 
     fetchClientDetails();
-  }, [id]);
+  }, [projectId]);
 
   const featureImage = client?.project?.media.find(
     (img) => img.image_type === "feature"
