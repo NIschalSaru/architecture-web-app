@@ -57,7 +57,7 @@ const AboutUsPage = () => {
     {
       id: 4,
       name: "MR. Hari Karki",
-      position: "Consturction | Material Manager",
+      position: "Construction | Material Manager",
       additionalInfo: "",
       image: Picture5, // Replace with actual image path
     },
@@ -107,7 +107,7 @@ const AboutUsPage = () => {
     },
     {
       id: 10,
-      name: "Er. Duresh Yadav",
+      name: "Er. Durgesh Yadav",
       position: "Civil Engineer | Construction Expert",
       additionalInfo: "",
       image: Picture12, // Replace with actual image path
