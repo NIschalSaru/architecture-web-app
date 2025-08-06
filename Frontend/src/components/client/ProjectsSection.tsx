@@ -9,7 +9,7 @@ import { apiUrl } from "../../utils";
 
 const ProjectsSection = () => {
   const [projects, setProjects] = useState([]);
-
+  const encodeId = (id: number) => btoa(id.toString()); // base64 encode
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -118,10 +118,8 @@ const ProjectsSection = () => {
       ) : (
         <Slider {...sliderSettings}>
           {projects.map((project: any) => (
-            <a href={`/projects/${project.id}`} key={project.id}>
-              <div
-                className={`single-project ${project.className}`}
-              >
+            <a href={`/projects/${encodeId(project.id)}`} key={project.id}>
+              <div className={`single-project ${project.className}`}>
                 <div
                   className="project-image"
                   style={{
@@ -130,7 +128,7 @@ const ProjectsSection = () => {
                     backgroundPosition: "center",
                     borderRadius: "10px",
                     width: "100%",
-                    height: "400px", // adjust as needed
+                    height: "400px",
                   }}
                 ></div>
                 <div className="project-content">

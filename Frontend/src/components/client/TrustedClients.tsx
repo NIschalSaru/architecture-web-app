@@ -4,7 +4,6 @@ import LoadingSpinner from "./LoadingSpinner";
 import { useState, useEffect } from "react";
 import { apiUrl } from "../../utils";
 
-
 interface Client {
   id: number;
   name: string;
@@ -67,7 +66,7 @@ const OurTrustedClients: React.FC = () => {
                 x: {
                   repeat: Infinity,
                   repeatType: "loop",
-                  duration: marqueeClients.length * 2, // Adjust speed based on number of logos
+                  duration: marqueeClients.length * 0.5, // Adjust speed based on number of logos
                   ease: "linear",
                 },
               }}
