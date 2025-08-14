@@ -78,6 +78,7 @@ const Services: React.FC = () => {
       ],
       id: "map-pass",
     },
+    
     {
       title: "पुरानो घरलाई  नयाँ लूक्स ",
       description:
@@ -311,7 +312,7 @@ const Services: React.FC = () => {
               >
                 <h3>{service.title}</h3>
                 <div className="image-container">
-                  {service.id === "complex-construction" && service.image2 ? (
+                  {service.image2 ? (
                     <div className="dual-image-container">
                       <img
                         src={service.image}
