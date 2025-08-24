@@ -169,6 +169,15 @@ const TestimonialSetting = () => {
       title: "Designation",
       dataIndex: "designation",
       key: "designation",
+      render: (designation: string) => (
+        <div style={{ 
+          whiteSpace: 'pre-line', 
+          lineHeight: '1.6  ',
+          maxWidth: '350px'
+        }}>
+          {designation}
+        </div>
+      ),
     },
     {
       title: "Rating",
